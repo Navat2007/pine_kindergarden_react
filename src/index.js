@@ -15,7 +15,7 @@ const baseConfig = () => {
         debugArea: {
             login: true,
         },
-        baseUrl: "https://theatre.shkolamoskva.ru/",
+        baseUrl: "https://phraza.ru/",
     }
 
     window.global.makeid = (length) => {

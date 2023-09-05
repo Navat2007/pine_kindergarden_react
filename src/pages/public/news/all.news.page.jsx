@@ -22,7 +22,7 @@ const AllNewsPage = () => {
     const newsStore = useNewsStore();
 
     const fetchData = async () => {
-        await newsStore.loadAllNews();
+        //await newsStore.loadAllNews();
     };
 
     React.useEffect(() => {
