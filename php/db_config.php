@@ -1,9 +1,9 @@
 <?php        
 
 $DB_SERVER = "localhost";
-$DB_USER = "theatre";
-$DB_PASSWORD = 'VSTw5467wWV%$sdvfghbs#@2564';
-$DB_DATABASE = "theatre";
+$DB_USER = "u2150183_default";
+$DB_PASSWORD = '9sUS3vfR1T02d3FN';
+$DB_DATABASE = "u2150183_default";
 
 $conn = new mysqli($DB_SERVER, $DB_USER, $DB_PASSWORD, $DB_DATABASE);
 $conn->set_charset("utf8mb4");
