@@ -1,0 +1,21 @@
+@import "../styles/_assets/variables";
+@import "../styles/_assets/mixins";
+@import "../styles/_assets/extends";
+
+.content {
+    font-family: var(--ff-base);
+}
+
+.main {
+    margin-top: var(--header-height);
+    margin-left: var(--menu-width);
+    padding: 1.25em;
+    box-sizing: border-box;
+}
+
+@include media(sm, max) {
+    .main {
+        padding: 1em 0.5em;
+        margin-left: 0;
+    }
+}

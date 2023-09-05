@@ -1,0 +1,27 @@
+@import "../../styles/_assets/variables";
+@import "../../styles/_assets/mixins";
+@import "../../styles/_assets/extends";
+
+.backToTop {
+    @include box(3.5em);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    background: var(--white);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 0 15px 1px rgba(black, 0.26);
+    cursor: pointer;
+
+    &:hover {
+        color: var(--public-primary);
+    }
+    svg {
+        @include box(80%);
+        transform: scale(1, -1);
+        color: currentColor;
+        margin: auto;
+    }
+}

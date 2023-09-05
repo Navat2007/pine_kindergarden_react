@@ -1,0 +1,28 @@
+// COLORS
+$colors: (
+  primary: #C92323,
+  primary-gradient: linear-gradient(to bottom, #E74958 0%, #C92323 100%),
+  accent: #7947AB,
+  accent-gradient: linear-gradient(to bottom, #826CBA 0%, #7947AB 100%),
+  white: #ffffff,
+  black: #000000,
+  g100: #F8FAFA,
+  g200: #EEEEF1,
+  g300: #C4C4C9,
+  g400: #7F7F7F,
+  g500: #444141,
+  g600: #333333,
+
+  light: #F8FAFA, // g100
+  lightLow: #C4C4C9, // g300
+  darkLow: #7f7f7f, // g400
+  dark: #333333, // g600
+
+  error: #da1717,
+  success: #009688,
+  alert: #FF5722,
+  info: #00BCD4,
+
+  public-primary: #BF0C40,
+  public-accent: #1D346A,
+);

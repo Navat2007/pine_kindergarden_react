@@ -1,0 +1,291 @@
+@import url(../../node_modules/normalize.css/normalize.css);
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&family=Open+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap);
+@import url(https://cdn.jsdelivr.net/npm/@mdi/font@6.6.96/css/materialdesignicons.min.css);
+@import "react-loading-skeleton/dist/skeleton.css";
+@import "_assets/variables";
+@import "_assets/mixins";
+@import "_assets/extends";
+
+:root {
+    @each $name, $color in $colors {
+        --#{"" + $name}: #{$color};
+    }
+
+    // FONT
+    --ff-firm: "Bebas Neue", Oswald, cursive;
+    --ff-base: "Montserrat", sans-serif;
+    --ff-public: "Open Sans", sans-serif;
+
+    --header-height: 4.125em;
+    --main-width: 100%;
+
+    @include media(sm) {
+        --menu-width: 15em;
+    }
+
+    @include media(md) {
+        --main-width: 90%;
+    }
+}
+
+html {
+    color: var(--dark);
+    font-family: var(--ff-base);
+}
+
+@import "blocks/form";
+@import "blocks/multy-select";
+@import "blocks/gallery-form";
+@import "blocks/request-status";
+@import "blocks/request-card";
+@import "blocks/teacher-list";
+@import "blocks/my-splide";
+@import "blocks/my-react-player";
+
+// Общие
+
+.--hide {
+    display: none !important;
+}
+
+.--no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+.--no-drag {
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.about {
+    &__main-text {
+        // max-height: 10em;
+        // overflow: hidden;
+        margin-bottom: 0.675em;
+    }
+
+    &__level-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: min(2.5vmax, 1.25em);
+        background-color: rgba(map-get($colors, "public-primary"), 0.1);
+        font-weight: 600;
+        padding: 0.25rem 0.5rem 0.25rem 1rem;
+        margin-bottom: 0.5rem;
+        box-sizing: border-box;
+        line-height: 1.5;
+        border-radius: 5px;
+        width: min(30vmax, 10em);
+
+        svg {
+            @include box(2.5em);
+            margin: -1em 0 -1.5em 0;
+        }
+    }
+
+    &__list {
+        @extend %reset-list;
+    }
+    // &__text {}
+
+    &__span-accent {
+        font-weight: 600;
+    }
+    // &__description-block {}
+
+    &__more-btn {
+        appearance: none;
+        outline: none;
+        font-family: inherit;
+        background-color: var(--public-primary);
+        color: var(--white);
+        vertical-align: middle;
+        box-sizing: border-box;
+        cursor: pointer;
+
+        font-size: 1em;
+        font-weight: 500;
+        padding: 0.25em 1.5em;
+        min-height: 3.125em;
+        text-align: center;
+        border-radius: 5px;
+        border: 1px solid transparent;
+        transition: opacity 0.25s ease-out;
+
+        &:hover {
+            opacity: 0.84;
+        }
+    }
+}
+
+.teachers {
+    &__card-deck {
+        @extend %reset-list;
+        display: flex;
+        flex-wrap: wrap;
+        gap: min(5vmax, 2.5em);
+        padding-top: min(5vmax, 2.5em);
+    }
+    &__card {
+        text-align: center;
+    }
+    &__img {
+        @extend %alt-text-on-after;
+        width: 100%;
+        max-width: min(20vmax, 9.375em);
+        border-radius: 50%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        margin-bottom: 0.875em;
+    }
+    &__title {
+        margin: 0;
+        line-height: 1.35;
+        font-size: 0.875em;
+        font-weight: normal;
+    }
+    &__span-accent {
+        display: block;
+        text-transform: uppercase;
+        font-size: 142.8%;
+        font-weight: 600;
+    }
+}
+
+/*
+.gallery {
+    &__card-deck {
+        @extend %reset-list;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.675em;
+    }
+    &__card {
+        flex: 1 1 auto;
+        height: min(20vmax, 18.75em);
+        overflow: hidden;
+
+        &:hover img {
+            transform: scale(1.05);
+        }
+    }
+    &__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        vertical-align: middle;
+        transition: transform 0.25s ease-in;
+        cursor: pointer;
+    }
+}
+*/
+
+.video {
+    &__react-player {
+        background-color: var(--g600);
+        aspect-ratio: 16/9;
+
+        iframe {
+            margin: 0;
+            width: 100%;
+        }
+    }
+}
+
+.contact {
+    &__map {
+        height: min(40vmax, 30em);
+        background-color: var(--g300);
+        margin-bottom: min(2.5vmax, 1.875em);
+    }
+    &__columns {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    &__column {
+        margin-bottom: min(2.5vmax, 1.875em);
+    }
+    &__title {
+        margin-bottom: 0.5em;
+    }
+    &__address {
+        margin: 0 0 min(2.5vmax, 1.875em);
+        color: var(--info);
+    }
+    &__link {
+        font-size: min(2.5vmax, 1.25em);
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+.social {
+    display: flex;
+    gap: min(5vmax, 2.5em);
+    align-items: center;
+    &__label {
+        margin: 0;
+    }
+    &__list {
+        @extend %reset-list;
+        display: flex;
+        align-items: center;
+        gap: 0.675em;
+    }
+    &__link {
+        text-decoration: unset;
+        border-radius: 50%;
+        @include box(2.5em);
+        display: flex;
+        background-color: var(--g200);
+        transition: all 0.15s ease-in;
+
+        &:hover {
+            transform: translateZ(0) scale(1.1);
+        }
+        & svg {
+            margin: auto;
+            @include box(1.5em);
+        }
+    }
+}
+
+.school-info {
+    &__detail {
+        display: flex;
+        gap: min(2.5vmax, 1.25em);
+        max-width: 50em;
+    }
+
+    &__logo {
+        @include box(min(12vmax, 6.75em));
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+    &__title {
+        margin: 0;
+        font-weight: 600;
+        font-size: min(3vmax, 1.5em);
+    }
+    &__subtitle {
+        margin: min(2.5vmax, 1.25rem) 0 0;
+        font-size: min(2.5vmax, 1.25em);
+    }
+
+    &__description {
+        margin: 0.5rem 0;
+        font-size: 0.875em;
+        line-height: 1.5;
+        color: var(--darkLow);
+    }
+}

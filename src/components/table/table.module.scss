@@ -1,0 +1,83 @@
+@import "../../styles/_assets/variables";
+@import "../../styles/_assets/mixins";
+@import "../../styles/_assets/extends";
+
+.school_logo {
+  width: 3.5em;
+  object-fit: cover;
+  max-width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 5px;
+}
+
+.container {
+  width: 100%;
+  overflow: auto;
+}
+
+// сортировка
+.sorting {
+  width: max-content;
+  margin: 0;
+  cursor: pointer;
+
+  width: fit-content;
+
+  display: flex;
+  gap: .25em;
+  align-items: center;
+  justify-content: space-between;
+
+  svg {
+    flex: none;
+    @include box(1.25em);
+    opacity: .26;
+    transition: opacity .25s ease-in-out;
+    fill: currentColor;
+  }
+
+  &:hover svg {
+    opacity: .54;
+  }
+
+  &:active svg {
+    transform: translateY(1px);
+  }
+
+  &_actived svg {
+    opacity: 1;
+  }
+}
+
+.table {
+  table-layout: fixed;
+  min-width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+.tr {
+  transition: background-color .25s ease-in-out;
+
+  &:hover {
+    background-color: rgba($color: black, $alpha: .035);
+  }
+
+  &_row_hover:hover {
+    cursor: pointer;
+  }
+}
+
+.th {
+  text-align: left;
+  color: var(--garkLow);
+  font-size: .875em;
+  font-weight: normal;
+  padding: .25rem .75rem;
+  border-bottom: 1px solid var(--g300);
+}
+
+.td {
+  padding: .75em .75em;
+  border-bottom: 1px solid var(--g200);
+}

@@ -1,0 +1,89 @@
+div.multy-select {
+    &__control {
+        border-radius: 15px;
+        min-height: 3.125em;
+
+        &:hover {
+            border-color: var(--dark);
+        }
+
+        &--is-focused {
+            border-color: var(--dark);
+            box-shadow: none;
+        }
+    }
+
+    &__placeholder {
+        color: var(--darkLow);
+        padding-left: 1em;
+        margin: 0;
+    }
+
+    &__input-container > input.multy-select__input {
+        padding-left: 1em !important;
+    }
+
+    &__single-value {
+        padding-left: 1em;
+    }
+
+    &__value-container {
+        padding: 0;
+    }
+
+    &__indicators span.multy-select__indicator-separator {
+        background-color: var(--g300);
+    }
+
+    &__indicator {
+        color: var(--darkLow);
+
+        &:hover {
+            color: var(--dark);
+        }
+
+        & svg {
+            width: 1.5em;
+            height: 1.5em;
+        }
+    }
+
+    &__multi-value {
+        background-color: var(--g100);
+        border: 1px solid var(--g200);
+        border-radius: 12px;
+        padding: 0.375em;
+        margin: 0.25em;
+    }
+
+    &__multi-value__label {
+        font-size: 100%;
+        line-height: 1.5;
+        padding: 0;
+        flex: auto;
+        white-space: unset;
+    }
+
+    &__multi-value__remove,
+    &__clear-indicator {
+        flex: none;
+        color: var(--info);
+        opacity: 0.54;
+
+        &:hover {
+            background-color: transparent;
+            color: var(--info);
+            opacity: 1;
+        }
+
+        & svg {
+            width: 1.5em;
+            height: 1.5em;
+        }
+    }
+}
+
+.multy-select-is-changed .multy-select__control {
+    border-color: var(--info);
+    box-shadow: inset 0 0 15px rgba(map-get($colors, "info"), 0.15);
+}

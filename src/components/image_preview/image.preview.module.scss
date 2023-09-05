@@ -1,0 +1,41 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    // padding-top: 4em;
+    background-color: rgba(black, 0.9);
+    box-sizing: border-box;
+    display: none;
+
+    &_opened {
+        display: flex;
+    }
+}
+.wrap {
+    width: 100%;
+}
+
+.close {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    font-size: 2em;
+    color: var(--white);
+    transition: 0.25s ease-in;
+    cursor: pointer;
+    z-index: 1;
+
+    &:hover {
+        color: var(--error);
+    }
+}
+.image {
+    object-fit: contain;
+    margin: auto;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+}

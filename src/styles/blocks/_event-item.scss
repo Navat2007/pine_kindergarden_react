@@ -1,0 +1,48 @@
+.event-item {
+  &__caption {
+    min-height: 3.125em;
+    background-color: rgba(map-get($colors, "primary"), .15);
+    padding: .875em 1.25em .875em 3.1875em;
+    position: relative;
+    box-sizing: border-box;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      display: block;
+      width: .3125em;
+      background-color: var(--primary);
+    }
+  }
+
+  &__icon {
+    margin-left: -2em;
+    margin-right: .5em;
+    vertical-align: middle;
+    @include box(1.5em);
+    background-color: var(--dark);
+  }
+
+  &__title {
+    font-size: 1em;
+    margin: .75em 0;
+    display: inline;
+  }
+
+  &__subtitle {
+    display: inline;
+    margin: .75em 0;
+    color: var(--darkLow);
+
+    &::before {
+      content: '\00A0/\00A0';
+    }
+  }
+
+  &__list {
+    @extend %reset-list;
+  }
+}

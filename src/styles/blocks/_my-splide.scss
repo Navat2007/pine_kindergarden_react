@@ -1,0 +1,112 @@
+.my-splide {
+    .splide__track {
+        padding: 1em 0;
+    }
+
+    .splide__pagination {
+        position: relative;
+        padding: 1em;
+    }
+
+    // .splide__arrows .splide__arrow {}
+
+    .splide__pagination__page {
+        @include box(0.675rem);
+        border: unset !important;
+        border-radius: 50%;
+        opacity: 1;
+        background-color: var(--g300);
+        cursor: pointer;
+        margin: 0.25em;
+
+        &.is-active {
+            border: unset !important;
+            background-color: var(--primary);
+            transform: scale(1);
+        }
+    }
+
+    &_linear-gradient {
+        .splide__track {
+            @include media(xl) {
+                position: relative;
+
+                &:before,
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    z-index: 1;
+                    width: 20%;
+                    display: inline-block;
+                }
+
+                &:before {
+                    left: 0;
+                    background: linear-gradient(90deg, #ffffff 34.29%, rgba(255, 255, 255, 0) 96.07%);
+                }
+
+                &:after {
+                    right: 0;
+                    background: linear-gradient(-90deg, #ffffff 34.29%, rgba(255, 255, 255, 0) 96.07%);
+                }
+            }
+        }
+    }
+
+    &_border-radius .splide__slide {
+        border-radius: 25px;
+    }
+
+    &_border-radius-sm .splide__slide {
+        border-radius: 5px;
+    }
+
+    &_handle-preview .splide__slide {
+        cursor: pointer;
+        transition: 0.15s ease-in;
+
+        &:hover {
+            filter: brightness(95%);
+        }
+    }
+
+    &_arrow_line .splide__arrows .splide__arrow {
+        background-color: transparent;
+
+        &.splide__arrow--prev {
+            left: 0.5em;
+        }
+        &.splide__arrow--next {
+            right: 0.5em;
+        }
+
+        & svg {
+            @include box(1.5em);
+            fill: var(--light);
+        }
+    }
+
+    &_spectacles {
+        @include media(md) {
+            margin-right: calc(min(2.25vmax, 3em) * -1);
+        }
+    }
+
+    &_arrow_primary .splide__arrows .splide__arrow {
+        @include box(3.3125em);
+        border-radius: 50%;
+        border: 3px solid var(--white);
+        background: var(--g100);
+        box-shadow: 0 0 15px 1px rgba(black, 0.24);
+
+        & svg {
+            fill: var(--primary);
+        }
+    }
+
+    &_no-paddings .splide__track {
+        padding: 0;
+    }
+}

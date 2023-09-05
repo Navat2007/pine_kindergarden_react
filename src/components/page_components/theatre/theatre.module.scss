@@ -1,0 +1,94 @@
+@import "../../../styles/_assets/variables";
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+.list {
+    @extend %reset-list;
+
+    display: flex;
+    gap: 1.25em;
+    flex-direction: column;
+    margin: 0 0 min(3.5vmax, 1.875em);
+}
+.item {
+    display: grid;
+    gap: 0 1.25em;
+    align-items: baseline;
+    justify-content: start;
+    grid-template-columns: min(35%, 20em) auto;
+}
+.label {
+    flex: 0 0 15em;
+    margin: 0;
+    font-size: 1em;
+    font-weight: normal;
+    color: var(--darkLow);
+}
+.description {
+    margin: 0;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+}
+
+// .logoBlock { }
+
+.logo {
+    display: block;
+    width: 100%;
+    min-width: 8em;
+    max-width: 8em;
+    object-fit: contain;
+}
+.logoPanel {
+    text-align: center;
+}
+
+.title {
+    margin: min(2.5vmax, 1.25em) 0;
+    font-size: 1.25em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.social {
+    @extend %reset-list;
+    display: flex;
+    gap: 0.675em;
+}
+
+.socialLink {
+    text-decoration: unset;
+    border-radius: 50%;
+    @include box(2.5em);
+    display: flex;
+    background-color: var(--g200);
+    transition: all 0.15s ease-in;
+
+    &:hover {
+        transform: translateZ(0) scale(1.1);
+    }
+    & svg {
+        margin: auto;
+        @include box(1.5em);
+    }
+}
+
+.editor {
+    max-width: 50em;
+}
+
+.eventIcon {
+    position: relative;
+    width: 1em;
+    margin-left: 0.25em;
+    display: inline-block;
+    svg {
+        position: absolute;
+        right: 0;
+        bottom: -0.25em;
+
+        width: 1em;
+        fill: var(--primary);
+    }
+}

@@ -1,0 +1,32 @@
+@import "../../styles/_assets/variables";
+@import "../../styles/_assets/mixins";
+@import "../../styles/_assets/extends";
+
+.errorCaption {
+    margin: 0 0 1.5em;
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--error);
+    line-height: 1.5;
+
+    svg {
+      @include box(1.5em);
+      vertical-align: bottom;
+      fill: currentColor;
+    }
+}
+
+// .errorList {}
+
+.errorText {
+    display: flex;
+    flex-wrap: wrap;
+    gap: min(2.75vmax, 1.25em);
+    align-items: center;
+    font-weight: 500;
+    line-height: 1.5;
+}
+.errorSpan {
+    font-weight: 600;
+    margin-left: auto;
+}
