@@ -1,10 +1,10 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import Header from "../components/header/header.component";
-import Menu from "../components/menu/menu.component";
-import SupportHeaderComponent from "../components/header/support.header.component";
-import ProfileHeader from "../components/header/profile.header.component";
+import Header from "../components/general/header/header.component";
+import Menu from "../components/general/menu/menu.component";
+import SupportHeaderComponent from "../components/general/header/support.header.component";
+import ProfileHeader from "../components/general/header/profile.header.component";
 import { MenuIcons } from "../components/svgs.js";
 import styles from "./admin.module.scss";
 

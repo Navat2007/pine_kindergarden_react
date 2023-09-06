@@ -1,0 +1,35 @@
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+.item {
+    display: flex;
+    flex-direction: column;
+
+    @include box(100%);
+    background-color: var(--white);
+
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+
+    &:hover .imageBlock img {
+        transform: scale(1.025);
+    }
+}
+
+.imageBlock {
+    width: 100%;
+    overflow: hidden;
+    img {
+        @extend %alt-text-on-after;
+        display: block;
+        @include box(100%);
+        object-fit: cover;
+        transition: transform 0.25s ease-in;
+    }
+}
+
+.title {
+    margin: 1em 0 0;
+    font-weight: 400;
+}

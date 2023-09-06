@@ -7,8 +7,8 @@ import {AnimatePresence} from "framer-motion";
 import useAuthStore from "./store/authStore";
 
 import RoutesList from "./components/routes.list.component";
-import Preloader from "./components/preloader/preloader.component";
-import ToTopButton from "./components/to_top_button/to.top.button.component";
+import Preloader from "./components/general/preloader/preloader.component";
+import ToTopButton from "./components/general/to_top_button/to.top.button.component";
 
 const App = () => {
 

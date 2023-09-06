@@ -5,17 +5,17 @@ import { useForm } from "react-hook-form";
 
 import useNewsStore from "../../../store/admin/newsStore";
 
-import Notif from "../../../components/notif/notif.component";
-import Button from "../../../components/button/button.component";
-import Tabs from "../../../components/tabs/tabs.component";
-import Tab from "../../../components/tabs/tab.component";
-import FieldInput from "../../../components/field/field.input.component";
-import Editor from "../../../components/reach_editor/editor.component";
-import ImageSelector from "../../../components/image_selector/image.selector.component";
-import ImageGallery from "../../../components/image_gallery/image.gallery.component";
+import Notif from "../../../components/general/notif/notif.component";
+import Button from "../../../components/general/button/button.component";
+import Tabs from "../../../components/general/tabs/tabs.component";
+import Tab from "../../../components/general/tabs/tab.component";
+import FieldInput from "../../../components/general/field/field.input.component";
+import Editor from "../../../components/general/reach_editor/editor.component";
+import ImageSelector from "../../../components/general/image_selector/image.selector.component";
+import ImageGallery from "../../../components/general/image_gallery/image.gallery.component";
 
 import commonStyles from "../../common.module.scss";
-import styles from "../../../components/page_components/theatre/theatre.module.scss";
+import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
 import moment from "moment";
 
 const AdminNewsPage = (props) => {

@@ -1,0 +1,53 @@
+@import "../../styles/_assets/variables";
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    @include box(100%);
+    background-color: var(--g200);
+
+    text-decoration: none;
+    color: inherit;
+
+    padding: min(3vmax, 1.875em);
+    box-sizing: border-box;
+
+    &:hover {
+        & .icon {
+            transform: translateY(-5px);
+        }
+        & .name {
+            transform: translateY(-5px);
+        }
+    }
+}
+
+.frameBox {
+    @include box(100%);
+
+    iframe {
+        @include box(100%);
+        border: none;
+    }
+}
+
+.icon {
+    transition: transform 0.15s ease-in;
+    width: 25%;
+    svg {
+        @include box(100%);
+    }
+}
+.name {
+    font-weight: 500;
+    transition: transform 0.15s ease-in;
+    margin: 0;
+    word-break: break-all;
+    @include clamp(3, 1);
+}

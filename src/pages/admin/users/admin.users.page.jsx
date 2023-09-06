@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 
 import useUsersStore from "../../../store/admin/usersStore";
 
-import Button from "../../../components/button/button.component";
-import FieldInput from "../../../components/field/field.input.component";
-import Notif from "../../../components/notif/notif.component";
+import Button from "../../../components/general/button/button.component";
+import FieldInput from "../../../components/general/field/field.input.component";
+import Notif from "../../../components/general/notif/notif.component";
 
 import no_photo_man from "../../../images/no_photo_man.png";
 import commonStyles from "../../common.module.scss";

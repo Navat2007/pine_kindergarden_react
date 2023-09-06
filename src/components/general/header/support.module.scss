@@ -1,0 +1,12 @@
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+.support {
+  align-self: center;
+}
+
+@include media(sm, max) {
+  .support {
+    display: none;
+  }
+}

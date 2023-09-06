@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 import useAuthStore from "../../store/authStore";
 
-import FieldInput from "../../components/field/field.input.component";
-import Popup from "../../components/popup/popup.component";
-import Button from "../../components/button/button.component";
+import FieldInput from "../../components/general/field/field.input.component";
+import Popup from "../../components/general/popup/popup.component";
+import Button from "../../components/general/button/button.component";
 
 import styles from "./login.module.scss";
 

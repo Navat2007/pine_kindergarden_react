@@ -1,0 +1,52 @@
+@import "../../styles/_assets/variables";
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+.accordion {
+
+  &_theme_text {
+
+    .caption {
+      display: flex;
+      align-items: center;
+      gap: .75em;
+      padding: .5rem;
+      font-size: 1.125em;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-bottom: 2px solid transparent;
+      transition: background-color .25s ease-in-out;
+      cursor: pointer;
+
+      &[aria-expanded=true] {
+        border-color: var(--darkLow);
+        margin-bottom: 1.25em;
+      }
+
+      &:hover {
+        background-color: var(--g200);
+      }
+    }
+  }
+}
+
+.icon {
+  flex: none;
+  order: -1;
+
+  line-height: 100%;
+  background-color: var(--g100);
+  color: var(--darkLow);
+  border-radius: 50%;
+  @include box(1.25em);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caption {
+  svg {
+    @include box(1.5em);
+    color: var(--darkLow);
+  }
+}

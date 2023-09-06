@@ -3,10 +3,10 @@ import {useForm} from "react-hook-form";
 
 import useAuthStore from "../store/authStore";
 
-import Button from "../components/button/button.component";
-import Notif from "../components/notif/notif.component";
-import Popup from "../components/popup/popup.component";
-import FieldInput from "../components/field/field.input.component";
+import Button from "../components/general/button/button.component";
+import Notif from "../components/general/notif/notif.component";
+import Popup from "../components/general/popup/popup.component";
+import FieldInput from "../components/general/field/field.input.component";
 
 import commonStyles from "./common.module.scss";
 import { AdminIcons } from "../components/svgs.js";

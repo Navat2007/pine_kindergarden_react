@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import useUsersStore from "../../../store/admin/usersStore";
 import useAuthStore from "../../../store/authStore";
 
-import Tabs from "../../../components/tabs/tabs.component";
-import Tab from "../../../components/tabs/tab.component";
-import Table from "../../../components/table/table.component";
-import Button from "../../../components/button/button.component";
+import Tabs from "../../../components/general/tabs/tabs.component";
+import Tab from "../../../components/general/tabs/tab.component";
+import Table from "../../../components/general/table/table.component";
+import Button from "../../../components/general/button/button.component";
 
 const UsersPage = () => {
     const { user } = useAuthStore();
