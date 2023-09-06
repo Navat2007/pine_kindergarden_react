@@ -1,0 +1,37 @@
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+.lessons {
+    @extend %main-width;
+    padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
+
+    &__title {
+        margin: 0 0 min(3.25vmax, 1.875rem);
+        font-family: var(--font-headings);
+        font-size: var(--title-size-lg);
+        font-weight: normal;
+    }
+    &__list {
+        @extend %reset-list;
+
+        display: grid;
+        gap: min(3.25vmax, 1.875em);
+
+        @include media(xs) {
+            grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+        }
+        @include media(lg) {
+            gap: min(9vmax, 6.75em) min(4.5vmax, 3em);
+        }
+    }
+    // &__card {}
+    &__card-image {
+        aspect-ratio: 382/447;
+        object-fit: cover;
+    }
+    &__card-title {
+        margin: min(3.25vmax, 1.875rem) 0;
+        font-family: var(--font-headings);
+        font-size: var(--title-size-sm);
+    }
+}
