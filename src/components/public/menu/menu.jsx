@@ -1,4 +1,6 @@
 import React from "react";
+import {NavLink} from "react-router-dom";
+
 import "./menu.scss";
 import Logo from "../logo/logo";
 
@@ -8,37 +10,61 @@ const Menu = ({ place }) => {
             <div className='menu__inner'>
                 <ul className='menu__list'>
                     <li>
-                        <a className='menu__link' href='./lessons.html' rel='noopener'>
+                        <NavLink
+                            to={"/lessons/"}
+                            className={"menu__link"}
+                            aria-label={"Занятия"}
+                        >
                             Занятия
-                        </a>
+                        </NavLink>
                     </li>
                     <li>
-                        <a className='menu__link' href='./documents.html' rel='noopener'>
+                        <NavLink
+                            to={"/documents/"}
+                            className={"menu__link"}
+                            aria-label={"Документы"}
+                        >
                             Документы
-                        </a>
+                        </NavLink>
                     </li>
                     <li>
-                        <a className='menu__link' href='#0' rel='noopener'>
+                        <NavLink
+                            to={"/teachers/"}
+                            className={"menu__link"}
+                            aria-label={"Педагоги"}
+                        >
                             Педагоги
-                        </a>
+                        </NavLink>
                     </li>
                 </ul>
                 <Logo place={`${place}-menu`} />
                 <ul className='menu__list'>
                     <li>
-                        <a className='menu__link' href='./food.html' rel='noopener'>
+                        <NavLink
+                            to={"/food/"}
+                            className={"menu__link"}
+                            aria-label={"Питание"}
+                        >
                             Питание
-                        </a>
+                        </NavLink>
                     </li>
                     <li>
-                        <a className='menu__link' href='#0' rel='noopener'>
+                        <NavLink
+                            to={"/mode/"}
+                            className={"menu__link"}
+                            aria-label={"Режим"}
+                        >
                             Режим
-                        </a>
+                        </NavLink>
                     </li>
                     <li>
-                        <a className='menu__link' href='./about.html' rel='noopener'>
+                        <NavLink
+                            to={"/about/"}
+                            className={"menu__link"}
+                            aria-label={"О нас"}
+                        >
                             О&nbsp;нас
-                        </a>
+                        </NavLink>
                     </li>
                 </ul>
             </div>

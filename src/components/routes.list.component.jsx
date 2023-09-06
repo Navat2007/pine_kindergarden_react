@@ -61,8 +61,8 @@ const RoutesList = () => {
     return (
         <Routes>
             {publicRoutes}
-            <Route path='/login' exact={true} element={<LoginPage/>}/>
-            <Route path='*' element={<Navigate to='/login'/>}/>
+            <Route path="/login" exact={true} element={<LoginPage/>}/>
+            <Route path="*" element={<Navigate to='/'/>}/>
         </Routes>
     );
 };

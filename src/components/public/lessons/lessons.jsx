@@ -19,7 +19,7 @@ const Lessons = () => {
             <h1 className='lessons__title section'>Занятия</h1>
             <p className='lessons__title section'>Что будем делать?</p>
             <ul className='lessons__list'>
-                <li class='lessons__card section'>
+                <li className='lessons__card section'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_1}
