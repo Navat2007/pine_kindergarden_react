@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import "./public.scss";
+import "./public.module.scss";
 import Header from "../components/public/header/header";
 import Footer from "../components/public/footer/footer";
 
