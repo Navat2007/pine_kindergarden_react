@@ -1,0 +1,91 @@
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+.documents {
+    @extend %main-width;
+    padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
+
+    margin-bottom: min(7.5vmax, 10em);
+
+    &__title {
+        margin: 0 0 min(4.5vmax, 2.875rem);
+        font-family: var(--font-headings);
+        font-size: var(--title-size-xl);
+        font-weight: normal;
+    }
+    &__list {
+        @extend %reset-list;
+        display: grid;
+        gap: min(6.5vmax, 4em);
+        @include media(md) {
+            grid-template-columns: repeat(auto-fit, minmax(32em, 1fr));
+        }
+    }
+    &__item {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25em;
+        @include media(sm) {
+            flex-direction: row;
+        }
+    }
+
+    &__item-image {
+        display: block;
+        flex: auto;
+        width: 100%;
+        align-self: flex-start;
+        object-fit: contain;
+        object-position: top center;
+        @include media(xs) {
+            max-width: min(27vmax, 16.25em);
+        }
+    }
+    &__item-section {
+        flex: auto;
+        padding: 1.25em 0;
+        box-sizing: border-box;
+
+        display: flex;
+        gap: 1.25em;
+        flex-direction: column;
+    }
+    &__item-title {
+        margin: 0;
+        font-family: var(--font-headings);
+        font-size: var(--title-size-md);
+        font-weight: normal;
+    }
+    &__item-text {
+        font-size: var(--text-size-lg);
+        line-height: 1.5;
+    }
+    &__item-link {
+        @extend %reset-btn;
+        font-family: var(--font-headings);
+        border-radius: 10px;
+        background-color: #9dd641;
+        border-color: #9dd641;
+        box-sizing: border-box;
+        width: 100%;
+        text-align: center;
+        max-width: 9.375rem;
+        font-size: var(--text-size-xl);
+        min-height: min(6vmax, 3em);
+        transition: 0.35s ease-out;
+
+        &:disabled {
+            pointer-events: none;
+            background-color: #e1e1e1;
+        }
+
+        &:hover {
+            background-color: var(--primary);
+        }
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: auto;
+    }
+}

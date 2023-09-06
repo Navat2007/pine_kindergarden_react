@@ -1,0 +1,44 @@
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+.food {
+    @extend %main-width;
+    padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
+
+    @include media(lg) {
+        &::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    }
+
+    &__image {
+        max-width: min(45vmax, 36.75em);
+        margin-bottom: min(2vmax, 1.25rem);
+
+        @include media(lg) {
+            float: right;
+            margin-left: min(3.25vmax, 1.875em);
+        }
+    }
+
+    &__title {
+        margin: 0 0 min(3.25vmax, 1.875rem);
+        font-family: var(--font-headings);
+        font-size: var(--title-size-lg);
+    }
+
+    &__subtitle {
+        margin: min(3.25vmax, 1.875rem) 0;
+        font-family: var(--font-headings);
+        font-size: var(--caption);
+        line-height: 1.5;
+    }
+
+    &__text {
+        margin: min(3.25vmax, 1.875em) 0;
+        font-size: var(--text-size-xl);
+        line-height: 1.5;
+    }
+}

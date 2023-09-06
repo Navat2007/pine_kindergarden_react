@@ -16,6 +16,11 @@ import AdminUsersPage from "../pages/admin/users/admin.users.page";
 // PUBLIC PAGES
 import MainPage from "../pages/public/index.page";
 import LessonsPage from "../pages/public/lessons.page";
+import DocumentsPage from "../pages/public/documents.page";
+import TeachersPage from "../pages/public/teachers.page";
+import FoodPage from "../pages/public/food.page";
+import AboutPage from "../pages/public/about.page";
+import ModePage from "../pages/public/mode.page";
 
 const RoutesList = () => {
     const {user} = useAuthStore();
@@ -30,6 +35,31 @@ const RoutesList = () => {
                 path="/lessons"
                 exact={true}
                 element={<LessonsPage/>}
+            />
+            <Route
+                path="/documents"
+                exact={true}
+                element={<DocumentsPage/>}
+            />
+            <Route
+                path="/teachers"
+                exact={true}
+                element={<TeachersPage/>}
+            />
+            <Route
+                path="/food"
+                exact={true}
+                element={<FoodPage/>}
+            />
+            <Route
+                path="/mode"
+                exact={true}
+                element={<ModePage/>}
+            />
+            <Route
+                path="/about"
+                exact={true}
+                element={<AboutPage/>}
             />
         </Route>
     );
