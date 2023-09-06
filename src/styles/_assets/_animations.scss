@@ -1,0 +1,12 @@
+@keyframes ripple {
+  20% {
+      opacity: 0;
+      transform: scale(2.5);
+  }
+
+  60%,
+  100% {
+      opacity: 0;
+      transform: scale(2.5);
+  }
+}

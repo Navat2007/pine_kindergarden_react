@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $breakpoints: (
     "xs": 480px,
     "sm": 576px,
@@ -6,7 +8,6 @@ $breakpoints: (
     "xl": 1200px,
     "xxl": 1500px,
 );
-
 @mixin media($width, $type: min) {
     @if map_has_key($breakpoints, $width) {
         $width: map_get($breakpoints, $width);
@@ -20,7 +21,6 @@ $breakpoints: (
         @content;
     }
 }
-
 @mixin keyframes($name) {
     @-webkit-keyframes #{$name} {
         @content;
@@ -38,12 +38,10 @@ $breakpoints: (
         @content;
     }
 }
-
 @mixin box($width, $height: $width) {
     width: $width;
     height: $height;
 }
-
 @mixin placeholder() {
     &::-webkit-input-placeholder {
         @content;
@@ -61,7 +59,6 @@ $breakpoints: (
         @content;
     }
 }
-
 @mixin scroll-bar($width: 8px, $height: 8px, $bg: var(--g100), $color: var(--primary)) {
     &::-webkit-scrollbar-button,
     &::-webkit-resizer {
@@ -87,7 +84,6 @@ $breakpoints: (
         }
     }
 }
-
 @mixin clamp($numbers: 3, $line-height: 1.5) {
     @if $numbers == unset {
         max-height: unset;
@@ -103,4 +99,8 @@ $breakpoints: (
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
+}
+
+@function fs-scale($dimention) {
+    @return $dimention + math.div($dimention, 3) * 1vmax;
 }

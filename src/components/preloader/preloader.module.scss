@@ -1,5 +1,3 @@
-@use "sass:math";
-@import "../../styles/_assets/variables";
 @import "../../styles/_assets/mixins";
 @import "../../styles/_assets/extends";
 
@@ -22,10 +20,10 @@
   align-items: center;
   justify-content: center;
 
-  @extend %visibility-block;
+  // @extend %visibility-block;
 
   &_hidden {
-    @extend %hidden-block;
+    // @extend %hidden-block;
     transition: visibility 0s calc(#{var(--preloaderDuration)} * 1s),
     opacity calc(#{var(--preloaderDuration)} * 1s);
   }

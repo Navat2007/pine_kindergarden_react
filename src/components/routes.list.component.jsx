@@ -3,7 +3,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import useAuthStore from "../store/authStore";
 
 import AdminLayout from "../layout/admin.layout.component";
-import PublicLayout from "../layout/public.layout.component";
+import PublicLayout from "../layout/public";
 
 import Page404 from "../pages/404.page";
 import LoginPage from "../pages/login/login.page";
@@ -12,13 +12,9 @@ import ProfilePage from "../pages/profile.page";
 // ADMIN PAGES
 import UsersPage from "../pages/admin/users/users.page";
 import AdminUsersPage from "../pages/admin/users/admin.users.page";
-import AdminAllNewsPage from "../pages/admin/news/all.news.page";
-import AdminNewsPage from "../pages/admin/news/news.page";
 
 // PUBLIC PAGES
-import MainPage from "../pages/public/index.page";
-import AllNewsPage from "../pages/public/news/all.news.page";
-import NewsPage from "../pages/public/news/news.page";
+import MainPage from "../pages/public/index";
 
 const RoutesList = () => {
 
@@ -28,16 +24,6 @@ const RoutesList = () => {
         <Route
             index
             element={<MainPage/>}
-        />
-        <Route
-            path="/news"
-            exact={true}
-            element={<AllNewsPage/>}
-        />
-        <Route
-            path="/news/:id"
-            exact={true}
-            element={<NewsPage/>}
         />
     </Route>;
 
@@ -66,20 +52,6 @@ const RoutesList = () => {
                         <Route
                             path="admin/new"
                             element={<AdminUsersPage/>}
-                        />
-                    </Route>
-                    <Route path="news">
-                        <Route
-                            index
-                            element={<AdminAllNewsPage/>}
-                        />
-                        <Route
-                            path=":id"
-                            element={<AdminNewsPage/>}
-                        />
-                        <Route
-                            path="new"
-                            element={<AdminNewsPage/>}
                         />
                     </Route>
                 </Route>

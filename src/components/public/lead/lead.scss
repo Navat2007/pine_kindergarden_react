@@ -1,0 +1,22 @@
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+.lead {
+    @extend %main-width;
+
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+    padding: min(3vmax, 3em) var(--padding-gor-size-md);
+    box-sizing: border-box;
+
+    &__image {
+        object-fit: cover;
+        aspect-ratio: 1/1;
+
+        @include media(lg) {
+            aspect-ratio: 12.5/6.5;
+        }
+    }
+}
