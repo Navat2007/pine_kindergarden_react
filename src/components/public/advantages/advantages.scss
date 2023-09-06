@@ -1,0 +1,84 @@
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+.advantages {
+    &__title {
+        margin: 0;
+        font-family: var(--font-headings);
+        font-size: var(--title-size-xl);
+        font-weight: normal;
+        text-align: center;
+
+        padding: 1em var(--padding-gor-size-sm);
+        box-sizing: border-box;
+        background-color: var(--accent-light);
+    }
+    &__list {
+        @extend %reset-list;
+        display: grid;
+        @include media(md) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        li:nth-child(even) {
+            background-color: #88dddf;
+
+            @include media(md) {
+                .card__wrap {
+                    margin-right: auto;
+                }
+            }
+        }
+        li:nth-child(odd) {
+            background-color: #a4bd24;
+
+            @include media(md) {
+                .card__wrap {
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+}
+
+.card {
+    display: flex;
+    &__wrap {
+        max-width: min(50vmax, 30em);
+        padding: min(4vmax, 4em);
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: column;
+
+        margin: auto;
+
+        @include media(md) {
+            margin: unset;
+        }
+
+        @include media(xl) {
+            max-width: calc(var(--main-width) / 2);
+            padding: min(4vmax, 4em) min(10vmax, 7.5em) 0;
+        }
+    }
+    &__image {
+        align-self: center;
+        width: 100%;
+        max-width: min(32vmax, 21.25em);
+        margin-bottom: min(2.5vmax, 2.375em);
+        @include media(xl) {
+            align-self: unset;
+        }
+    }
+    &__title {
+        margin: 0;
+        font-family: var(--font-headings);
+        font-size: var(--title-size-md);
+        font-weight: normal;
+    }
+    &__text {
+        font-size: var(--text-size-lg);
+        line-height: 1.5;
+    }
+}

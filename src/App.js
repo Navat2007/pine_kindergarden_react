@@ -10,8 +10,6 @@ import RoutesList from "./components/routes.list.component";
 import Preloader from "./components/preloader/preloader.component";
 import ToTopButton from "./components/to_top_button/to.top.button.component";
 
-import './styles/App.scss';
-
 const App = () => {
 
   const {setUser, logout} = useAuthStore();
