@@ -1,0 +1,31 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.to-top-button {
+    @extend %reset-btn;
+
+    @include box(3.5em);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 15px 1px rgba(black, 0.26);
+
+    &:hover::after {
+        background-color: var(--primary);
+    }
+
+    &::after {
+        content: "";
+        display: block;
+        background-color: currentColor;
+        mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgogIDxwYXRoIGQ9Ik0xNi41OSAxNS40MiAxMiAxMC44M2wtNC41OSA0LjU5TDYgMTRsNi02IDYgNi0xLjQxIDEuNDJaIi8+Cjwvc3ZnPgo=");
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        @include box(2.875em);
+        margin: auto;
+    }
+}

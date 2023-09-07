@@ -1,7 +1,5 @@
 import React from "react";
-
-import styles from "./to.top.button.module.scss";
-import { AdminIcons } from "../../svgs.js";
+import "./to.top.button.scss";
 
 const ToTopButton = () => {
     const [showButton, setShowButton] = React.useState(false);
@@ -23,18 +21,7 @@ const ToTopButton = () => {
         });
     };
 
-    return (
-        <>
-            {showButton && (
-                <button
-                    onClick={scrollToTop}
-                    className={styles.backToTop}
-                >
-                    {AdminIcons.chevron_down}
-                </button>
-            )}
-        </>
-    );
+    return <>{showButton && <button onClick={scrollToTop} className='to-top-button'></button>}</>;
 };
 
 export default ToTopButton;
