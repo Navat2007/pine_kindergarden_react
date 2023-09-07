@@ -3,11 +3,14 @@
 
 .field {
     &_state_error {
-        & .field__inner::after {
+        .field__inner::after {
             @extend %visibility-block;
         }
-        & .field__info-text {
+        .field__info-text {
             @extend %visibility-block;
+        }
+        .field__icon-eye {
+            @extend %hidden-block;
         }
     }
 
@@ -53,5 +56,24 @@
         color: var(--eror-color);
 
         @extend %hidden-block;
+    }
+
+    // Для пароля глазик
+    &__icon-eye {
+        display: block;
+        background-color: var(--dark-low);
+        mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgogIDxwYXRoIGQ9Ik0xMiA5YTMgMyAwIDEgMCAwIDYgMyAzIDAgMCAwIDAtNlptMCA4YTUgNSAwIDEgMSAwLTEwIDUgNSAwIDAgMSAwIDEwWm0wLTEyLjVDNyA0LjUgMi43MyA3LjYxIDEgMTJjMS43MyA0LjM5IDYgNy41IDExIDcuNXM5LjI3LTMuMTEgMTEtNy41Yy0xLjczLTQuMzktNi03LjUtMTEtNy41WiIvPgo8L3N2Zz4K");
+        @include box(1.5em);
+        grid-area: 1/1/2/2;
+        align-self: center;
+        justify-self: end;
+        margin-right: 0.875em;
+        cursor: pointer;
+
+        @extend %visibility-block;
+
+        &:active {
+            transform: translateY(1px);
+        }
     }
 }
