@@ -98,12 +98,12 @@ const App = () => {
     return (
         <>
             {app && (
-                <HashRouter hashType='noslash'>
+                <BrowserRouter>
                     <AnimatedPageTransition>
                         <RoutesList />
                         <ToTopButton />
                     </AnimatedPageTransition>
-                </HashRouter>
+                </BrowserRouter>
             )}
         </>
     );
