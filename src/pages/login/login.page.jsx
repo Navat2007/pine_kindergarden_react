@@ -34,9 +34,9 @@ const LoginPage = () => {
                     <FieldPassword />
                     <div className='auth-form__footer'>
                         <Button text={"Войти"} />
-                        <p className='auth-form__info-text'>
-                            Забыли пароль? <a href=''>Восстановить</a>
-                        </p>
+                        {/*<p className='auth-form__info-text'>*/}
+                        {/*    Забыли пароль? <a href=''>Восстановить</a>*/}
+                        {/*</p>*/}
                     </div>
                 </form>
             </main>
