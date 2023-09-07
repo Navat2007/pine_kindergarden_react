@@ -1,5 +1,5 @@
-@import "../../../styles/_assets/mixins";
-@import "../../../styles/_assets/extends";
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
 
 :root {
     --field-v-paddings: 0.75rem;
@@ -335,7 +335,7 @@
     top: -0.625em;
     left: var(--field-g-paddings);
     right: var(--field-g-paddings);
-    @extend %cutText;
+    @extend %cut-text;
     background-color: var(--white);
     padding-left: 0.25em;
     padding-right: 0.25em;

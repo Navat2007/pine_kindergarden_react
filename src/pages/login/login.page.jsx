@@ -4,11 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import useAuthStore from "../../store/authStore";
 
-import FieldInput from "../../components/general/field/field.input.component";
-import Popup from "../../components/general/popup/popup.component";
-import Button from "../../components/general/button/button.component";
-
-import styles from "./login.module.scss";
+import "./login.scss";
+import Logo from "../../components/public/logo/logo";
 
 const LoginPage = () => {
     const { login, loading, error, errorText } = useAuthStore();
@@ -26,16 +23,61 @@ const LoginPage = () => {
 
     return (
         <>
-        <main>
-            <section>
-                <h1>Рады приветствовать!</h1>
-                <form action="" name="">
+            <main>
+                <section className='auth-form'>
+                    <form className='auth-form__form' action='' name='signin'>
+                        <Logo place={`auth-form`} />
+                        <h1 className='auth-form__title'>Рады видеть!</h1>
+                        <div className='field'>
+                            <label className='field__label' htmlFor='email'>
+                                E-mail
+                            </label>
+                            <div className='field__inner'>
+                                <input
+                                    className='field__input'
+                                    id='email'
+                                    type='email'
+                                    autoComplete='email'
+                                    name='email'
+                                    placeholder='Введите email...'
+                                    required
+                                />
+                                <span className='field__info-text'>Поле для вывода ошибки</span>
+                            </div>
+                        </div>
+                        <div className='field field_state_error'>
+                            <label className='field__label' htmlFor='password'>
+                                Пароль
+                            </label>
+                            <div className='field__inner'>
+                                <input
+                                    className='field__input'
+                                    id='password'
+                                    type='password'
+                                    autoComplete='password'
+                                    name='password'
+                                    placeholder='Введите пароль...'
+                                    required
+                                    maxLength={"8"}
+                                    minLength={"8"}
+                                />
+                                <span className='field__info-text'>Поле для вывода ошибки</span>
+                            </div>
+                        </div>
+                        <div className='auth-form__footer'>
+                            <button className='button' type='submit'>
+                                Войти
+                            </button>
+                            <p className='auth-form__info-text'>
+                                Забыли пароль? <a href=''>Восстановить</a>
+                            </p>
+                        </div>
+                    </form>
+                </section>
+            </main>
 
-                </form>
-            </section>
-        </main>
-            <Popup opened={true} title={"Окно входа"} extraClass={styles.popup_login}>
-                <form onSubmit={handleSubmit(onSubmit)} className={`form ${styles.form}`}>
+            {/* <Popup opened={true} title={"Окно входа"}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <FieldInput
                         placeholder={"Введите логин..."}
                         {...register("login", {
@@ -75,11 +117,11 @@ const LoginPage = () => {
                         spinnerActive={loading === "loading"}
                     />
                     {/*<div className={styles.navigation}>*/}
-                    {/*    <Link className={styles.link}>Забыли пароль?</Link>*/}
-                    {/*    <Link className={styles.link}>Помощь</Link>*/}
-                    {/*</div>*/}
-                </form>
-            </Popup>
+            {/*    <Link className={styles.link}>Забыли пароль?</Link>*/}
+            {/*    <Link className={styles.link}>Помощь</Link>*/}
+            {/*</div>*/}
+            {/* </form>
+            </Popup>  */}
         </>
     );
 };

@@ -1,0 +1,96 @@
+@use "sass:math";
+
+$breakpoints: (
+    "xs": 480px,
+    "sm": 576px,
+    "md": 768px,
+    "lg": 1024px,
+    "xl": 1224px,
+    "xxl": 1824px,
+);
+
+@mixin media($width, $type: min) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+    }
+
+    @if $type ==max {
+        @media only screen and (width < $width) {
+            @content;
+        }
+    } @else {
+        @media only screen and (width >= $width) {
+            @content;
+        }
+    }
+}
+
+@mixin placeholder() {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+
+    &:-moz-placeholder {
+        @content;
+    }
+
+    &::-moz-placeholder {
+        @content;
+    }
+
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+@mixin scroll-bar($width: 15px, $height: 15px, $bg: #fff, $color: var(--main-color)) {
+    scrollbar-width: $width;
+    scrollbar-color: $color;
+
+    // ширина scrollbar
+    &::-webkit-scrollbar {
+        width: $width;
+    }
+    // Цвет дорожки
+    &::-webkit-scrollbar-track {
+        background-color: $bg;
+        border-radius: 10px;
+    }
+    // Плашка
+    &::-webkit-scrollbar-thumb {
+        background-color: $color;
+        border-radius: 10px;
+    }
+}
+
+@mixin clamp($numbers: 3, $line-height: 1.5) {
+    max-height: $numbers * $line-height * 1em;
+    line-height: $line-height;
+    display: -webkit-box;
+    -webkit-line-clamp: $numbers;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+@mixin box($inline-size, $block-size: $inline-size) {
+    inline-size: $inline-size;
+    block-size: $block-size;
+}

@@ -1,0 +1,96 @@
+@import "../../styles/mixins";
+@import "../../styles/extends";
+
+.auth-form {
+    display: flex;
+    justify-content: center;
+    min-block-size: 100vb;
+
+    @include media(xs) {
+        padding: 1em;
+        background-color: #eee;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__title {
+        font-size: 1.5em;
+        margin-block: 0.75em;
+    }
+    &__form {
+        width: min(25em, 100%);
+        padding: 1.5em;
+        display: flex;
+        flex-direction: column;
+
+        @include media(xs) {
+            background-color: #fff;
+            box-shadow: 0 0 15px #eee, 0 0 3px #ddd;
+            border-radius: 5px;
+        }
+    }
+    &__footer {
+        margin-block-start: auto;
+        @include media(xs) {
+            margin-block-start: min(8vmax, 8em);
+        }
+    }
+    &__info-text {
+        font-size: 0.875em;
+        text-align: center;
+    }
+}
+
+.field {
+    &_state_error {
+        & .field__inner::after {
+            @extend %visibility-block;
+        }
+        & .field__info-text {
+            @extend %visibility-block;
+        }
+    }
+
+    &__inner {
+        display: grid;
+        gap: 10px;
+
+        &:after {
+            content: "";
+            display: block;
+            background-color: #d61c4d;
+            mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgogIDxwYXRoIGQ9Ik0xMyAxM2gtMlY3aDJtMCAxMGgtMnYtMmgyTTEyIDJhMTAgMTAgMCAxIDAgMCAyMCAxMCAxMCAwIDAgMCAwLTIwWiIvPgo8L3N2Zz4K");
+            @include box(1.5em);
+            grid-area: 1/1/2/2;
+            align-self: center;
+            justify-self: end;
+            margin-right: 0.875em;
+
+            @extend %hidden-block;
+        }
+    }
+    &__input {
+        @extend %reset-input;
+        grid-area: 1/1/2/2;
+        padding: 1em 2.875em 1em 1em;
+        background-color: #eee;
+        border-radius: 5px;
+
+        &:focus-visible {
+            outline: 1px solid #aaaaaa;
+        }
+    }
+    &__label {
+        line-height: 2;
+        font-size: 0.875em;
+    }
+    &__info-text {
+        @extend %cut-text;
+        display: block;
+        font-size: 0.75em;
+        line-height: 1;
+        color: #d61c4d;
+
+        @extend %hidden-block;
+    }
+}

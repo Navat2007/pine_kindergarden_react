@@ -1,5 +1,5 @@
-@import "../../../styles/_assets/mixins";
-@import "../../../styles/_assets/extends";
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
 
 .tabs {
     &_theme_public {
@@ -43,7 +43,7 @@
     transition-property: background-color, color;
 
     flex: none;
-    // @extend %cutText;
+    // @extend %cut-text;
     // min-width: 4em;
 
     border-radius: 25px;
