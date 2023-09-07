@@ -6,6 +6,8 @@ import useAuthStore from "../../store/authStore";
 
 import "./login.scss";
 import Logo from "../../components/public/logo/logo";
+import FieldEmail from "../../components/admin/field/field.email";
+import FieldPassword from "../../components/admin/field/field.password";
 
 const LoginPage = () => {
     const { login, loading, error, errorText } = useAuthStore();
@@ -28,42 +30,9 @@ const LoginPage = () => {
                     <form className='auth-form__form' action='' name='signin'>
                         <Logo place={`auth-form`} />
                         <h1 className='auth-form__title'>Рады видеть!</h1>
-                        <div className='field'>
-                            <label className='field__label' htmlFor='email'>
-                                E-mail
-                            </label>
-                            <div className='field__inner'>
-                                <input
-                                    className='field__input'
-                                    id='email'
-                                    type='email'
-                                    autoComplete='email'
-                                    name='email'
-                                    placeholder='Введите email...'
-                                    required
-                                />
-                                <span className='field__info-text'>Поле для вывода ошибки</span>
-                            </div>
-                        </div>
-                        <div className='field field_state_error'>
-                            <label className='field__label' htmlFor='password'>
-                                Пароль
-                            </label>
-                            <div className='field__inner'>
-                                <input
-                                    className='field__input'
-                                    id='password'
-                                    type='password'
-                                    autoComplete='password'
-                                    name='password'
-                                    placeholder='Введите пароль...'
-                                    required
-                                    maxLength={"8"}
-                                    minLength={"8"}
-                                />
-                                <span className='field__info-text'>Поле для вывода ошибки</span>
-                            </div>
-                        </div>
+                        <FieldEmail />
+                        <FieldPassword />
+
                         <div className='auth-form__footer'>
                             <button className='button' type='submit'>
                                 Войти

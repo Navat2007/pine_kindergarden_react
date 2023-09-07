@@ -4,7 +4,7 @@ import Food__image from "../../../images/food__image.jpg";
 
 const Food = () => {
     return (
-        <section className='food section'>
+        <section className='food main-section'>
             <img
                 className='food__image'
                 src={Food__image}
@@ -32,7 +32,7 @@ const Food = () => {
                             href='https://sh-celinnaya-oosh-r56.gosweb.gosuslugi.ru/netcat_files/32/315/sanpin_2.3.2.4.3590_20.pdf'
                             target='_blank'
                             rel='nofollow noopener'
-                            className='link'
+                            className='main-link'
                         >
                             СанПиН 2.3/2.4.3590-20 «Санитарно-эпидемиологические требования к организации общественного
                             питания населения»{" "}
@@ -44,7 +44,7 @@ const Food = () => {
                             href='https://shkolabessonovskaya-r31.gosweb.gosuslugi.ru/netcat_files/userfiles/Pitanie/Prikaz-Minobrnauki-RF-178.pdf'
                             target='_blank'
                             rel='nofollow noopener'
-                            className='link'
+                            className='main-link'
                         >
                             Приказ Министерства здравоохранения и социального развития РФ и Министерства образования
                             и науки РФ от 11 марта 2012 г. № 213н/178 «Об утверждении методических рекомендаций

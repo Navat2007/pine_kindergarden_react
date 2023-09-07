@@ -13,8 +13,8 @@ import person_4 from "../../../images/person_4.jpg";
 const About = () => {
     return (
         <>
-            <section className='about about_contain_inner section'>
-                <h1 className='title'>
+            <section className='about about_contain_inner main-section'>
+                <h1 className='main-title'>
                     Детский сад СОСНЫ <br />
                     Здесь начинается Детство
                 </h1>
@@ -37,7 +37,7 @@ const About = () => {
                     />
                 </div>
             </section>
-            <section className='about about_bg_light-primary section' aria-label='Описание о нас'>
+            <section className='about about_bg_light-primary main-section' aria-label='Описание о нас'>
                 <div className='about__inner about__inner_bg_half-image'>
                     <div className='about__description'>
                         <p>
@@ -60,7 +60,7 @@ const About = () => {
                     </div>
                 </div>
             </section>
-            <section className='about about_contain_inner section'>
+            <section className='about about_contain_inner main-section'>
                 <h2 className='about__title'>Наши группы</h2>
                 <ul className='about__list'>
                     <li className='about__card'>
@@ -93,7 +93,7 @@ const About = () => {
                     </li>
                 </ul>
             </section>
-            <section className='about about_contain_inner section'>
+            <section className='about about_contain_inner main-section'>
                 <h2 className='about__title'>Наша команда</h2>
                 <div className='splide about__slider' id='person-slider'>
                     <div className='splide__track about__slider-track'>

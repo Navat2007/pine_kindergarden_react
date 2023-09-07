@@ -8,9 +8,9 @@ import advantages__image_4 from "../../../images/advantages__image_4.png";
 const Advantages = () => {
     return (
         <section className='advantages'>
-            <h2 className='advantages__title section'>Наши преимущества</h2>
+            <h2 className='advantages__title main-section'>Наши преимущества</h2>
             <ul className='advantages__list'>
-                <li className='card section'>
+                <li className='card main-section'>
                     <div className='card__wrap'>
                         <img
                             className='card__image'
@@ -26,7 +26,7 @@ const Advantages = () => {
                         </div>
                     </div>
                 </li>
-                <li className='card section'>
+                <li className='card main-section'>
                     <div className='card__wrap'>
                         <img className='card__image' src={advantages__image_2} alt='Изображение мальчика в зеленой маске' />
                         <h3 className='card__title'>Социализация</h3>
@@ -38,7 +38,7 @@ const Advantages = () => {
                         </div>
                     </div>
                 </li>
-                <li className='card section'>
+                <li className='card main-section'>
                     <div className='card__wrap'>
                         <img className='card__image' src={advantages__image_3} alt='Изображение девочки с книгой' />
                         <h3 className='card__title'>Обучение и развитие</h3>
@@ -51,7 +51,7 @@ const Advantages = () => {
                         </div>
                     </div>
                 </li>
-                <li className='card section'>
+                <li className='card main-section'>
                     <div className='card__wrap'>
                         <img className='card__image' src={advantages__image_4} alt='Изображение домика из кубиков' />
                         <h3 className='card__title'>Подготовка к школе</h3>
