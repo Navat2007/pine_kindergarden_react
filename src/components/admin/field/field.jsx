@@ -14,8 +14,8 @@ const Field = () => {
                     name='password'
                     placeholder='Введите пароль...'
                     required
-                    maxLength={"8"}
-                    minLength={"8"}
+                    maxLength={8}
+                    minLength={8}
                 />
                 <span className='field__span'>Поле для вывода ошибки</span>
             </div>
