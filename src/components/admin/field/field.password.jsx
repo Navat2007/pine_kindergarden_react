@@ -20,7 +20,7 @@ const FieldPassword = () => {
                     minLength={"8"}
                 />
                 <span className='field__info-text'>Поле для вывода ошибки</span>
-                <span className='field__icon-eye' aria-label='Скрыть/Отобразить пароль'></span>
+                <span className='field__icon-eye field__icon-eye_active' aria-label='Скрыть/Отобразить пароль'></span>
             </div>
         </div>
     );
