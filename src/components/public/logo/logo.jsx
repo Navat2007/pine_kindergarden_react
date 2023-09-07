@@ -1,7 +1,8 @@
 import React from "react";
+import {NavLink} from "react-router-dom";
+
 import "./logo.scss";
 import logo from "../../../images/logo.svg";
-import {NavLink} from "react-router-dom";
 
 const Logo = ({ place }) => {
     return (

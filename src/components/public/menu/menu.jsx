@@ -1,8 +1,9 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 
-import "./menu.scss";
 import Logo from "../logo/logo";
+
+import "./menu.scss";
 
 const Menu = ({ place }) => {
     return (
