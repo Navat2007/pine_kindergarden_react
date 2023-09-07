@@ -27,7 +27,7 @@ const FieldPassword = () => {
                 />
                 <span className='field__info-text'>Поле для вывода ошибки</span>
                 <span
-                    className='field__icon-eye'
+                    className='field__icon-eye field__icon-eye_active'
                     aria-label='Скрыть/Отобразить пароль'
                     onClick={toggleEye}
                 >
