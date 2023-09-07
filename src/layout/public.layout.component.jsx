@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/public/header/header";
 import Footer from "../components/public/footer/footer";
 
-import "./public.scss";
+import "../styles/_public.layout.scss";
 
 const PublicLayout = () => {
     return (

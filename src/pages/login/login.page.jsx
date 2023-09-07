@@ -8,6 +8,7 @@ import "./login.scss";
 import Logo from "../../components/public/logo/logo";
 import FieldEmail from "../../components/admin/field/field.email";
 import FieldPassword from "../../components/admin/field/field.password";
+import Button from "../../components/admin/button/button";
 
 const LoginPage = () => {
     const { login, loading, error, errorText } = useAuthStore();
@@ -25,24 +26,19 @@ const LoginPage = () => {
 
     return (
         <>
-            <main>
-                <section className='auth-form'>
-                    <form className='auth-form__form' action='' name='signin'>
-                        <Logo place={`auth-form`} />
-                        <h1 className='auth-form__title'>Рады видеть!</h1>
-                        <FieldEmail />
-                        <FieldPassword />
-
-                        <div className='auth-form__footer'>
-                            <button className='button' type='submit'>
-                                Войти
-                            </button>
-                            <p className='auth-form__info-text'>
-                                Забыли пароль? <a href=''>Восстановить</a>
-                            </p>
-                        </div>
-                    </form>
-                </section>
+            <main className='auth-form'>
+                <form className='auth-form__form' action='' name='signin'>
+                    <Logo place={`auth-form`} />
+                    <h1 className='auth-form__title'>Рады видеть!</h1>
+                    <FieldEmail />
+                    <FieldPassword />
+                    <div className='auth-form__footer'>
+                        <Button text={"Войти"} />
+                        <p className='auth-form__info-text'>
+                            Забыли пароль? <a href=''>Восстановить</a>
+                        </p>
+                    </div>
+                </form>
             </main>
 
             {/* <Popup opened={true} title={"Окно входа"}>

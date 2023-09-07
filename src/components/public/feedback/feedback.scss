@@ -150,7 +150,7 @@
         transition: 0.35s ease-out;
 
         &_state_error {
-            border-color: red;
+            border-color: var(--eror-color);
         }
 
         &:focus,
@@ -161,7 +161,7 @@
         }
     }
     &__span-text {
-        color: red;
+        color: var(--eror-color);
         margin: 0;
         font-size: 0.875em;
         font-style: italic;

@@ -94,3 +94,7 @@ $breakpoints: (
     inline-size: $inline-size;
     block-size: $block-size;
 }
+
+@function fs-scale($dimention) {
+    @return $dimention + math.div($dimention, 3) * 1vmax;
+}

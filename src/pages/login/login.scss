@@ -8,7 +8,7 @@
 
     @include media(xs) {
         padding: 1em;
-        background-color: #eee;
+        background: url("../../images/white-and-gray-background-vector.jpg") #eee no-repeat center / cover;
         flex-direction: column;
         align-items: center;
     }
@@ -16,6 +16,7 @@
     &__title {
         font-size: 1.5em;
         margin-block: 0.75em;
+        text-align: center;
     }
     &__form {
         width: min(25em, 100%);
@@ -25,7 +26,7 @@
 
         @include media(xs) {
             background-color: #fff;
-            box-shadow: 0 0 15px #eee, 0 0 3px #ddd;
+            box-shadow: 0 0 25px #e6e6e6, 0 0 2px #bebebe;
             border-radius: 5px;
         }
     }
