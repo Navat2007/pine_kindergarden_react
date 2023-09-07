@@ -2,7 +2,6 @@ import React from "react";
 
 import { NavLink } from "react-router-dom";
 
-import logo from "../../../images/logo.png";
 import Button from "../button/button.component";
 
 import styles from "./menu.module.scss";
@@ -68,7 +67,7 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
             <div className={styles.container}>
                 <img
                     className={styles.logo}
-                    src={logo}
+                    src=''
                     alt="Содружество Школьных театров города Москвы"
                 />
                 <ul className={styles.list}>

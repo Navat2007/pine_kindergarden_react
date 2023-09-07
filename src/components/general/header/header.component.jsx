@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import Button from "../button/button.component";
-import logo from "../../../images/logo.png";
 import styles from "./header.module.scss";
 
 const HeaderComponent = ({ children, handleBurger }) => {
@@ -13,7 +12,7 @@ const HeaderComponent = ({ children, handleBurger }) => {
                 className={styles.logo}
             >
                 <img
-                    src={logo}
+                    src=''
                     alt="Маски"
                 />
             </NavLink>
