@@ -5,7 +5,7 @@
     flex: none;
     background-color: var(--dark-background);
 
-    &__wrap {
+    &__inner {
         @extend %main-width;
 
         display: flex;
@@ -16,16 +16,27 @@
             flex-direction: row;
         }
     }
-    &__author {
+
+    &__content {
         text-align: center;
-        margin: 0;
+        display: flex;
+        gap: 1em;
+        flex-direction: column;
         padding: min(1.25vmax, 0.875em) min(2vmax, 1.875em);
+
+        @include media(md) {
+            text-align: right;
+        }
+    }
+
+    &__author {
         font-family: var(--font-headings);
         font-size: var(--text-size-md);
 
         @include media(md) {
-            text-align: right;
-            align-self: end;
+            order: -1;
         }
     }
+
+    // &__lk-link {}
 }
