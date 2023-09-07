@@ -22,6 +22,6 @@
     }
 
     &:focus-visible {
-        outline: 1px solid var(--primary);
+        box-shadow: 0 0 3px var(--primary);
     }
 }
