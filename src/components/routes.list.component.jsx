@@ -90,6 +90,16 @@ const RoutesList = () => {
 
     return (
         <Routes>
+            <Route path='/admin' element={<AdminLayout/>}>
+                <Route path='users'>
+                    <Route index element={<UsersPage/>}/>
+                    <Route path='admin/:id' element={<AdminUsersPage/>}/>
+                    <Route path='admin/new' element={<AdminUsersPage/>}/>
+                </Route>
+            </Route>
+            <Route path='/profile' exact={true} element={<AdminLayout/>}>
+                <Route index element={<ProfilePage/>}/>
+            </Route>
             {publicRoutes}
             <Route path="/login" exact={true} element={<LoginPage/>}/>
             <Route path="*" element={<Navigate to='/'/>}/>
