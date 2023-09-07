@@ -2,6 +2,12 @@ import React from "react";
 import "./field.scss";
 
 const FieldPassword = () => {
+    const [eyeActive, setEyeActive] = React.useState(false);
+
+    const toggleEye = (e) => {
+        setEyeActive(!eyeActive);
+    };
+
     return (
         <div className='field'>
             <label className='field__label' htmlFor='password'>
@@ -16,11 +22,16 @@ const FieldPassword = () => {
                     name='password'
                     placeholder='Введите пароль...'
                     required
-                    maxLength={"8"}
-                    minLength={"8"}
+                    maxLength={16}
+                    minLength={3}
                 />
                 <span className='field__info-text'>Поле для вывода ошибки</span>
-                <span className='field__icon-eye' aria-label='Скрыть/Отобразить пароль'></span>
+                <span
+                    className='field__icon-eye'
+                    aria-label='Скрыть/Отобразить пароль'
+                    onClick={toggleEye}
+                >
+                </span>
             </div>
         </div>
     );
