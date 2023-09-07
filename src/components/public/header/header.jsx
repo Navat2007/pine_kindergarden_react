@@ -5,7 +5,7 @@ import Logo from "../logo/logo";
 
 const Header = () => {
     return (
-        <header className='header section section_type_fixed'>
+        <header className='header main-section section_type_fixed'>
             <div className='header__inner'>
                 <Logo place={"header"} />
                 <Menu place={"header"} />

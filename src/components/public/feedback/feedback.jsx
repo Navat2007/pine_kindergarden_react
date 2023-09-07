@@ -3,7 +3,7 @@ import "./feedback.scss";
 
 const Feedback = () => {
     return (
-        <section className='feedback section section_type_fixed'>
+        <section className='feedback main-section section_type_fixed'>
             <div className='feedback__inner'>
                 <div className='feedback__description'>
                     <p className='feedback__description-text'>

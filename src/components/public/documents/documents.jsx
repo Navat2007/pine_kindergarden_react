@@ -7,10 +7,10 @@ import Docs_d41 from "../../../documents/d41.pdf";
 
 const Documents = () => {
     return (
-        <section className='documents section'>
+        <section className='documents main-section'>
             <h2 className='documents__title'>Документы</h2>
             <ul className='documents__list'>
-                <li className='documents__item section'>
+                <li className='documents__item main-section'>
                     <img
                         className='documents__item-image'
                         src={Image_samo}
@@ -29,7 +29,7 @@ const Documents = () => {
                         </a>
                     </div>
                 </li>
-                <li className='documents__item section'>
+                <li className='documents__item main-section'>
                     <img className='documents__item-image' src={Image_d41} alt='Изображение документа Приказ' />
                     <div className='documents__item-section'>
                         <h3 className='documents__item-title'>Приказ</h3>
