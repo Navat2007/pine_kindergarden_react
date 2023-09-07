@@ -9,8 +9,9 @@ import "./menu.scss";
 const Menu = ({ place }) => {
 
     const node = React.useRef();
+    const button = React.useRef();
 
-    useOnClickOutside(node, () => {
+    useOnClickOutside([node, button], (e) => {
         if (burgerOpened) {
             setBurgerOpened(!burgerOpened);
         }
@@ -86,12 +87,11 @@ const Menu = ({ place }) => {
             {
                 place === "header" &&
                 <button
+                    ref={button}
                     type='button'
                     className={`burger${burgerOpened ? " burger_opened" : ""}`}
                     aria-label='Свернуть/Развернуть меню'
                     onClick={(e) => {
-                        console.log("click");
-                        e.stopPropagation();
                         setBurgerOpened(!burgerOpened);
                     }}
                 >
