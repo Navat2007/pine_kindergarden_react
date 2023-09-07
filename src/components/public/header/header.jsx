@@ -11,9 +11,6 @@ const Header = () => {
             <div className='header__inner'>
                 <Logo place={"header"} />
                 <Menu place={"header"} />
-                <button type='button' className='burger' aria-label='Свернуть/Развернуть меню'>
-                    <div></div>
-                </button>
             </div>
         </header>
     );
