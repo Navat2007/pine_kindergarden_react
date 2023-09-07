@@ -17,7 +17,7 @@ const FieldPassword = () => {
                 <input
                     className='field__input'
                     id='password'
-                    type='password'
+                    type={`${eyeActive ? "text" : "password"}`}
                     autoComplete='password'
                     name='password'
                     placeholder='Введите пароль...'
@@ -27,7 +27,7 @@ const FieldPassword = () => {
                 />
                 <span className='field__info-text'>Поле для вывода ошибки</span>
                 <span
-                    className='field__icon-eye field__icon-eye_active'
+                    className={`field__icon-eye${eyeActive ? " field__icon-eye_active" : ""}`}
                     aria-label='Скрыть/Отобразить пароль'
                     onClick={toggleEye}
                 >
