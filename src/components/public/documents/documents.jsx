@@ -1,5 +1,7 @@
 import React from "react";
+
 import "./documents.scss";
+
 import Image_samo from "../../../images/documents/samo_preview.jpg";
 import Docs_samo from "../../../documents/samo.pdf";
 import Image_d41 from "../../../images/documents/d41_preview.jpg";
