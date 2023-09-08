@@ -27,7 +27,11 @@ const Menu = ({ place }) => {
                         <li>
                             <NavLink
                                 to={"/lessons/"}
-                                className={"menu__link"}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? `menu__link menu__link_active`
+                                        : `menu__link`
+                                }
                                 aria-label={"Занятия"}
                             >
                                 Занятия
@@ -36,7 +40,11 @@ const Menu = ({ place }) => {
                         <li>
                             <NavLink
                                 to={"/documents/"}
-                                className={"menu__link"}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? `menu__link menu__link_active`
+                                        : `menu__link`
+                                }
                                 aria-label={"Документы"}
                             >
                                 Документы
@@ -45,7 +53,11 @@ const Menu = ({ place }) => {
                         <li>
                             <NavLink
                                 to={"/teachers/"}
-                                className={"menu__link"}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? `menu__link menu__link_active`
+                                        : `menu__link`
+                                }
                                 aria-label={"Педагоги"}
                             >
                                 Педагоги
@@ -57,7 +69,11 @@ const Menu = ({ place }) => {
                         <li>
                             <NavLink
                                 to={"/food/"}
-                                className={"menu__link"}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? `menu__link menu__link_active`
+                                        : `menu__link`
+                                }
                                 aria-label={"Питание"}
                             >
                                 Питание
@@ -66,7 +82,11 @@ const Menu = ({ place }) => {
                         <li>
                             <NavLink
                                 to={"/mode/"}
-                                className={"menu__link"}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? `menu__link menu__link_active`
+                                        : `menu__link`
+                                }
                                 aria-label={"Режим"}
                             >
                                 Режим
@@ -75,7 +95,11 @@ const Menu = ({ place }) => {
                         <li>
                             <NavLink
                                 to={"/about/"}
-                                className={"menu__link"}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? `menu__link menu__link_active`
+                                        : `menu__link`
+                                }
                                 aria-label={"О нас"}
                             >
                                 О&nbsp;нас
