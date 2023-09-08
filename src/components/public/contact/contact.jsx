@@ -18,7 +18,9 @@ const Contact = () => {
                     >
                         <Placemark
                             geometry={[55.762373, 37.607898]}
-                            properties={{iconContent: "Детский сад СОСНЫ"}}
+                            properties={{
+                                iconContent: "Детский сад СОСНЫ",
+                            }}
                             options={{preset: 'islands#redStretchyIcon',}}
                         />
                     </Map>
@@ -29,12 +31,12 @@ const Contact = () => {
                 <address className='contact__address'>
                     Адрес:&nbsp;город&nbsp;Москва, улица&nbsp;Тверская, дом&nbsp;15 <br/>
                     Телефон:{" "}
-                    <a className='contact__link' href='tel:84951111111' rel='noopener nofollow noreferer'>
+                    <a className='contact__link' target={'_blank'} href='tel:84951111111' rel='noopener nofollow noreferer'>
                         +7&nbsp;(495)&nbsp;111-11-11
                     </a>
                     <br/>
                     E-mail:&nbsp;
-                    <a className='contact__link' href='mailto:kindergarden@forest.ru' rel='noopener nofollow noreferer'>
+                    <a className='contact__link' target={'_blank'} href='mailto:kindergarden@forest.ru' rel='noopener nofollow noreferer'>
                         kindergarden@forest.ru
                     </a>
                 </address>
