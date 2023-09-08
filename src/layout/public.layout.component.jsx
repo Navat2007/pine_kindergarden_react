@@ -5,6 +5,7 @@ import Header from "../components/public/header/header";
 import Footer from "../components/public/footer/footer";
 
 import "../styles/public.layout.scss";
+import {Helmet} from "react-helmet";
 
 const PublicLayout = () => {
     // Появление секций при загрузке
