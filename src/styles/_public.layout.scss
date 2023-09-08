@@ -77,16 +77,20 @@
 }
 
 .main-section {
-    // opacity: 0;
-    // transform: translate3d(0, 1.5em, 0);
+    opacity: 0;
+    transform: translate3d(0, 1.5em, 0);
 
-    // &_type_fixed {
-    // transform: translate3d(0, 0, 0);
-    // }
+    &_type_fixed {
+        transform: translate3d(0, 0, 0);
+    }
     &_showed {
         opacity: 1;
         transition: 1s ease-in-out;
         transition-property: opacity, transform;
         transform: translate3d(0, 0, 0);
     }
+}
+
+.main-wrapper {
+    @extend %main-width;
 }

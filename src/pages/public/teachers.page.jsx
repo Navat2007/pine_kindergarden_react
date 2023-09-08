@@ -1,9 +1,13 @@
 import React from "react";
+import Feedback from "../../components/public/feedback/feedback";
 
 const TeachersPage = () => {
     return (
         <>
-            <h1>Ведутся работы...</h1>
+            <section className='main-section main-wrapper'>
+                <h1>Ведутся работы...</h1>
+            </section>
+            <Feedback />
         </>
     );
 };
