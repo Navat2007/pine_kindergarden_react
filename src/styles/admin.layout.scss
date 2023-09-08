@@ -19,12 +19,6 @@
     display: flex;
     min-block-size: 100vb;
     background-color: #f5f6f8;
-
-    &__asside {
-        z-index: 1;
-        background-color: #fff;
-        box-shadow: 6px 0px 18px 0px rgba(0, 0, 0, 0.06);
-    }
     &__main {
         flex: auto;
     }

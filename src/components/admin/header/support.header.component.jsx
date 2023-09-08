@@ -10,6 +10,7 @@ import useAuthStore from "../../../store/authStore";
 import Notif from "../../general/notif/notif.component";
 
 import "./support.scss";
+import { AdminIcons } from "../../svgs";
 
 const SupportHeaderComponent = () => {
     const { user } = useAuthStore();
@@ -41,7 +42,13 @@ const SupportHeaderComponent = () => {
 
     return (
         <>
-            <Button type='button' aria-label='Задать вопрос' onClick={() => setPopupOpened(true)}>
+            <Button
+                type='button'
+                iconName={AdminIcons.question}
+                aria-label='Задать вопрос'
+                extraClass='support-button'
+                onClick={() => setPopupOpened(true)}
+            >
                 Поддержка
             </Button>
             <Popup
