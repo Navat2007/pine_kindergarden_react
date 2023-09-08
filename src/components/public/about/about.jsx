@@ -1,4 +1,9 @@
 import React from "react";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { NavLink, useParams } from "react-router-dom";
+
+import useTeachersStore from "../../../store/public/teachersStore";
+
 import "./about.scss";
 import about__image from "../../../images/about__image.jpg";
 import about__card_1 from "../../../images/about__card_1.jpg";
@@ -95,64 +100,67 @@ const About = () => {
             </section>
             <section className='about about_contain_inner main-section'>
                 <h2 className='about__title'>Наша команда</h2>
-                <div className='splide about__slider' id='person-slider'>
-                    <div className='splide__track about__slider-track'>
-                        <ul className='splide__list'>
-                            <li className='splide__slide'>
-                                <div className='slider-card'>
-                                    <img
-                                        className='slider-card__image'
-                                        src={person_1}
-                                        alt='Фотография Анна Ивановна Иванова'
-                                    />
-                                    <h3 className='slider-card__title'>
-                                        Анна Ивановна Иванова <br />
-                                        Заведующая детского сада СОСНЫ
-                                    </h3>
-                                </div>
-                            </li>
-                            <li className='splide__slide'>
-                                <div className='slider-card'>
-                                    <img
-                                        className='slider-card__image'
-                                        src={person_2}
-                                        alt='Фотография Инга Марковна Шелест'
-                                    />
-                                    <h3 className='slider-card__title'>
-                                        Инга Марковна Шелест <br />
-                                        Преподаватель по английскому языку
-                                    </h3>
-                                </div>
-                            </li>
-                            <li className='splide__slide'>
-                                <div className='slider-card'>
-                                    <img
-                                        className='slider-card__image'
-                                        src={person_3}
-                                        alt='Фотография Игорь Петрович Михалев'
-                                    />
-                                    <h3 className='slider-card__title'>
-                                        Игорь Петрович Михалев <br />
-                                        Преподаветель по шахматам
-                                    </h3>
-                                </div>
-                            </li>
-                            <li className='splide__slide'>
-                                <div className='slider-card'>
-                                    <img
-                                        className='slider-card__image'
-                                        src={person_4}
-                                        alt='Фотография Инна Федоровна Осипова'
-                                    />
-                                    <h3 className='slider-card__title'>
-                                        Инна Федоровна Осипова <br />
-                                        Логопед
-                                    </h3>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <Splide
+                    className='splide about__slider'
+                    options={{
+                        // type: "loop",
+                        arrows: false,
+                        perPage: 1,
+                        perMove: 1,
+                        cover: true,
+                        height: "12.5em",
+                        gap: "1.25em",
+                        rewind: true,
+                        pauseOnHover: true,
+                        autoplay: true,
+                        mediaQuery: "min",
+                        breakpoints: {
+                            768: {
+                                perPage: 2,
+                            },
+                            1024: {
+                                perPage: 4,
+                            },
+                        },
+                    }}
+                >
+                    <SplideSlide
+                        data-splide-interval='5000'
+                        onClick={() => {}}
+                    >
+                        <img
+                            src={person_1}
+                            alt='Фотография Анна Ивановна Иванова'
+                        />
+                    </SplideSlide>
+                    <SplideSlide
+                        data-splide-interval='5000'
+                        onClick={() => {}}
+                    >
+                        <img
+                            src={person_2}
+                            alt='Фотография Инга Марковна Шелест'
+                        />
+                    </SplideSlide>
+                    <SplideSlide
+                        data-splide-interval='5000'
+                        onClick={() => {}}
+                    >
+                        <img
+                            src={person_3}
+                            alt='Фотография Игорь Петрович Михалев'
+                        />
+                    </SplideSlide>
+                    <SplideSlide
+                        data-splide-interval='5000'
+                        onClick={() => {}}
+                    >
+                        <img
+                            src={person_4}
+                            alt='Фотография Инна Федоровна Осипова'
+                        />
+                    </SplideSlide>
+                </Splide>
             </section>
         </>
     );
