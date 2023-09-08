@@ -107,7 +107,8 @@
             animation-iteration-count: infinite;
         }
 
-        &:hover::before {
+        &:hover::before,
+        &:focus-visible::before {
             top: 0;
             bottom: -150%;
         }
@@ -185,9 +186,9 @@
             font-family: var(--font-headings);
             cursor: pointer;
         }
-        input {
-            // @extend %reset-checkbox;
-        }
+        // input {
+        //     @extend %reset-checkbox;
+        // }
     }
     &__button {
         @extend %reset-btn;
@@ -203,15 +204,16 @@
         min-height: min(6vmax, 3em);
         transition: 0.35s ease-out;
 
+        margin-left: auto;
+
         &:disabled {
             pointer-events: none;
             background-color: #e1e1e1;
         }
 
-        &:hover {
+        &:hover,
+        &:focus-visible {
             background-color: var(--primary);
         }
-
-        margin-left: auto;
     }
 }

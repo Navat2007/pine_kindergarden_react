@@ -42,7 +42,8 @@
         border-radius: 5px;
 
         &:focus-visible {
-            outline: 1px solid var(--primary);
+            background-color: white;
+            outline: 1px solid var(--dark-low);
         }
     }
     &__label {
