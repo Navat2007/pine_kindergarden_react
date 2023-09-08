@@ -123,6 +123,10 @@
             color: var(--primary);
         }
 
+        &_active {
+            color: var(--primary);
+        }
+
         @include media(xs, max) {
             font-size: 1.5em;
         }
