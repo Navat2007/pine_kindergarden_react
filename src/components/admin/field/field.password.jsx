@@ -17,6 +17,7 @@ const FieldPassword = ({errorText, required = false, ...rest}, ref) => {
             <div className='field__inner'>
                 <input
                     className='field__input'
+                    id='password'
                     type={`${eyeActive ? "text" : "password"}`}
                     ref={ref}
                     autoComplete='password'

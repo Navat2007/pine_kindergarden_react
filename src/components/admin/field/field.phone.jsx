@@ -5,13 +5,14 @@ import "./field.scss";
 const FieldEmail = ({errorText, required = false, ...rest}, ref) => {
     return (
         <div className={`field${errorText ? " field_state_error" : ""}`}>
-            <label className='field__label' htmlFor='email'>
-                E-mail
+            <label className='field__label' htmlFor='phone'>
+                Телефон
             </label>
             <div className='field__inner'>
                 <input
                     ref={ref}
                     className='field__input'
+                    id='phone'
                     type='phone'
                     autoComplete='phone'
                     name='phone'

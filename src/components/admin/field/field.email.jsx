@@ -12,6 +12,7 @@ const FieldEmail = ({errorText, required = false, ...rest}, ref) => {
                 <input
                     ref={ref}
                     className='field__input'
+                    id='email'
                     type='email'
                     autoComplete='email'
                     name='email'
