@@ -41,15 +41,9 @@ const SupportHeaderComponent = () => {
 
     return (
         <>
-            <Button
-                type='button'
-                theme='outline'
-                iconClass='mdi mdi-help'
-                extraClass='{styles.support}'
-                aria-label='Задать вопрос'
-                text='Поддержка'
-                onClick={() => setPopupOpened(true)}
-            />
+            <Button type='button' aria-label='Задать вопрос' onClick={() => setPopupOpened(true)}>
+                Поддержка
+            </Button>
             <Popup
                 title={"Отправить запрос в поддержку?"}
                 opened={popupOpened}

@@ -6,8 +6,89 @@
     flex-direction: column;
     gap: 2em;
     width: var(--menu-width);
+    transition: width 0.5s ease;
     block-size: 100vb;
-    overflow-y: hidden;
+    // overflow-y: hidden;
+
+    @include media(xs, max) {
+        position: fixed;
+        inset: 0;
+        @include box(100%);
+        z-index: 1001;
+        // background-color: transparent;
+        // transition: background-color 0.35s ease-in-out;
+        // pointer-events: none;
+        // user-select: none;
+
+        &_opened {
+            background-color: rgba($color: black, $alpha: 0.54);
+            pointer-events: unset;
+            user-select: unset;
+
+            .admin-menu__nav {
+                transform: translateX(0);
+            }
+        }
+
+        .admin-menu__nav {
+            width: 17em;
+
+            box-shadow: 0 0 15px rgba($color: black, $alpha: 0.15);
+            transition: transform 0.35s ease-in-out;
+            transform: translateX(-120%);
+        }
+
+        .admin-menu__back {
+            display: block;
+
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            @include box(100%);
+        }
+
+        .button {
+            display: none;
+        }
+    }
+
+    @include media(sm) {
+        &_size_sm {
+            .admin-menu__list {
+                align-items: center;
+            }
+
+            .admin-menu__link {
+                gap: 0;
+            }
+
+            .admin-menu__link-text {
+                height: 0;
+                width: 0;
+                visibility: hidden;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .admin-menu__button .button__icon {
+                transform: rotate(-90deg);
+            }
+        }
+
+        &_size_md {
+            .admin-menu__link {
+                flex-direction: column;
+                text-align: center;
+                padding: 0.5em;
+                gap: 0.25em;
+            }
+
+            .admin-menu__link-text {
+                max-width: 6rem;
+                font-size: 0.75em;
+            }
+        }
+    }
 
     &__nav {
         flex: auto;
@@ -26,9 +107,9 @@
         display: flex;
         gap: 0.875em;
         align-items: center;
-        padding: .675em 1.5em;
+        padding: 0.675em 1.5em;
         cursor: pointer;
-        // transition: color 0.25s ease-in-out;
+        transition: color 0.25s ease-in-out;
 
         &_active {
             cursor: default;
@@ -41,11 +122,12 @@
     }
 
     &__link-icon {
+        flex: none;
         @include box(1.5em);
         object-position: center;
         object-fit: contain;
         color: currentColor;
-        // transition: color 0.25s ease-in-out;
+        transition: color 0.25s ease-in-out;
     }
 
     &__link-text {
@@ -53,9 +135,11 @@
         flex: auto;
         font-weight: 500;
         letter-spacing: 0.13px;
+        transition: opacity 0.25s ease-in-out;
     }
 
     &__button {
+        border-radius: 0;
         padding-block-start: 0.25em;
         padding-block-end: 0.25em;
         .button__icon {
@@ -69,86 +153,3 @@
         display: none;
     }
 }
-
-// @include media(sm, max) {
-//     .menu {
-//         padding: 0;
-//         @include box(100%);
-//         z-index: 1001;
-//         background-color: transparent;
-//         transition: background-color 0.35s ease-in-out;
-//         pointer-events: none;
-//         user-select: none;
-
-//         &_opened {
-//             background-color: rgba($color: black, $alpha: 0.54);
-//             pointer-events: unset;
-//             user-select: unset;
-
-//             .container {
-//                 transform: translateX(0);
-//             }
-//         }
-
-//         // .logo {
-//         //     display: unset;
-//         // }
-//     }
-
-//     .container {
-//         width: 17em;
-
-//         box-shadow: 0 0 15px rgba($color: black, $alpha: 0.15);
-//         transition: transform 0.35s ease-in-out;
-//         transform: translateX(-120%);
-//     }
-
-//     .back {
-//         display: block;
-
-//         position: absolute;
-//         top: 0;
-//         left: 0;
-//         z-index: -1;
-//         @include box(100%);
-//     }
-
-//     .button {
-//         display: none;
-//     }
-// }
-
-// @include media(sm) {
-//     .menu {
-//         &_size_sm {
-//             .list {
-//                 align-items: center;
-//             }
-//             .link {
-//                 padding: 0.5em;
-//             }
-
-//             .text {
-//                 display: none;
-//             }
-
-//             .button span:first-child {
-//                 transform: scale(-1, 1);
-//             }
-//         }
-
-//         &_size_md {
-//             .link {
-//                 flex-direction: column;
-//                 text-align: center;
-//                 padding: 0.5em;
-//                 gap: 0.25em;
-//             }
-
-//             .text {
-//                 max-width: 6rem;
-//                 font-size: 0.75em;
-//             }
-//         }
-//     }
-// }
