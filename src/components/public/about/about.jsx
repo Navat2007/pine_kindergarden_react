@@ -89,11 +89,7 @@ const About = () => {
                         <h3 className='about__card-title'>Старшая группа</h3>
                     </li>
                     <li className='about__card'>
-                        <img
-                            className='about__card-image'
-                            src={about__card_4}
-                            alt='Малыш строит домик из кубиков'
-                        />
+                        <img className='about__card-image' src={about__card_4} alt='Малыш строит домик из кубиков' />
                         <h3 className='about__card-title'>Подготовительная группа</h3>
                     </li>
                 </ul>
@@ -103,62 +99,66 @@ const About = () => {
                 <Splide
                     className='splide about__slider'
                     options={{
-                        // type: "loop",
-                        arrows: false,
-                        perPage: 1,
-                        perMove: 1,
-                        cover: true,
-                        height: "12.5em",
-                        gap: "1.25em",
+                        type: "loop",
                         rewind: true,
-                        pauseOnHover: true,
+                        pagination: false,
+                        arrows: true,
+                        arrowPath:
+                            "M8.152 35.878a.5.5 0 0 1 .147-.691l22.212-14.438L8.3 6.31a.5.5 0 1 1 .545-.839L31.701 20.33a.5.5 0 0 1 0 .839L8.844 36.025a.5.5 0 0 1-.692-.147Z",
                         autoplay: true,
-                        mediaQuery: "min",
+                        // padding: 15,
+                        perPage: 4,
+                        perMove: 1,
+                        gap: "min(3.25vmax, 1.875em)",
                         breakpoints: {
+                            576: {
+                                arrows: false,
+                                perPage: 1,
+                            },
                             768: {
                                 perPage: 2,
                             },
                             1024: {
-                                perPage: 4,
+                                perPage: 3,
                             },
                         },
                     }}
                 >
-                    <SplideSlide
-                        data-splide-interval='5000'
-                        onClick={() => {}}
-                    >
-                        <img
-                            src={person_1}
-                            alt='Фотография Анна Ивановна Иванова'
-                        />
+                    <SplideSlide data-splide-interval='5000' onClick={() => {}}>
+                        <div className='slider-card'>
+                            <img className='slider-card__image' src={person_1} alt='Фотография Анна Ивановна Иванова' />
+                            <h3 className='slider-card__title'>
+                                Анна Ивановна Иванова <br />
+                                Заведующая детского сада СОСНЫ
+                            </h3>
+                        </div>
                     </SplideSlide>
-                    <SplideSlide
-                        data-splide-interval='5000'
-                        onClick={() => {}}
-                    >
-                        <img
-                            src={person_2}
-                            alt='Фотография Инга Марковна Шелест'
-                        />
+                    <SplideSlide data-splide-interval='5000' onClick={() => {}}>
+                        <div className='slider-card'>
+                            <img className='slider-card__image' src={person_2} alt='Фотография Инга Марковна Шелест' />
+                            <h3 className='slider-card__title'>
+                                Инга Марковна Шелест <br />
+                                Преподаватель по английскому языку
+                            </h3>
+                        </div>
                     </SplideSlide>
-                    <SplideSlide
-                        data-splide-interval='5000'
-                        onClick={() => {}}
-                    >
-                        <img
-                            src={person_3}
-                            alt='Фотография Игорь Петрович Михалев'
-                        />
+                    <SplideSlide data-splide-interval='5000' onClick={() => {}}>
+                        <div className='slider-card'>
+                            <img className='slider-card__image' src={person_3} alt='Фотография Игорь Петрович Михалев' />
+                            <h3 className='slider-card__title'>
+                                Игорь Петрович Михалев <br />
+                                Преподаветель по шахматам
+                            </h3>
+                        </div>
                     </SplideSlide>
-                    <SplideSlide
-                        data-splide-interval='5000'
-                        onClick={() => {}}
-                    >
-                        <img
-                            src={person_4}
-                            alt='Фотография Инна Федоровна Осипова'
-                        />
+                    <SplideSlide data-splide-interval='5000' onClick={() => {}}>
+                        <div className='slider-card'>
+                            <img className='slider-card__image' src={person_4} alt='Фотография Инна Федоровна Осипова' />
+                            <h3 className='slider-card__title'>
+                                Инна Федоровна Осипова <br />
+                                Логопед
+                            </h3>
+                        </div>
                     </SplideSlide>
                 </Splide>
             </section>
