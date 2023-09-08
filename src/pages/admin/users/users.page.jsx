@@ -8,6 +8,7 @@ import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
 import Table from "../../../components/general/table/table.component";
 import Button from "../../../components/general/button/button.component";
+import {Helmet} from "react-helmet";
 
 const UsersPage = () => {
     const { user } = useAuthStore();
@@ -137,47 +138,26 @@ const UsersPage = () => {
 
     return (
         <>
-            <Tabs>
-                <Tab title={"Администраторы"}>
-                    <Table
-                        title={"Таблица администраторов администратора" + user.ID}
-                        loading={loading.admins}
-                        items={admins}
-                        itemsConfig={adminItemsConfig}
-                        onItemClick={onAdminItemClick}
-                        withFilter={true}
-                    >
-                        <Button
-                            type="button"
-                            iconClass={"mdi mdi-plus"}
-                            text="Создать"
-                            size="small"
-                            aria-label="Создать администратора"
-                            onClick={() => navigate("/admin/users/admin/new")}
-                        />
-                    </Table>
-                </Tab>
-                <Tab title={"Пользователи"}>
-                    <Table
-                        title={"Таблица пользователей администратора" + user.ID}
-                        loading={loading.users}
-                        items={users}
-                        itemsConfig={userItemsConfig}
-                        pageSize={10}
-                        onItemClick={onUserItemClick}
-                        withFilter={true}
-                    >
-                        <Button
-                            type="button"
-                            iconClass={"mdi mdi-plus"}
-                            text="Создать"
-                            size="small"
-                            aria-label="Создать пользователя"
-                            onClick={() => navigate("/admin/users/user/new")}
-                        />
-                    </Table>
-                </Tab>
-            </Tabs>
+            <Helmet>
+                <title>Административный раздел. Пользователи</title>
+            </Helmet>
+            <Table
+                title={"Таблица пользователи" + user.ID}
+                loading={loading.admins}
+                items={admins}
+                itemsConfig={adminItemsConfig}
+                onItemClick={onAdminItemClick}
+                withFilter={true}
+            >
+                <Button
+                    type="button"
+                    iconClass={"mdi mdi-plus"}
+                    text="Создать"
+                    size="small"
+                    aria-label="Создать пользователя"
+                    onClick={() => navigate("/admin/users/admin/new")}
+                />
+            </Table>
         </>
     );
 };

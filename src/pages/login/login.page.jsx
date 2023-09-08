@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 import useAuthStore from "../../store/authStore";
 
@@ -26,6 +27,9 @@ const LoginPage = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Авторизация</title>
+            </Helmet>
             <main className='auth-form'>
                 <form className='auth-form__form' onSubmit={handleSubmit(onSubmit)}>
                     <Logo place={`auth-form`} />
