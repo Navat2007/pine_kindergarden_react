@@ -4,11 +4,12 @@ import {Link, useNavigate} from "react-router-dom";
 
 import useAuthStore from "../../store/authStore";
 
-import "./login.scss";
 import Logo from "../../components/public/logo/logo";
+import Button from "../../components/admin/button/button";
 import FieldEmail from "../../components/admin/field/field.email";
 import FieldPassword from "../../components/admin/field/field.password";
-import Button from "../../components/admin/button/button";
+
+import "./login.scss";
 
 const LoginPage = () => {
     const {login, loading, error, errorText} = useAuthStore();

@@ -6,7 +6,6 @@ import styles from "../../general/button/button.module.scss";
 
 const Button = ({type = "submit", text, spinnerActive = false, ...rest}) => {
     return (
-
         <motion.button
             className='button'
             whileTap={{scale: 0.97}}
