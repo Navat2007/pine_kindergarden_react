@@ -16,6 +16,7 @@ body {
     min-block-size: 100vb;
 }
 
+menu,
 picture {
     margin: 0;
     padding: 0;

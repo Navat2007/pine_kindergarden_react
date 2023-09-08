@@ -1,6 +1,5 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { EventIcons } from "../../svgs.js";
 import styles from "./tabs.module.scss";
 
 const Tabs = ({ extraClass, theme, children }) => {
@@ -45,7 +44,6 @@ const Tabs = ({ extraClass, theme, children }) => {
                                 aria-label="Благославенная талия"
                                 title="Благославенная талия"
                             >
-                                {EventIcons[child.props.event]}
                             </span>
                         )}
                     </li>
