@@ -10,6 +10,7 @@ import FieldEmail from "../../components/admin/field/field.email";
 import FieldPassword from "../../components/admin/field/field.password";
 
 import "./login.scss";
+import {Helmet} from "react-helmet";
 
 const LoginPage = () => {
     const { login, loading, error, errorText } = useAuthStore();
@@ -26,6 +27,9 @@ const LoginPage = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Авторизация</title>
+            </Helmet>
             <main className='auth-form'>
                 <form className='auth-form__form' onSubmit={handleSubmit(onSubmit)}>
                     <Logo place={`auth-form`} />

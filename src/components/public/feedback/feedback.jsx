@@ -1,7 +1,20 @@
 import React from "react";
+
+import { useForm } from "react-hook-form";
+
 import "./feedback.scss";
 
 const Feedback = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    const onSubmit = async (data) => {
+
+    };
+
     return (
         <section className='feedback main-section section_type_fixed'>
             <div className='feedback__inner'>
@@ -14,7 +27,7 @@ const Feedback = () => {
                         <span>Записаться</span>
                     </button>
                 </div>
-                <form className='feedback__form' name='feedback'>
+                <form className='feedback__form' onSubmit={handleSubmit(onSubmit)}>
                     <h2 className='feedback__title'>Закажите обратный звонок</h2>
                     <input
                         id='phone'
@@ -32,7 +45,7 @@ const Feedback = () => {
                         rows='4'
                         name='message'
                         placeholder='Ваше сообщение'
-                    ></textarea>
+                    />
                     <div className='feedback__checkbox-box'>
                         <input type='checkbox' id='privacy' required />
                         <label htmlFor='privacy'>Я согласен на обработку моих данных</label>
