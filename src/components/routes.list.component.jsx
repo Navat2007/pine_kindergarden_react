@@ -64,31 +64,7 @@ const RoutesList = () => {
         </Route>
     );
 
-    React.useEffect(() => {
-        console.log(user);
-    }, [user]);
-
-    if (user && (user.role === "admin" || user.role === "superadmin")) {
-        return (
-            <Routes>
-                <Route path='/admin' element={<AdminLayout/>}>
-                    <Route path='users'>
-                        <Route index element={<UsersPage/>}/>
-                        <Route path='admin/:id' element={<AdminUsersPage/>}/>
-                        <Route path='admin/new' element={<AdminUsersPage/>}/>
-                    </Route>
-                </Route>
-                <Route path='/profile' exact={true} element={<AdminLayout/>}>
-                    <Route index element={<ProfilePage/>}/>
-                </Route>
-                <Route path='/login' exact={true} element={<Navigate to='/admin/users'/>}/>
-                {publicRoutes}
-                <Route path='*' element={<Page404/>}/>
-            </Routes>
-        );
-    }
-
-    return (
+    const adminRoutes = (
         <Routes>
             <Route path='/admin' element={<AdminLayout/>}>
                 <Route path='users'>
@@ -100,6 +76,22 @@ const RoutesList = () => {
             <Route path='/profile' exact={true} element={<AdminLayout/>}>
                 <Route index element={<ProfilePage/>}/>
             </Route>
+            <Route path='/login' exact={true} element={<Navigate to='/admin/users'/>}/>
+            {publicRoutes}
+            <Route path='*' element={<Page404/>}/>
+        </Routes>
+    );
+
+    React.useEffect(() => {
+        console.log(user);
+    }, [user]);
+
+    if (user && (user.role === "admin" || user.role === "superadmin")) {
+        return adminRoutes;
+    }
+
+    return (
+        <Routes>
             {publicRoutes}
             <Route path="/login" exact={true} element={<LoginPage/>}/>
             <Route path="*" element={<Navigate to='/'/>}/>
