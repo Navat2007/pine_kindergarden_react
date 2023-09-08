@@ -1,7 +1,8 @@
 import React from "react";
+import {Helmet} from "react-helmet";
+
 import Feedback from "../../components/public/feedback/feedback";
 import Construction from "../../components/public/cunstruction/construction";
-import {Helmet} from "react-helmet";
 
 const TeachersPage = () => {
     return (

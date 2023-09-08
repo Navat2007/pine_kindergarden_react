@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 import useAuthStore from "../../store/authStore";
 
@@ -10,7 +11,6 @@ import FieldEmail from "../../components/admin/field/field.email";
 import FieldPassword from "../../components/admin/field/field.password";
 
 import "./login.scss";
-import {Helmet} from "react-helmet";
 
 const LoginPage = () => {
     const { login, loading, error, errorText } = useAuthStore();
