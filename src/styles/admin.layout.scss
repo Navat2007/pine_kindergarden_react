@@ -1,0 +1,16 @@
+@import "../styles/mixins";
+@import "../styles/extends";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+    --main-font-family: "Poppins", sans-serif;
+
+    --dark: #323c47;
+    --dark-low: #707683;
+    --primary: rgb(16, 156, 241);
+    --primary-opacity: 16, 156, 241;
+
+    --eror-color: #f7685b;
+    --alert-color: #ffb946;
+    --success-color: #2ed47a;
+}

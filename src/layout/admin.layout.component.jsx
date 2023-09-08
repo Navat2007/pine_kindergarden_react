@@ -6,7 +6,8 @@ import Menu from "../components/general/menu/menu.component";
 import SupportHeaderComponent from "../components/general/header/support.header.component";
 import ProfileHeader from "../components/general/header/profile.header.component";
 import { MenuIcons } from "../components/svgs.js";
-import styles from "./admin.module.scss";
+
+import "../styles/admin.layout.scss";
 
 const AdminLayout = () => {
     const [burgerOpened, setBurgerOpened] = React.useState(false);
@@ -28,17 +29,13 @@ const AdminLayout = () => {
     };
 
     return (
-        <div className={styles.content}>
+        <div>
             <Header handleBurger={handleBurgerMenu}>
                 <SupportHeaderComponent />
                 <ProfileHeader />
             </Header>
-            <Menu
-                menu={menu}
-                burgerOpened={burgerOpened}
-                setBurgerOpened={handleBurgerMenu}
-            />
-            <main className={styles.main}>
+            <Menu menu={menu} burgerOpened={burgerOpened} setBurgerOpened={handleBurgerMenu} />
+            <main>
                 <Outlet />
             </main>
         </div>
