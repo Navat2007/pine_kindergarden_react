@@ -10,6 +10,7 @@ const HeaderComponent = ({ children, handleBurger }) => {
             <Button
                 type='button'
                 iconBtn
+                extraClass="admin-header__burger"
                 iconName={AdminIcons.menu}
                 aria-label='Открыть/Закрыть меню'
                 onClick={handleBurger}

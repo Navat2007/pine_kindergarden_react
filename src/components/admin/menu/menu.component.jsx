@@ -52,36 +52,7 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
     return (
         <>
             <menu className={`admin-menu ${burgerOpened && "admin-menu_opened"} ${menuSizeClass}`}>
-                <Logo place={"admin-menu"} />
-                <nav className='admin-menu__nav'>
-                    <ul className='admin-menu__list'>
-                        {menu.map((item) => (
-                            <li className='admin-menu__item' key={item.title}>
-                                <NavLink
-                                    to={item.link}
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? `admin-menu__link admin-menu__link_active`
-                                            : `admin-menu__link`
-                                    }
-                                    aria-label={item.title}
-                                >
-                                    <span className='admin-menu__link-icon'>{item.icon}</span>
-                                    <p className='admin-menu__link-text'>{item.title}</p>
-                                </NavLink>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
-                <Button
-                    type='button'
-                    iconName={AdminIcons.chevron_down}
-                    extraClass='admin-menu__button'
-                    aria-label='Свернуть/Развернуть меню'
-                    onClick={handleResize}
-                />
-                <div className='admin-menu__back' onClick={setBurgerOpened} />
-                <div className='admin-menu__wrapper'>
+                <div className='admin-menu__inner'>
                     <Logo place={"admin-menu"} />
                     <nav className='admin-menu__nav'>
                         <ul className='admin-menu__list'>
@@ -89,7 +60,9 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                                 <li className='admin-menu__item' key={item.title}>
                                     <NavLink
                                         to={item.link}
-                                        className={`admin-menu__link ${false} && 'admin-menu__link_active'}`}
+                                        className={({ isActive }) =>
+                                            isActive ? `admin-menu__link admin-menu__link_active` : `admin-menu__link`
+                                        }
                                         aria-label={item.title}
                                     >
                                         <span className='admin-menu__link-icon'>{item.icon}</span>
@@ -109,36 +82,6 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                     <div className='admin-menu__back' onClick={setBurgerOpened} />
                 </div>
             </menu>
-            {/* <menu className={"styles.menu" + ` ${burgerOpened ? "styles.menu_opened" : ""} ${menuSizeClass}`}>
-                <div className={"styles.container"}>
-                    <img className={"styles.logo"} src='' alt='Содружество Школьных театров города Москвы' />
-                    <ul className={"styles.list"}>
-                        {menu.map((item) => (
-                            <li key={item.title}>
-                                <NavLink
-                                    to={item.link}
-                                    className={({ isActive }) =>
-                                        isActive ? "styles.link" + ` ` + "styles.link_actived" : "styles.link"
-                                    }
-                                    aria-label={item.title}
-                                >
-                                    <span className={"styles.icon"}>{item.icon}</span>
-                                    <p className={"styles.text"}>{item.title}</p>
-                                </NavLink>
-                            </li>
-                        ))}
-                    </ul>
-                    <Button
-                        type='button'
-                        isIconBtn='true'
-                        iconClass='mdi mdi-chevron-left'
-                        extraClass={"styles.button"}
-                        aria-label='Свернуть/Развернуть меню'
-                        onClick={handleResize}
-                    />
-                </div>
-                <div className={"styles.back"} onClick={setBurgerOpened} />
-            </menu> */}
         </>
     );
 };

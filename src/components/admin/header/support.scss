@@ -1,12 +1,20 @@
 @import "../../../styles/mixins";
 @import "../../../styles/extends";
 
-.support {
-  align-self: center;
+.support-button {
+    align-self: center;
+    width: auto;
+
+    display: flex;
+    gap: 0.75em;
+    padding: 0.675em;
+    color: var(--admin-dark);
+    background-color: transparent;
+    outline: 1px solid var(--admin-dark);
 }
 
 @include media(sm, max) {
-  .support {
-    display: none;
-  }
+    .support-button {
+        display: none;
+    }
 }

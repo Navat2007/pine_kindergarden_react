@@ -16,8 +16,6 @@
             pointer-events: unset;
         }
         .menu__inner {
-            box-sizing: border-box;
-
             @include media(md, max) {
                 position: absolute;
                 top: 100%;

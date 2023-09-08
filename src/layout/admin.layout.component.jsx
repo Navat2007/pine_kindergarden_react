@@ -28,9 +28,7 @@ const AdminLayout = () => {
 
     return (
         <div className='app'>
-            <asside className='app__asside'>
-                <Menu menu={menu} burgerOpened={burgerOpened} setBurgerOpened={handleBurgerMenu} />
-            </asside>
+            <Menu menu={menu} burgerOpened={burgerOpened} setBurgerOpened={handleBurgerMenu} />
             <main className='app__main'>
                 <Header handleBurger={handleBurgerMenu}>
                     <SupportHeaderComponent />

@@ -22,18 +22,8 @@ const AdminUsersPage = () => {
         reset,
         formState: { errors },
     } = useForm();
-    const {
-        admin,
-        loadAdmin,
-        addAdmin,
-        editAdmin,
-        removeAdmin,
-        loading,
-        sending,
-        error,
-        errorText,
-        clearErrorText,
-    } = useUsersStore();
+    const { admin, loadAdmin, addAdmin, editAdmin, removeAdmin, loading, sending, error, errorText, clearErrorText } =
+        useUsersStore();
 
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
@@ -72,52 +62,37 @@ const AdminUsersPage = () => {
 
     if (loading.admins) return <p>Загрузка...</p>;
 
-    if (id && (admin === null || admin.role === "Пользователь"))
-        return <p>Данного администратора не существует</p>;
+    if (id && (admin === null || admin.role === "Пользователь")) return <p>Данного администратора не существует</p>;
 
     if (id && admin)
         return (
             <>
                 <div className={commonStyles.title_block}>
                     <Button
-                        type="button"
-                        theme="text"
-                        size="small"
+                        type='button'
+                        theme='text'
+                        size='small'
                         isIconBtn={true}
-                        iconClass="mdi mdi-arrow-left"
-                        aria-label="Назад"
+                        iconClass='mdi mdi-arrow-left'
+                        aria-label='Назад'
                         onClick={() => back()}
                     />
-                    <h1 className={commonStyles.title}>
-                        Редактирование администратора ID: {id}
-                    </h1>
+                    <h1 className={commonStyles.title}>Редактирование администратора ID: {id}</h1>
                 </div>
-                <form
-                    onSubmit={handleSubmit(onEditSubmit)}
-                    className="form"
-                >
-                    <div className="form__container --view-two-columns">
-                        <fieldset className="form__section">
-                            <h2 className="form__title">Основная информация</h2>
+                <form onSubmit={handleSubmit(onEditSubmit)} className='form'>
+                    <div className='form__container --view-two-columns'>
+                        <fieldset className='form__section'>
+                            <h2 className='form__title'>Основная информация</h2>
                             {/* Фото педагога - новый блок со сменой фото */}
-                            <div className="form__multy-block">
-                                <p className="form__label">Фото</p>
-                                <div className="form__profile-img-block">
+                            <div className='form__multy-block'>
+                                <p className='form__label'>Фото</p>
+                                <div className='form__profile-img-block'>
                                     <img
-                                        className="form__profile-img"
-                                        src={
-                                            admin.photo
-                                                ? window.global.baseUrl +
-                                                  admin.photo
-                                                : no_photo_man
-                                        }
-                                        alt={
-                                            admin.photo
-                                                ? admin.photo
-                                                : "Нет фото"
-                                        }
+                                        className='form__profile-img'
+                                        src={admin.photo ? window.global.baseUrl + admin.photo : no_photo_man}
+                                        alt={admin.photo ? admin.photo : "Нет фото"}
                                     />
-                                    <div className="form__profile-img-panel">
+                                    <div className='form__profile-img-panel'>
                                         <Button
                                             size={"smaller"}
                                             theme={"text"}
@@ -140,7 +115,7 @@ const AdminUsersPage = () => {
                             <FieldInput
                                 label={"Логин"}
                                 placeholder={"Введите логин..."}
-                                layout="flex"
+                                layout='flex'
                                 {...register("login", {
                                     value: admin.login,
                                 })}
@@ -148,7 +123,7 @@ const AdminUsersPage = () => {
                             <FieldInput
                                 label={"Email"}
                                 placeholder={"Введите email..."}
-                                layout="flex"
+                                layout='flex'
                                 required={true}
                                 {...register("email", {
                                     value: admin.email,
@@ -157,7 +132,7 @@ const AdminUsersPage = () => {
                             <FieldInput
                                 label={"ФИО"}
                                 placeholder={"Введите фио..."}
-                                layout="flex"
+                                layout='flex'
                                 required={true}
                                 {...register("fio", { value: admin.fio })}
                             />
@@ -165,7 +140,7 @@ const AdminUsersPage = () => {
                                 label={"Контактный телефон"}
                                 type={"phone"}
                                 placeholder={"Введите контактный телефон..."}
-                                layout="flex"
+                                layout='flex'
                                 required={true}
                                 {...register("phone", {
                                     value: admin.phone,
@@ -173,10 +148,8 @@ const AdminUsersPage = () => {
                             />
                             <FieldInput
                                 label={"Наименование организации"}
-                                placeholder={
-                                    "Введите наименование организации..."
-                                }
-                                layout="flex"
+                                placeholder={"Введите наименование организации..."}
+                                layout='flex'
                                 required={true}
                                 {...register("org_name", {
                                     value: admin.org_name,
@@ -185,31 +158,28 @@ const AdminUsersPage = () => {
                             <FieldInput
                                 label={"Должность"}
                                 placeholder={"Введите должность..."}
-                                layout="flex"
+                                layout='flex'
                                 required={true}
                                 {...register("position", {
                                     value: admin.position,
                                 })}
                             />
                         </fieldset>
-                        <fieldset className="form__section">
-                            <h2 className="form__title">Безопасность</h2>
+                        <fieldset className='form__section'>
+                            <h2 className='form__title'>Безопасность</h2>
                             <FieldInput
                                 label={"Пароль"}
                                 type={"password"}
                                 placeholder={"Введите новый пароль..."}
-                                layout="flex"
+                                layout='flex'
                                 autoComplete={"new-password"}
                                 {...register("password", {
                                     minLength: {
                                         value: 6,
-                                        message:
-                                            "Минимальная длина пароля 6 символов",
+                                        message: "Минимальная длина пароля 6 символов",
                                     },
                                 })}
-                                errorText={
-                                    errors?.password && errors.password.message
-                                }
+                                errorText={errors?.password && errors.password.message}
                             />
                             <FieldInput
                                 label={"Активировать учетную запись?"}
@@ -219,15 +189,14 @@ const AdminUsersPage = () => {
                                 })}
                             />
                         </fieldset>
-                        <fieldset className="form__section">
-                            <h2 className="form__title">Права доступа</h2>
+                        <fieldset className='form__section'>
+                            <h2 className='form__title'>Права доступа</h2>
                             <FieldInput
                                 id={"id_1"}
                                 label={"Главный администратор"}
                                 type={"checkbox_variant"}
                                 {...register("superadmin", {
-                                    value:
-                                        admin.role === "Главный администратор",
+                                    value: admin.role === "Главный администратор",
                                     onChange: (e) => {
                                         if (e.target.checked) {
                                             setValue("admin", false);
@@ -250,22 +219,18 @@ const AdminUsersPage = () => {
                             />
                         </fieldset>
                     </div>
-                    <div className="form__controls">
+                    <div className='form__controls'>
+                        <Button type='submit' text={"Сохранить"} spinnerActive={sending.admins} />
                         <Button
-                            type="submit"
-                            text={"Сохранить"}
-                            spinnerActive={sending.admins}
-                        />
-                        <Button
-                            type="button"
+                            type='button'
                             iconClass={"mdi mdi-delete"}
-                            theme="text"
+                            theme='text'
                             extraClass={`${sending.admins ? "--hide" : ""}`}
                             onClick={(e) => {
                                 e.preventDefault();
                                 setPopupOpened(true);
                             }}
-                            text="Удалить"
+                            text='Удалить'
                         />
                     </div>
                 </form>
@@ -276,16 +241,16 @@ const AdminUsersPage = () => {
                     buttons={
                         <>
                             <Button
-                                type="button"
+                                type='button'
                                 text={"Нет"}
-                                size="small"
-                                theme="text"
+                                size='small'
+                                theme='text'
                                 onClick={() => setPopupOpened(false)}
                             />
                             <Button
-                                type="button"
+                                type='button'
                                 text={"Да"}
-                                size="small"
+                                size='small'
                                 theme={"info"}
                                 onClick={() => {
                                     setPopupOpened(false);
@@ -297,7 +262,7 @@ const AdminUsersPage = () => {
                 />
                 <Notif
                     title={"Ошибка!"}
-                    state="error"
+                    state='error'
                     text={errorText.admins}
                     opened={popupErrorOpened}
                     onClose={() => {
@@ -312,41 +277,38 @@ const AdminUsersPage = () => {
         <>
             <div className={commonStyles.title_block}>
                 <Button
-                    type="button"
-                    theme="text"
-                    size="small"
+                    type='button'
+                    theme='text'
+                    size='small'
                     isIconBtn={true}
-                    iconClass="mdi mdi-arrow-left"
-                    aria-label="Назад"
+                    iconClass='mdi mdi-arrow-left'
+                    aria-label='Назад'
                     onClick={() => back()}
                 />
                 <h1 className={commonStyles.title}>Создание администратора</h1>
             </div>
-            <form
-                onSubmit={handleSubmit(onAddSubmit)}
-                className="form"
-            >
-                <div className="form__container --view-two-columns">
-                    <fieldset className="form__section">
-                        <h2 className="form__title">Основная информация</h2>
+            <form onSubmit={handleSubmit(onAddSubmit)} className='form'>
+                <div className='form__container --view-two-columns'>
+                    <fieldset className='form__section'>
+                        <h2 className='form__title'>Основная информация</h2>
                         <FieldInput
                             label={"Логин"}
                             placeholder={"Введите логин..."}
-                            layout="flex"
+                            layout='flex'
                             required={true}
                             {...register("login")}
                         />
                         <FieldInput
                             label={"Email"}
                             placeholder={"Введите email..."}
-                            layout="flex"
+                            layout='flex'
                             required={true}
                             {...register("email")}
                         />
                         <FieldInput
                             label={"ФИО"}
                             placeholder={"Введите фио..."}
-                            layout="flex"
+                            layout='flex'
                             required={true}
                             {...register("fio")}
                         />
@@ -354,37 +316,34 @@ const AdminUsersPage = () => {
                             label={"Контактный телефон"}
                             type={"phone"}
                             placeholder={"Введите контактный телефон..."}
-                            layout="flex"
+                            layout='flex'
                             required={true}
                             {...register("phone")}
                         />
                         <FieldInput
                             label={"Наименование организации"}
                             placeholder={"Введите наименование организации..."}
-                            layout="flex"
+                            layout='flex'
                             required={true}
                             {...register("org_name")}
                         />
                     </fieldset>
-                    <fieldset className="form__section">
-                        <h2 className="form__title">Безопасность</h2>
+                    <fieldset className='form__section'>
+                        <h2 className='form__title'>Безопасность</h2>
                         <FieldInput
                             label={"Пароль"}
                             type={"password"}
                             placeholder={"Введите пароль..."}
-                            layout="flex"
+                            layout='flex'
                             autoComplete={"new-password"}
                             required={true}
                             {...register("password", {
                                 minLength: {
                                     value: 6,
-                                    message:
-                                        "Минимальная длина пароля 6 символов",
+                                    message: "Минимальная длина пароля 6 символов",
                                 },
                             })}
-                            errorText={
-                                errors?.password && errors.password.message
-                            }
+                            errorText={errors?.password && errors.password.message}
                         />
                         <FieldInput
                             label={"Активировать учетную запись?"}
@@ -392,8 +351,8 @@ const AdminUsersPage = () => {
                             {...register("active", { value: true })}
                         />
                     </fieldset>
-                    <fieldset className="form__section">
-                        <h2 className="form__title">Права доступа</h2>
+                    <fieldset className='form__section'>
+                        <h2 className='form__title'>Права доступа</h2>
                         <FieldInput
                             id={"id_1"}
                             label={"Главный администратор"}
@@ -421,17 +380,13 @@ const AdminUsersPage = () => {
                         />
                     </fieldset>
                 </div>
-                <div className="form__controls">
-                    <Button
-                        type="submit"
-                        text={"Создать"}
-                        spinnerActive={sending.admins}
-                    />
+                <div className='form__controls'>
+                    <Button type='submit' text={"Создать"} spinnerActive={sending.admins} />
                 </div>
             </form>
             <Notif
                 title={"Ошибка!"}
-                state="error"
+                state='error'
                 text={errorText.admins}
                 opened={popupErrorOpened}
                 onClose={() => {
