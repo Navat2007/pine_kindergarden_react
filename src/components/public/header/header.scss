@@ -2,6 +2,7 @@
 @import "../../../styles/extends";
 
 .header {
+    position: relative;
     flex: none;
     z-index: 100;
     &_sticky {
@@ -10,7 +11,7 @@
         background-color: rgba(255, 255, 255, 0.84);
         box-shadow: 0 5px 10px rgba(black, 0.26);
 
-        .logo.logo_place_header {
+        .menu:not(.menu_opened) .logo.logo_place_header-menu {
             width: min(12vmax, 8em);
         }
     }
@@ -24,7 +25,7 @@
     }
     .burger {
         // position: relative;
-        z-index: 10;
+        z-index: 100;
 
         align-self: center;
 
