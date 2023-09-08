@@ -62,6 +62,7 @@
     }
     &__item-link {
         @extend %reset-btn;
+        text-decoration: unset;
         font-family: var(--font-headings);
         border-radius: 10px;
         background-color: #9dd641;
