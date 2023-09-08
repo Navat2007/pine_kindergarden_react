@@ -12,10 +12,11 @@ const FieldEmail = ({errorText, required = false, ...rest}, ref) => {
                 <input
                     ref={ref}
                     className='field__input'
-                    type='email'
-                    autoComplete='email'
-                    name='email'
-                    placeholder='Введите email...'
+                    type='phone'
+                    autoComplete='phone'
+                    name='phone'
+                    placeholder='+7(___)___-__-__'
+                    pattern='\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}'
                     required={required}
                     {...rest}
                 />
