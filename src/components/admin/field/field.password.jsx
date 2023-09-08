@@ -1,7 +1,8 @@
-import React from "react";
+import React, {forwardRef} from "react";
+
 import "./field.scss";
 
-const FieldPassword = ({errorText, required = false}) => {
+const FieldPassword = ({errorText, required = false, ...rest}, ref) => {
     const [eyeActive, setEyeActive] = React.useState(false);
 
     const toggleEye = (e) => {
@@ -18,12 +19,14 @@ const FieldPassword = ({errorText, required = false}) => {
                     className='field__input'
                     id='password'
                     type={`${eyeActive ? "text" : "password"}`}
+                    ref={ref}
                     autoComplete='password'
                     name='password'
                     placeholder='Введите пароль...'
                     required={required}
                     maxLength={16}
                     minLength={3}
+                    {...rest}
                 />
                 <span className='field__info-text'>{errorText}</span>
                 <span
@@ -37,4 +40,4 @@ const FieldPassword = ({errorText, required = false}) => {
     );
 };
 
-export default FieldPassword;
+export default forwardRef(FieldPassword);
