@@ -27,10 +27,20 @@ const LoginPage = () => {
     return (
         <>
             <main className='auth-form'>
-                <form className='auth-form__form' action='' name='signin'>
+                <form className='auth-form__form' action='' name='signin' onSubmit={handleSubmit(onSubmit)}>
                     <Logo place={`auth-form`} />
                     <h1 className='auth-form__title'>Рады видеть!</h1>
-                    <FieldEmail />
+                    <FieldEmail
+                        {...register("login", {
+                            required: "Поле обязательно к заполнению",
+                        })}
+                        defaultValue={
+                            window.localStorage.getItem("remember") && window.localStorage.getItem("login")
+                                ? window.localStorage.getItem("login")
+                                : ""
+                        }
+                        errorText={errors?.login?.message}
+                    />
                     <FieldPassword />
                     <div className='auth-form__footer'>
                         <Button text={"Войти"} />

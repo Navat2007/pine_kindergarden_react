@@ -1,9 +1,9 @@
 import React from "react";
 import "./field.scss";
 
-const FieldEmail = () => {
+const FieldEmail = ({errorText, required = false}) => {
     return (
-        <div className='field'>
+        <div className={`field${errorText ? " field_state_error" : ""}`}>
             <label className='field__label' htmlFor='email'>
                 E-mail
             </label>
@@ -15,9 +15,9 @@ const FieldEmail = () => {
                     autoComplete='email'
                     name='email'
                     placeholder='Введите email...'
-                    required
+                    required={required}
                 />
-                <span className='field__info-text'>Поле для вывода ошибки</span>
+                <span className='field__info-text'>{errorText}</span>
             </div>
         </div>
     );
