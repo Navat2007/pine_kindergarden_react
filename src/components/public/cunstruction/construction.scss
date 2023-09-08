@@ -1,0 +1,14 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.construction {
+    text-align: center;
+    &__image {
+        margin: auto;
+        max-width: min(40em, 80%);
+    }
+    &__title {
+        font-size: min(1.25mvax, 1.875em);
+        font-weight: normal;
+    }
+}
