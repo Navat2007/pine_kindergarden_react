@@ -2,13 +2,18 @@
 @import "../../../styles/extends";
 
 .admin-menu {
+    position: sticky;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    z-index: 2;
+
     display: flex;
     flex-direction: column;
     width: var(--menu-width);
     transition: width 0.5s ease;
     block-size: 100vb;
 
-    z-index: 1;
     background-color: #fff;
     box-shadow: 6px 0px 18px 0px rgba(0, 0, 0, 0.06);
     // overflow-y: hidden;

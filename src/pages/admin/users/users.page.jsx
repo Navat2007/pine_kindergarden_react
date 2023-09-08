@@ -8,7 +8,7 @@ import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
 import Table from "../../../components/general/table/table.component";
 import Button from "../../../components/general/button/button.component";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 const UsersPage = () => {
     const { user } = useAuthStore();
@@ -150,11 +150,11 @@ const UsersPage = () => {
                 withFilter={true}
             >
                 <Button
-                    type="button"
+                    type='button'
                     iconClass={"mdi mdi-plus"}
-                    text="Создать"
-                    size="small"
-                    aria-label="Создать пользователя"
+                    text='Создать'
+                    size='small'
+                    aria-label='Создать пользователя'
                     onClick={() => navigate("/admin/users/admin/new")}
                 />
             </Table>
