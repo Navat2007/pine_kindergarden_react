@@ -2,13 +2,10 @@ import React from "react";
 
 import "./button.scss";
 
-const Button = ({ type = "submit", text, spinnerActive = false, ...rest }) => {
+const Button = ({ type = "submit", extraClass = "", text, icon, spinnerActive = false, ...rest }) => {
     return (
-        <button
-            className={`button ${spinnerActive && "button_loading"}`}
-            type={type}
-            {...rest}
-        >
+        <button className={`button ${extraClass} ${spinnerActive && "button_loading"}`} type={type} {...rest}>
+            {icon}
             {text}
             {spinnerActive && (
                 <div className={"button__spinner"}>

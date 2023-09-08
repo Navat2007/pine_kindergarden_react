@@ -7,7 +7,7 @@
     padding: 1em;
     font-weight: normal;
     color: #fff;
-    background-color: var(--primary);
+    background-color: var(--admin-primary);
     border-radius: 5px;
     transition: background-color 0.25s ease-in;
 
@@ -18,11 +18,11 @@
     }
 
     &:hover:not(disabled) {
-        background-color: rgba(var(--primary-opacity), 0.9);
+        background-color: rgba(var(--admin-primary-opacity), 0.9);
     }
 
     &:focus-visible {
-        box-shadow: 0 0 3px var(--primary);
+        box-shadow: 0 0 3px var(--admin-primary);
     }
 
     &_loading {
@@ -38,7 +38,7 @@
         z-index: 1;
         inset: 0;
         @include box(100%);
-        background-color: var(--primary);
+        background-color: var(--admin-primary);
         border-radius: 5px;
 
         display: flex;
