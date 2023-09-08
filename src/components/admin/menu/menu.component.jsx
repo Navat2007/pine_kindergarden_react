@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import Logo from "../../public/logo/logo";
-import ProfileHeader from "../profile.header/profile.header.component";
 import Button from "../button/button";
 
 import "./menu.scss";
@@ -54,7 +53,6 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
         <>
             <menu className={`admin-menu ${burgerOpened && "admin-menu_opened"} ${menuSizeClass}`}>
                 <Logo place={"admin-menu"} />
-                <ProfileHeader />
                 <nav className='admin-menu__nav'>
                     <ul className='admin-menu__list'>
                         {menu.map((item) => (
@@ -71,9 +69,13 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                         ))}
                     </ul>
                 </nav>
-                <Button type='button' extraClass="admin-menu__button" aria-label='Свернуть/Развернуть меню' onClick={handleResize}>
-                    {AdminIcons.chevron_down}
-                </Button>
+                <Button
+                    type='button'
+                    iconName={AdminIcons.chevron_down}
+                    extraClass='admin-menu__button'
+                    aria-label='Свернуть/Развернуть меню'
+                    onClick={handleResize}
+                />
                 <div className='admin-menu__back' onClick={setBurgerOpened} />
             </menu>
             {/* <menu className={"styles.menu" + ` ${burgerOpened ? "styles.menu_opened" : ""} ${menuSizeClass}`}>

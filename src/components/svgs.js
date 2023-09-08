@@ -248,6 +248,9 @@ export const AdminIcons = {
             />
         </svg>
     ),
+    exit: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill='currentColor' viewBox="223 -55.7 24 24"><path d="M233.1-40.1l1.4 1.4 5-5-5-5-1.4 1.4 2.6 2.6H226v2h9.7l-2.6 2.6zm8.9-12.6h-14c-1.1 0-2 .9-2 2v4h2v-4h14v14h-14v-4h-2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2z"/></svg>
+    )
 };
 
 export const FileIcons = {

@@ -25,12 +25,30 @@
         box-shadow: 0 0 3px var(--admin-primary);
     }
 
+    &_type_only-icon {
+        width: auto;
+        padding: 0.5em;
+        border-radius: 50%;
+        .button__icon {
+            @include box(1.5em);
+        }
+    }
+
     &_loading {
         position: relative;
 
         pointer-events: none;
         user-select: none;
         filter: grayscale(50%);
+    }
+
+    &__icon {
+        display: block;
+        @include box(1.25em);
+
+        svg {
+            @include box(100%);
+        }
     }
 
     &__spinner {

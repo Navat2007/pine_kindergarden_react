@@ -7,6 +7,7 @@ import Button from "../button/button";
 import Notif from "../../general/notif/notif.component";
 import no_photo_man from "../../../images/no_photo_man.png";
 import "./profile.scss";
+import { AdminIcons } from "../../svgs";
 
 const ProfileHeader = ({ className }) => {
     const { user, logout } = useAuthStore();
@@ -48,11 +49,10 @@ const ProfileHeader = ({ className }) => {
                 <p className='profile-header__title'>{user.login ? user.login : user.email}</p>
                 <p className='profile-header__subtitle'>{userRole}</p>
             </div>
-            {/* <Button
+            <Button
                 type='button'
-                theme='text'
-                isIconBtn={true}
-                iconClass='mdi mdi-location-exit'
+                iconName={AdminIcons.exit}
+                iconBtn='true'
                 aria-label='Выйти из профиля'
                 onClick={() => setPopupOpened(true)}
             />
@@ -83,7 +83,7 @@ const ProfileHeader = ({ className }) => {
                         />
                     </>
                 }
-            /> */}
+            />
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 import useAuthStore from "../../store/authStore";
 
@@ -57,7 +57,9 @@ const LoginPage = () => {
                         errorText={errors?.password?.message}
                     />
                     <div className='auth-form__footer'>
-                        <Button text={"Войти"} disabled={loading === "loading"} spinnerActive={loading === "loading"} />
+                        <Button disabled={loading === "loading"} spinnerActive={loading === "loading"}>
+                            Войти
+                        </Button>
                     </div>
                 </form>
             </main>

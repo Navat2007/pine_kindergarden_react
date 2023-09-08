@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../../admin/button/button";
+import ProfileHeader from "../profile.header/profile.header.component";
 import "./header.scss";
 
 const HeaderComponent = ({ children, handleBurger }) => {
@@ -15,6 +16,7 @@ const HeaderComponent = ({ children, handleBurger }) => {
                 onClick={handleBurger}
             />
             {children}
+            <ProfileHeader />
         </header>
     );
 };
