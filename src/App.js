@@ -89,7 +89,7 @@ const App = () => {
 
     const AnimatedPageTransition = ({ children }) => {
         return (
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence mode={'wait'}>
                 <Preloader loading={timer > 0}>{children}</Preloader>
             </AnimatePresence>
         );

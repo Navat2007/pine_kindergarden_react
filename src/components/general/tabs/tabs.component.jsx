@@ -51,7 +51,7 @@ const Tabs = ({ extraClass, theme, children }) => {
                     </li>
                 ))}
             </ul>
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence mode={'wait'}>
                 <motion.div
                     key={activeTab}
                     initial={{ y: -10, opacity: 0 }}
