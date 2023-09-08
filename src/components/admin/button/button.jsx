@@ -2,7 +2,6 @@ import React from "react";
 import { motion } from 'framer-motion';
 
 import "./button.scss";
-import styles from "../../general/button/button.module.scss";
 
 const Button = ({type = "submit", text, spinnerActive = false, ...rest}) => {
     return (
@@ -18,7 +17,7 @@ const Button = ({type = "submit", text, spinnerActive = false, ...rest}) => {
             {
                 spinnerActive
                 &&
-                <div className={styles.button__spinner}>
+                <div className={"button__spinner"}>
                     <div></div>
                     <div></div>
                     <div></div>
