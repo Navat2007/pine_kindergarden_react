@@ -59,7 +59,11 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                             <li className='admin-menu__item' key={item.title}>
                                 <NavLink
                                     to={item.link}
-                                    className={`admin-menu__link ${false} && 'admin-menu__link_active'}`}
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? `admin-menu__link admin-menu__link_active`
+                                            : `admin-menu__link`
+                                    }
                                     aria-label={item.title}
                                 >
                                     <span className='admin-menu__link-icon'>{item.icon}</span>
