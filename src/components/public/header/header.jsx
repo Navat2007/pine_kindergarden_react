@@ -22,23 +22,6 @@ const Header = () => {
         window.addEventListener("scroll", stickyHeaderEvent);
     }, []);
 
-    // Липкий хедер
-    // let scrollPos = window.scrollY;
-    // const header = document.querySelector(".header");
-    // const scrollChange = 1;
-    // const addClassOnScroll = () => header.classList.add("header_sticky");
-    // const removeClassOnScroll = () => header.classList.remove("header_sticky");
-    //
-    // window.addEventListener("scroll", function () {
-    //     scrollPos = window.scrollY;
-    //
-    //     if (scrollPos >= scrollChange) {
-    //         addClassOnScroll();
-    //     } else {
-    //         removeClassOnScroll();
-    //     }
-    // });
-
     return (
         <header ref={stickyHeader} className='header main-section section_type_fixed'>
             <div className='header__inner'>
