@@ -36,12 +36,12 @@
             pointer-events: unset;
             user-select: unset;
 
-            .admin-menu__nav {
+            .admin-menu__inner {
                 transform: translateX(0);
             }
         }
 
-        .admin-menu__nav {
+        .admin-menu__inner {
             width: 18em;
 
             box-shadow: 0 0 15px rgba($color: black, $alpha: 0.15);
