@@ -3,7 +3,7 @@ import lodash from "lodash";
 import Cookies from "js-cookie";
 import moment from "moment";
 
-import Pagination from "../../general/pagination/pagination.component";
+import Pagination from "../pagination/pagination.component";
 import SearchFilter from "../search.filter/search.filter.component";
 
 import "./table.scss";
