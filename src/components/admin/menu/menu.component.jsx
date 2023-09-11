@@ -52,26 +52,24 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
     return (
         <>
             <menu className={`admin-menu ${burgerOpened && "admin-menu_opened"} ${menuSizeClass}`}>
-                <div className='admin-menu__inner'>
+                <nav className='admin-menu__nav'>
                     <Logo place={"admin-menu"} />
-                    <nav className='admin-menu__nav'>
-                        <ul className='admin-menu__list'>
-                            {menu.map((item) => (
-                                <li className='admin-menu__item' key={item.title}>
-                                    <NavLink
-                                        to={item.link}
-                                        className={({ isActive }) =>
-                                            isActive ? `admin-menu__link admin-menu__link_active` : `admin-menu__link`
-                                        }
-                                        aria-label={item.title}
-                                    >
-                                        <span className='admin-menu__link-icon'>{item.icon}</span>
-                                        <p className='admin-menu__link-text'>{item.title}</p>
-                                    </NavLink>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
+                    <ul className='admin-menu__list'>
+                        {menu.map((item) => (
+                            <li className='admin-menu__item' key={item.title}>
+                                <NavLink
+                                    to={item.link}
+                                    className={({ isActive }) =>
+                                        isActive ? `admin-menu__link admin-menu__link_active` : `admin-menu__link`
+                                    }
+                                    aria-label={item.title}
+                                >
+                                    <span className='admin-menu__link-icon'>{item.icon}</span>
+                                    <p className='admin-menu__link-text'>{item.title}</p>
+                                </NavLink>
+                            </li>
+                        ))}
+                    </ul>
                     <Button
                         type='button'
                         iconName={AdminIcons.chevron_down}
@@ -79,8 +77,8 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                         aria-label='Свернуть/Развернуть меню'
                         onClick={handleResize}
                     />
-                    <div className='admin-menu__back' onClick={setBurgerOpened} />
-                </div>
+                </nav>
+                <div className='admin-menu__back' onClick={setBurgerOpened} />
             </menu>
         </>
     );

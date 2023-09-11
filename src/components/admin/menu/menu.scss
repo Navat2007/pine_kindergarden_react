@@ -16,50 +16,56 @@
 
     background-color: #fff;
     box-shadow: 6px 0px 18px 0px rgba(0, 0, 0, 0.06);
-    // overflow-y: hidden;
 
     @include media(sm, max) {
         position: fixed;
         inset: 0;
         @include box(100%);
-        // z-index: 1001;
+        z-index: 1001;
 
         background-color: transparent;
         box-shadow: none;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
         user-select: none;
+        transition:
+            visibility 0s 0.35s,
+            opacity 0.35s;
 
-        // transition: background-color 0.35s ease-in-out;
-        // pointer-events: none;
-
-        &_opened {
-            background-color: rgba($color: black, $alpha: 0.54);
-            pointer-events: unset;
-            user-select: unset;
-
-            .admin-menu__inner {
-                transform: translateX(0);
-            }
-        }
-
-        .admin-menu__inner {
-            width: 18em;
-
-            box-shadow: 0 0 15px rgba($color: black, $alpha: 0.15);
-            transition: transform 0.35s ease-in-out;
+        .admin-menu__nav {
+            width: 16em;
+            background-color: #fff;
+            box-shadow: 6px 0px 18px 0px rgba(0, 0, 0, 0.06);
+            transition: transform 0.35s;
             transform: translateX(-120%);
-        }
-
-        .admin-menu__back {
-            display: block;
-
-            position: absolute;
-            inset: 0;
-            z-index: -1;
-            @include box(100%);
         }
 
         .admin-menu__button {
             display: none;
+        }
+
+        &_opened {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: all;
+            transition:
+                visibility 0s,
+                opacity 0.35s;
+
+            .admin-menu__nav {
+                transform: translateX(0);
+            }
+
+            .admin-menu__back {
+                display: block;
+
+                position: absolute;
+                inset: 0;
+                z-index: -1;
+                @include box(100%);
+                background-color: #00000054;
+            }
         }
     }
 
@@ -105,23 +111,38 @@
         }
     }
 
-    &__inner {
+    &__nav {
+        flex: auto;
+
         display: flex;
         flex-direction: column;
         gap: 2em;
-
-        flex: auto;
-        @include scroll-bar();
-    }
-
-    &__nav {
-        flex: auto;
+        overflow: hidden;
     }
 
     &__list {
+        flex: auto;
         @extend %reset-list;
         display: flex;
         flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+        @include media(xs) {
+            // ширина scrollbar
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+            // Цвет дорожки
+            &::-webkit-scrollbar-track {
+                background-color: #fff;
+                border-radius: 5px;
+            }
+            // Плашка
+            &::-webkit-scrollbar-thumb {
+                background-color: var(--admin-primary);
+                border-radius: 5px;
+            }
+        }
     }
 
     &__link {
@@ -162,6 +183,7 @@
     }
 
     &__button {
+        flex: none;
         border-radius: 0;
         padding-block-start: 0.25em;
         padding-block-end: 0.25em;
