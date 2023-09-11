@@ -9,8 +9,8 @@ import "./feedback.scss";
 
 const Feedback = () => {
     const [notif, setNotif] = React.useState(<></>);
-    const {register, handleSubmit, setFocus} = useForm();
-    const feedbackStore  = useFeedbackStore();
+    const { register, handleSubmit, setFocus } = useForm();
+    const feedbackStore = useFeedbackStore();
 
     const onSubmit = async (data) => {
         await feedbackStore.sendFeedback(data);
@@ -47,7 +47,7 @@ const Feedback = () => {
                         </button>
                     </div>
                     <form className='feedback__form' onSubmit={handleSubmit(onSubmit)}>
-                        <h2 className='feedback__title'>Закажите обратный звонок</h2>
+                        <h2 className='feedback__title'>Задайте вопрос</h2>
                         <input
                             id='phone'
                             className='feedback__field'
@@ -75,7 +75,7 @@ const Feedback = () => {
                         </div>
                         <span className='feedback__span-text'>Необходимо заполнить номер телефона</span>
                         <button className='feedback__button' type='submit' aria-label='Заказать'>
-                            Заказать
+                            Отправить
                         </button>
                     </form>
                 </div>

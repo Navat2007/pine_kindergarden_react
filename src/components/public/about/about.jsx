@@ -10,7 +10,7 @@ import about__card_1 from "../../../images/about__card_1.jpg";
 import about__card_2 from "../../../images/about__card_2.jpg";
 import about__card_3 from "../../../images/about__card_3.jpg";
 import about__card_4 from "../../../images/about__card_4.jpg";
-import person_1 from "../../../images/person_1.jpg";
+// import person_1 from "../../../images/person_1.jpg"; Нужно новое фото
 import person_2 from "../../../images/person_2.jpg";
 import person_3 from "../../../images/person_3.jpg";
 import person_4 from "../../../images/person_4.jpg";
@@ -20,8 +20,7 @@ const About = () => {
         <>
             <section className='about about_contain_inner main-section'>
                 <h1 className='main-title'>
-                    Детский сад СОСНЫ <br />
-                    Здесь начинается Детство
+                    ФГБДОУ &laquo;Центр развития ребенка&nbsp;&mdash; детский сад &laquo;Сосны&raquo;
                 </h1>
                 <div className='about__column'>
                     <div className='about__text'>
@@ -32,7 +31,7 @@ const About = () => {
                         </p>
                         <br />
                         <p>
-                            Мы принимаем детей в группы <br />с 3 лет до 7 лет
+                            Мы принимаем детей в группы <br />с 3 лет до прекращения образовательных отношений (7-8 лет)
                         </p>
                     </div>
                     <img
@@ -74,7 +73,8 @@ const About = () => {
                             src={about__card_1}
                             alt='Малыши играют в игрушечную посуду'
                         />
-                        <h3 className='about__card-title'>Младшая группа</h3>
+                        <h3 className='about__card-title'>1-ая младшая группа</h3>
+                        <p>1,5 - 3 лет.</p>
                     </li>
                     <li className='about__card'>
                         <img
@@ -82,15 +82,23 @@ const About = () => {
                             src={about__card_2}
                             alt='Малыш показывает накрашенный водными красками ручки'
                         />
-                        <h3 className='about__card-title'>Средняя группа</h3>
+                        <h3 className='about__card-title'>2-ая младшая группа</h3>
+                        <p>3 - 4 лет.</p>
                     </li>
                     <li className='about__card'>
                         <img className='about__card-image' src={about__card_3} alt='Малышка собирает пазлы' />
-                        <h3 className='about__card-title'>Старшая группа</h3>
+                        <h3 className='about__card-title'>Средняя группа</h3>
+                        <p>4 - 5 лет.</p>
                     </li>
                     <li className='about__card'>
                         <img className='about__card-image' src={about__card_4} alt='Малыш строит домик из кубиков' />
+                        <h3 className='about__card-title'>Старшая группа</h3>
+                        <p>5 - 6 лет.</p>
+                    </li>
+                    <li className='about__card'>
+                        <img className='about__card-image' src={about__card_3} alt='Малыш строит домик из кубиков' />
                         <h3 className='about__card-title'>Подготовительная группа</h3>
+                        <p>6 - до прекращения образовательных отношений (7-8 лет)</p>
                     </li>
                 </ul>
             </section>
@@ -126,10 +134,10 @@ const About = () => {
                 >
                     <SplideSlide data-splide-interval='5000' onClick={() => {}}>
                         <div className='slider-card'>
-                            <img className='slider-card__image' src={person_1} alt='Фотография Анна Ивановна Иванова' />
+                            <img className='slider-card__image' src='' alt='Фотография Юлия Викторовна Щетенкова' />
                             <h3 className='slider-card__title'>
-                                Анна Ивановна Иванова <br />
-                                Заведующая детского сада СОСНЫ
+                                Юлия Викторовна Щетенкова <br />
+                                И.О. Заведующая детского сада
                             </h3>
                         </div>
                     </SplideSlide>
@@ -144,7 +152,11 @@ const About = () => {
                     </SplideSlide>
                     <SplideSlide data-splide-interval='5000' onClick={() => {}}>
                         <div className='slider-card'>
-                            <img className='slider-card__image' src={person_3} alt='Фотография Игорь Петрович Михалев' />
+                            <img
+                                className='slider-card__image'
+                                src={person_3}
+                                alt='Фотография Игорь Петрович Михалев'
+                            />
                             <h3 className='slider-card__title'>
                                 Игорь Петрович Михалев <br />
                                 Преподаветель по шахматам
@@ -153,7 +165,11 @@ const About = () => {
                     </SplideSlide>
                     <SplideSlide data-splide-interval='5000' onClick={() => {}}>
                         <div className='slider-card'>
-                            <img className='slider-card__image' src={person_4} alt='Фотография Инна Федоровна Осипова' />
+                            <img
+                                className='slider-card__image'
+                                src={person_4}
+                                alt='Фотография Инна Федоровна Осипова'
+                            />
                             <h3 className='slider-card__title'>
                                 Инна Федоровна Осипова <br />
                                 Логопед

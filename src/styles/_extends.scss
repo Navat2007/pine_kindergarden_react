@@ -43,7 +43,7 @@
         inline-size: 100%;
         block-size: 100%;
         text-align: center;
-        background-image: linear-gradient(to bottom, var(--g200) 0%, var(--g100) 50%, var(--g200) 100%);
+        background-image: linear-gradient(to bottom, #ccc 0%, #f1f1f1 50%, #ccc 100%);
     }
 }
 
@@ -52,14 +52,18 @@
     opacity: 0;
     pointer-events: none;
     user-select: none;
-    transition: visibility 0s 0.35s, opacity 0.35s;
+    transition:
+        visibility 0s 0.35s,
+        opacity 0.35s;
 }
 
 %visibility-block {
     visibility: visible;
     opacity: 1;
     pointer-events: all;
-    transition: visibility 0s, opacity 0.35s;
+    transition:
+        visibility 0s,
+        opacity 0.35s;
 }
 
 %cut-text {

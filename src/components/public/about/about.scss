@@ -117,6 +117,7 @@
     &__card-image {
         object-fit: cover;
         aspect-ratio: 541/318;
+        @extend %alt-text-on-after;
     }
     &__card-title {
         margin: 0.75em 0;
@@ -173,6 +174,7 @@
         aspect-ratio: 288/419;
         object-fit: cover;
         object-position: center;
+        @extend %alt-text-on-after;
     }
 
     &__title {

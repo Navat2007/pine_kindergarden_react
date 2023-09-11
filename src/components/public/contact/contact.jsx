@@ -1,5 +1,5 @@
 import React from "react";
-import {YMaps, Map, Placemark} from "react-yandex-maps";
+import { YMaps, Map, Placemark } from "react-yandex-maps";
 
 import "./contact.scss";
 
@@ -10,18 +10,18 @@ const Contact = () => {
                 <YMaps>
                     <Map
                         state={{
-                            center: [55.762373, 37.607898],
+                            center: [55.733327, 37.055938],
                             zoom: 16,
                         }}
                         width='100%'
                         height='100%'
                     >
                         <Placemark
-                            geometry={[55.762373, 37.607898]}
+                            geometry={[55.733327, 37.055938]}
                             properties={{
                                 iconContent: "Детский сад СОСНЫ",
                             }}
-                            options={{preset: 'islands#redStretchyIcon',}}
+                            options={{ preset: "islands#redStretchyIcon" }}
                         />
                     </Map>
                 </YMaps>
@@ -29,15 +29,26 @@ const Contact = () => {
             <div className='contact__detail'>
                 <h2 className='contact__title'>Контакты</h2>
                 <address className='contact__address'>
-                    Адрес:&nbsp;город&nbsp;Москва, улица&nbsp;Тверская, дом&nbsp;15 <br/>
+                    Адрес: город&nbsp;Одинцово, поселок&nbsp;Сосны
+                    <br />
                     Телефон:{" "}
-                    <a className='contact__link' target={'_blank'} href='tel:84951111111' rel='noopener nofollow noreferer'>
-                        +7&nbsp;(495)&nbsp;111-11-11
+                    <a
+                        className='contact__link'
+                        target={"_blank"}
+                        href='tel:84956302426'
+                        rel='noopener nofollow noreferer'
+                    >
+                        +7&nbsp;(495)&nbsp;630-24-26
                     </a>
-                    <br/>
+                    <br />
                     E-mail:&nbsp;
-                    <a className='contact__link' target={'_blank'} href='mailto:kindergarden@forest.ru' rel='noopener nofollow noreferer'>
-                        kindergarden@forest.ru
+                    <a
+                        className='contact__link'
+                        target={"_blank"}
+                        href='mailto:crrds7777@gmail.com'
+                        rel='noopener nofollow noreferer'
+                    >
+                        crrds7777@gmail.com
                     </a>
                 </address>
             </div>
