@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 
 import useNewsStore from "../../../store/admin/newsStore";
 
-import Notif from "../../../components/general/notif/notif.component";
-import Button from "../../../components/general/button/button.component";
+import AlertPopup from "../../../components/alert.popup/alert.popup";
+import Button from "../../../components/admin/button/button.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
 import FieldInput from "../../../components/general/field/field.input.component";
@@ -17,6 +17,7 @@ import ImageGallery from "../../../components/general/image_gallery/image.galler
 import commonStyles from "../../common.module.scss";
 import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
 import moment from "moment";
+import { AdminIcons } from "../../../components/svgs";
 
 const AdminNewsPage = (props) => {
     let { id } = useParams();
@@ -40,7 +41,7 @@ const AdminNewsPage = (props) => {
 
     //Private component
     const Loading = () => {
-        if(newsStore.loading){
+        if (newsStore.loading) {
             return (
                 <div className={commonStyles.title_block}>
                     <h1 className={commonStyles.title}>Загрузка...</h1>
@@ -50,19 +51,10 @@ const AdminNewsPage = (props) => {
     };
 
     const NotFound = () => {
-        if(id && !newsStore.loading && Object.keys(newsStore.news).length === 0)
-        {
+        if (id && !newsStore.loading && Object.keys(newsStore.news).length === 0) {
             return (
                 <div className={commonStyles.title_block}>
-                    <Button
-                        type='button'
-                        theme='text'
-                        size='small'
-                        iconClass={"mdi mdi-arrow-left"}
-                        isIconBtn={true}
-                        aria-label='Назад'
-                        onClick={back}
-                    />
+                    <Button type='button' iconName={AdminIcons.back} isIconBtn aria-label='Назад' onClick={back} />
                     <h1 className={commonStyles.title}>Новость не найдена</h1>
                 </div>
             );
@@ -70,7 +62,6 @@ const AdminNewsPage = (props) => {
     };
 
     const MainBlock = () => {
-
         const NewNews = () => {
             const [photo, setPhoto] = React.useState([]);
             const [photoPreview, setPhotoPreview] = React.useState([]);
@@ -79,10 +70,9 @@ const AdminNewsPage = (props) => {
             const [sending, setSending] = React.useState(false);
 
             const checkForComplete = (sendObject) => {
-
-                if(!sendObject.previewTitle){
+                if (!sendObject.previewTitle) {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={"Название для анонса должно быть заполнено."}
                             opened={true}
@@ -94,9 +84,9 @@ const AdminNewsPage = (props) => {
                     return false;
                 }
 
-                if(!sendObject.title){
+                if (!sendObject.title) {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={"Название должно быть заполнено."}
                             opened={true}
@@ -108,9 +98,9 @@ const AdminNewsPage = (props) => {
                     return false;
                 }
 
-                if(sendObject.date === ""){
+                if (sendObject.date === "") {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={"Дата должна быть заполнена."}
                             opened={true}
@@ -122,10 +112,9 @@ const AdminNewsPage = (props) => {
                     return false;
                 }
 
-                if(!sendObject.editorPreview || sendObject.editorPreview === "<p><br></p>")
-                {
+                if (!sendObject.editorPreview || sendObject.editorPreview === "<p><br></p>") {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={"Описание для анонса должно быть заполнено."}
                             opened={true}
@@ -137,10 +126,9 @@ const AdminNewsPage = (props) => {
                     return false;
                 }
 
-                if(!sendObject.editorReview || sendObject.editorReview === "<p><br></p>")
-                {
+                if (!sendObject.editorReview || sendObject.editorReview === "<p><br></p>") {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={"Детальное описание должно быть заполнено."}
                             opened={true}
@@ -153,7 +141,7 @@ const AdminNewsPage = (props) => {
                 }
 
                 return true;
-            }
+            };
 
             const onAddNews = async (params) => {
                 const data = getValues();
@@ -164,8 +152,7 @@ const AdminNewsPage = (props) => {
                 sendObject["reviewImage"] = photoReview;
                 sendObject["images"] = photo;
 
-                if(!checkForComplete(sendObject))
-                    return;
+                if (!checkForComplete(sendObject)) return;
 
                 setSending(true);
 
@@ -173,11 +160,9 @@ const AdminNewsPage = (props) => {
 
                 setSending(false);
 
-                console.log(result);
-
                 if (!result.error) {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title=''
                             text={"Новость успешно добавлена"}
                             opened={true}
@@ -186,10 +171,9 @@ const AdminNewsPage = (props) => {
                             }}
                         />
                     );
-                }
-                else {
+                } else {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={result.errorText}
                             opened={true}
@@ -201,7 +185,7 @@ const AdminNewsPage = (props) => {
                 }
             };
 
-            if(!id){
+            if (!id) {
                 return (
                     <>
                         <div className={commonStyles.title_block}>
@@ -249,40 +233,50 @@ const AdminNewsPage = (props) => {
                                             {...register("title")}
                                         />
                                         <FieldInput
-                                            label="Дата и время"
-                                            type="datetime-local"
-                                            layout="flex"
+                                            label='Дата и время'
+                                            type='datetime-local'
+                                            layout='flex'
                                             required={true}
                                             {...register("date")}
                                         />
                                         <div className='form__multy-block'>
                                             <p className='form__label'>Описание для анонса</p>
-                                            <Editor control={control} name='editorPreview' minHeight={250} buttons={{link: true}} />
+                                            <Editor
+                                                control={control}
+                                                name='editorPreview'
+                                                minHeight={250}
+                                                buttons={{ link: true }}
+                                            />
                                         </div>
                                         <div className='form__multy-block'>
                                             <p className='form__label'>Детальное описание</p>
-                                            <Editor control={control} name='editorReview' minHeight={250} buttons={{link: true}} />
+                                            <Editor
+                                                control={control}
+                                                name='editorReview'
+                                                minHeight={250}
+                                                buttons={{ link: true }}
+                                            />
                                         </div>
                                     </fieldset>
                                 </Tab>
                                 <Tab title={"Фотографии"}>
                                     <fieldset className='form__section'>
                                         <ImageSelector
-                                            title="КАРТИНКА ДЛЯ АНОНСА"
+                                            title='КАРТИНКА ДЛЯ АНОНСА'
                                             items={photoPreview}
                                             onlyOneImage={true}
                                             multiFiles={false}
                                             onChange={(items) => setPhotoPreview(items)}
                                         />
                                         <ImageSelector
-                                            title="ДЕТАЛЬНАЯ КАРТИНКА"
+                                            title='ДЕТАЛЬНАЯ КАРТИНКА'
                                             items={photoReview}
                                             onlyOneImage={true}
                                             multiFiles={false}
                                             onChange={(items) => setPhotoReview(items)}
                                         />
                                         <ImageSelector
-                                            title="Фото галерея"
+                                            title='Фото галерея'
                                             items={photo}
                                             multiFiles={true}
                                             onChange={(items) => setPhoto(items)}
@@ -291,12 +285,7 @@ const AdminNewsPage = (props) => {
                                 </Tab>
                             </Tabs>
                             <div className='form__controls'>
-                                <Button
-                                    type='submit'
-                                    theme='primary'
-                                    text='Сохранить'
-                                    spinnerActive={sending}
-                                />
+                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
                                 <Button
                                     type='button'
                                     theme='text'
@@ -326,43 +315,42 @@ const AdminNewsPage = (props) => {
 
                     setPhotoPreview(
                         newsStore.news.preview_image
-                            ? [{
-                                ID: newsStore.news.ID,
-                                url: newsStore.news.preview_image,
-                                main: 1,
-                                order: 1,
-                                isFile: 1,
-                                isLoaded: 1
-                            }]
+                            ? [
+                                  {
+                                      ID: newsStore.news.ID,
+                                      url: newsStore.news.preview_image,
+                                      main: 1,
+                                      order: 1,
+                                      isFile: 1,
+                                      isLoaded: 1,
+                                  },
+                              ]
                             : []
                     );
 
                     setPhotoReview(
                         newsStore.news.image
-                            ? [{
-                                ID: newsStore.news.ID,
-                                url: newsStore.news.image,
-                                main: 1,
-                                order: 1,
-                                isFile: 1,
-                                isLoaded: 1
-                            }]
+                            ? [
+                                  {
+                                      ID: newsStore.news.ID,
+                                      url: newsStore.news.image,
+                                      main: 1,
+                                      order: 1,
+                                      isFile: 1,
+                                      isLoaded: 1,
+                                  },
+                              ]
                             : []
                     );
 
-                    setPhoto(
-                        newsStore.news.images
-                            ? newsStore.news.images
-                            : []
-                    )
+                    setPhoto(newsStore.news.images ? newsStore.news.images : []);
                 }
             }, [edit]);
 
             const checkForComplete = (sendObject) => {
-
-                if(!sendObject.previewTitle){
+                if (!sendObject.previewTitle) {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={"Название для анонса должно быть заполнено."}
                             opened={true}
@@ -374,9 +362,9 @@ const AdminNewsPage = (props) => {
                     return false;
                 }
 
-                if(!sendObject.title){
+                if (!sendObject.title) {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={"Название должно быть заполнено."}
                             opened={true}
@@ -388,9 +376,9 @@ const AdminNewsPage = (props) => {
                     return false;
                 }
 
-                if(sendObject.date === ""){
+                if (sendObject.date === "") {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={"Дата должна быть заполнена."}
                             opened={true}
@@ -402,10 +390,9 @@ const AdminNewsPage = (props) => {
                     return false;
                 }
 
-                if(!sendObject.editorPreview || sendObject.editorPreview === "<p><br></p>")
-                {
+                if (!sendObject.editorPreview || sendObject.editorPreview === "<p><br></p>") {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={"Описание для анонса должно быть заполнено."}
                             opened={true}
@@ -417,10 +404,9 @@ const AdminNewsPage = (props) => {
                     return false;
                 }
 
-                if(!sendObject.editorReview || sendObject.editorReview === "<p><br></p>")
-                {
+                if (!sendObject.editorReview || sendObject.editorReview === "<p><br></p>") {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={"Детальное описание должно быть заполнено."}
                             opened={true}
@@ -433,7 +419,7 @@ const AdminNewsPage = (props) => {
                 }
 
                 return true;
-            }
+            };
 
             const onEditNews = async (params) => {
                 const data = getValues();
@@ -445,8 +431,7 @@ const AdminNewsPage = (props) => {
                 sendObject["reviewImage"] = photoReview;
                 sendObject["images"] = photo;
 
-                if (!checkForComplete(sendObject))
-                    return;
+                if (!checkForComplete(sendObject)) return;
 
                 setSending(true);
 
@@ -458,7 +443,7 @@ const AdminNewsPage = (props) => {
 
                 if (!result.error) {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title=''
                             text={"Новость успешно отредактирована"}
                             opened={true}
@@ -467,10 +452,9 @@ const AdminNewsPage = (props) => {
                             }}
                         />
                     );
-                }
-                else {
+                } else {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка'
                             text={result.errorText}
                             opened={true}
@@ -483,25 +467,24 @@ const AdminNewsPage = (props) => {
             };
 
             const onDelete = async () => {
-
                 setPopup(
-                    <Notif
+                    <AlertPopup
                         text={"Вы уверены что хотите удалить?"}
                         opened={true}
                         onClose={() => setPopup(<></>)}
                         buttons={
                             <>
                                 <Button
-                                    type="button"
+                                    type='button'
                                     size={"small"}
                                     text={"Нет"}
-                                    theme="text"
+                                    theme='text'
                                     onClick={() => setPopup(<></>)}
                                 />
                                 <Button
-                                    type="button"
+                                    type='button'
                                     size={"small"}
-                                    theme="info"
+                                    theme='info'
                                     text={"Да"}
                                     onClick={async () => {
                                         let sendObject = {};
@@ -513,8 +496,8 @@ const AdminNewsPage = (props) => {
 
                                         if (!result.error) {
                                             setPopup(
-                                                <Notif
-                                                    title=""
+                                                <AlertPopup
+                                                    title=''
                                                     text={"Новость удалена"}
                                                     opened={true}
                                                     onClose={() => {
@@ -523,10 +506,9 @@ const AdminNewsPage = (props) => {
                                                     }}
                                                 />
                                             );
-                                        }
-                                        else {
+                                        } else {
                                             setPopup(
-                                                <Notif
+                                                <AlertPopup
                                                     title='Ошибка'
                                                     text={result.errorText}
                                                     opened={true}
@@ -542,7 +524,6 @@ const AdminNewsPage = (props) => {
                         }
                     />
                 );
-
             };
 
             const handleDeleteImages = async (item) => {
@@ -572,8 +553,7 @@ const AdminNewsPage = (props) => {
                 const result = await newsStore.removeFile(sendObject);
             };
 
-
-            if(id && edit){
+            if (id && edit) {
                 return (
                     <>
                         <div className={commonStyles.title_block}>
@@ -605,7 +585,7 @@ const AdminNewsPage = (props) => {
                                             label={"Показывать на главной странице?"}
                                             type={"checkbox_variant"}
                                             {...register("mainPage", {
-                                                value: newsStore.news.show_on_main_page  === "Активен",
+                                                value: newsStore.news.show_on_main_page === "Активен",
                                             })}
                                         />
                                         <FieldInput
@@ -629,28 +609,38 @@ const AdminNewsPage = (props) => {
                                             })}
                                         />
                                         <FieldInput
-                                            label="Дата и время"
-                                            type="datetime-local"
-                                            layout="flex"
+                                            label='Дата и время'
+                                            type='datetime-local'
+                                            layout='flex'
                                             required={true}
                                             {...register("date", {
-                                                value: moment(newsStore.news.date).format('YYYY-MM-DD HH:mm'),
+                                                value: moment(newsStore.news.date).format("YYYY-MM-DD HH:mm"),
                                             })}
                                         />
                                         <div className='form__multy-block'>
                                             <p className='form__label'>Описание для анонса</p>
-                                            <Editor control={control} name='editorPreview' minHeight={250} buttons={{link: true}} />
+                                            <Editor
+                                                control={control}
+                                                name='editorPreview'
+                                                minHeight={250}
+                                                buttons={{ link: true }}
+                                            />
                                         </div>
                                         <div className='form__multy-block'>
                                             <p className='form__label'>Детальное описание</p>
-                                            <Editor control={control} name='editorReview' minHeight={250} buttons={{link: true}} />
+                                            <Editor
+                                                control={control}
+                                                name='editorReview'
+                                                minHeight={250}
+                                                buttons={{ link: true }}
+                                            />
                                         </div>
                                     </fieldset>
                                 </Tab>
                                 <Tab title={"Фотографии"}>
                                     <fieldset className='form__section'>
                                         <ImageSelector
-                                            title="КАРТИНКА ДЛЯ АНОНСА"
+                                            title='КАРТИНКА ДЛЯ АНОНСА'
                                             items={photoPreview}
                                             onlyOneImage={true}
                                             multiFiles={false}
@@ -658,7 +648,7 @@ const AdminNewsPage = (props) => {
                                             onDelete={handleDeletePreviewPhoto}
                                         />
                                         <ImageSelector
-                                            title="ДЕТАЛЬНАЯ КАРТИНКА"
+                                            title='ДЕТАЛЬНАЯ КАРТИНКА'
                                             items={photoReview}
                                             onlyOneImage={true}
                                             multiFiles={false}
@@ -666,7 +656,7 @@ const AdminNewsPage = (props) => {
                                             onDelete={handleDeleteReviewPhoto}
                                         />
                                         <ImageSelector
-                                            title="Фото галерея"
+                                            title='Фото галерея'
                                             items={photo}
                                             multiFiles={true}
                                             onChange={(items) => setPhoto(items)}
@@ -676,12 +666,7 @@ const AdminNewsPage = (props) => {
                                 </Tab>
                             </Tabs>
                             <div className='form__controls'>
-                                <Button
-                                    type='submit'
-                                    theme='primary'
-                                    text='Сохранить'
-                                    spinnerActive={sending}
-                                />
+                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
                                 <Button
                                     type='button'
                                     theme='text'
@@ -707,8 +692,7 @@ const AdminNewsPage = (props) => {
         };
 
         const ViewNews = () => {
-            if(id && !edit && !newsStore.loading && Object.keys(newsStore.news).length > 0)
-            {
+            if (id && !edit && !newsStore.loading && Object.keys(newsStore.news).length > 0) {
                 return (
                     <>
                         <div className={commonStyles.title_block}>
@@ -772,7 +756,9 @@ const AdminNewsPage = (props) => {
                                     </li>
                                     <li className={styles.item}>
                                         <h3 className={styles.label}>Дата новости</h3>
-                                        <p className={styles.description}>{moment(newsStore.news.date).format("DD MMMM YYYY HH:mm")}</p>
+                                        <p className={styles.description}>
+                                            {moment(newsStore.news.date).format("DD MMMM YYYY HH:mm")}
+                                        </p>
                                     </li>
                                 </ul>
                                 <h2 className={styles.title}>Описание для анонса</h2>
@@ -792,13 +778,23 @@ const AdminNewsPage = (props) => {
                             </Tab>
                             <Tab title={"Фотографии"}>
                                 <h2 className={styles.title}>Картинка для анонса</h2>
-                                <ImageGallery items={[{
-                                    url: newsStore.news.preview_image,
-                                }]} front={false} />
+                                <ImageGallery
+                                    items={[
+                                        {
+                                            url: newsStore.news.preview_image,
+                                        },
+                                    ]}
+                                    front={false}
+                                />
                                 <h2 className={styles.title}>Детальная картинка</h2>
-                                <ImageGallery items={[{
-                                    url: newsStore.news.image
-                                }]} front={false} />
+                                <ImageGallery
+                                    items={[
+                                        {
+                                            url: newsStore.news.image,
+                                        },
+                                    ]}
+                                    front={false}
+                                />
                                 <h2 className={styles.title}>Фото галерея</h2>
                                 <ImageGallery items={newsStore.news.images} front={false} />
                             </Tab>

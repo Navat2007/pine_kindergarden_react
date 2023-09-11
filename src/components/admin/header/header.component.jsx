@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../../admin/button/button";
+import Button from "../../admin/button/button.component";
 import ProfileHeader from "../profile.header/profile.header.component";
 import { AdminIcons } from "../../svgs.js";
 import "./header.scss";
@@ -9,7 +9,7 @@ const HeaderComponent = ({ children, extraClass, handleBurger }) => {
         <header className={`admin-header ${extraClass && extraClass}`}>
             <Button
                 type='button'
-                iconBtn
+                isIconBtn
                 extraClass='admin-header__burger'
                 iconName={AdminIcons.menu}
                 aria-label='Открыть/Закрыть меню'

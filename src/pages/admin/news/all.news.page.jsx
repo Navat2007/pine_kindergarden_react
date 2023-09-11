@@ -1,11 +1,12 @@
-import React from 'react';
-import {useNavigate} from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import useNewsStore from "../../../store/admin/newsStore";
 import useAuthStore from "../../../store/authStore";
 
-import Table from "../../../components/general/table/table.component";
-import Button from "../../../components/general/button/button.component";
+import Table from "../../../components/admin/table/table.component";
+import Button from "../../../components/admin/button/button.component";
+import { AdminIcons } from "../../../components/svgs";
 
 const AdminAllNewsPage = () => {
     const { user } = useAuthStore();
@@ -65,14 +66,13 @@ const AdminAllNewsPage = () => {
             withFilter={true}
         >
             <Button
-                type="button"
-                text="Создать"
-                theme="primary"
-                size="small"
-                iconClass={"mdi mdi-plus"}
-                aria-label="Добавить новость"
+                type='button'
+                iconName={AdminIcons.plus}
+                aria-label='Добавить новость'
                 onClick={() => navigate("/admin/news/new")}
-            />
+            >
+                Создать
+            </Button>
         </Table>
     );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import Logo from "../../public/logo/logo";
-import Button from "../button/button";
+import Button from "../button/button.component";
 
 import "./menu.scss";
 import { AdminIcons } from "../../svgs.js";

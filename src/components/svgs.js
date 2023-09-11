@@ -249,14 +249,30 @@ export const AdminIcons = {
         </svg>
     ),
     exit: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill='currentColor' viewBox="223 -55.7 24 24"><path d="M233.1-40.1l1.4 1.4 5-5-5-5-1.4 1.4 2.6 2.6H226v2h9.7l-2.6 2.6zm8.9-12.6h-14c-1.1 0-2 .9-2 2v4h2v-4h14v14h-14v-4h-2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2z"/></svg>
+        <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='223 -55.7 24 24'>
+            <path d='M233.1-40.1l1.4 1.4 5-5-5-5-1.4 1.4 2.6 2.6H226v2h9.7l-2.6 2.6zm8.9-12.6h-14c-1.1 0-2 .9-2 2v4h2v-4h14v14h-14v-4h-2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2z' />
+        </svg>
     ),
     menu: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill='currentColor' viewBox='0 0 24 24'><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24'>
+            <path d='M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z' />
+        </svg>
     ),
     question: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill='currentColor' viewBox='0 0 24 24'><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/></svg>
-    )
+        <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24'>
+            <path d='M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z' />
+        </svg>
+    ),
+    filter: (
+        <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24'>
+            <path d='M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A.998.998 0 0018.95 4H5.04c-.83 0-1.3.95-.79 1.61z' />
+        </svg>
+    ),
+    back: (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'>
+            <path d='M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12l8.13-8.13z' />
+        </svg>
+    ),
 };
 
 export const FileIcons = {

@@ -34,6 +34,7 @@
             @extend %hidden-block;
         }
     }
+
     &__input {
         @extend %reset-input;
         grid-area: 1/1/2/2;
@@ -46,11 +47,13 @@
             outline: 1px solid var(--admin-dark-low);
         }
     }
+
     &__label {
         line-height: 2;
         font-size: 0.875em;
         color: var(--admin-dark-low);
     }
+
     &__info-text {
         @extend %cut-text;
         display: block;

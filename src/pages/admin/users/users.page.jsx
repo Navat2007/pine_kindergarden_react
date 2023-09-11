@@ -6,9 +6,10 @@ import useAuthStore from "../../../store/authStore";
 
 import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
-import Table from "../../../components/general/table/table.component";
-import Button from "../../../components/general/button/button.component";
+import Table from "../../../components/admin/table/table.component";
+import Button from "../../../components/admin/button/button.component";
 import { Helmet } from "react-helmet";
+import { AdminIcons } from "../../../components/svgs.js";
 
 const UsersPage = () => {
     const { user } = useAuthStore();
@@ -151,12 +152,12 @@ const UsersPage = () => {
             >
                 <Button
                     type='button'
-                    iconClass={"mdi mdi-plus"}
-                    text='Создать'
-                    size='small'
+                    iconName={AdminIcons.plus}
                     aria-label='Создать пользователя'
                     onClick={() => navigate("/admin/users/admin/new")}
-                />
+                >
+                    Создать
+                </Button>
             </Table>
         </>
     );

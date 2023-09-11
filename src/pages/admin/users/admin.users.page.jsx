@@ -6,7 +6,7 @@ import useUsersStore from "../../../store/admin/usersStore";
 
 import Button from "../../../components/general/button/button.component";
 import FieldInput from "../../../components/general/field/field.input.component";
-import Notif from "../../../components/general/notif/notif.component";
+import AlertPopup from "../../../components/alert.popup/alert.popup";
 
 import no_photo_man from "../../../images/no_photo_man.png";
 import commonStyles from "../../common.module.scss";
@@ -234,7 +234,7 @@ const AdminUsersPage = () => {
                         />
                     </div>
                 </form>
-                <Notif
+                <AlertPopup
                     text={"Вы уверены что хотите удалить?"}
                     opened={popupOpened}
                     onClose={() => setPopupOpened(false)}
@@ -260,7 +260,7 @@ const AdminUsersPage = () => {
                         </>
                     }
                 />
-                <Notif
+                <AlertPopup
                     title={"Ошибка!"}
                     state='error'
                     text={errorText.admins}
@@ -384,7 +384,7 @@ const AdminUsersPage = () => {
                     <Button type='submit' text={"Создать"} spinnerActive={sending.admins} />
                 </div>
             </form>
-            <Notif
+            <AlertPopup
                 title={"Ошибка!"}
                 state='error'
                 text={errorText.admins}

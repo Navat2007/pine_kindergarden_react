@@ -6,9 +6,9 @@ import { Helmet } from "react-helmet";
 import useAuthStore from "../../store/authStore";
 
 import Logo from "../../components/public/logo/logo";
-import Button from "../../components/admin/button/button";
-import FieldEmail from "../../components/admin/field/field.email";
-import FieldPassword from "../../components/admin/field/field.password";
+import Button from "../../components/admin/button/button.component";
+import FieldEmail from "../../components/admin/field/field.email.component";
+import FieldPassword from "../../components/admin/field/field.password.component";
 
 import "./login.scss";
 

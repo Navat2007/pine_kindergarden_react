@@ -6,7 +6,7 @@
     inset-block-start: 0;
     inset-inline-start: 0;
     inset-inline-end: 0;
-    z-index: 2;
+    // z-index: 2;
 
     display: flex;
     flex-direction: column;
@@ -21,7 +21,7 @@
         position: fixed;
         inset: 0;
         @include box(100%);
-        z-index: 1001;
+        z-index: 50;
 
         background-color: transparent;
         box-shadow: none;

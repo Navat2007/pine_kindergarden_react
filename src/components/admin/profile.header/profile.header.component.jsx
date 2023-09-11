@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import useAuthStore from "../../../store/authStore";
 
-import Button from "../button/button";
-import Notif from "../../general/notif/notif.component";
+import Button from "../button/button.component";
+import AlertPopup from "../../alert.popup/alert.popup";
 import no_photo_man from "../../../images/no_photo_man.png";
 import "./profile.scss";
 import { AdminIcons } from "../../svgs";
@@ -52,11 +52,11 @@ const ProfileHeader = ({ className }) => {
             <Button
                 type='button'
                 iconName={AdminIcons.exit}
-                iconBtn='true'
+                isIconBtn
                 aria-label='Выйти из профиля'
                 onClick={() => setPopupOpened(true)}
             />
-            <Notif
+            <AlertPopup
                 text={"Вы действительно хотите выйти?"}
                 opened={popupOpened}
                 onClose={() => {
@@ -64,23 +64,18 @@ const ProfileHeader = ({ className }) => {
                 }}
                 buttons={
                     <>
+                        <Button theme={"text"} type='button' onClick={() => setPopupOpened(false)}>
+                            Нет
+                        </Button>
                         <Button
                             type='button'
-                            text='Нет'
-                            size={"small"}
-                            theme='text'
-                            onClick={() => setPopupOpened(false)}
-                        />
-                        <Button
-                            type='button'
-                            text='Да'
-                            theme='info'
-                            size={"small"}
                             onClick={() => {
                                 logout();
                                 navigate("/", { replace: true });
                             }}
-                        />
+                        >
+                            Да
+                        </Button>
                     </>
                 }
             />

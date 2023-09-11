@@ -14,7 +14,7 @@ import Tabs from "../../tabs/tabs.component";
 import Tab from "../../tabs/tab.component";
 import FieldInput from "../../field/field.input.component";
 import Popup from "../../popup/popup.component";
-import Notif from "../../notif/notif.component";
+import AlertPopup from "../../../alert.popup/alert.popup";
 import ImageGallery from "../../image_gallery/image.gallery.component";
 import TheatreActivityComponent from "./theatre.activity.component";
 import VideoPlayer from "../../video_player/video.player.component";
@@ -26,7 +26,6 @@ import { EventIcons } from "../../../svgs.js";
 import noImage from "../../../../images/no_image.png";
 
 const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
-
     const DOMPurify = createDOMPurify(window);
 
     const { user } = useAuthStore();
@@ -44,9 +43,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     const [festivalRequestSending, setFestivalRequestSending] = React.useState(false);
 
     const onTaliaFestivalRequestSubmit = async (data) => {
-
         const sendToDB = async () => {
-
             let form = new FormData();
 
             form.append("schoolID", schoolStore.school.ID);
@@ -62,13 +59,11 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
 
             return {
                 error: response?.data?.error === 0,
-                text: response?.data?.error_text
+                text: response?.data?.error_text,
             };
-
         };
 
         const sendToEmail = async () => {
-
             let form = new FormData();
 
             form.append("section", "1");
@@ -77,13 +72,9 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
             form.append("direction", "«Благосклонная Талия»");
             form.append("count", data.count);
 
-            const response = await axios.postForm(
-                window.global.baseUrl + "php/email/festival.php",
-                form
-            );
+            const response = await axios.postForm(window.global.baseUrl + "php/email/festival.php", form);
 
             return response?.data?.mail_result;
-
         };
 
         setFestivalRequestSending(true);
@@ -95,9 +86,9 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
             reset();
             setFestivalRequest(false);
             setNotif(
-                <Notif
+                <AlertPopup
                     text="Заявка успешно отправлена. Посмотреть статус заявки можно на странице 'Заявки на фестивали'"
-                    state="success"
+                    state='success'
                     timerInSeconds={3}
                     opened={true}
                     onClose={() => setNotif(<></>)}
@@ -105,9 +96,9 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
             );
         } else {
             setNotif(
-                <Notif
+                <AlertPopup
                     text={"При отправке заявки произошла ошибка. \n" + response.text}
-                    state="error"
+                    state='error'
                     opened={true}
                     onClose={() => setNotif(<></>)}
                 />
@@ -115,13 +106,10 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         }
 
         setFestivalRequestSending(false);
-
     };
 
     const onMelpomenaFestivalRequestSubmit = async (data) => {
-
         const sendToDB = async () => {
-
             let form = new FormData();
             window.global.buildFormData(form, data);
 
@@ -139,13 +127,11 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
 
             return {
                 error: response?.data?.error === 0,
-                text: response?.data?.error_text
+                text: response?.data?.error_text,
             };
-
         };
 
         const sendToEmail = async () => {
-
             let form = new FormData();
             window.global.buildFormData(form, data);
 
@@ -164,7 +150,6 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
             });
 
             return response?.data?.mail_result;
-
         };
 
         setFestivalRequestSending(true);
@@ -176,9 +161,9 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
             reset();
             setFestivalRequest(false);
             setNotif(
-                <Notif
+                <AlertPopup
                     text="Заявка успешно отправлена. Посмотреть статус заявки можно на странице 'Заявки на фестивали'"
-                    state="success"
+                    state='success'
                     timerInSeconds={3}
                     opened={true}
                     onClose={() => setNotif(<></>)}
@@ -186,9 +171,9 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
             );
         } else {
             setNotif(
-                <Notif
+                <AlertPopup
                     text={"При отправке заявки произошла ошибка. \n" + response.text}
-                    state="error"
+                    state='error'
                     opened={true}
                     onClose={() => setNotif(<></>)}
                 />
@@ -196,64 +181,52 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         }
 
         setFestivalRequestSending(false);
-
     };
 
     const handleFestivalRequestBtn = async () => {
-
         setFestivalRequest(true);
 
         await schoolStore.loadSchool({ id: user.schoolID });
-        await spectaclesStore.loadSpectacles({schoolID: user.schoolID});
+        await spectaclesStore.loadSpectacles({ schoolID: user.schoolID });
 
         setPopupLoading(false);
-
     };
 
     return (
         <>
             <div className={commonStyles.title_block}>
                 <Button
-                    type="button"
-                    theme="text"
-                    size="small"
+                    type='button'
+                    theme='text'
+                    size='small'
                     iconClass={"mdi mdi-arrow-left"}
-                    isIconBtn="true"
-                    aria-label="Назад"
+                    isIconBtn='true'
+                    aria-label='Назад'
                     onClick={onBack}
                 />
                 <h1 className={commonStyles.title}>{theatre.title}</h1>
                 {onEdit && (
                     <Button
-                        size="smaller"
-                        type="submit"
-                        isIconBtn="true"
+                        size='smaller'
+                        type='submit'
+                        isIconBtn='true'
                         iconClass={"mdi mdi-pencil"}
-                        theme="outline"
-                        aria-label="Редактировать театр"
+                        theme='outline'
+                        aria-label='Редактировать театр'
                         onClick={onEdit}
                     />
                 )}
             </div>
             <Tabs>
-                <Tab
-                    title={"Основные сведения"}
-                    event={"supportive_waist"}
-                >
+                <Tab title={"Основные сведения"} event={"supportive_waist"}>
                     <ul className={styles.list}>
-                        <li
-                            className={styles.item}
-                            style={{ alignItems: "center" }}
-                        >
+                        <li className={styles.item} style={{ alignItems: "center" }}>
                             <h3 className={styles.label}>Эмблема театра</h3>
                             <div className={styles.logoBlock}>
                                 <img
                                     className={styles.logo}
                                     src={
-                                        theatre.image === ""
-                                            ? noImage
-                                            : process.env.REACT_APP_BASE_URL +
-                                              theatre.image
+                                        theatre.image === "" ? noImage : process.env.REACT_APP_BASE_URL + theatre.image
                                     }
                                     alt={"Эмблема театра"}
                                 />
@@ -284,18 +257,15 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     className={commonStyles.link}
                                     to={"/theatres/" + id}
                                     target={"_blank"}
-                                    rel="noopener nofollow noreferer"
+                                    rel='noopener nofollow noreferer'
                                 >
-                                    На страницу{" "}
-                                    <span className="mdi mdi-open-in-new" />
+                                    На страницу <span className='mdi mdi-open-in-new' />
                                 </NavLink>
                             </p>
                         </li>
                         <li className={styles.item}>
                             <h3 className={styles.label}>Адрес</h3>
-                            <p className={styles.description}>
-                                {theatre.address}
-                            </p>
+                            <p className={styles.description}>{theatre.address}</p>
                         </li>
                         <li className={styles.item}>
                             <h3 className={styles.label}>Координаты</h3>
@@ -303,15 +273,11 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                 {theatre.coordinates ? (
                                     <a
                                         className={commonStyles.link}
-                                        href={
-                                            "http://maps.yandex.ru/?text=" +
-                                            theatre.coordinates
-                                        }
+                                        href={"http://maps.yandex.ru/?text=" + theatre.coordinates}
                                         target={"_blank"}
-                                        rel="noopener nofollow noreferer"
+                                        rel='noopener nofollow noreferer'
                                     >
-                                        {theatre.coordinates}{" "}
-                                        <span className="mdi mdi-open-in-new" />
+                                        {theatre.coordinates} <span className='mdi mdi-open-in-new' />
                                     </a>
                                 ) : (
                                     "Не заданы"
@@ -319,40 +285,28 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                             </p>
                         </li>
                         <li className={styles.item}>
-                            <h3 className={styles.label}>
-                                Форма осуществления деятельности
-                            </h3>
+                            <h3 className={styles.label}>Форма осуществления деятельности</h3>
                             <p className={styles.description}>
-                                {theatre.form_activity
-                                    .map((item) => item.activity)
-                                    .join(", ")}
+                                {theatre.form_activity.map((item) => item.activity).join(", ")}
                             </p>
                         </li>
                         <li className={styles.item}>
-                            <h3 className={styles.label}>
-                                Возрастной состав участников школьного театра
-                            </h3>
+                            <h3 className={styles.label}>Возрастной состав участников школьного театра</h3>
                             <p className={styles.description}>
-                                {theatre.age_members
-                                    .map((item) => item.age)
-                                    .join(", ")}
+                                {theatre.age_members.map((item) => item.age).join(", ")}
                             </p>
                         </li>
                         <li className={styles.item}>
                             <h3 className={styles.label}>Дата основания</h3>
-                            <p className={styles.description}>
-                                {moment(theatre.foundation_date).format(
-                                    "DD.MM.YYYY"
-                                )}
-                            </p>
+                            <p className={styles.description}>{moment(theatre.foundation_date).format("DD.MM.YYYY")}</p>
                         </li>
                         <li className={styles.item}>
                             <h3 className={styles.label}>
                                 Соцсети
                                 <span
                                     className={styles.eventIcon}
-                                    aria-label="Благославенная талия"
-                                    title="Благославенная талия"
+                                    aria-label='Благославенная талия'
+                                    title='Благославенная талия'
                                 >
                                     {EventIcons.supportive_waist}
                                 </span>
@@ -364,7 +318,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                             className={styles.socialLink}
                                             href={link}
                                             target={"_blank"}
-                                            rel="noopener nofollow noreferer"
+                                            rel='noopener nofollow noreferer'
                                         >
                                             {window.global.getSocialIcon(link)}
                                         </a>
@@ -374,12 +328,11 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                         </li>
                         <li className={styles.item}>
                             <h3 className={styles.label}>
-                                Страница театра на сайте образовательной
-                                организации
+                                Страница театра на сайте образовательной организации
                                 <span
                                     className={styles.eventIcon}
-                                    aria-label="Благославенная талия"
-                                    title="Благославенная талия"
+                                    aria-label='Благославенная талия'
+                                    title='Благославенная талия'
                                 >
                                     {EventIcons.supportive_waist}
                                 </span>
@@ -389,21 +342,18 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     className={commonStyles.link}
                                     href={theatre.theatre_url_school}
                                     target={"_blank"}
-                                    rel="noopener nofollow noreferer"
+                                    rel='noopener nofollow noreferer'
                                 >
-                                    На страницу{" "}
-                                    <span className="mdi mdi-open-in-new" />
+                                    На страницу <span className='mdi mdi-open-in-new' />
                                 </a>
                             </p>
                         </li>
                         {user && user.role === "user" && (
                             <li className={styles.item}>
-                                <h3 className={styles.label}>
-                                    Фестиваль “Живая сцена”
-                                </h3>
+                                <h3 className={styles.label}>Фестиваль “Живая сцена”</h3>
                                 <Button
                                     style={{ maxWidth: "max-content" }}
-                                    type="button"
+                                    type='button'
                                     text={"Подать заявку"}
                                     onClick={handleFestivalRequestBtn}
                                 />
@@ -414,50 +364,32 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                     {theatre.teachers.length === 0 ? (
                         <p className={styles.description}>Данные не указаны</p>
                     ) : (
-                        <div className="teacher-list">
+                        <div className='teacher-list'>
                             {theatre.teachers.map((item) => {
                                 let teacher = teachersStore.teachers.find(
-                                    (teacherInStore) =>
-                                        item.ID === teacherInStore.ID
+                                    (teacherInStore) => item.ID === teacherInStore.ID
                                 );
 
-                                if(!teacher)
-                                    return null;
+                                if (!teacher) return null;
 
                                 return (
                                     <NavLink
                                         key={item.ID}
-                                        className="teacher-list__item"
-                                        to={
-                                            "/" +
-                                            (user?.role === "user"
-                                                ? "user"
-                                                : "admin") +
-                                            "/teachers/" +
-                                            item.ID
-                                        }
+                                        className='teacher-list__item'
+                                        to={"/" + (user?.role === "user" ? "user" : "admin") + "/teachers/" + item.ID}
                                     >
                                         <img
-                                            className="teacher-list__img"
-                                            src={
-                                                teacher?.photo
-                                                    ? window.global.baseUrl +
-                                                      teacher.photo
-                                                    : no_photo_man
-                                            }
-                                            alt=""
+                                            className='teacher-list__img'
+                                            src={teacher?.photo ? window.global.baseUrl + teacher.photo : no_photo_man}
+                                            alt=''
                                         />
-                                        <div className="teacher-list__info">
-                                            <h3 className="teacher-list__title">
-                                                <span className="teacher-list__span-accent">
-                                                    {teacher?.f}{" "}
-                                                </span>
+                                        <div className='teacher-list__info'>
+                                            <h3 className='teacher-list__title'>
+                                                <span className='teacher-list__span-accent'>{teacher?.f} </span>
                                                 {teacher?.i} {teacher?.o}
                                             </h3>
-                                            <p className="teacher-list__text"></p>
-                                            <p className="teacher-list__description">
-                                                {teacher?.position}
-                                            </p>
+                                            <p className='teacher-list__text'></p>
+                                            <p className='teacher-list__description'>{teacher?.position}</p>
                                         </div>
                                     </NavLink>
                                 );
@@ -469,51 +401,31 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                     <div
                         className={styles.editor}
                         dangerouslySetInnerHTML={{
-                            __html: DOMPurify.sanitize(
-                                theatre.short_description
-                            ),
+                            __html: DOMPurify.sanitize(theatre.short_description),
                         }}
                     />
                 </Tab>
-                <Tab
-                    title={"Обращение режиссёра"}
-                    hidden={true}
-                >
+                <Tab title={"Обращение режиссёра"} hidden={true}>
                     <div
                         className={styles.editor}
                         dangerouslySetInnerHTML={{
-                            __html: DOMPurify.sanitize(
-                                theatre.director_message
-                            ),
+                            __html: DOMPurify.sanitize(theatre.director_message),
                         }}
                     />
                 </Tab>
-                <Tab
-                    title={"Фотографии"}
-                    event={"supportive_waist"}
-                >
+                <Tab title={"Фотографии"} event={"supportive_waist"}>
                     <h2 className={styles.title}>Фото театра</h2>
-                    <ImageGallery
-                        items={theatre.photo}
-                        front={false}
-                    />
+                    <ImageGallery items={theatre.photo} front={false} />
                     {/*<h2 className={styles.title}>Фото посещения театра</h2>
                     <ImageGallery items={theatre.photoVisit} front={false} />*/}
                 </Tab>
-                <Tab
-                    title={"Видео"}
-                    event={"supportive_waist"}
-                >
-                    <h2 className={styles.title}>
-                        Видеовизитка школьного театра
-                    </h2>
+                <Tab title={"Видео"} event={"supportive_waist"}>
+                    <h2 className={styles.title}>Видеовизитка школьного театра</h2>
 
                     {theatre.video_business_card ? (
-                        <ul className="gallery-form">
-                            <li className="gallery-form__item">
-                                <VideoPlayer
-                                    source={theatre.video_business_card}
-                                />
+                        <ul className='gallery-form'>
+                            <li className='gallery-form__item'>
+                                <VideoPlayer source={theatre.video_business_card} />
                             </li>
                         </ul>
                     ) : (
@@ -522,18 +434,13 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                         </>
                     )}
 
-                    <h2 className={styles.title}>
-                        Видео лучших фрагментов спектаклей
-                    </h2>
+                    <h2 className={styles.title}>Видео лучших фрагментов спектаклей</h2>
                     {theatre.video && theatre.video.length > 0 ? (
                         <>
                             {/* И этот тоже */}
-                            <ul className="gallery-form">
+                            <ul className='gallery-form'>
                                 {theatre.video.map((item) => (
-                                    <li
-                                        key={item}
-                                        className="gallery-form__item"
-                                    >
+                                    <li key={item} className='gallery-form__item'>
                                         <VideoPlayer source={item} />
                                     </li>
                                 ))}
@@ -545,19 +452,11 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                         </>
                     )}
                 </Tab>
-                <Tab
-                    title={"Активность театра"}
-                    event={"supportive_waist"}
-                >
+                <Tab title={"Активность театра"} event={"supportive_waist"}>
                     <TheatreActivityComponent theatreID={theatre.ID} />
                 </Tab>
-                <Tab
-                    title={"Описания (рецензии)"}
-                    hidden={true}
-                >
-                    <h2 className={styles.title}>
-                        РАССКАЗ О ДРУГИХ ШКОЛЬНЫХ ТЕАТРАХ
-                    </h2>
+                <Tab title={"Описания (рецензии)"} hidden={true}>
+                    <h2 className={styles.title}>РАССКАЗ О ДРУГИХ ШКОЛЬНЫХ ТЕАТРАХ</h2>
                     {theatre.reviews && theatre.reviews.length > 0 ? (
                         <>
                             {theatre.reviews.map((item) => (
@@ -566,9 +465,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     <div
                                         className={styles.editor}
                                         dangerouslySetInnerHTML={{
-                                            __html: DOMPurify.sanitize(
-                                                item.text
-                                            ),
+                                            __html: DOMPurify.sanitize(item.text),
                                         }}
                                     />
                                 </div>
@@ -579,10 +476,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                             <p>Нет рассказов</p>
                         </>
                     )}
-                    <h2 className={styles.title}>
-                        РАССКАЗЫ (РЕЦЕНЗИИ) О ПОСЕЩЕНИИ ДРУГИХ МОСКОВСКИХ
-                        ТЕАТРОВ
-                    </h2>
+                    <h2 className={styles.title}>РАССКАЗЫ (РЕЦЕНЗИИ) О ПОСЕЩЕНИИ ДРУГИХ МОСКОВСКИХ ТЕАТРОВ</h2>
                     {theatre.reviewsVisit && theatre.reviewsVisit.length > 0 ? (
                         <>
                             {theatre.reviewsVisit.map((item) => (
@@ -591,9 +485,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     <div
                                         className={styles.editor}
                                         dangerouslySetInnerHTML={{
-                                            __html: DOMPurify.sanitize(
-                                                item.text
-                                            ),
+                                            __html: DOMPurify.sanitize(item.text),
                                         }}
                                     />
                                 </div>
@@ -615,64 +507,51 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                     setPopupLoading(true);
                 }}
             >
-                {
-                    popupLoading
-                    &&
-                    <p>Загрузка постановок...</p>
-                }
-                {
-                    !popupLoading
-                    &&
+                {popupLoading && <p>Загрузка постановок...</p>}
+                {!popupLoading && (
                     <Tabs>
                         <Tab title={"Благосклонная Талия"}>
-                            <form
-                                onSubmit={handleSubmit(
-                                    onTaliaFestivalRequestSubmit
-                                )}
-                                className="form"
-                            >
-                                <fieldset className="form__section --content-info">
+                            <form onSubmit={handleSubmit(onTaliaFestivalRequestSubmit)} className='form'>
+                                <fieldset className='form__section --content-info'>
                                     <FieldInput
                                         label={"Образовательная организация:"}
                                         type={"textarea"}
                                         rows={2}
                                         placeholder={"..."}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         disabled={true}
                                         value={schoolStore.school.org_name}
                                     />
                                     <FieldInput
                                         label={"Название театра:"}
                                         placeholder={"..."}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         disabled={true}
                                         value={theatre.title}
                                     />
                                     <FieldInput
                                         label={"Направление:"}
                                         placeholder={"..."}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         disabled={true}
                                         value={"«Благосклонная Талия»"}
                                     />
                                     <FieldInput
-                                        label={
-                                            "Количество участников творческого коллектива:"
-                                        }
+                                        label={"Количество участников творческого коллектива:"}
                                         type={"number"}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         required={true}
                                         {...register("count", { value: 0 })}
                                     />
                                 </fieldset>
-                                <div className="form__controls">
+                                <div className='form__controls'>
                                     <Button
-                                        type="submit"
-                                        text="Отправить"
+                                        type='submit'
+                                        text='Отправить'
                                         spinnerActive={festivalRequestSending}
                                         style={{
                                             marginLeft: "auto",
@@ -684,64 +563,62 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                         </Tab>
                         <Tab title={"Школьная Мельпомена"}>
                             <form
-                                onSubmit={handleSubmit(
-                                    onMelpomenaFestivalRequestSubmit
-                                )}
-                                className="form"
+                                onSubmit={handleSubmit(onMelpomenaFestivalRequestSubmit)}
+                                className='form'
                                 encType={"multipart/form-data"}
                             >
-                                <fieldset className="form__section --content-info">
+                                <fieldset className='form__section --content-info'>
                                     <FieldInput
                                         label={"Образовательная организация:"}
                                         type={"textarea"}
                                         rows={2}
                                         placeholder={"..."}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         disabled={true}
                                         value={schoolStore.school.org_name}
                                     />
                                     <FieldInput
                                         label={"Название театра:"}
                                         placeholder={"..."}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         disabled={true}
                                         value={theatre.title}
                                     />
                                     <FieldInput
                                         label={"Направление:"}
                                         placeholder={"..."}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         disabled={true}
                                         value={"«Школьная Мельпомена»"}
                                     />
                                     <FieldInput
                                         label={"Постановка:"}
-                                        layout="flex"
-                                        size="small"
-                                        type="select"
+                                        layout='flex'
+                                        size='small'
+                                        type='select'
                                         required={true}
                                         {...register("performance_ID", {
                                             value: "",
                                         })}
-                                        defaultSelectItem = {{
+                                        defaultSelectItem={{
                                             title: "Выберите постановку",
                                             value: "",
                                             disabled: true,
                                         }}
-                                        selectItems={spectaclesStore.spectacles.map(item => {
+                                        selectItems={spectaclesStore.spectacles.map((item) => {
                                             return {
                                                 title: item.title,
-                                                value: item.ID
-                                            }
+                                                value: item.ID,
+                                            };
                                         })}
                                     />
                                     <FieldInput
                                         label={"Автор литературного материала:"}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         required={true}
                                         {...register("performance_author", {
                                             value: "",
@@ -749,8 +626,8 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     />
                                     <FieldInput
                                         label={"Название литературного материала:"}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         required={true}
                                         {...register("performance_book", {
                                             value: "",
@@ -758,20 +635,18 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     />
                                     <FieldInput
                                         label={"ФИО режиссера-постановщика:"}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         required={true}
                                         {...register("performance_producer", {
                                             value: "",
                                         })}
                                     />
                                     <FieldInput
-                                        label={
-                                            "Количество участников творческого коллектива:"
-                                        }
+                                        label={"Количество участников творческого коллектива:"}
                                         type={"number"}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         required={true}
                                         {...register("performance_count", {
                                             value: 0,
@@ -780,7 +655,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     <FieldInput
                                         label={"Возрастная категория:"}
                                         type={"select"}
-                                        defaultSelectItem = {{
+                                        defaultSelectItem={{
                                             title: "Выберите категорию",
                                             value: "",
                                             disabled: true,
@@ -799,8 +674,8 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                                 title: "учащиеся из разных возрастных групп",
                                             },
                                         ]}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         required={true}
                                         {...register("performance_age", {
                                             value: "",
@@ -809,8 +684,8 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     <FieldInput
                                         label={"Продолжительность спектакля (мин):"}
                                         type={"number"}
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         required={true}
                                         {...register("performance_length", {
                                             value: 0,
@@ -820,27 +695,25 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                         label={
                                             "Номинация (Драматический спектакль/музыкальный спектакль/спектакль на иностранном языке):"
                                         }
-                                        layout="flex"
-                                        size="small"
+                                        layout='flex'
+                                        size='small'
                                         required={true}
                                         {...register("performance_nomination", {
                                             value: "",
                                         })}
                                     />
                                     <FieldInput
-                                        label={
-                                            "Ответы на вопросы (прием до 15.02.2023)"
-                                        }
-                                        type="file"
-                                        extraClass="form__field"
-                                        layout="flex"
+                                        label={"Ответы на вопросы (прием до 15.02.2023)"}
+                                        type='file'
+                                        extraClass='form__field'
+                                        layout='flex'
                                         {...register("performance_answer")}
                                     />
                                 </fieldset>
-                                <div className="form__controls">
+                                <div className='form__controls'>
                                     <Button
-                                        type="submit"
-                                        text="Отправить"
+                                        type='submit'
+                                        text='Отправить'
                                         spinnerActive={festivalRequestSending}
                                         style={{
                                             marginLeft: "auto",
@@ -851,7 +724,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                             </form>
                         </Tab>
                     </Tabs>
-                }
+                )}
             </Popup>
             {notif}
         </>

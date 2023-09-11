@@ -2,11 +2,13 @@ import React, { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import moment from "moment";
 import { motion, AnimatePresence } from "framer-motion";
-import styles from "./search.module.scss";
+import "./search.filter.scss";
 
 import Button from "../button/button.component";
-import FieldInput from "../field/field.input.component";
-import MultiSelect from "../multi_select/multi_select.component";
+import FieldSearch from "../field/field.search.component";
+import FieldInput from "../../general/field/field.input.component";
+import MultiSelect from "../../general/multi_select/multi_select.component";
+import { AdminIcons } from "../../svgs";
 
 const SearchFilter = ({ config, onSubmit, items, children, front }) => {
     const [opened, setOpened] = React.useState(false);
@@ -24,12 +26,10 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
     };
 
     const getSortedUniqueItemsForSelect = (array, type) => {
-
-        if(type === "array")
-        {
+        if (type === "array") {
             let tmpArray = [];
 
-            array.map(item => {
+            array.map((item) => {
                 for (let i = 0; i < item.length; i++) {
                     tmpArray.push(item[i]);
                 }
@@ -70,7 +70,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                         key={key}
                         size={size}
                         theme={theme}
-                        extraClass={styles.field}
+                        extraClass={"styles.field"}
                         {...register(key, {
                             setValueAs: (v) => (v !== "" ? parseInt(v) : ""),
                         })}
@@ -87,7 +87,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                         key={key}
                         theme={theme}
                         size={size}
-                        extraClass={styles.field}
+                        extraClass={"styles.field"}
                         {...register(key)}
                         label={header}
                         placeholder={`...`}
@@ -99,7 +99,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                     <FieldInput
                         size={size}
                         theme={theme}
-                        extraClass={styles.field}
+                        extraClass={"styles.field"}
                         key={key}
                         {...register(key)}
                         type={"date"}
@@ -112,7 +112,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                     <FieldInput
                         size={size}
                         theme={theme}
-                        extraClass={styles.field}
+                        extraClass={"styles.field"}
                         key={key}
                         {...register(key)}
                         type={"datetime-local"}
@@ -125,15 +125,13 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                     <FieldInput
                         size={size}
                         theme={theme}
-                        extraClass={styles.field}
+                        extraClass={"styles.field"}
                         key={key}
                         {...register(key)}
                         type={"select"}
                         label={header}
                         selectItems={getSortedUniqueItemsForSelect(
-                            items
-                                .map((item) => item[key])
-                                .filter((item) => item !== null && item !== ""),
+                            items.map((item) => item[key]).filter((item) => item !== null && item !== ""),
                             type
                         ).map((item) => {
                             return {
@@ -147,9 +145,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
             case "multiselect":
                 return (
                     <>
-                        <p className="form__label">
-                            {header}
-                        </p>
+                        <p className='form__label'>{header}</p>
                         <MultiSelect
                             placeholder={header + "..."}
                             control={control}
@@ -157,9 +153,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                             name={key}
                             closeMenuOnSelect={false}
                             options={getSortedUniqueItemsForSelect(
-                                items
-                                    .map((item) => item[key])
-                                    .filter((item) => item !== null && item !== ""),
+                                items.map((item) => item[key]).filter((item) => item !== null && item !== ""),
                                 type
                             ).map((item) => {
                                 return {
@@ -176,7 +170,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                     <FieldInput
                         size={size}
                         theme={theme}
-                        extraClass={styles.field}
+                        extraClass={"styles.field"}
                         key={key}
                         {...register(key)}
                         label={header}
@@ -185,138 +179,30 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
         }
     };
 
-    if (front)
-        return (
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className={[styles.search, styles.search_theme_public].join(
-                    " "
-                )}
-            >
-                <div className={[styles.row, styles.row_main_search].join(" ")}>
-                    <FieldInput
-                        type={"search"}
-                        theme={"public"}
-                        extraClass={styles.field}
-                        placeholder={"Поиск..."}
-                        {...register("search_string")}
-                    />
-                    <Button
-                        type="button"
-                        theme={"public_primary"}
-                        extraClass={styles.button}
-                        text={opened ? "Скрыть" : "Фильтр"}
-                        aria-label={opened ? "Скрыть" : "Фильтр"}
-                        onClick={() => setOpened(!opened)}
-                    />
-                    {children}
-                </div>
-                <motion.div
-                    animate={opened ? "open" : "closed"}
-                    variants={variants}
-                >
-                    <AnimatePresence>
-                        {opened && (
-                            <motion.div
-                                className={styles.row}
-                                initial={{
-                                    height: 0,
-                                    opacity: 0,
-                                    y: -20,
-                                    marginTop: "1.25em",
-                                }}
-                                animate={{
-                                    height: "auto",
-                                    opacity: 1,
-                                    y: 0,
-                                    marginTop: "1.25em",
-                                    transition: {
-                                        height: {
-                                            duration: 0.25,
-                                        },
-                                        opacity: {
-                                            duration: 0.25,
-                                            delay: 0.15,
-                                        },
-                                        marginTop: {
-                                            duration: 0.25,
-                                        },
-                                    },
-                                }}
-                                exit={{
-                                    height: 0,
-                                    opacity: 0,
-                                    y: -20,
-                                    marginTop: "0",
-                                    transition: {
-                                        height: {
-                                            duration: 0.25,
-                                        },
-                                        opacity: {
-                                            duration: 0.15,
-                                        },
-                                        marginTop: {
-                                            duration: 0.25,
-                                        },
-                                    },
-                                }}
-                            >
-                                {config.map((item) => getFieldByType(item))}
-                                <motion.div className={styles.controls}>
-                                    <Button
-                                        type="submit"
-                                        text="Найти"
-                                        theme={"public_primary"}
-                                    />
-                                    <Button
-                                        type="button"
-                                        text="Очистить"
-                                        theme={"public_text"}
-                                        onClick={() => {
-                                            reset();
-                                            onSubmit();
-                                        }}
-                                    />
-                                </motion.div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </motion.div>
-            </form>
-        );
-
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className={[styles.search, styles.search_theme_admin].join(" ")}
-        >
-            <div className={[styles.row, styles.row_main_search].join(" ")}>
-                <FieldInput
-                    type={"search"}
-                    size="small"
-                    extraClass={styles.field}
+        <form onSubmit={handleSubmit(onSubmit)} className='search-filter' name='search-form'>
+            <fieldset className={"search-filter__row"}>
+                <FieldSearch
                     placeholder={"Поиск..."}
+                    hasLabel={false}
+                    extraClass={"search-filter__field"}
                     {...register("search_string")}
                 />
                 <Button
-                    type="button"
-                    size="small"
-                    iconClass="mdi mdi-filter-variant"
-                    extraClass={styles.button}
-                    text={opened ? "Скрыть" : "Фильтр"}
+                    type='button'
+                    iconName={AdminIcons.filter}
                     aria-label={opened ? "Скрыть" : "Фильтр"}
                     onClick={() => setOpened(!opened)}
-                />
+                >
+                    {opened ? "Скрыть" : "Фильтр"}
+                </Button>
                 {children}
-            </div>
-            <motion.div
-                animate={opened ? "open" : "closed"}
-                variants={variants}
-            >
+            </fieldset>
+            <motion.div animate={opened ? "open" : "closed"} variants={variants}>
                 <AnimatePresence>
                     {opened && (
                         <motion.div
-                            className={styles.row}
+                            className={"styles.row"}
                             initial={{
                                 height: 0,
                                 opacity: 0,
@@ -360,17 +246,13 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                             }}
                         >
                             {config.map((item) => getFieldByType(item))}
-                            <motion.div className={styles.controls}>
+                            <motion.div className={"styles.controls"}>
+                                <Button type='submit' size='small' text='Найти' />
                                 <Button
-                                    type="submit"
-                                    size="small"
-                                    text="Найти"
-                                />
-                                <Button
-                                    type="button"
-                                    text="Очистить"
-                                    size="small"
-                                    theme="text"
+                                    type='button'
+                                    text='Очистить'
+                                    size='small'
+                                    theme='text'
                                     onClick={() => {
                                         reset();
                                         onSubmit();

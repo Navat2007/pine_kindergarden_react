@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from "../button/button.component";
-import Notif from "../notif/notif.component";
+import AlertPopup from "../../alert.popup/alert.popup";
 
 import noImage from "../../../images/no_image.png";
 
@@ -45,7 +45,7 @@ const ImageChange = ({image, onChange, onDelete, fileSize = 2}) => {
                     onChange(file);
                 } else {
                     setPopup(
-                        <Notif
+                        <AlertPopup
                             text={"Файл больше " + fileSize + " Мб."}
                             opened={true}
                             onClose={() => setPopup(<></>)}
@@ -54,7 +54,7 @@ const ImageChange = ({image, onChange, onDelete, fileSize = 2}) => {
                 }
             } else {
                 setPopup(
-                    <Notif
+                    <AlertPopup
                         text={"Файл должен быть изображением."}
                         opened={true}
                         onClose={() => setPopup(<></>)}

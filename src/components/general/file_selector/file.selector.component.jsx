@@ -3,25 +3,25 @@ import axios from "axios";
 
 import Button from "../button/button.component";
 import FieldInput from "../field/field.input.component";
-import Notif from "../notif/notif.component";
+import AlertPopup from "../../alert.popup/alert.popup";
 import Popup from "../popup/popup.component";
 
 import styles from "./file.selector.module.scss";
-import {AdminIcons, FileIcons} from "../../svgs.js";
+import { AdminIcons, FileIcons } from "../../svgs.js";
 
 const FileSelector = ({
-                          title,
-                          items,
-                          multiFiles,
-                          withLinks,
-                          withDescription,
-                          maxFileSize = 5,
-                          accept = "*.*",
-                          portrait = false,
-                          onChange,
-                          onError,
-                          onDelete,
-                      }) => {
+    title,
+    items,
+    multiFiles,
+    withLinks,
+    withDescription,
+    maxFileSize = 5,
+    accept = "*.*",
+    portrait = false,
+    onChange,
+    onError,
+    onDelete,
+}) => {
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
     const [photoFileAddBtnDisabled, setPhotoFileAddBtnDisabled] = React.useState(false);
@@ -112,7 +112,7 @@ const FileSelector = ({
                 if (onError) onError("Не удалось загрузить файл по ссылке");
                 else
                     setNotif(
-                        <Notif
+                        <AlertPopup
                             title='Ошибка!'
                             text={"Не удалось загрузить файл по ссылке"}
                             opened={true}
@@ -210,7 +210,7 @@ const FileSelector = ({
     const handleDeletePhoto = (itemElement) => {
         if (itemElement.isLoaded === 1) {
             setNotif(
-                <Notif
+                <AlertPopup
                     text={
                         "Вы уверены что хотите удалить? Файл сразу удалится с сервера и будет не доступен на публичной странице сайта!"
                     }
@@ -272,22 +272,22 @@ const FileSelector = ({
             return (
                 <div className={`${styles.file}`}>
                     {FileIcons[iconsType]}
-                    {
-                        withDescription
-                            ?
-                            <FieldInput
-                                type='textarea'
-                                extraClass={styles.fileField}
-                                placeholder='Введите описание файла..'
-                                rows={3}
-                                defaultValue={item.description ? item.description : (item.file ? item.file.name : item.title)}
-                                onChange={(e) => {
-                                    item.description = e.target.value;
-                                }}
-                            />
-                            :
-                            <p className={styles.fileName}>{item.description ? item.description : (item.file ? item.file.name : item.title)}</p>
-                    }
+                    {withDescription ? (
+                        <FieldInput
+                            type='textarea'
+                            extraClass={styles.fileField}
+                            placeholder='Введите описание файла..'
+                            rows={3}
+                            defaultValue={item.description ? item.description : item.file ? item.file.name : item.title}
+                            onChange={(e) => {
+                                item.description = e.target.value;
+                            }}
+                        />
+                    ) : (
+                        <p className={styles.fileName}>
+                            {item.description ? item.description : item.file ? item.file.name : item.title}
+                        </p>
+                    )}
                 </div>
             );
         }
@@ -429,7 +429,7 @@ const FileSelector = ({
                         target={"_blank"}
                         rel='nofollow noreferer noopener'
                     >
-                        <span className='mdi mdi-open-in-new'/>
+                        <span className='mdi mdi-open-in-new' />
                     </a>
                     <Button
                         type='button'

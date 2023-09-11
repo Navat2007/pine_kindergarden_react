@@ -1,0 +1,141 @@
+@import "../../styles/mixins";
+@import "../../styles/extends";
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: #0000008a;
+    overflow-y: auto;
+    display: none;
+
+    box-sizing: border-box;
+
+    animation: fadeIn 0.5s ease-in-out;
+
+    @include media(sm) {
+        padding: 3em min(1.5vmax, 1.875em);
+    }
+
+    &_opened {
+        display: flex;
+    }
+
+    &__container {
+        position: relative;
+
+        @include box(100%);
+        margin: auto;
+
+        background-color: #fff;
+
+        animation: PopupShow 0.55s ease-in-out;
+        animation-delay: 0.05s;
+
+        @include media(sm) {
+            width: max-content;
+            height: auto;
+            box-shadow: 6px 0px 18px 0px rgba(0, 0, 0, 0.06);
+            border-radius: 5px;
+        }
+    }
+
+    &__title {
+        margin: 1rem 3.5rem 1rem 1.5rem;
+        font-size: 1.5em;
+        font-weight: 600;
+
+        @include media(sm) {
+            margin: 1rem 1.5rem;
+            text-align: center;
+        }
+    }
+
+    &__close {
+        @extend %reset-btn;
+        position: absolute;
+        top: -2.5em;
+        right: -2.5em;
+        color: #fff;
+
+        svg {
+            fill: currentColor;
+            @include box(2.5em);
+            transition: 0.25s ease-in;
+        }
+
+        &:hover svg {
+            color: var(--admin-eror-color);
+            transform: rotate(90deg);
+        }
+
+        &:active svg {
+            transform: translateY(1px) rotate(90deg);
+        }
+
+        @include media(sm, max) {
+            right: 0.5em;
+            top: 0.5em;
+            color: var(--dark-low);
+
+            svg {
+                @include box(2.5em);
+            }
+        }
+    }
+
+    &__body {
+        margin: 1rem 1.5rem 0;
+        margin-bottom: min(3vmax, 1.875em);
+        box-sizing: border-box;
+    }
+
+    &__controls {
+        display: flex;
+        gap: 0.675em;
+        justify-content: flex-end;
+        margin-bottom: 1.5rem;
+
+        @include media(sm, max) {
+            justify-content: center;
+        }
+
+        & button {
+            width: min(14vmax, 8em);
+
+            &:only-child {
+                margin: auto;
+                width: 80%;
+            }
+        }
+    }
+}
+
+@include keyframes(fadeIn) {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@include keyframes(PopupShow) {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

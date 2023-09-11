@@ -1,0 +1,83 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.cell-image-logo {
+    width: 3.5em;
+    object-fit: cover;
+    max-width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: 5px;
+}
+
+admin-table {
+    &__container {
+        width: 100%;
+        overflow: auto;
+    }
+
+    &__table {
+        table-layout: fixed;
+        min-width: 100%;
+        max-width: 100%;
+        border-collapse: collapse;
+    }
+    &__row {
+        transition: background-color 0.25s ease-in-out;
+
+        &:hover {
+            background-color: rgba($color: black, $alpha: 0.035);
+        }
+
+        &_hover:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__cell-heading {
+        text-align: left;
+        color: var(--garkLow);
+        font-size: 0.875em;
+        font-weight: normal;
+        padding: 0.25rem 0.75rem;
+        border-bottom: 1px solid var(--g300);
+    }
+
+    &__cell {
+        padding: 0.75em 0.75em;
+        border-bottom: 1px solid var(--g200);
+    }
+}
+
+// сортировка
+.cell-sorting {
+    width: max-content;
+    margin: 0;
+    cursor: pointer;
+
+    width: fit-content;
+
+    display: flex;
+    gap: 0.25em;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+        flex: none;
+        @include box(1.25em);
+        opacity: 0.26;
+        transition: opacity 0.25s ease-in-out;
+        fill: currentColor;
+    }
+
+    &:hover svg {
+        opacity: 0.54;
+    }
+
+    &:active svg {
+        transform: translateY(1px);
+    }
+
+    &_actived svg {
+        opacity: 1;
+    }
+}

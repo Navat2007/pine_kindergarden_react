@@ -2,12 +2,12 @@ import React from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
-import Button from "../button/button";
-import Popup from "../../general/popup/popup.component";
+import Button from "../button/button.component";
+import Popup from "../../popup/popup.component";
 import FieldInput from "../../general/field/field.input.component";
 
 import useAuthStore from "../../../store/authStore";
-import Notif from "../../general/notif/notif.component";
+import AlertPopup from "../../alert.popup/alert.popup";
 
 import "./support.scss";
 import { AdminIcons } from "../../svgs";
@@ -44,6 +44,7 @@ const SupportHeaderComponent = () => {
         <>
             <Button
                 type='button'
+                theme={"outline"}
                 iconName={AdminIcons.question}
                 aria-label='Задать вопрос'
                 extraClass='support-button'
@@ -77,17 +78,12 @@ const SupportHeaderComponent = () => {
                             {...register("text")}
                         />
                     </fieldset>
-                    <div className='form__controls'>
-                        <Button
-                            type='submit'
-                            text='Отправить'
-                            spinnerActive={sending}
-                            style={{ marginLeft: "auto", display: "block" }}
-                        />
-                    </div>
+                    <Button type='submit' spinnerActive={sending}>
+                        Отправить
+                    </Button>
                 </form>
             </Popup>
-            <Notif
+            <AlertPopup
                 text='Запрос успешно отправлен'
                 state='success'
                 timerInSeconds={3}

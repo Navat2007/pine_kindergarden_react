@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import useFeedbackStore from "../../../store/feedbackStore";
 
-import Notif from "../../general/notif/notif.component";
+import AlertPopup from "../../alert.popup/alert.popup";
 
 import "./feedback.scss";
 
@@ -16,7 +16,7 @@ const Feedback = () => {
         await feedbackStore.sendFeedback(data);
 
         setNotif(
-            <Notif
+            <AlertPopup
                 text='Запрос успешно отправлен'
                 state='success'
                 timerInSeconds={3}
