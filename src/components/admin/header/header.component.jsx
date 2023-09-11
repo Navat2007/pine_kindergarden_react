@@ -4,13 +4,13 @@ import ProfileHeader from "../profile.header/profile.header.component";
 import { AdminIcons } from "../../svgs.js";
 import "./header.scss";
 
-const HeaderComponent = ({ children, handleBurger }) => {
+const HeaderComponent = ({ children, extraClass, handleBurger }) => {
     return (
-        <header className='admin-header'>
+        <header className={`admin-header ${extraClass && extraClass}`}>
             <Button
                 type='button'
                 iconBtn
-                extraClass="admin-header__burger"
+                extraClass='admin-header__burger'
                 iconName={AdminIcons.menu}
                 aria-label='Открыть/Закрыть меню'
                 onClick={handleBurger}

@@ -30,10 +30,12 @@ const AdminLayout = () => {
         <div className='app'>
             <Menu menu={menu} burgerOpened={burgerOpened} setBurgerOpened={handleBurgerMenu} />
             <main className='app__main'>
-                <Header handleBurger={handleBurgerMenu}>
+                <Header extraClass={'app__header'} handleBurger={handleBurgerMenu}>
                     <SupportHeaderComponent />
                 </Header>
-                <Outlet />
+                <div className='app__content'>
+                    <Outlet />
+                </div>
             </main>
         </div>
     );
