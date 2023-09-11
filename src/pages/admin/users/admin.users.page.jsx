@@ -4,12 +4,12 @@ import { useForm } from "react-hook-form";
 
 import useUsersStore from "../../../store/admin/usersStore";
 
-import Button from "../../../components/general/button/button.component";
+import Button from "../../../components/admin/button/button.component";
 import FieldInput from "../../../components/general/field/field.input.component";
 import AlertPopup from "../../../components/alert.popup/alert.popup";
 
 import no_photo_man from "../../../images/no_photo_man.png";
-import commonStyles from "../../common.module.scss";
+import { AdminIcons } from "../../../components/svgs";
 
 const AdminUsersPage = () => {
     const navigate = useNavigate();
@@ -67,17 +67,16 @@ const AdminUsersPage = () => {
     if (id && admin)
         return (
             <>
-                <div className={commonStyles.title_block}>
+                <div className='app__title-block'>
                     <Button
                         type='button'
                         theme='text'
-                        size='small'
-                        isIconBtn={true}
-                        iconClass='mdi mdi-arrow-left'
+                        isIconBtn
+                        iconName={AdminIcons.back}
                         aria-label='Назад'
                         onClick={() => back()}
                     />
-                    <h1 className={commonStyles.title}>Редактирование администратора ID: {id}</h1>
+                    <h1 className='app__title'>Редактирование администратора ID: {id}</h1>
                 </div>
                 <form onSubmit={handleSubmit(onEditSubmit)} className='form'>
                     <div className='form__container --view-two-columns'>
@@ -275,17 +274,16 @@ const AdminUsersPage = () => {
 
     return (
         <>
-            <div className={commonStyles.title_block}>
+            <div className='app__title-block'>
                 <Button
                     type='button'
                     theme='text'
-                    size='small'
-                    isIconBtn={true}
-                    iconClass='mdi mdi-arrow-left'
+                    isIconBtn
+                    iconName={AdminIcons.back}
                     aria-label='Назад'
                     onClick={() => back()}
                 />
-                <h1 className={commonStyles.title}>Создание администратора</h1>
+                <h1 className='app__title'>Создание администратора</h1>
             </div>
             <form onSubmit={handleSubmit(onAddSubmit)} className='form'>
                 <div className='form__container --view-two-columns'>
@@ -381,7 +379,9 @@ const AdminUsersPage = () => {
                     </fieldset>
                 </div>
                 <div className='form__controls'>
-                    <Button type='submit' text={"Создать"} spinnerActive={sending.admins} />
+                    <Button type='submit' spinnerActive={sending.admins}>
+                        Создать
+                    </Button>
                 </div>
             </form>
             <AlertPopup
