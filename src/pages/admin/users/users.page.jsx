@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import useUsersStore from "../../../store/admin/usersStore";
 import useAuthStore from "../../../store/authStore";
 
-import Tabs from "../../../components/general/tabs/tabs.component";
-import Tab from "../../../components/general/tabs/tab.component";
 import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
 import { Helmet } from "react-helmet";
@@ -15,19 +13,14 @@ const UsersPage = () => {
     const { user } = useAuthStore();
     const navigate = useNavigate();
 
-    const { admins, users, loadAdmins, loadUsers, loading } = useUsersStore();
+    const { admins, loadAdmins, loading } = useUsersStore();
 
     const onAdminItemClick = (props) => {
         navigate(`/admin/users/admin/${props}`);
     };
 
-    const onUserItemClick = (props) => {
-        navigate(`/admin/users/user/${props}`);
-    };
-
     const fetchData = async () => {
         await loadAdmins();
-        await loadUsers();
     };
 
     React.useEffect(() => {
@@ -57,75 +50,10 @@ const UsersPage = () => {
             sorting: true,
         },
         {
-            header: "Должность",
-            key: "position",
-            type: "string",
-            filter: "string",
-            sorting: true,
-        },
-        {
             header: "Роль",
             key: "role",
             type: "string",
             filter: "select",
-            sorting: true,
-        },
-        {
-            header: "Статус",
-            key: "active",
-            type: "string",
-            filter: "select",
-            sorting: true,
-        },
-    ];
-    const userItemsConfig = [
-        {
-            header: "ID",
-            key: "ID",
-            type: "int",
-            filter: "number",
-            sorting: true,
-        },
-        {
-            header: "Логин",
-            key: "login",
-            type: "string",
-            filter: "string",
-            sorting: true,
-        },
-        {
-            header: "Email",
-            key: "email",
-            type: "string",
-            filter: "string",
-            sorting: true,
-        },
-        {
-            header: "ФИО",
-            key: "fio",
-            type: "string",
-            filter: "string",
-            sorting: true,
-        },
-        {
-            header: "Телефон",
-            key: "phone",
-            type: "string",
-            filter: "string",
-            sorting: true,
-        },
-        {
-            header: "Должность",
-            key: "position",
-            type: "string",
-            filter: "string",
-            sorting: true,
-        },
-        {
-            header: "Школа",
-            key: "org_name",
-            type: "string",
-            filter: "string",
             sorting: true,
         },
         {
