@@ -3,15 +3,16 @@ import React from "react";
 import "./button.scss";
 
 const Button = ({
-    iconName,
-    type = "submit",
-    isIconBtn,
-    theme,
-    extraClass,
-    children,
-    spinnerActive = false,
-    ...rest
-}) => {
+                    children,
+                    iconName,
+                    type = "submit",
+                    isIconBtn,
+                    theme,
+                    extraClass,
+                    text,
+                    spinnerActive = false,
+                    ...rest
+                }) => {
     return (
         <button
             className={`button${theme ? ` button_theme_${theme}` : ``}${extraClass ? ` ${extraClass}` : ``}${
@@ -22,6 +23,7 @@ const Button = ({
             {...rest}
         >
             {iconName && <span className={`button__icon${extraClass ? ` ${extraClass}-icon` : ``}`}>{iconName}</span>}
+            {text}
             {children}
             {spinnerActive && (
                 <div className={"button__spinner"}>

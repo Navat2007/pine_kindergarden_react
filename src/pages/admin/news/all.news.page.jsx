@@ -6,6 +6,7 @@ import useAuthStore from "../../../store/authStore";
 
 import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
+
 import { AdminIcons } from "../../../components/svgs";
 
 const AdminAllNewsPage = () => {

@@ -2,13 +2,17 @@ import React, { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import moment from "moment";
 import { motion, AnimatePresence } from "framer-motion";
-import "./search.filter.scss";
 
 import Button from "../button/button.component";
-import FieldSearch from "../field/field.search.component";
-import FieldInput from "../../general/field/field.input.component";
 import MultiSelect from "../../general/multi_select/multi_select.component";
+import FieldSearch from "../field/field.search.component";
+import FieldText from "../field/field.text.component";
+import FieldNumber from "../field/field.number.component";
+import FieldDate from "../field/field.date.component";
+
+import "./search.filter.scss";
 import { AdminIcons } from "../../svgs";
+import FieldSelect from "../field/field.select.component";
 
 const SearchFilter = ({ config, onSubmit, items, children, front }) => {
     const [opened, setOpened] = React.useState(false);
@@ -66,69 +70,61 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
         switch (filter) {
             case "number":
                 return (
-                    <FieldInput
+                    <FieldNumber
                         key={key}
-                        size={size}
                         theme={theme}
+                        label={header}
                         extraClass={"styles.field"}
+                        defaultValue={""}
+                        placeholder={`...`}
                         {...register(key, {
                             setValueAs: (v) => (v !== "" ? parseInt(v) : ""),
                         })}
-                        defaultValue={""}
-                        type={"number"}
-                        label={header}
-                        placeholder={`...`}
                     />
                 );
 
             case "string":
                 return (
-                    <FieldInput
+                    <FieldText
                         key={key}
                         theme={theme}
-                        size={size}
                         extraClass={"styles.field"}
-                        {...register(key)}
                         label={header}
                         placeholder={`...`}
+                        {...register(key)}
                     />
                 );
 
             case "date":
                 return (
-                    <FieldInput
-                        size={size}
+                    <FieldDate
+                        key={key}
                         theme={theme}
                         extraClass={"styles.field"}
-                        key={key}
-                        {...register(key)}
                         type={"date"}
                         label={header}
+                        {...register(key)}
                     />
                 );
 
             case "datetime":
                 return (
-                    <FieldInput
-                        size={size}
+                    <FieldDate
+                        key={key}
                         theme={theme}
                         extraClass={"styles.field"}
-                        key={key}
-                        {...register(key)}
                         type={"datetime-local"}
                         label={header}
+                        {...register(key)}
                     />
                 );
 
             case "select":
                 return (
-                    <FieldInput
-                        size={size}
+                    <FieldSelect
+                        key={key}
                         theme={theme}
                         extraClass={"styles.field"}
-                        key={key}
-                        {...register(key)}
-                        type={"select"}
                         label={header}
                         selectItems={getSortedUniqueItemsForSelect(
                             items.map((item) => item[key]).filter((item) => item !== null && item !== ""),
@@ -139,6 +135,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                                 value: item,
                             };
                         })}
+                        {...register(key)}
                     />
                 );
 
@@ -167,13 +164,12 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
 
             default:
                 return (
-                    <FieldInput
-                        size={size}
+                    <FieldText
                         theme={theme}
                         extraClass={"styles.field"}
                         key={key}
-                        {...register(key)}
                         label={header}
+                        {...register(key)}
                     />
                 );
         }
