@@ -82,13 +82,9 @@ if ($error === 0) {
 
                 $url = "";
 
-                $baseDirName = $_SERVER['DOCUMENT_ROOT'] . "/files/news";
-
-                if (!file_exists($baseDirName)) {
-                    $oldmask = umask(0);
-                    $mkdir_result = mkdir($baseDirName, 0777);
-                    umask($oldmask);
-                }
+                $helper->createDir("/files");
+                $helper->createDir("/files/news");
+                $helper->createDir("/files/news/" . $lastID);
 
                 $temp_name = $_FILES['previewImage']['tmp_name'][$i]['file'];
                 $name = $_FILES['previewImage']['name'][$i]['file'];
@@ -96,17 +92,9 @@ if ($error === 0) {
                 $sqls[] = $temp_name;
                 $sqls[] = $name;
 
-                $dirName = $baseDirName . "/" . $lastID;
-
-                if (!file_exists($dirName)) {
-                    $oldmask = umask(0);
-                    $mkdir_result = mkdir($dirName, 0777);
-                    umask($oldmask);
-                }
-
                 $file_token = $helper->gen_token();
 
-                $path = $baseDirName . "/" . $lastID . "/" . $file_token . "_" . $name;
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/news/" . $lastID . "/" . $file_token . "_" . $name;
 
                 @unlink($path);
 
@@ -149,13 +137,9 @@ if ($error === 0) {
 
                 $url = "";
 
-                $baseDirName = $_SERVER['DOCUMENT_ROOT'] . "/files/news";
-
-                if (!file_exists($baseDirName)) {
-                    $oldmask = umask(0);
-                    $mkdir_result = mkdir($baseDirName, 0777);
-                    umask($oldmask);
-                }
+                $helper->createDir("/files");
+                $helper->createDir("/files/news");
+                $helper->createDir("/files/news/" . $lastID);
 
                 $temp_name = $_FILES['reviewImage']['tmp_name'][$i]['file'];
                 $name = $_FILES['reviewImage']['name'][$i]['file'];
@@ -163,17 +147,9 @@ if ($error === 0) {
                 $sqls[] = $temp_name;
                 $sqls[] = $name;
 
-                $dirName = $baseDirName . "/" . $lastID;
-
-                if (!file_exists($dirName)) {
-                    $oldmask = umask(0);
-                    $mkdir_result = mkdir($dirName, 0777);
-                    umask($oldmask);
-                }
-
                 $file_token = $helper->gen_token();
 
-                $path = $baseDirName . "/" . $lastID . "/" . $file_token . "_" . $name;
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/news/" . $lastID . "/" . $file_token . "_" . $name;
 
                 @unlink($path);
 
@@ -213,13 +189,9 @@ if ($error === 0) {
 
                 $url = "";
 
-                $baseDirName = $_SERVER['DOCUMENT_ROOT'] . "/files/news";
-
-                if (!file_exists($baseDirName)) {
-                    $oldmask = umask(0);
-                    $mkdir_result = mkdir($baseDirName, 0777);
-                    umask($oldmask);
-                }
+                $helper->createDir("/files");
+                $helper->createDir("/files/news");
+                $helper->createDir("/files/news/" . $lastID);
 
                 $temp_name = $_FILES['images']['tmp_name'][$i]['file'];
                 $name = $_FILES['images']['name'][$i]['file'];
@@ -227,17 +199,9 @@ if ($error === 0) {
                 $sqls[] = $temp_name;
                 $sqls[] = $name;
 
-                $dirName = $baseDirName . "/" . $lastID;
-
-                if (!file_exists($dirName)) {
-                    $oldmask = umask(0);
-                    $mkdir_result = mkdir($dirName, 0777);
-                    umask($oldmask);
-                }
-
                 $file_token = $helper->gen_token();
 
-                $path = $baseDirName . "/" . $lastID . "/" . $file_token . "_" . $name;
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/news/" . $lastID . "/" . $file_token . "_" . $name;
 
                 @unlink($path);
 

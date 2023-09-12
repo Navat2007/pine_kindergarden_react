@@ -480,6 +480,19 @@ class helper
 
     }
 
+    function createDir($dir){
+        $baseDirName = $_SERVER['DOCUMENT_ROOT'] . $dir;
+
+        if (!file_exists($baseDirName)) {
+            $oldmask = umask(0);
+            mkdir($baseDirName, 0777);
+            umask($oldmask);
+        }
+
+        unset($baseDirName);
+        unset($oldmask);
+    }
+
 }
 
 class log
