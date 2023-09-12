@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 import Header from "../components/admin/header/header.component";
 import Menu from "../components/admin/menu/menu.component";
-import SupportHeaderComponent from "../components/admin/header/support.header.component";
+
 import { MenuIcons } from "../components/svgs.js";
 import "../styles/admin.layout.scss";
 
@@ -30,9 +30,7 @@ const AdminLayout = () => {
         <div className='app'>
             <Menu menu={menu} burgerOpened={burgerOpened} setBurgerOpened={handleBurgerMenu} />
             <main className='app__main'>
-                <Header extraClass={'app__header'} handleBurger={handleBurgerMenu}>
-                    {/*<SupportHeaderComponent />*/}
-                </Header>
+                <Header extraClass={'app__header'} handleBurger={handleBurgerMenu} />
                 <div className='app__content'>
                     <Outlet />
                 </div>
