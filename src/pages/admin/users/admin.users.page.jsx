@@ -14,14 +14,6 @@ import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 
 import { AdminIcons } from "../../../components/svgs";
 import commonStyles from "../../common.module.scss";
-import Tabs from "../../../components/general/tabs/tabs.component";
-import Tab from "../../../components/general/tabs/tab.component";
-import FieldInput from "../../../components/general/field/field.input.component";
-import Editor from "../../../components/general/reach_editor/editor.component";
-import ImageSelector from "../../../components/general/image_selector/image.selector.component";
-import moment from "moment";
-import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
-import ImageGallery from "../../../components/general/image_gallery/image.gallery.component";
 
 const AdminUsersPage = () => {
     const navigate = useNavigate();
@@ -53,25 +45,6 @@ const AdminUsersPage = () => {
 
     const back = () => navigate("/admin/users");
 
-    const onAddSubmit = async (params) => {
-        const result = await addAdmin(params);
-
-        if (!result.error) back();
-    };
-
-    const onEditSubmit = async (params) => {
-        params.id = id;
-        const result = await editAdmin(params);
-
-        if (!result.error) back();
-    };
-
-    const onDeleteSubmit = async () => {
-        const result = await removeAdmin({ id });
-
-        if (!result.error) back();
-    };
-
     //Private component
     const Loading = () => {
         if (loading.admins) {
@@ -96,6 +69,12 @@ const AdminUsersPage = () => {
 
     const MainBlock = () => {
         const NewAdmin = () => {
+            const onAddSubmit = async (params) => {
+                const result = await addAdmin(params);
+
+                if (!result.error) back();
+            };
+
             if (!id) {
                 return (
                     <>
@@ -173,6 +152,19 @@ const AdminUsersPage = () => {
         };
 
         const EditAdmin = () => {
+            const onEditSubmit = async (params) => {
+                params.id = id;
+                const result = await editAdmin(params);
+
+                if (!result.error) back();
+            };
+
+            const onDeleteSubmit = async () => {
+                const result = await removeAdmin({ id });
+
+                if (!result.error) back();
+            };
+
             if (id && admin) {
                 return (
                     <>
