@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 
 import useUsersStore from "../../../store/admin/usersStore";
 
-import TitleBlock from "../../../components/admin/title.block.component";
+import TitleBlock from "../../../components/admin/block/title.block.component";
 import Button from "../../../components/admin/button/button.component";
 import FieldEmail from "../../../components/admin/field/field.email.component";
 import FieldText from "../../../components/admin/field/field.text.component";
