@@ -7,14 +7,18 @@ import {AdminIcons} from "../svgs";
 const TitleBlock = ({onBack, title = "", iconName = AdminIcons.back}) => {
     return (
         <div className='app__title-block'>
-            <Button
-                type='button'
-                theme='text'
-                isIconBtn
-                iconName={iconName}
-                aria-label='Назад'
-                onClick={() => onBack && onBack()}
-            />
+            {
+                onBack
+                &&
+                <Button
+                    type='button'
+                    theme='text'
+                    isIconBtn
+                    iconName={iconName}
+                    aria-label='Назад'
+                    onClick={() => onBack()}
+                />
+            }
             <h1 className='app__title'>{title}</h1>
         </div>
     );
