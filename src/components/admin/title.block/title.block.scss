@@ -1,0 +1,13 @@
+.admin-title-block {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+
+    margin: 0 0 1.875rem;
+
+    &__title {
+        margin: 0;
+        font-size: min(3.25vmax, 1.875em);
+        font-weight: 600;
+    }
+}

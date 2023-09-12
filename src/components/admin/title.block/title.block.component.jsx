@@ -1,15 +1,13 @@
-import React from 'react';
+import React from "react";
 
 import Button from "../button/button.component";
+import { AdminIcons } from "../../svgs";
+import "./title.block.scss";
 
-import {AdminIcons} from "../../svgs";
-
-const TitleBlock = ({children, onBack, title = "", iconName = AdminIcons.back}) => {
+const TitleBlock = ({ children, onBack, title = "", iconName = AdminIcons.back }) => {
     return (
-        <div className='app__title-block'>
-            {
-                onBack
-                &&
+        <div className='admin-title-block'>
+            {onBack && (
                 <Button
                     type='button'
                     theme='text'
@@ -18,8 +16,8 @@ const TitleBlock = ({children, onBack, title = "", iconName = AdminIcons.back}) 
                     aria-label='Назад'
                     onClick={() => onBack()}
                 />
-            }
-            <h1 className='app__title'>{title}</h1>
+            )}
+            <h1 className='admin-title-block__title'>{title}</h1>
             {children}
         </div>
     );

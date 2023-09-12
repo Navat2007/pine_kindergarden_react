@@ -18,8 +18,7 @@ import ImageGallery from "../../../components/general/image_gallery/image.galler
 import commonStyles from "../../common.module.scss";
 import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
 
-import { AdminIcons } from "../../../components/svgs";
-import TitleBlock from "../../../components/admin/block/title.block.component";
+import TitleBlock from "../../../components/admin/title.block/title.block.component";
 
 const AdminNewsPage = (props) => {
     let { id } = useParams();
@@ -44,17 +43,13 @@ const AdminNewsPage = (props) => {
     //Private component
     const Loading = () => {
         if (newsStore.loading) {
-            return (
-                <TitleBlock title={`Загрузка...`}/>
-            );
+            return <TitleBlock title={`Загрузка...`} />;
         }
     };
 
     const NotFound = () => {
         if (id && !newsStore.loading && Object.keys(newsStore.news).length === 0) {
-            return (
-                <TitleBlock title={`Новость не найдена`} onBack={back}/>
-            );
+            return <TitleBlock title={`Новость не найдена`} onBack={back} />;
         }
     };
 
@@ -185,7 +180,7 @@ const AdminNewsPage = (props) => {
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание новости"} onBack={back}/>
+                        <TitleBlock title={"Создание новости"} onBack={back} />
                         <form onSubmit={handleSubmit(onAddNews)} className='form'>
                             <Tabs>
                                 <Tab title={"Основная информация"}>
@@ -542,7 +537,7 @@ const AdminNewsPage = (props) => {
             if (id && edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование новости ID: ${id}`} onBack={back}/>
+                        <TitleBlock title={`Редактирование новости ID: ${id}`} onBack={back} />
                         <form onSubmit={handleSubmit(onEditNews)} className='form'>
                             <Tabs>
                                 <Tab title={"Основная информация"}>
