@@ -9,6 +9,7 @@
     --font-headings: "Balsamiq Sans", cursive;
     --main-font-family: "Roboto", sans-serif;
 
+    --main-text-color: #000;
     --dark-low: #656060;
     --primary: rgb(28, 163, 6);
     --primary-opacity: 28, 163, 6;
@@ -77,8 +78,8 @@
 }
 
 .main-section {
-     opacity: 0;
-     transform: translate3d(0, 1.5em, 0);
+    opacity: 0;
+    transform: translate3d(0, 1.5em, 0);
 
     &_type_fixed {
         transform: translate3d(0, 0, 0);

@@ -139,7 +139,7 @@
             }
             // Плашка
             &::-webkit-scrollbar-thumb {
-                background-color: var(--admin-primary);
+                background-color: var(--admin-primary-color);
                 border-radius: 5px;
             }
         }
@@ -157,11 +157,11 @@
 
         &_active {
             cursor: default;
-            color: var(--admin-primary);
+            color: var(--admin-primary-color);
         }
 
         &:hover {
-            color: var(--admin-primary);
+            color: var(--admin-primary-color);
         }
     }
 

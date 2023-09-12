@@ -263,15 +263,15 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
                     <div className='admin-table'>
                         <div className='admin-table__container'>
                             <table className='admin-table__table'>
-                                <thead>
-                                    <tr className='admin-table__row'>
+                                <thead className='admin-table__thead'>
+                                    <tr className='admin-table__row admin-table__row'>
                                         {itemsConfig.map(
                                             (item) =>
                                                 !item.hide && (
                                                     <th className='admin-table__cell-heading' key={item.header}>
                                                         <p
-                                                            className={`${"sorting" in item ? "cell-sorting" : ""} ${
-                                                                sortKey === item.key && "cell-sorting_active"
+                                                            className={`${`sorting` in item ? `cell-sorting` : ``}${
+                                                                sortKey === item.key ? ` cell-sorting_active` : ``
                                                             }`}
                                                             aria-label='Сортировать по возрастанию'
                                                             onClick={() => {
@@ -296,7 +296,7 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
                                         )}
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className='admin-table__tbody'>
                                     {paginatedItems.map((item) => (
                                         <tr
                                             className={`admin-table__row admin-table__row_hover`}

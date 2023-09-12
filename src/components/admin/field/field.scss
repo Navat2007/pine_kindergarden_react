@@ -39,19 +39,19 @@
         @extend %reset-input;
         grid-area: 1/1/2/2;
         padding: 1em 2.875em 1em 1em;
-        outline: 1px solid #e1e1e1;
+        outline: 1px solid var(--admin-grey-100-color);
         border-radius: 5px;
 
         &:focus-visible {
             background-color: white;
-            outline: 1px solid var(--admin-dark-low);
+            outline: 1px solid var(--admin-grey-300-color);
         }
     }
 
     &__label {
         line-height: 2;
         font-size: 0.875em;
-        color: var(--admin-dark-low);
+        color: var(--admin-text-low-color);
     }
 
     &__info-text {
@@ -67,7 +67,7 @@
     // Для пароля глазик
     &__icon-eye {
         display: block;
-        background-color: var(--admin-dark-low);
+        background-color: var(--admin-text-low-color);
         mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgogIDxwYXRoIGQ9Ik0xMiA5YTMgMyAwIDEgMCAwIDYgMyAzIDAgMCAwIDAtNlptMCA4YTUgNSAwIDEgMSAwLTEwIDUgNSAwIDAgMSAwIDEwWm0wLTEyLjVDNyA0LjUgMi43MyA3LjYxIDEgMTJjMS43MyA0LjM5IDYgNy41IDExIDcuNXM5LjI3LTMuMTEgMTEtNy41Yy0xLjczLTQuMzktNi03LjUtMTEtNy41WiIvPgo8L3N2Zz4K");
         mask-size: contain;
         mask-repeat: no-repeat;

@@ -44,7 +44,6 @@ const LoginPage = () => {
                                 : ""
                         }
                         errorText={errors?.login?.message}
-                        extraClass='auth-form__field'
                     />
                     <FieldPassword
                         {...register("password", {
@@ -56,7 +55,6 @@ const LoginPage = () => {
                                 : ""
                         }
                         errorText={errors?.password?.message}
-                        extraClass='auth-form__field'
                     />
                     <div className='auth-form__footer'>
                         <Button

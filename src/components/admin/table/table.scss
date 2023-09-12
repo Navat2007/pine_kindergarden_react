@@ -9,7 +9,7 @@
     border-radius: 5px;
 }
 
-admin-table {
+.admin-table {
     &__container {
         width: 100%;
         overflow: auto;
@@ -21,13 +21,21 @@ admin-table {
         max-width: 100%;
         border-collapse: collapse;
     }
-    &__row {
-        transition: background-color 0.25s ease-in-out;
 
-        &:hover {
-            background-color: rgba($color: black, $alpha: 0.035);
+    &__thead {
+        .admin-table__row {
         }
+    }
+    &__tbody {
+        .admin-table__row {
+            transition: background-color 0.35s ease-in-out;
 
+            &:hover {
+                background-color: rgba(var(--admin-primary-opacity-color), 0.05);
+            }
+        }
+    }
+    &__row {
         &_hover:hover {
             cursor: pointer;
         }
@@ -35,49 +43,47 @@ admin-table {
 
     &__cell-heading {
         text-align: left;
-        color: var(--garkLow);
+        color: var(--admin-text-low-color);
         font-size: 0.875em;
         font-weight: normal;
         padding: 0.25rem 0.75rem;
-        border-bottom: 1px solid var(--g300);
+        border-bottom: 1px solid var(--admin-grey-200-color);
     }
 
     &__cell {
         padding: 0.75em 0.75em;
-        border-bottom: 1px solid var(--g200);
+        border-bottom: 1px solid var(--admin-grey-200-color);
     }
 }
 
 // сортировка
 .cell-sorting {
-    width: max-content;
     margin: 0;
     cursor: pointer;
 
     width: fit-content;
 
     display: flex;
-    gap: 0.25em;
+    gap: 0.5em;
     align-items: center;
     justify-content: space-between;
 
-    svg {
-        flex: none;
-        @include box(1.25em);
-        opacity: 0.26;
-        transition: opacity 0.25s ease-in-out;
-        fill: currentColor;
-    }
-
-    &:hover svg {
-        opacity: 0.54;
+    &:hover {
+        color: var(--admin-text-color);
     }
 
     &:active svg {
         transform: translateY(1px);
     }
 
-    &_actived svg {
-        opacity: 1;
+    &_active {
+        font-weight: 500;
+        color: var(--admin-text-color);
+    }
+
+    svg {
+        flex: none;
+        @include box(1.25em);
+        fill: currentColor;
     }
 }

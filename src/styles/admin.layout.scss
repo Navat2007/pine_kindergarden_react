@@ -1,21 +1,25 @@
 @import "../styles/mixins";
 @import "../styles/extends";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 :root {
-    --admin-main-font-family: "Poppins", sans-serif;
-
-    --admin-dark: #323c47;
-    --admin-dark-low: #707683;
-    --admin-primary: rgb(16, 156, 241);
-    --admin-primary-opacity: 16, 156, 241;
+    --admin-text-color: #323c47;
+    --admin-text-low-color: #707683;
+    --admin-primary-color: rgb(16, 156, 241);
+    --admin-primary-opacity-color: 16, 156, 241;
 
     --admin-eror-color: #f7685b;
     --admin-alert-color: #ffb946;
     --admin-success-color: #2ed47a;
+
+    --admin-grey-100-color: #c2cfe0;
+    --admin-grey-200-color: #90a0b7;
+    --admin-grey-300-color: #707683;
+    --admin-grey-400-color: #323c47;
+    --admin-grey-500-color: #192a3e;
 }
 
 .app {
+    color: var(--admin-text-color);
     display: flex;
     min-block-size: 100vb;
     background-color: #f5f6f8;
