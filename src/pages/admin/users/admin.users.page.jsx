@@ -200,7 +200,6 @@ const AdminUsersPage = () => {
                                 </Button>
                                 <Button
                                     type='button'
-                                    iconClass={"mdi mdi-delete"}
                                     theme='text'
                                     extraClass={`admin-form__button${sending.admins ? ` --hide` : ``}`}
                                     onClick={(e) => {

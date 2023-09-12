@@ -652,10 +652,8 @@ const AdminNewsPage = (props) => {
                     <>
                         <TitleBlock title={`Новость ID: ${newsStore.news.ID}`} onBack={back}>
                             <Button
-                                size='smaller'
                                 type='submit'
                                 isIconBtn='true'
-                                iconClass={"mdi mdi-pencil"}
                                 theme='outline'
                                 aria-label='Редактировать новость'
                                 onClick={() => {
