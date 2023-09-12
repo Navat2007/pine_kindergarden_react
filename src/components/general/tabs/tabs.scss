@@ -1,0 +1,38 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.tabs {
+    &__list {
+        @extend %reset-list;
+        display: flex;
+        flex-wrap: wrap;
+
+        overflow-x: auto;
+        @include scroll-bar(8px);
+
+        background-color: rgba(var(--admin-primary-opacity-color), 0.1);
+        border-bottom: 2px solid rgba(var(--admin-primary-opacity-color), 0.75);
+        border-radius: 5px 5px 0 0;
+    }
+
+    &__item {
+        min-width: 7em;
+
+        padding: 1em;
+        font-weight: normal;
+        border-radius: 5px 5px 0 0;
+        transition: background-color 0.25s ease-in;
+        cursor: pointer;
+
+        flex: none;
+
+        &:not(&_active):hover {
+            color: var(--admin-primary-color);
+        }
+
+        &_active {
+            background-color: var(--admin-primary-color);
+            color: #fff;
+        }
+    }
+}
