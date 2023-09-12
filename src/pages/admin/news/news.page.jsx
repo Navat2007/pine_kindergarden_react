@@ -181,10 +181,10 @@ const AdminNewsPage = (props) => {
                 return (
                     <>
                         <TitleBlock title={"Создание новости"} onBack={back} />
-                        <form onSubmit={handleSubmit(onAddNews)} className='form'>
+                        <form onSubmit={handleSubmit(onAddNews)} className='admin-form'>
                             <Tabs>
                                 <Tab title={"Основная информация"}>
-                                    <fieldset className='form__section'>
+                                    <fieldset className='admin-form__section'>
                                         <FieldInput
                                             label={"Доступна для показа?"}
                                             type={"checkbox_variant"}
@@ -220,8 +220,8 @@ const AdminNewsPage = (props) => {
                                             required={true}
                                             {...register("date")}
                                         />
-                                        <div className='form__multy-block'>
-                                            <p className='form__label'>Описание для анонса</p>
+                                        <div className='admin-form__multy-block'>
+                                            <p className='admin-form__label'>Описание для анонса</p>
                                             <Editor
                                                 control={control}
                                                 name='editorPreview'
@@ -229,8 +229,8 @@ const AdminNewsPage = (props) => {
                                                 buttons={{ link: true }}
                                             />
                                         </div>
-                                        <div className='form__multy-block'>
-                                            <p className='form__label'>Детальное описание</p>
+                                        <div className='admin-form__multy-block'>
+                                            <p className='admin-form__label'>Детальное описание</p>
                                             <Editor
                                                 control={control}
                                                 name='editorReview'
@@ -241,16 +241,16 @@ const AdminNewsPage = (props) => {
                                     </fieldset>
                                 </Tab>
                                 <Tab title={"Фотографии"}>
-                                    <fieldset className='form__section'>
+                                    <fieldset className='admin-form__section'>
                                         <ImageSelector
-                                            title='КАРТИНКА ДЛЯ АНОНСА'
+                                            title='Картинка для анонса'
                                             items={photoPreview}
                                             onlyOneImage={true}
                                             multiFiles={false}
                                             onChange={(items) => setPhotoPreview(items)}
                                         />
                                         <ImageSelector
-                                            title='ДЕТАЛЬНАЯ КАРТИНКА'
+                                            title='Детальная картинка'
                                             items={photoReview}
                                             onlyOneImage={true}
                                             multiFiles={false}
@@ -265,15 +265,19 @@ const AdminNewsPage = (props) => {
                                     </fieldset>
                                 </Tab>
                             </Tabs>
-                            <div className='form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
+                            <div className='admin-form__controls'>
+                                <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
+                                    Сохранить
+                                </Button>
                                 <Button
                                     type='button'
+                                    extraClass={"admin-form__button"}
                                     theme='text'
-                                    text='Отмена'
                                     onClick={back}
                                     spinnerActive={sending}
-                                />
+                                >
+                                    Отмена
+                                </Button>
                             </div>
                         </form>
                         {popup}
@@ -538,10 +542,10 @@ const AdminNewsPage = (props) => {
                 return (
                     <>
                         <TitleBlock title={`Редактирование новости ID: ${id}`} onBack={back} />
-                        <form onSubmit={handleSubmit(onEditNews)} className='form'>
+                        <form onSubmit={handleSubmit(onEditNews)} className='admin-form'>
                             <Tabs>
                                 <Tab title={"Основная информация"}>
-                                    <fieldset className='form__section'>
+                                    <fieldset className='admin-form__section'>
                                         <FieldInput
                                             label={"Доступна для показа?"}
                                             type={"checkbox_variant"}
@@ -585,8 +589,8 @@ const AdminNewsPage = (props) => {
                                                 value: moment(newsStore.news.date).format("YYYY-MM-DD HH:mm"),
                                             })}
                                         />
-                                        <div className='form__multy-block'>
-                                            <p className='form__label'>Описание для анонса</p>
+                                        <div className='admin-form__multy-block'>
+                                            <p className='admin-form__label'>Описание для анонса</p>
                                             <Editor
                                                 control={control}
                                                 name='editorPreview'
@@ -594,8 +598,8 @@ const AdminNewsPage = (props) => {
                                                 buttons={{ link: true }}
                                             />
                                         </div>
-                                        <div className='form__multy-block'>
-                                            <p className='form__label'>Детальное описание</p>
+                                        <div className='admin-form__multy-block'>
+                                            <p className='admin-form__label'>Детальное описание</p>
                                             <Editor
                                                 control={control}
                                                 name='editorReview'
@@ -606,9 +610,9 @@ const AdminNewsPage = (props) => {
                                     </fieldset>
                                 </Tab>
                                 <Tab title={"Фотографии"}>
-                                    <fieldset className='form__section'>
+                                    <fieldset className='admin-form__section'>
                                         <ImageSelector
-                                            title='КАРТИНКА ДЛЯ АНОНСА'
+                                            title='Картинка для анонса'
                                             items={photoPreview}
                                             onlyOneImage={true}
                                             multiFiles={false}
@@ -616,7 +620,7 @@ const AdminNewsPage = (props) => {
                                             onDelete={handleDeletePreviewPhoto}
                                         />
                                         <ImageSelector
-                                            title='ДЕТАЛЬНАЯ КАРТИНКА'
+                                            title='Детальная картинка'
                                             items={photoReview}
                                             onlyOneImage={true}
                                             multiFiles={false}
@@ -633,24 +637,21 @@ const AdminNewsPage = (props) => {
                                     </fieldset>
                                 </Tab>
                             </Tabs>
-                            <div className='form__controls'>
+                            <div className='admin-form__controls'>
                                 <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
+                                <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
+                                    Удалить
+                                </Button>
                                 <Button
                                     type='button'
                                     theme='text'
-                                    text='Удалить'
-                                    onClick={onDelete}
-                                    spinnerActive={sending}
-                                />
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    text='Отмена'
                                     onClick={() => {
                                         setEdit(false);
                                     }}
                                     spinnerActive={sending}
-                                />
+                                >
+                                    Отмена
+                                </Button>
                             </div>
                         </form>
                         {popup}
