@@ -31,6 +31,15 @@
         flex-wrap: wrap;
     }
 
+    &__multy-block {}
+
+    &__label {
+        margin: 0;
+        display: inline-block;
+        box-sizing: border-box;
+        line-height: 150%;
+    }
+
     &__button {
         width: min(15em, 45%);
     }
