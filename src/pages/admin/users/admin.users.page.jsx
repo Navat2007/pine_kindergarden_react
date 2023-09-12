@@ -5,11 +5,17 @@ import { useForm } from "react-hook-form";
 import useUsersStore from "../../../store/admin/usersStore";
 
 import Button from "../../../components/admin/button/button.component";
-import FieldInput from "../../../components/general/field/field.input.component";
+import FieldEmail from "../../../components/admin/field/field.email.component";
+import FieldText from "../../../components/admin/field/field.text.component";
+import FieldPhone from "../../../components/admin/field/field.phone.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 
 import no_photo_man from "../../../images/no_photo_man.png";
 import { AdminIcons } from "../../../components/svgs";
+import FieldPassword from "../../../components/admin/field/field.password.component";
+import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
+
+
 
 const AdminUsersPage = () => {
     const navigate = useNavigate();
@@ -82,27 +88,22 @@ const AdminUsersPage = () => {
                     <div className='form__container --view-two-columns'>
                         <fieldset className='form__section'>
                             <h2 className='form__title'>Основная информация</h2>
-                            <FieldInput
-                                label={"Email"}
+                            <FieldEmail
                                 placeholder={"Введите email..."}
-                                layout='flex'
                                 required={true}
                                 {...register("email", {
                                     value: admin.email,
                                 })}
                             />
-                            <FieldInput
+                            <FieldText
                                 label={"ФИО"}
                                 placeholder={"Введите фио..."}
-                                layout='flex'
                                 required={true}
                                 {...register("fio", { value: admin.fio })}
                             />
-                            <FieldInput
+                            <FieldPhone
                                 label={"Контактный телефон"}
-                                type={"phone"}
                                 placeholder={"Введите контактный телефон..."}
-                                layout='flex'
                                 required={true}
                                 {...register("phone", {
                                     value: admin.phone,
@@ -111,11 +112,8 @@ const AdminUsersPage = () => {
                         </fieldset>
                         <fieldset className='form__section'>
                             <h2 className='form__title'>Безопасность</h2>
-                            <FieldInput
-                                label={"Пароль"}
-                                type={"password"}
+                            <FieldPassword
                                 placeholder={"Введите новый пароль..."}
-                                layout='flex'
                                 autoComplete={"new-password"}
                                 {...register("password", {
                                     minLength: {
@@ -125,9 +123,8 @@ const AdminUsersPage = () => {
                                 })}
                                 errorText={errors?.password && errors.password.message}
                             />
-                            <FieldInput
+                            <FieldCheckbox
                                 label={"Активировать учетную запись?"}
-                                type={"checkbox_variant"}
                                 {...register("active", {
                                     value: admin.active === "Активен",
                                 })}
@@ -205,36 +202,27 @@ const AdminUsersPage = () => {
                 <div className='form__container --view-two-columns'>
                     <fieldset className='form__section'>
                         <h2 className='form__title'>Основная информация</h2>
-                        <FieldInput
-                            label={"Email"}
+                        <FieldEmail
                             placeholder={"Введите email..."}
-                            layout='flex'
                             required={true}
                             {...register("email")}
                         />
-                        <FieldInput
+                        <FieldText
                             label={"ФИО"}
                             placeholder={"Введите фио..."}
-                            layout='flex'
                             required={true}
                             {...register("fio")}
                         />
-                        <FieldInput
+                        <FieldPhone
                             label={"Контактный телефон"}
-                            type={"phone"}
                             placeholder={"Введите контактный телефон..."}
-                            layout='flex'
                             required={true}
                             {...register("phone")}
                         />
                     </fieldset>
                     <fieldset className='form__section'>
                         <h2 className='form__title'>Безопасность</h2>
-                        <FieldInput
-                            label={"Пароль"}
-                            type={"password"}
-                            placeholder={"Введите пароль..."}
-                            layout='flex'
+                        <FieldPassword
                             autoComplete={"new-password"}
                             required={true}
                             {...register("password", {
@@ -245,7 +233,7 @@ const AdminUsersPage = () => {
                             })}
                             errorText={errors?.password && errors.password.message}
                         />
-                        <FieldInput
+                        <FieldCheckbox
                             label={"Активировать учетную запись?"}
                             type={"checkbox_variant"}
                             {...register("active", { value: true })}

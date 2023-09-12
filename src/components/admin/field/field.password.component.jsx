@@ -2,7 +2,7 @@ import React, {forwardRef} from "react";
 
 import "./field.scss";
 
-const FieldPassword = ({errorText, required = false, ...rest}, ref) => {
+const FieldPassword = ({errorText, label = "Пароль", placeholder = "Введите пароль...", required = false, ...rest}, ref) => {
     const [eyeActive, setEyeActive] = React.useState(false);
 
     const toggleEye = (e) => {
@@ -12,7 +12,7 @@ const FieldPassword = ({errorText, required = false, ...rest}, ref) => {
     return (
         <div className={`field${errorText ? " field_state_error" : ""}`}>
             <label className='field__label' htmlFor='password'>
-                Пароль
+                {label}
             </label>
             <div className='field__inner'>
                 <input
@@ -22,7 +22,7 @@ const FieldPassword = ({errorText, required = false, ...rest}, ref) => {
                     ref={ref}
                     autoComplete='password'
                     name='password'
-                    placeholder='Введите пароль...'
+                    placeholder={placeholder}
                     required={required}
                     maxLength={16}
                     minLength={3}
