@@ -1,6 +1,6 @@
 import React from "react";
-import {useNavigate, useParams} from "react-router-dom";
-import {useForm} from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import useUsersStore from "../../../store/admin/usersStore";
 
@@ -16,14 +16,14 @@ import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 const AdminUsersPage = () => {
     const navigate = useNavigate();
 
-    let {id} = useParams();
+    let { id } = useParams();
     const {
         register,
         handleSubmit,
         reset,
-        formState: {errors},
+        formState: { errors },
     } = useForm();
-    const {admin, loadAdmin, addAdmin, editAdmin, removeAdmin, loading, sending, error, errorText, clearErrorText} =
+    const { admin, loadAdmin, addAdmin, editAdmin, removeAdmin, loading, sending, error, errorText, clearErrorText } =
         useUsersStore();
 
     const [popupOpened, setPopupOpened] = React.useState(false);
@@ -32,7 +32,7 @@ const AdminUsersPage = () => {
     React.useEffect(() => {
         if (id) {
             reset();
-            loadAdmin({id});
+            loadAdmin({ id });
         }
     }, [id]);
 
@@ -45,17 +45,13 @@ const AdminUsersPage = () => {
     //Private component
     const Loading = () => {
         if (loading.admins) {
-            return (
-                <TitleBlock title={`Загрузка...`}/>
-            );
+            return <TitleBlock title={`Загрузка...`} />;
         }
     };
 
     const NotFound = () => {
         if (id && (admin === null || admin.role === "Пользователь")) {
-            return (
-                <TitleBlock title={`Данного администратора не существует`} onBack={back}/>
-            );
+            return <TitleBlock title={`Данного администратора не существует`} onBack={back} />;
         }
     };
 
@@ -70,7 +66,7 @@ const AdminUsersPage = () => {
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание администратора"} onBack={back}/>
+                        <TitleBlock title={"Создание администратора"} onBack={back} />
                         <form onSubmit={handleSubmit(onAddSubmit)} className='admin-form'>
                             <div className='admin-form__two-columns'>
                                 <fieldset className='admin-form__section'>
@@ -108,12 +104,12 @@ const AdminUsersPage = () => {
                                     />
                                     <FieldCheckbox
                                         label={"Активировать учетную запись?"}
-                                        {...register("active", {value: true})}
+                                        {...register("active", { value: true })}
                                     />
                                 </fieldset>
                             </div>
                             <div className='admin-form__controls'>
-                                <Button extraClass={'admin-form__button'} type='submit' spinnerActive={sending.admins}>
+                                <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending.admins}>
                                     Создать
                                 </Button>
                             </div>
@@ -142,7 +138,7 @@ const AdminUsersPage = () => {
             };
 
             const onDeleteSubmit = async () => {
-                const result = await removeAdmin({id});
+                const result = await removeAdmin({ id });
 
                 if (!result.error) back();
             };
@@ -150,11 +146,11 @@ const AdminUsersPage = () => {
             if (id && admin) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование администратора ID: ${id}`} onBack={back}/>
-                        <form onSubmit={handleSubmit(onEditSubmit)} className='form'>
-                            <div className='form__container --view-two-columns'>
-                                <fieldset className='form__section'>
-                                    <h2 className='form__title'>Основная информация</h2>
+                        <TitleBlock title={`Редактирование администратора ID: ${id}`} onBack={back} />
+                        <form onSubmit={handleSubmit(onEditSubmit)} className='admin-form'>
+                            <div className='admin-form__two-columns'>
+                                <fieldset className='admin-form__section'>
+                                    <h2 className='admin-form__title'>Основная информация</h2>
                                     <FieldEmail
                                         placeholder={"Введите email..."}
                                         required={true}
@@ -166,7 +162,7 @@ const AdminUsersPage = () => {
                                         label={"ФИО"}
                                         placeholder={"Введите фио..."}
                                         required={true}
-                                        {...register("fio", {value: admin.fio})}
+                                        {...register("fio", { value: admin.fio })}
                                     />
                                     <FieldPhone
                                         label={"Контактный телефон"}
@@ -177,8 +173,8 @@ const AdminUsersPage = () => {
                                         })}
                                     />
                                 </fieldset>
-                                <fieldset className='form__section'>
-                                    <h2 className='form__title'>Безопасность</h2>
+                                <fieldset className='admin-form__section'>
+                                    <h2 className='admin-form__title'>Безопасность</h2>
                                     <FieldPassword
                                         placeholder={"Введите новый пароль..."}
                                         autoComplete={"new-password"}
@@ -198,15 +194,15 @@ const AdminUsersPage = () => {
                                     />
                                 </fieldset>
                             </div>
-                            <div className='form__controls'>
-                                <Button type='submit' spinnerActive={sending.admins}>
+                            <div className='admin-form__controls'>
+                                <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending.admins}>
                                     Сохранить
                                 </Button>
                                 <Button
                                     type='button'
                                     iconClass={"mdi mdi-delete"}
                                     theme='text'
-                                    extraClass={`${sending.admins ? "--hide" : ""}`}
+                                    extraClass={`admin-form__button${sending.admins ? ` --hide` : ``}`}
                                     onClick={(e) => {
                                         e.preventDefault();
                                         setPopupOpened(true);
@@ -222,11 +218,7 @@ const AdminUsersPage = () => {
                             onClose={() => setPopupOpened(false)}
                             buttons={
                                 <>
-                                    <Button
-                                        type='button'
-                                        theme='text'
-                                        onClick={() => setPopupOpened(false)}
-                                    >
+                                    <Button type='button' theme='text' onClick={() => setPopupOpened(false)}>
                                         Нет
                                     </Button>
                                     <Button
@@ -261,17 +253,17 @@ const AdminUsersPage = () => {
 
         return (
             <>
-                <NewAdmin/>
-                <EditAdmin/>
+                <NewAdmin />
+                <EditAdmin />
             </>
         );
     };
 
     return (
         <>
-            <Loading/>
-            <MainBlock/>
-            <NotFound/>
+            <Loading />
+            <MainBlock />
+            <NotFound />
         </>
     );
 };
