@@ -10,14 +10,15 @@ import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
-import FieldInput from "../../../components/general/field/field.input.component";
 import Editor from "../../../components/general/reach_editor/editor.component";
 import ImageSelector from "../../../components/general/image_selector/image.selector.component";
 import ImageGallery from "../../../components/general/image_gallery/image.gallery.component";
+import TitleBlock from "../../../components/admin/title.block/title.block.component";
 
 import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
-
-import TitleBlock from "../../../components/admin/title.block/title.block.component";
+import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
+import FieldText from "../../../components/admin/field/field.text.component";
+import FieldDate from "../../../components/admin/field/field.date.component";
 
 const AdminNewsPage = (props) => {
     let { id } = useParams();
@@ -184,38 +185,31 @@ const AdminNewsPage = (props) => {
                             <Tabs>
                                 <Tab title={"Основная информация"}>
                                     <fieldset className='admin-form__section'>
-                                        <FieldInput
+                                        <FieldCheckbox
                                             label={"Доступна для показа?"}
-                                            type={"checkbox_variant"}
                                             {...register("active", {
                                                 value: true,
                                             })}
                                         />
-                                        <FieldInput
+                                        <FieldCheckbox
                                             label={"Показывать на главной странице?"}
-                                            type={"checkbox_variant"}
                                             {...register("mainPage")}
                                         />
-                                        <FieldInput
+                                        <FieldText
                                             label={"Название новости для анонса*"}
-                                            type='textarea'
-                                            layout='flex'
                                             required={true}
                                             placeholder={"Введите название"}
                                             {...register("previewTitle")}
                                         />
-                                        <FieldInput
+                                        <FieldText
                                             label={"Название новости*"}
-                                            type='textarea'
-                                            layout='flex'
                                             required={true}
                                             placeholder={"Введите название"}
                                             {...register("title")}
                                         />
-                                        <FieldInput
+                                        <FieldDate
                                             label='Дата и время'
                                             type='datetime-local'
-                                            layout='flex'
                                             required={true}
                                             {...register("date")}
                                         />
@@ -545,44 +539,37 @@ const AdminNewsPage = (props) => {
                             <Tabs>
                                 <Tab title={"Основная информация"}>
                                     <fieldset className='admin-form__section'>
-                                        <FieldInput
+                                        <FieldCheckbox
                                             label={"Доступна для показа?"}
-                                            type={"checkbox_variant"}
                                             {...register("active", {
                                                 value: newsStore.news.active === "Активен",
                                             })}
                                         />
-                                        <FieldInput
+                                        <FieldCheckbox
                                             label={"Показывать на главной странице?"}
-                                            type={"checkbox_variant"}
                                             {...register("mainPage", {
                                                 value: newsStore.news.show_on_main_page === "Активен",
                                             })}
                                         />
-                                        <FieldInput
+                                        <FieldText
                                             label={"Название новости для анонса*"}
-                                            type='textarea'
-                                            layout='flex'
                                             required={true}
                                             placeholder={"Введите название"}
                                             {...register("previewTitle", {
                                                 value: newsStore.news.preview_title,
                                             })}
                                         />
-                                        <FieldInput
+                                        <FieldText
                                             label={"Название новости*"}
-                                            type='textarea'
-                                            layout='flex'
                                             required={true}
                                             placeholder={"Введите название"}
                                             {...register("title", {
                                                 value: newsStore.news.title,
                                             })}
                                         />
-                                        <FieldInput
+                                        <FieldDate
                                             label='Дата и время'
                                             type='datetime-local'
-                                            layout='flex'
                                             required={true}
                                             {...register("date", {
                                                 value: moment(newsStore.news.date).format("YYYY-MM-DD HH:mm"),
