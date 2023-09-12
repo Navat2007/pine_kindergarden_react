@@ -19,7 +19,7 @@ import commonStyles from "../../common.module.scss";
 import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
 
 import { AdminIcons } from "../../../components/svgs";
-import TitleBlock from "../../../components/admin/title.block.component";
+import TitleBlock from "../../../components/admin/block/title.block.component";
 
 const AdminNewsPage = (props) => {
     let { id } = useParams();

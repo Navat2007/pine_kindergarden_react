@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Button from "./button/button.component";
+import Button from "../button/button.component";
 
-import {AdminIcons} from "../svgs";
+import {AdminIcons} from "../../svgs";
 
 const TitleBlock = ({children, onBack, title = "", iconName = AdminIcons.back}) => {
     return (
