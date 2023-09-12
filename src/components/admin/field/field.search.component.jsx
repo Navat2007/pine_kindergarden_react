@@ -6,14 +6,14 @@ const FieldEmail = ({ errorText, extraClass, hasLabel = true, labelText, require
     return (
         <div className={`field${extraClass ? ` ${extraClass}` : ``}${errorText ? ` field_state_error` : ``}`}>
             {hasLabel && (
-                <label className={`field__label ${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='search'>
+                <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='search'>
                     {labelText}
                 </label>
             )}
-            <div className={`field__inner ${extraClass ? ` ${extraClass}-inner` : ``}`}>
+            <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>
                 <input
                     ref={ref}
-                    className={`field__input ${extraClass ? ` ${extraClass}-input` : ``}`}
+                    className={`field__input${extraClass ? ` ${extraClass}-input` : ``}`}
                     id='search'
                     type='search'
                     autoComplete='off'
@@ -21,7 +21,7 @@ const FieldEmail = ({ errorText, extraClass, hasLabel = true, labelText, require
                     required={required}
                     {...rest}
                 />
-                <span className={`field__info-text ${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
+                <span className={`field__info-text${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
             </div>
         </div>
     );

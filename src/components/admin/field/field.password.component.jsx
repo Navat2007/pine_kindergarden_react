@@ -11,12 +11,12 @@ const FieldPassword = ({errorText, extraClass, label = "Пароль", placehold
 
     return (
         <div className={`field${errorText ? " field_state_error" : ""}${extraClass ? ` ${extraClass}` : ``}`}>
-            <label className={`field__label ${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='password'>
+            <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='password'>
                 {label}
             </label>
-            <div className={`field__inner ${extraClass ? ` ${extraClass}-inner` : ``}`}>
+            <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>
                 <input
-                    className={`field__input ${extraClass ? ` ${extraClass}-input` : ``}`}
+                    className={`field__input${extraClass ? ` ${extraClass}-input` : ``}`}
                     id='password'
                     type={`${eyeActive ? "text" : "password"}`}
                     ref={ref}
@@ -28,7 +28,7 @@ const FieldPassword = ({errorText, extraClass, label = "Пароль", placehold
                     minLength={3}
                     {...rest}
                 />
-                <span className={`field__info-text ${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
+                <span className={`field__info-text${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
                 <span
                     className={`field__icon-eye${eyeActive ? ` field__icon-eye_active` : ``}${extraClass ? ` ${extraClass}-icon-eye` : ``}`}
                     aria-label='Скрыть/Отобразить пароль'

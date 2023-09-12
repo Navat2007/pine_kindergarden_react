@@ -5,13 +5,13 @@ import "./field.scss";
 const FieldEmail = ({ errorText, extraClass, required = false, ...rest }, ref) => {
     return (
         <div className={`field${errorText ? ` field_state_error` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
-            <label className={`field__label ${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='email'>
+            <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='email'>
                 E-mail
             </label>
-            <div className={`field__inner ${extraClass ? ` ${extraClass}-inner` : ``}`}>
+            <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>
                 <input
                     ref={ref}
-                    className={`field__input ${extraClass ? ` ${extraClass}-input` : ``}`}
+                    className={`field__input${extraClass ? ` ${extraClass}-input` : ``}`}
                     id='email'
                     type='email'
                     autoComplete='email'
@@ -20,7 +20,7 @@ const FieldEmail = ({ errorText, extraClass, required = false, ...rest }, ref) =
                     required={required}
                     {...rest}
                 />
-                <span className={`field__info-text ${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
+                <span className={`field__info-text${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
             </div>
         </div>
     );

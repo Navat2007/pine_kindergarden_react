@@ -5,13 +5,13 @@ import "./field.scss";
 const FieldPhone = ({errorText, extraClass, label = "Телефон", placeholder = "+7(___)___-__-__", required = false, ...rest}, ref) => {
     return (
         <div className={`field${errorText ? " field_state_error" : ""}${extraClass ? ` ${extraClass}` : ``}`}>
-            <label className={`field__label ${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='tel'>
+            <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='tel'>
                 {label}
             </label>
-            <div className={`field__inner ${extraClass ? ` ${extraClass}-inner` : ``}`}>
+            <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>
                 <input
                     ref={ref}
-                    className={`field__input ${extraClass ? ` ${extraClass}-input` : ``}`}
+                    className={`field__input${extraClass ? ` ${extraClass}-input` : ``}`}
                     id='tel'
                     type='tel'
                     autoComplete='tel'
@@ -21,7 +21,7 @@ const FieldPhone = ({errorText, extraClass, label = "Телефон", placeholde
                     required={required}
                     {...rest}
                 />
-                <span className={`field__info-text ${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
+                <span className={`field__info-text${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
             </div>
         </div>
     );
