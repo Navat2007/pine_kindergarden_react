@@ -56,7 +56,7 @@ class helper
 
         $headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= "Content-type: text/html; charset=utf-8 \r\n";
-        $headers .= "From: patriot-sport <support@dssosny.ru> \r\n";
+        $headers .= "From: dssosny <support@dssosny.ru> \r\n";
         $headers .= "Reply-To: support@dssosny.ru \r\n";
 
         return (object)[

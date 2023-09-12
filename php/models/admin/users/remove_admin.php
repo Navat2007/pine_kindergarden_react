@@ -12,7 +12,7 @@ $error_text = "";
 $sqls = array();
 $params = null;
 
-if((int)$ID === 1 || (int)$ID === 1519){
+if((int)$ID === 1){
     $error = 1;
     $error_text = "Данного администратора нельзя удалять!";
 }

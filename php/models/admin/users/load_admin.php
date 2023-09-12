@@ -24,15 +24,12 @@ if(mysqli_num_rows($result) > 0)
         $params = (object)[
 
             'ID' => (int)$row->ID,
-            'login' => $row->login,
             'email' => $row->email,
             'photo' => $row->photo,
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
             'role' => getRole($row->role),
             'fio' => $row->fio,
             'phone' => $row->phone,
-            'position' => $row->position,
-            'org_name' => htmlspecialchars_decode($row->org_name),
 
         ];
 

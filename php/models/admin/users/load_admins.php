@@ -24,12 +24,10 @@ if(mysqli_num_rows($result) > 0)
         $types = (object)[
 
             'ID' => (int)$row->ID,
-            'login' => $row->login,
             'email' => $row->email,
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
             'role' => $row->role == "superadmin" ? "Главный администратор":"Администратор",
             'fio' => $row->fio,
-            'position' => $row->position,
 
         ];
 
