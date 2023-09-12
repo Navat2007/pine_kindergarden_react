@@ -99,7 +99,7 @@ const RoutesList = () => {
     );
 
     React.useEffect(() => {
-        console.log(user);
+        //console.log(user);
     }, [user]);
 
     if (user && (user.role === "admin" || user.role === "superadmin")) {
@@ -110,7 +110,8 @@ const RoutesList = () => {
         <Routes>
             {publicRoutes}
             <Route path="/login" exact={true} element={<LoginPage/>}/>
-            <Route path="*" element={<Navigate to='/'/>}/>
+            {/*<Route path="*" element={<Navigate to='/'/>}/>*/}
+            <Route path='*' element={<Page404/>}/>
         </Routes>
     );
 };

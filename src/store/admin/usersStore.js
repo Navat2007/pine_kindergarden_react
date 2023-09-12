@@ -8,12 +8,6 @@ const urlAddAdmin = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/add
 const urlEditAdmin = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/edit_admin.php';
 const urlRemoveAdmin = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/remove_admin.php';
 
-const urlLoadUsers = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/load_users.php';
-const urlLoadUser = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/load_user.php';
-const urlAddUser = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/add_user.php';
-const urlEditUser = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/edit_user.php';
-const urlRemoveUser = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/remove_user.php';
-
 const useUsersStore = create(
     (set, get) => ({
         admins: [],
@@ -54,11 +48,15 @@ const useUsersStore = create(
 
         loadAdmins: async () => {
 
+            console.log(axios.defaults.headers);
+
             set((state) => ({loading: {...state.loading, admins: true}}));
 
             const response = await axios.post(urlLoadAdmins);
 
             set((state) => ({loading: {...state.loading, admins: false}}));
+
+            console.log(response);
 
             if (response.data.params) {
 
@@ -153,139 +151,6 @@ const useUsersStore = create(
             const response = await axios.postForm(urlRemoveAdmin, form);
 
             set((state) => ({sending: {...state.sending, admins: false}}));
-
-            if (response.data) {
-
-                if (response.data.error === 1) {
-
-                    set((state) => ({
-                        error: {...state.error, admins: true},
-                        errorText: {...state.errorText, admins: response.data.error_text}
-                    }));
-
-                    return {error: true};
-
-                }
-
-            }
-
-            return {error: false};
-
-        },
-
-        loadUsers: async () => {
-
-            set((state) => ({loading: {...state.loading, users: true}}));
-
-            const response = await axios.post(urlLoadUsers);
-
-            set((state) => ({loading: {...state.loading, users: false}}));
-
-            if (response.data.params) {
-
-                set({users: response.data.params});
-
-            }
-
-        },
-        loadUser: async (params) => {
-
-            set((state) => ({loading: {...state.loading, users: true}}));
-
-            let form = new FormData();
-
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.postForm(urlLoadUser, form);
-
-            set((state) => ({loading: {...state.loading, users: false}}));
-
-            if (response.data.params) {
-
-                set({user: response.data.params});
-
-            }
-
-        },
-        addUser: async (params) => {
-
-            set((state) => ({sending: {...state.sending, users: true}}));
-
-            let form = new FormData();
-
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.postForm(urlAddUser, form);
-
-            set((state) => ({sending: {...state.sending, users: false}}));
-
-            if (response.data) {
-
-                if (response.data.error === 1) {
-
-                    set((state) => ({
-                        error: {...state.error, admins: true},
-                        errorText: {...state.errorText, admins: response.data.error_text}
-                    }));
-
-                    return {error: true};
-
-                }
-
-            }
-
-            return {error: false};
-
-        },
-        editUser: async (params) => {
-
-            set((state) => ({sending: {...state.sending, users: true}}));
-
-            let form = new FormData();
-
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.postForm(urlEditUser, form);
-
-            set((state) => ({sending: {...state.sending, users: false}}));
-
-            if (response.data) {
-
-                if (response.data.error === 1) {
-
-                    set((state) => ({
-                        error: {...state.error, admins: true},
-                        errorText: {...state.errorText, admins: response.data.error_text}
-                    }));
-
-                    return {error: true};
-
-                }
-
-            }
-
-            return {error: false};
-
-        },
-        removeUser: async (params) => {
-
-            set((state) => ({sending: {...state.sending, users: true}}));
-
-            let form = new FormData();
-
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.postForm(urlRemoveUser, form);
-
-            set((state) => ({sending: {...state.sending, users: false}}));
 
             if (response.data) {
 

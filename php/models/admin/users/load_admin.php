@@ -4,6 +4,7 @@ header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Aut
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $ID = htmlspecialchars($_POST["id"]);
 
@@ -36,18 +37,7 @@ if(mysqli_num_rows($result) > 0)
     }
 }
 
-$content = (object)[
-
-    'input_params' => (object)[
-
-    ],
-    'error' => $error,
-    'error_text' => $error_text,
-    'sql' => $sqls,
-    'params' => $params,
-
-];
-echo json_encode($content);
+require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';
 
 function getRole($text): string {
 

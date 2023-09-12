@@ -2,6 +2,12 @@
 $server_headers = getallheaders();
 
 if(empty($server_headers['Authorization'])){
+    //echo json_encode($server_headers);
+    $headers = apache_request_headers();
+
+    foreach ($headers as $header => $value) {
+        echo "$header: $value <br />\n";
+    }
     die("Требуется авторизация");
 }
 
