@@ -227,7 +227,9 @@ const AdminUsersPage = () => {
                                 </fieldset>
                             </div>
                             <div className='form__controls'>
-                                <Button type='submit' text={"Сохранить"} spinnerActive={sending.admins} />
+                                <Button type='submit' spinnerActive={sending.admins}>
+                                    Сохранить
+                                </Button>
                                 <Button
                                     type='button'
                                     iconClass={"mdi mdi-delete"}
@@ -237,8 +239,9 @@ const AdminUsersPage = () => {
                                         e.preventDefault();
                                         setPopupOpened(true);
                                     }}
-                                    text='Удалить'
-                                />
+                                >
+                                    Удалить
+                                </Button>
                             </div>
                         </form>
                         <AlertPopup

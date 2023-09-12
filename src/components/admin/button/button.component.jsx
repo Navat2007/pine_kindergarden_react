@@ -17,6 +17,7 @@ const Button = ({
             className={`button ${theme ? `button_theme_` + theme : ""} ${extraClass ? extraClass : ""} ${
                 isIconBtn ? " button_type_only-icon" : ""
             }${spinnerActive ? " button_loading" : ""}`}
+            disabled={spinnerActive}
             type={type}
             {...rest}
         >
