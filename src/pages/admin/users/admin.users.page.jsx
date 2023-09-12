@@ -252,11 +252,11 @@ const AdminUsersPage = () => {
                                 <>
                                     <Button
                                         type='button'
-                                        text={"Нет"}
-                                        size='small'
                                         theme='text'
                                         onClick={() => setPopupOpened(false)}
-                                    />
+                                    >
+                                        Нет
+                                    </Button>
                                     <Button
                                         type='button'
                                         text={"Да"}
@@ -266,7 +266,9 @@ const AdminUsersPage = () => {
                                             setPopupOpened(false);
                                             onDeleteSubmit();
                                         }}
-                                    />
+                                    >
+                                        Да
+                                    </Button>
                                 </>
                             }
                         />
