@@ -51,7 +51,9 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
 
     return (
         <>
-            <menu className={`admin-menu ${burgerOpened && "admin-menu_opened"} ${menuSizeClass}`}>
+            <menu
+                className={`admin-menu${burgerOpened ? ` admin-menu_opened` : ``}${menuSizeClass ? menuSizeClass : ``}`}
+            >
                 <nav className='admin-menu__nav'>
                     <Logo place={"admin-menu"} />
                     <ul className='admin-menu__list'>
