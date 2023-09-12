@@ -235,7 +235,6 @@ const AdminUsersPage = () => {
                         />
                         <FieldCheckbox
                             label={"Активировать учетную запись?"}
-                            type={"checkbox_variant"}
                             {...register("active", { value: true })}
                         />
                     </fieldset>
