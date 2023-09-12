@@ -39,7 +39,7 @@
         @extend %reset-input;
         grid-area: 1/1/2/2;
         padding: 1em 2.875em 1em 1em;
-        background-color: #e1e1e1;
+        outline: 1px solid #e1e1e1;
         border-radius: 5px;
 
         &:focus-visible {

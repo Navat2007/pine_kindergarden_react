@@ -26,10 +26,16 @@
 
         @include media(xs) {
             background-color: #fff;
-            box-shadow: 0 0 25px #e6e6e6, 0 0 2px #bebebe;
+            box-shadow:
+                0 0 25px #e6e6e6,
+                0 0 2px #bebebe;
             border-radius: 5px;
         }
     }
+    &__field-input {
+        background-color: #e1e1e1;
+    }
+
     &__footer {
         margin-block-start: auto;
         @include media(xs) {
@@ -39,5 +45,8 @@
     &__info-text {
         font-size: 0.875em;
         text-align: center;
+    }
+    &__button {
+        width: 100%;
     }
 }

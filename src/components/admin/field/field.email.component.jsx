@@ -1,17 +1,17 @@
-import React, {forwardRef} from "react";
+import React, { forwardRef } from "react";
 
 import "./field.scss";
 
-const FieldEmail = ({errorText, required = false, ...rest}, ref) => {
+const FieldEmail = ({ errorText, extraClass, required = false, ...rest }, ref) => {
     return (
-        <div className={`field${errorText ? " field_state_error" : ""}`}>
-            <label className='field__label' htmlFor='email'>
+        <div className={`field${errorText ? ` field_state_error` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
+            <label className={`field__label ${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='email'>
                 E-mail
             </label>
-            <div className='field__inner'>
+            <div className={`field__inner ${extraClass ? ` ${extraClass}-inner` : ``}`}>
                 <input
                     ref={ref}
-                    className='field__input'
+                    className={`field__input ${extraClass ? ` ${extraClass}-input` : ``}`}
                     id='email'
                     type='email'
                     autoComplete='email'
@@ -20,7 +20,7 @@ const FieldEmail = ({errorText, required = false, ...rest}, ref) => {
                     required={required}
                     {...rest}
                 />
-                <span className='field__info-text'>{errorText}</span>
+                <span className={`field__info-text ${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
             </div>
         </div>
     );
