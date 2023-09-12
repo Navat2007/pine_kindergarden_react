@@ -6,14 +6,18 @@ const FieldCheckbox = ({ errorText, extraClass, label = "", placeholder = "", re
     const id = window.global.makeid(8);
 
     return (
-        <div className={`field${errorText ? ` field_state_error` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
+        <div
+            className={`field field_content_checkbox${errorText ? ` field_state_error` : ``}${
+                extraClass ? ` ${extraClass}` : ``
+            }`}
+        >
             <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor={id}>
                 {label}
             </label>
             <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>
                 <input
                     ref={ref}
-                    className={`field__input${extraClass ? ` ${extraClass}-input` : ``}`}
+                    className={`field__checkbox${extraClass ? ` ${extraClass}-checkbox` : ``}`}
                     id={id}
                     type='checkbox'
                     name='checkbox'
@@ -21,8 +25,8 @@ const FieldCheckbox = ({ errorText, extraClass, label = "", placeholder = "", re
                     required={required}
                     {...rest}
                 />
-                <span className={`field__info-text${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
             </div>
+            <span className={`field__info-text${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
         </div>
     );
 };
