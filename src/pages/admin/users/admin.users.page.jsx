@@ -74,10 +74,10 @@ const AdminUsersPage = () => {
                 return (
                     <>
                         <TitleBlock title={"Создание администратора"} onBack={back}/>
-                        <form onSubmit={handleSubmit(onAddSubmit)} className='form'>
-                            <div className='form__container --view-two-columns'>
-                                <fieldset className='form__section'>
-                                    <h2 className='form__title'>Основная информация</h2>
+                        <form onSubmit={handleSubmit(onAddSubmit)} className='admin-form'>
+                            <div className='admin-form__two-columns'>
+                                <fieldset className='admin-form__section'>
+                                    <h2 className='admin-form__title'>Основная информация</h2>
                                     <FieldEmail
                                         placeholder={"Введите email..."}
                                         required={true}
@@ -96,8 +96,8 @@ const AdminUsersPage = () => {
                                         {...register("phone")}
                                     />
                                 </fieldset>
-                                <fieldset className='form__section'>
-                                    <h2 className='form__title'>Безопасность</h2>
+                                <fieldset className='admin-form__section'>
+                                    <h2 className='admin-form__title'>Безопасность</h2>
                                     <FieldPassword
                                         autoComplete={"new-password"}
                                         required={true}
@@ -115,8 +115,8 @@ const AdminUsersPage = () => {
                                     />
                                 </fieldset>
                             </div>
-                            <div className='form__controls'>
-                                <Button type='submit' spinnerActive={sending.admins}>
+                            <div className='admin-form__controls'>
+                                <Button extraClass={'admin-form__button'} type='submit' spinnerActive={sending.admins}>
                                     Создать
                                 </Button>
                             </div>
