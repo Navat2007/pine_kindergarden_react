@@ -4,7 +4,7 @@ import Button from "./button/button.component";
 
 import {AdminIcons} from "../svgs";
 
-const TitleBlock = ({onBack, title = "", iconName = AdminIcons.back}) => {
+const TitleBlock = ({onBack, title = "", iconName = AdminIcons.back}, children) => {
     return (
         <div className='app__title-block'>
             {
@@ -20,6 +20,7 @@ const TitleBlock = ({onBack, title = "", iconName = AdminIcons.back}) => {
                 />
             }
             <h1 className='app__title'>{title}</h1>
+            {children}
         </div>
     );
 };
