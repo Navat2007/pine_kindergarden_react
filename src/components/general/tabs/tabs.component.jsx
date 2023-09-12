@@ -29,6 +29,7 @@ const Tabs = ({ extraClass, theme, children }) => {
             </ul>
             <AnimatePresence mode={"wait"}>
                 <motion.div
+                    className='tabs__section'
                     key={activeTab}
                     initial={{ y: -10, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
