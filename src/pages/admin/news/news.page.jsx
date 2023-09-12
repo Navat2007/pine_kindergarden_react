@@ -14,11 +14,11 @@ import Editor from "../../../components/general/reach_editor/editor.component";
 import ImageSelector from "../../../components/general/image_selector/image.selector.component";
 import ImageGallery from "../../../components/general/image_gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
-
-import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
 import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import FieldDate from "../../../components/admin/field/field.date.component";
+
+import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
 
 const AdminNewsPage = (props) => {
     let { id } = useParams();
