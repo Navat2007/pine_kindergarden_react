@@ -1,9 +1,10 @@
 import React from "react";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
-import { useForm } from "react-hook-form";
+import {useNavigate, useParams} from "react-router-dom";
+import {useForm} from "react-hook-form";
 
 import useUsersStore from "../../../store/admin/usersStore";
 
+import TitleBlock from "../../../components/admin/title.block.component";
 import Button from "../../../components/admin/button/button.component";
 import FieldEmail from "../../../components/admin/field/field.email.component";
 import FieldText from "../../../components/admin/field/field.text.component";
@@ -12,21 +13,20 @@ import FieldPassword from "../../../components/admin/field/field.password.compon
 import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 
-import { AdminIcons } from "../../../components/svgs";
+import {AdminIcons} from "../../../components/svgs";
 import commonStyles from "../../common.module.scss";
 
 const AdminUsersPage = () => {
     const navigate = useNavigate();
 
-    let { id } = useParams();
+    let {id} = useParams();
     const {
         register,
-        setValue,
         handleSubmit,
         reset,
-        formState: { errors },
+        formState: {errors},
     } = useForm();
-    const { admin, loadAdmin, addAdmin, editAdmin, removeAdmin, loading, sending, error, errorText, clearErrorText } =
+    const {admin, loadAdmin, addAdmin, editAdmin, removeAdmin, loading, sending, error, errorText, clearErrorText} =
         useUsersStore();
 
     const [popupOpened, setPopupOpened] = React.useState(false);
@@ -35,7 +35,7 @@ const AdminUsersPage = () => {
     React.useEffect(() => {
         if (id) {
             reset();
-            loadAdmin({ id });
+            loadAdmin({id});
         }
     }, [id]);
 
@@ -49,9 +49,7 @@ const AdminUsersPage = () => {
     const Loading = () => {
         if (loading.admins) {
             return (
-                <div className={commonStyles.title_block}>
-                    <h1 className={commonStyles.title}>Загрузка...</h1>
-                </div>
+                <TitleBlock title={`Загрузка...`}/>
             );
         }
     };
@@ -59,10 +57,7 @@ const AdminUsersPage = () => {
     const NotFound = () => {
         if (id && (admin === null || admin.role === "Пользователь")) {
             return (
-                <div className={commonStyles.title_block}>
-                    <Button type='button' iconName={AdminIcons.back} isIconBtn aria-label='Назад' onClick={back} />
-                    <h1 className={commonStyles.title}>Данного администратора не существует</h1>
-                </div>
+                <TitleBlock title={`Данного администратора не существует`} onBack={back}/>
             );
         }
     };
@@ -78,17 +73,7 @@ const AdminUsersPage = () => {
             if (!id) {
                 return (
                     <>
-                        <div className='app__title-block'>
-                            <Button
-                                type='button'
-                                theme='text'
-                                isIconBtn
-                                iconName={AdminIcons.back}
-                                aria-label='Назад'
-                                onClick={() => back()}
-                            />
-                            <h1 className='app__title'>Создание администратора</h1>
-                        </div>
+                        <TitleBlock title={"Создание администратора"} onBack={back}/>
                         <form onSubmit={handleSubmit(onAddSubmit)} className='form'>
                             <div className='form__container --view-two-columns'>
                                 <fieldset className='form__section'>
@@ -126,7 +111,7 @@ const AdminUsersPage = () => {
                                     />
                                     <FieldCheckbox
                                         label={"Активировать учетную запись?"}
-                                        {...register("active", { value: true })}
+                                        {...register("active", {value: true})}
                                     />
                                 </fieldset>
                             </div>
@@ -160,7 +145,7 @@ const AdminUsersPage = () => {
             };
 
             const onDeleteSubmit = async () => {
-                const result = await removeAdmin({ id });
+                const result = await removeAdmin({id});
 
                 if (!result.error) back();
             };
@@ -168,17 +153,7 @@ const AdminUsersPage = () => {
             if (id && admin) {
                 return (
                     <>
-                        <div className='app__title-block'>
-                            <Button
-                                type='button'
-                                theme='text'
-                                isIconBtn
-                                iconName={AdminIcons.back}
-                                aria-label='Назад'
-                                onClick={() => back()}
-                            />
-                            <h1 className='app__title'>Редактирование администратора ID: {id}</h1>
-                        </div>
+                        <TitleBlock title={`Редактирование администратора ID: ${id}`} onBack={back}/>
                         <form onSubmit={handleSubmit(onEditSubmit)} className='form'>
                             <div className='form__container --view-two-columns'>
                                 <fieldset className='form__section'>
@@ -194,7 +169,7 @@ const AdminUsersPage = () => {
                                         label={"ФИО"}
                                         placeholder={"Введите фио..."}
                                         required={true}
-                                        {...register("fio", { value: admin.fio })}
+                                        {...register("fio", {value: admin.fio})}
                                     />
                                     <FieldPhone
                                         label={"Контактный телефон"}
@@ -289,17 +264,17 @@ const AdminUsersPage = () => {
 
         return (
             <>
-                <NewAdmin />
-                <EditAdmin />
+                <NewAdmin/>
+                <EditAdmin/>
             </>
         );
     };
 
     return (
         <>
-            <Loading />
-            <MainBlock />
-            <NotFound />
+            <Loading/>
+            <MainBlock/>
+            <NotFound/>
         </>
     );
 };
