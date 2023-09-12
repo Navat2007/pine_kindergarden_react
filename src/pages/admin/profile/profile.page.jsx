@@ -1,16 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import useAuthStore from "../store/authStore";
+import useAuthStore from "../../../store/authStore";
 
-import Button from "../components/general/button/button.component";
-import AlertPopup from "../components/general/alert.popup/alert.popup";
-import Popup from "../components/general/popup/popup.component";
-import FieldInput from "../components/general/field/field.input.component";
+import Button from "../../../components/general/button/button.component";
+import AlertPopup from "../../../components/general/alert.popup/alert.popup";
+import Popup from "../../../components/general/popup/popup.component";
+import FieldInput from "../../../components/general/field/field.input.component";
 
-import commonStyles from "./common.module.scss";
-import { AdminIcons } from "../components/svgs.js";
-import no_photo_man from "../images/no_photo_man.png";
+import { AdminIcons } from "../../../components/svgs.js";
+import no_photo_man from "../../../images/no_photo_man.png";
 
 const ProfilePage = () => {
     const { user, fetchEditPhoto, fetchEditUser } = useAuthStore();
@@ -151,19 +150,19 @@ const ProfilePage = () => {
 
     return (
         <>
-            <div className={commonStyles.title_block}>
-                <h1 className={commonStyles.title}>
+            <div className={"commonStyles.title_block"}>
+                <h1 className={"commonStyles.title"}>
                     {user?.role === "user" ? "Информация о руководителе школьного театра" : "Информация о профиле"}
                 </h1>
             </div>
-            <div className={commonStyles.profile}>
-                <div className={commonStyles.profile_img_block}>
+            <div className={"commonStyles.profile"}>
+                <div className={"commonStyles.profile_img_block"}>
                     <img
-                        className={commonStyles.profile_img}
+                        className={"commonStyles.profile_img"}
                         src={user?.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man}
                         alt={user?.fio}
                     />
-                    <div className={commonStyles.profile_img_panel}>
+                    <div className={"commonStyles.profile_img_panel"}>
                         {user?.photo !== "" && (
                             <>
                                 <Button
@@ -203,24 +202,24 @@ const ProfilePage = () => {
                         )}
                     </div>
                     <input
-                        className={commonStyles.profile_img_input}
+                        className={"commonStyles.profile_img_input"}
                         id='img-profile'
                         type='file'
                         key={imageInputKey}
                         onChange={handlePhotoChange}
                     />
                 </div>
-                <div className={commonStyles.profile_info}>
-                    <h2 className={commonStyles.profile_title}>{user?.fio}</h2>
-                    <ul className={commonStyles.profile_table}>
+                <div className={"commonStyles.profile_info"}>
+                    <h2 className={"commonStyles.profile_title"}>{user?.fio}</h2>
+                    <ul className={"commonStyles.profile_table"}>
                         <li>
-                            <h3 className={commonStyles.profile_text}>{user.email ? user.email : user.login}</h3>
-                            <p className={commonStyles.profile_description}>E-mail (логин)</p>
+                            <h3 className={"commonStyles.profile_text"}>{user.email ? user.email : user.login}</h3>
+                            <p className={"commonStyles.profile_description"}>E-mail (логин)</p>
                         </li>
                         {user.position && (
                             <li>
-                                <h3 className={commonStyles.profile_text}>{user.position}</h3>
-                                <p className={commonStyles.profile_description}>Должность</p>
+                                <h3 className={"commonStyles.profile_text"}>{user.position}</h3>
+                                <p className={"commonStyles.profile_description"}>Должность</p>
                             </li>
                         )}
                     </ul>
@@ -230,41 +229,41 @@ const ProfilePage = () => {
                         size='small'
                         type='button'
                         text='Редактировать'
-                        extraClass={commonStyles.profile_edit_btn}
+                        extraClass={"commonStyles.profile_edit_btn"}
                         onClick={onEditBtnClick}
                     />
                 </div>
-                <ul className={commonStyles.profile_row + ` ` + commonStyles.profile_table}>
+                <ul className={"commonStyles.profile_row " + ` ` + "commonStyles.profile_table"}>
                     {phone && (
                         <li>
                             <a
                                 href={`tel:${phone}`}
-                                className={[commonStyles.profile_item, commonStyles.link].join(" ")}
+                                className={["commonStyles.profile_item", "commonStyles.link"].join(" ")}
                                 rel='noreferrer nofollow noopener'
                                 target='_blank'
                             >
-                                <span className={commonStyles.svgIcon}>{AdminIcons.phone}</span>
+                                <span className={"commonStyles.svgIcon"}>{AdminIcons.phone}</span>
                                 {phone}
                             </a>
                         </li>
                     )}
                     {user?.org_name && user?.org_short_name && user?.org_name !== "" && user?.org_short_name !== "" && (
                         <li>
-                            <p className={commonStyles.profile_item}>
-                                <span className={commonStyles.svgIcon}>{AdminIcons.toolbox}</span>
+                            <p className={"commonStyles.profile_item"}>
+                                <span className={"commonStyles.svgIcon"}>{AdminIcons.toolbox}</span>
                                 {user?.org_name}
-                                <span className={commonStyles.profile_description}>{user?.org_short_name}</span>
+                                <span className={"commonStyles.profile_description"}>{user?.org_short_name}</span>
                             </p>
                         </li>
                     )}
                     {user?.mrsd && user?.mrsd.length > 0 && user?.mrsd[0] !== "" && user?.mrsd[0] !== 0 && (
                         <li>
-                            <p className={commonStyles.profile_item}>
-                                <span className={commonStyles.svgIcon}>{AdminIcons.crosshairs}</span>
+                            <p className={"commonStyles.profile_item"}>
+                                <span className={"commonStyles.svgIcon"}>{AdminIcons.crosshairs}</span>
                                 {user.mrsd.map((mrsd) => (
                                     <>№ {mrsd} </>
                                 ))}
-                                <span className={commonStyles.profile_description}>(Межрайон)</span>
+                                <span className={"commonStyles.profile_description"}>(Межрайон)</span>
                             </p>
                         </li>
                     )}

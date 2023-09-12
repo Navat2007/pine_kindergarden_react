@@ -15,7 +15,6 @@ import Editor from "../../../components/general/reach_editor/editor.component";
 import ImageSelector from "../../../components/general/image_selector/image.selector.component";
 import ImageGallery from "../../../components/general/image_gallery/image.gallery.component";
 
-import commonStyles from "../../common.module.scss";
 import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
 
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
@@ -696,7 +695,7 @@ const AdminNewsPage = (props) => {
                                         <h3 className={styles.label}>Публичная страница</h3>
                                         <p className={styles.description}>
                                             <NavLink
-                                                className={commonStyles.link}
+                                                className={'commonStyles.link'}
                                                 to={"/news/" + id}
                                                 target={"_blank"}
                                                 rel='noopener nofollow noreferer'

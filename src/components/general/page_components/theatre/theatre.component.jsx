@@ -19,7 +19,6 @@ import ImageGallery from "../../image_gallery/image.gallery.component";
 import TheatreActivityComponent from "./theatre.activity.component";
 import VideoPlayer from "../../video_player/video.player.component";
 
-import commonStyles from "../../../../pages/common.module.scss";
 import styles from "./theatre.module.scss";
 import no_photo_man from "../../../../images/no_photo_man.png";
 import { EventIcons } from "../../../svgs.js";
@@ -194,7 +193,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
 
     return (
         <>
-            <div className={commonStyles.title_block}>
+            <div className={'commonStyles.title_block'}>
                 <Button
                     type='button'
                     theme='text'
@@ -204,7 +203,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                     aria-label='Назад'
                     onClick={onBack}
                 />
-                <h1 className={commonStyles.title}>{theatre.title}</h1>
+                <h1 className={'commonStyles.title'}>{theatre.title}</h1>
                 {onEdit && (
                     <Button
                         size='smaller'
@@ -254,7 +253,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                             <h3 className={styles.label}>Публичная страница</h3>
                             <p className={styles.description}>
                                 <NavLink
-                                    className={commonStyles.link}
+                                    className={'commonStyles.link'}
                                     to={"/theatres/" + id}
                                     target={"_blank"}
                                     rel='noopener nofollow noreferer'
@@ -272,7 +271,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                             <p className={styles.description}>
                                 {theatre.coordinates ? (
                                     <a
-                                        className={commonStyles.link}
+                                        className={'commonStyles.link'}
                                         href={"http://maps.yandex.ru/?text=" + theatre.coordinates}
                                         target={"_blank"}
                                         rel='noopener nofollow noreferer'
@@ -315,7 +314,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                 {theatre.social_links.map((link) => (
                                     <li key={link}>
                                         <a
-                                            className={styles.socialLink}
+                                            className={'styles.socialLink'}
                                             href={link}
                                             target={"_blank"}
                                             rel='noopener nofollow noreferer'
@@ -339,7 +338,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                             </h3>
                             <p className={styles.description}>
                                 <a
-                                    className={commonStyles.link}
+                                    className={'commonStyles.link'}
                                     href={theatre.theatre_url_school}
                                     target={"_blank"}
                                     rel='noopener nofollow noreferer'

@@ -3,7 +3,6 @@ import {Helmet} from "react-helmet";
 import { NavLink } from "react-router-dom";
 
 import styles from "./404.page.module.scss";
-import commonStyles from "./common.module.scss";
 
 const Page404 = () => {
     return (
@@ -31,7 +30,7 @@ const Page404 = () => {
                     <br />
                     <br />
                     <NavLink
-                        className={commonStyles.link}
+                        className={'commonStyles.link'}
                         to={"/"}
                     >
                         Вернуться на главную{" "}
