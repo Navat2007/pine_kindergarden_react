@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import useUsersStore from "../../../store/admin/usersStore";
@@ -8,14 +8,20 @@ import Button from "../../../components/admin/button/button.component";
 import FieldEmail from "../../../components/admin/field/field.email.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import FieldPhone from "../../../components/admin/field/field.phone.component";
-import AlertPopup from "../../../components/general/alert.popup/alert.popup";
-
-import no_photo_man from "../../../images/no_photo_man.png";
-import { AdminIcons } from "../../../components/svgs";
 import FieldPassword from "../../../components/admin/field/field.password.component";
 import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
+import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 
-
+import { AdminIcons } from "../../../components/svgs";
+import commonStyles from "../../common.module.scss";
+import Tabs from "../../../components/general/tabs/tabs.component";
+import Tab from "../../../components/general/tabs/tab.component";
+import FieldInput from "../../../components/general/field/field.input.component";
+import Editor from "../../../components/general/reach_editor/editor.component";
+import ImageSelector from "../../../components/general/image_selector/image.selector.component";
+import moment from "moment";
+import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
+import ImageGallery from "../../../components/general/image_gallery/image.gallery.component";
 
 const AdminUsersPage = () => {
     const navigate = useNavigate();
@@ -66,195 +72,237 @@ const AdminUsersPage = () => {
         if (!result.error) back();
     };
 
-    if (loading.admins) return <p>Загрузка...</p>;
+    //Private component
+    const Loading = () => {
+        if (loading.admins) {
+            return (
+                <div className={commonStyles.title_block}>
+                    <h1 className={commonStyles.title}>Загрузка...</h1>
+                </div>
+            );
+        }
+    };
 
-    if (id && (admin === null || admin.role === "Пользователь")) return <p>Данного администратора не существует</p>;
+    const NotFound = () => {
+        if (id && (admin === null || admin.role === "Пользователь")) {
+            return (
+                <div className={commonStyles.title_block}>
+                    <Button type='button' iconName={AdminIcons.back} isIconBtn aria-label='Назад' onClick={back} />
+                    <h1 className={commonStyles.title}>Данного администратора не существует</h1>
+                </div>
+            );
+        }
+    };
 
-    if (id && admin)
+    const MainBlock = () => {
+        const NewAdmin = () => {
+            if (!id) {
+                return (
+                    <>
+                        <div className='app__title-block'>
+                            <Button
+                                type='button'
+                                theme='text'
+                                isIconBtn
+                                iconName={AdminIcons.back}
+                                aria-label='Назад'
+                                onClick={() => back()}
+                            />
+                            <h1 className='app__title'>Создание администратора</h1>
+                        </div>
+                        <form onSubmit={handleSubmit(onAddSubmit)} className='form'>
+                            <div className='form__container --view-two-columns'>
+                                <fieldset className='form__section'>
+                                    <h2 className='form__title'>Основная информация</h2>
+                                    <FieldEmail
+                                        placeholder={"Введите email..."}
+                                        required={true}
+                                        {...register("email")}
+                                    />
+                                    <FieldText
+                                        label={"ФИО"}
+                                        placeholder={"Введите фио..."}
+                                        required={true}
+                                        {...register("fio")}
+                                    />
+                                    <FieldPhone
+                                        label={"Контактный телефон"}
+                                        placeholder={"Введите контактный телефон..."}
+                                        required={true}
+                                        {...register("phone")}
+                                    />
+                                </fieldset>
+                                <fieldset className='form__section'>
+                                    <h2 className='form__title'>Безопасность</h2>
+                                    <FieldPassword
+                                        autoComplete={"new-password"}
+                                        required={true}
+                                        {...register("password", {
+                                            minLength: {
+                                                value: 6,
+                                                message: "Минимальная длина пароля 6 символов",
+                                            },
+                                        })}
+                                        errorText={errors?.password && errors.password.message}
+                                    />
+                                    <FieldCheckbox
+                                        label={"Активировать учетную запись?"}
+                                        {...register("active", { value: true })}
+                                    />
+                                </fieldset>
+                            </div>
+                            <div className='form__controls'>
+                                <Button type='submit' spinnerActive={sending.admins}>
+                                    Создать
+                                </Button>
+                            </div>
+                        </form>
+                        <AlertPopup
+                            title={"Ошибка!"}
+                            state='error'
+                            text={errorText.admins}
+                            opened={popupErrorOpened}
+                            onClose={() => {
+                                clearErrorText();
+                                setPopupErrorOpened(false);
+                            }}
+                        />
+                    </>
+                );
+            }
+        };
+
+        const EditAdmin = () => {
+            if (id && admin) {
+                return (
+                    <>
+                        <div className='app__title-block'>
+                            <Button
+                                type='button'
+                                theme='text'
+                                isIconBtn
+                                iconName={AdminIcons.back}
+                                aria-label='Назад'
+                                onClick={() => back()}
+                            />
+                            <h1 className='app__title'>Редактирование администратора ID: {id}</h1>
+                        </div>
+                        <form onSubmit={handleSubmit(onEditSubmit)} className='form'>
+                            <div className='form__container --view-two-columns'>
+                                <fieldset className='form__section'>
+                                    <h2 className='form__title'>Основная информация</h2>
+                                    <FieldEmail
+                                        placeholder={"Введите email..."}
+                                        required={true}
+                                        {...register("email", {
+                                            value: admin.email,
+                                        })}
+                                    />
+                                    <FieldText
+                                        label={"ФИО"}
+                                        placeholder={"Введите фио..."}
+                                        required={true}
+                                        {...register("fio", { value: admin.fio })}
+                                    />
+                                    <FieldPhone
+                                        label={"Контактный телефон"}
+                                        placeholder={"Введите контактный телефон..."}
+                                        required={true}
+                                        {...register("phone", {
+                                            value: admin.phone,
+                                        })}
+                                    />
+                                </fieldset>
+                                <fieldset className='form__section'>
+                                    <h2 className='form__title'>Безопасность</h2>
+                                    <FieldPassword
+                                        placeholder={"Введите новый пароль..."}
+                                        autoComplete={"new-password"}
+                                        {...register("password", {
+                                            minLength: {
+                                                value: 6,
+                                                message: "Минимальная длина пароля 6 символов",
+                                            },
+                                        })}
+                                        errorText={errors?.password && errors.password.message}
+                                    />
+                                    <FieldCheckbox
+                                        label={"Активировать учетную запись?"}
+                                        {...register("active", {
+                                            value: admin.active === "Активен",
+                                        })}
+                                    />
+                                </fieldset>
+                            </div>
+                            <div className='form__controls'>
+                                <Button type='submit' text={"Сохранить"} spinnerActive={sending.admins} />
+                                <Button
+                                    type='button'
+                                    iconClass={"mdi mdi-delete"}
+                                    theme='text'
+                                    extraClass={`${sending.admins ? "--hide" : ""}`}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setPopupOpened(true);
+                                    }}
+                                    text='Удалить'
+                                />
+                            </div>
+                        </form>
+                        <AlertPopup
+                            text={"Вы уверены что хотите удалить?"}
+                            opened={popupOpened}
+                            onClose={() => setPopupOpened(false)}
+                            buttons={
+                                <>
+                                    <Button
+                                        type='button'
+                                        text={"Нет"}
+                                        size='small'
+                                        theme='text'
+                                        onClick={() => setPopupOpened(false)}
+                                    />
+                                    <Button
+                                        type='button'
+                                        text={"Да"}
+                                        size='small'
+                                        theme={"info"}
+                                        onClick={() => {
+                                            setPopupOpened(false);
+                                            onDeleteSubmit();
+                                        }}
+                                    />
+                                </>
+                            }
+                        />
+                        <AlertPopup
+                            title={"Ошибка!"}
+                            state='error'
+                            text={errorText.admins}
+                            opened={popupErrorOpened}
+                            onClose={() => {
+                                clearErrorText();
+                                setPopupErrorOpened(false);
+                            }}
+                        />
+                    </>
+                );
+            }
+        };
+
         return (
             <>
-                <div className='app__title-block'>
-                    <Button
-                        type='button'
-                        theme='text'
-                        isIconBtn
-                        iconName={AdminIcons.back}
-                        aria-label='Назад'
-                        onClick={() => back()}
-                    />
-                    <h1 className='app__title'>Редактирование администратора ID: {id}</h1>
-                </div>
-                <form onSubmit={handleSubmit(onEditSubmit)} className='form'>
-                    <div className='form__container --view-two-columns'>
-                        <fieldset className='form__section'>
-                            <h2 className='form__title'>Основная информация</h2>
-                            <FieldEmail
-                                placeholder={"Введите email..."}
-                                required={true}
-                                {...register("email", {
-                                    value: admin.email,
-                                })}
-                            />
-                            <FieldText
-                                label={"ФИО"}
-                                placeholder={"Введите фио..."}
-                                required={true}
-                                {...register("fio", { value: admin.fio })}
-                            />
-                            <FieldPhone
-                                label={"Контактный телефон"}
-                                placeholder={"Введите контактный телефон..."}
-                                required={true}
-                                {...register("phone", {
-                                    value: admin.phone,
-                                })}
-                            />
-                        </fieldset>
-                        <fieldset className='form__section'>
-                            <h2 className='form__title'>Безопасность</h2>
-                            <FieldPassword
-                                placeholder={"Введите новый пароль..."}
-                                autoComplete={"new-password"}
-                                {...register("password", {
-                                    minLength: {
-                                        value: 6,
-                                        message: "Минимальная длина пароля 6 символов",
-                                    },
-                                })}
-                                errorText={errors?.password && errors.password.message}
-                            />
-                            <FieldCheckbox
-                                label={"Активировать учетную запись?"}
-                                {...register("active", {
-                                    value: admin.active === "Активен",
-                                })}
-                            />
-                        </fieldset>
-                    </div>
-                    <div className='form__controls'>
-                        <Button type='submit' text={"Сохранить"} spinnerActive={sending.admins} />
-                        <Button
-                            type='button'
-                            iconClass={"mdi mdi-delete"}
-                            theme='text'
-                            extraClass={`${sending.admins ? "--hide" : ""}`}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setPopupOpened(true);
-                            }}
-                            text='Удалить'
-                        />
-                    </div>
-                </form>
-                <AlertPopup
-                    text={"Вы уверены что хотите удалить?"}
-                    opened={popupOpened}
-                    onClose={() => setPopupOpened(false)}
-                    buttons={
-                        <>
-                            <Button
-                                type='button'
-                                text={"Нет"}
-                                size='small'
-                                theme='text'
-                                onClick={() => setPopupOpened(false)}
-                            />
-                            <Button
-                                type='button'
-                                text={"Да"}
-                                size='small'
-                                theme={"info"}
-                                onClick={() => {
-                                    setPopupOpened(false);
-                                    onDeleteSubmit();
-                                }}
-                            />
-                        </>
-                    }
-                />
-                <AlertPopup
-                    title={"Ошибка!"}
-                    state='error'
-                    text={errorText.admins}
-                    opened={popupErrorOpened}
-                    onClose={() => {
-                        clearErrorText();
-                        setPopupErrorOpened(false);
-                    }}
-                />
+                <NewAdmin />
+                <EditAdmin />
             </>
         );
+    };
 
     return (
         <>
-            <div className='app__title-block'>
-                <Button
-                    type='button'
-                    theme='text'
-                    isIconBtn
-                    iconName={AdminIcons.back}
-                    aria-label='Назад'
-                    onClick={() => back()}
-                />
-                <h1 className='app__title'>Создание администратора</h1>
-            </div>
-            <form onSubmit={handleSubmit(onAddSubmit)} className='form'>
-                <div className='form__container --view-two-columns'>
-                    <fieldset className='form__section'>
-                        <h2 className='form__title'>Основная информация</h2>
-                        <FieldEmail
-                            placeholder={"Введите email..."}
-                            required={true}
-                            {...register("email")}
-                        />
-                        <FieldText
-                            label={"ФИО"}
-                            placeholder={"Введите фио..."}
-                            required={true}
-                            {...register("fio")}
-                        />
-                        <FieldPhone
-                            label={"Контактный телефон"}
-                            placeholder={"Введите контактный телефон..."}
-                            required={true}
-                            {...register("phone")}
-                        />
-                    </fieldset>
-                    <fieldset className='form__section'>
-                        <h2 className='form__title'>Безопасность</h2>
-                        <FieldPassword
-                            autoComplete={"new-password"}
-                            required={true}
-                            {...register("password", {
-                                minLength: {
-                                    value: 6,
-                                    message: "Минимальная длина пароля 6 символов",
-                                },
-                            })}
-                            errorText={errors?.password && errors.password.message}
-                        />
-                        <FieldCheckbox
-                            label={"Активировать учетную запись?"}
-                            {...register("active", { value: true })}
-                        />
-                    </fieldset>
-                </div>
-                <div className='form__controls'>
-                    <Button type='submit' spinnerActive={sending.admins}>
-                        Создать
-                    </Button>
-                </div>
-            </form>
-            <AlertPopup
-                title={"Ошибка!"}
-                state='error'
-                text={errorText.admins}
-                opened={popupErrorOpened}
-                onClose={() => {
-                    clearErrorText();
-                    setPopupErrorOpened(false);
-                }}
-            />
+            <Loading />
+            <MainBlock />
+            <NotFound />
         </>
     );
 };
