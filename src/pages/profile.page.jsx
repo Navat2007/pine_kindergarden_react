@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import useAuthStore from "../store/authStore";
 
 import Button from "../components/general/button/button.component";
-import AlertPopup from "../components/alert.popup/alert.popup";
-import Popup from "../components/popup/popup.component";
+import AlertPopup from "../components/general/alert.popup/alert.popup";
+import Popup from "../components/general/popup/popup.component";
 import FieldInput from "../components/general/field/field.input.component";
 
 import commonStyles from "./common.module.scss";
@@ -107,14 +107,6 @@ const ProfilePage = () => {
                             {...register("phone", {
                                 value: user.phone,
                             })}
-                        />
-                        <FieldInput
-                            label={"Должность:"}
-                            placeholder={"..."}
-                            layout='flex'
-                            size='small'
-                            required={true}
-                            {...register("position", { value: user.position })}
                         />
                     </fieldset>
                     <div className='form__controls'>

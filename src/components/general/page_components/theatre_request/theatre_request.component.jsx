@@ -13,7 +13,7 @@ import FieldInput from "../../field/field.input.component";
 import Tab from "../../tabs/tab.component";
 import Tabs from "../../tabs/tabs.component";
 import ImageSelector from "../../image_selector/image.selector.component";
-import AlertPopup from "../../../alert.popup/alert.popup";
+import AlertPopup from "../../alert.popup/alert.popup";
 
 import noImage from "../../../../images/no_image.png";
 

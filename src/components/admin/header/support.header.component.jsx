@@ -3,11 +3,11 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 
 import Button from "../button/button.component";
-import Popup from "../../popup/popup.component";
+import Popup from "../../general/popup/popup.component";
 import FieldInput from "../../general/field/field.input.component";
 
 import useAuthStore from "../../../store/authStore";
-import AlertPopup from "../../alert.popup/alert.popup";
+import AlertPopup from "../../general/alert.popup/alert.popup";
 
 import "./support.scss";
 import { AdminIcons } from "../../svgs";

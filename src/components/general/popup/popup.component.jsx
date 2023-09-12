@@ -1,5 +1,5 @@
 import React from "react";
-import { AdminIcons } from "../svgs.js";
+import { AdminIcons } from "../../svgs.js";
 import "./popup.scss";
 
 const Popup = ({ opened = false, title, extraClass, children, buttons, onClose }) => {

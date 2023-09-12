@@ -15,6 +15,13 @@ $params = "";
 if(isset($_FILES['files']))
 {
 
+    $baseDirName = $_SERVER['DOCUMENT_ROOT'] . "/files";
+    if (!file_exists($baseDirName)) {
+        $oldmask = umask(0);
+        $mkdir_result = mkdir($baseDirName, 0777);
+        umask($oldmask);
+    }
+
     $baseDirName = $_SERVER['DOCUMENT_ROOT'] . "/files/profile";
     if (!file_exists($baseDirName)) {
         $oldmask = umask(0);

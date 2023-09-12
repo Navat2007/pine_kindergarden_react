@@ -2,10 +2,11 @@ import React from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import createDOMPurify from "dompurify";
 import { useForm } from "react-hook-form";
+import moment from "moment";
 
 import useNewsStore from "../../../store/admin/newsStore";
 
-import AlertPopup from "../../../components/alert.popup/alert.popup";
+import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
@@ -16,7 +17,7 @@ import ImageGallery from "../../../components/general/image_gallery/image.galler
 
 import commonStyles from "../../common.module.scss";
 import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
-import moment from "moment";
+
 import { AdminIcons } from "../../../components/svgs";
 
 const AdminNewsPage = (props) => {

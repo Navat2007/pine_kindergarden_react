@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from "../button/button.component";
-import AlertPopup from "../../alert.popup/alert.popup";
+import AlertPopup from "../alert.popup/alert.popup";
 
 import noImage from "../../../images/no_image.png";
 

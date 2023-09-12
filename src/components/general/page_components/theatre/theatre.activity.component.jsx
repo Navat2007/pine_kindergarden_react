@@ -11,7 +11,7 @@ import Popup from "../../popup/popup.component";
 import FieldInput from "../../field/field.input.component";
 import Editor from "../../reach_editor/editor.component";
 import ImageSelector from "../../image_selector/image.selector.component";
-import AlertPopup from "../../../alert.popup/alert.popup";
+import AlertPopup from "../../alert.popup/alert.popup";
 import MultiSelect from "../../multi_select/multi_select.component";
 
 import styles from "./theatre.module.scss";

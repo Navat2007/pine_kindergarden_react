@@ -6,7 +6,7 @@ import useUsersStore from "../../../store/admin/usersStore";
 
 import Button from "../../../components/admin/button/button.component";
 import FieldInput from "../../../components/general/field/field.input.component";
-import AlertPopup from "../../../components/alert.popup/alert.popup";
+import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 
 import no_photo_man from "../../../images/no_photo_man.png";
 import { AdminIcons } from "../../../components/svgs";
@@ -82,43 +82,6 @@ const AdminUsersPage = () => {
                     <div className='form__container --view-two-columns'>
                         <fieldset className='form__section'>
                             <h2 className='form__title'>Основная информация</h2>
-                            {/* Фото педагога - новый блок со сменой фото */}
-                            <div className='form__multy-block'>
-                                <p className='form__label'>Фото</p>
-                                <div className='form__profile-img-block'>
-                                    <img
-                                        className='form__profile-img'
-                                        src={admin.photo ? window.global.baseUrl + admin.photo : no_photo_man}
-                                        alt={admin.photo ? admin.photo : "Нет фото"}
-                                    />
-                                    <div className='form__profile-img-panel'>
-                                        <Button
-                                            size={"smaller"}
-                                            theme={"text"}
-                                            isIconBtn={"true"}
-                                            iconClass={"mdi mdi-refresh"}
-                                            aria-label={"Обновить фото"}
-                                            title={"Обновить фото"}
-                                        />
-                                        <Button
-                                            size={"smaller"}
-                                            theme={"text"}
-                                            isIconBtn={"true"}
-                                            iconClass={"mdi mdi-close"}
-                                            aria-label={"Удалить фото"}
-                                            title={"Удалить фото"}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <FieldInput
-                                label={"Логин"}
-                                placeholder={"Введите логин..."}
-                                layout='flex'
-                                {...register("login", {
-                                    value: admin.login,
-                                })}
-                            />
                             <FieldInput
                                 label={"Email"}
                                 placeholder={"Введите email..."}
@@ -145,24 +108,6 @@ const AdminUsersPage = () => {
                                     value: admin.phone,
                                 })}
                             />
-                            <FieldInput
-                                label={"Наименование организации"}
-                                placeholder={"Введите наименование организации..."}
-                                layout='flex'
-                                required={true}
-                                {...register("org_name", {
-                                    value: admin.org_name,
-                                })}
-                            />
-                            <FieldInput
-                                label={"Должность"}
-                                placeholder={"Введите должность..."}
-                                layout='flex'
-                                required={true}
-                                {...register("position", {
-                                    value: admin.position,
-                                })}
-                            />
                         </fieldset>
                         <fieldset className='form__section'>
                             <h2 className='form__title'>Безопасность</h2>
@@ -185,35 +130,6 @@ const AdminUsersPage = () => {
                                 type={"checkbox_variant"}
                                 {...register("active", {
                                     value: admin.active === "Активен",
-                                })}
-                            />
-                        </fieldset>
-                        <fieldset className='form__section'>
-                            <h2 className='form__title'>Права доступа</h2>
-                            <FieldInput
-                                id={"id_1"}
-                                label={"Главный администратор"}
-                                type={"checkbox_variant"}
-                                {...register("superadmin", {
-                                    value: admin.role === "Главный администратор",
-                                    onChange: (e) => {
-                                        if (e.target.checked) {
-                                            setValue("admin", false);
-                                        }
-                                    },
-                                })}
-                            />
-                            <FieldInput
-                                id={"id_2"}
-                                label={"Администратор"}
-                                type={"checkbox_variant"}
-                                {...register("admin", {
-                                    value: admin.role === "Администратор",
-                                    onChange: (e) => {
-                                        if (e.target.checked) {
-                                            setValue("superadmin", false);
-                                        }
-                                    },
                                 })}
                             />
                         </fieldset>
@@ -290,13 +206,6 @@ const AdminUsersPage = () => {
                     <fieldset className='form__section'>
                         <h2 className='form__title'>Основная информация</h2>
                         <FieldInput
-                            label={"Логин"}
-                            placeholder={"Введите логин..."}
-                            layout='flex'
-                            required={true}
-                            {...register("login")}
-                        />
-                        <FieldInput
                             label={"Email"}
                             placeholder={"Введите email..."}
                             layout='flex'
@@ -317,13 +226,6 @@ const AdminUsersPage = () => {
                             layout='flex'
                             required={true}
                             {...register("phone")}
-                        />
-                        <FieldInput
-                            label={"Наименование организации"}
-                            placeholder={"Введите наименование организации..."}
-                            layout='flex'
-                            required={true}
-                            {...register("org_name")}
                         />
                     </fieldset>
                     <fieldset className='form__section'>
@@ -347,34 +249,6 @@ const AdminUsersPage = () => {
                             label={"Активировать учетную запись?"}
                             type={"checkbox_variant"}
                             {...register("active", { value: true })}
-                        />
-                    </fieldset>
-                    <fieldset className='form__section'>
-                        <h2 className='form__title'>Права доступа</h2>
-                        <FieldInput
-                            id={"id_1"}
-                            label={"Главный администратор"}
-                            type={"checkbox_variant"}
-                            {...register("superadmin", {
-                                value: true,
-                                onChange: (e) => {
-                                    if (e.target.checked) {
-                                        setValue("admin", false);
-                                    }
-                                },
-                            })}
-                        />
-                        <FieldInput
-                            id={"id_2"}
-                            label={"Администратор"}
-                            type={"checkbox_variant"}
-                            {...register("admin", {
-                                onChange: (e) => {
-                                    if (e.target.checked) {
-                                        setValue("superadmin", false);
-                                    }
-                                },
-                            })}
                         />
                     </fieldset>
                 </div>

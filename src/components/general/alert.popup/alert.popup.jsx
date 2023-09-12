@@ -1,6 +1,6 @@
 import React from "react";
 import "./alert-popup.scss";
-import { AdminIcons } from "../svgs.js";
+import { AdminIcons } from "../../svgs.js";
 
 function Notif({ opened, onClose, state = "info", title = "Внимание", text, extraClass, timerInSeconds = 0, buttons }) {
     if (timerInSeconds > 0) {

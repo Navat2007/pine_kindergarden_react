@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../../store/authStore";
 
 import Button from "../button/button.component";
-import AlertPopup from "../../alert.popup/alert.popup";
+import AlertPopup from "../../general/alert.popup/alert.popup";
 import no_photo_man from "../../../images/no_photo_man.png";
 import "./profile.scss";
 import { AdminIcons } from "../../svgs";

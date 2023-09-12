@@ -14,7 +14,7 @@ import Tabs from "../../tabs/tabs.component";
 import Tab from "../../tabs/tab.component";
 import FieldInput from "../../field/field.input.component";
 import Popup from "../../popup/popup.component";
-import AlertPopup from "../../../alert.popup/alert.popup";
+import AlertPopup from "../../alert.popup/alert.popup";
 import ImageGallery from "../../image_gallery/image.gallery.component";
 import TheatreActivityComponent from "./theatre.activity.component";
 import VideoPlayer from "../../video_player/video.player.component";

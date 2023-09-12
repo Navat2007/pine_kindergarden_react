@@ -41,8 +41,6 @@ if (mysqli_num_rows($result) > 0) {
 
 }
 
-//$params = $helper->sendSupportEmail('Театры патриот-спорт', $email, $text, $fio, $org_short_name);
-
 $content = (object)[
 
     'entry' => (object)[

@@ -8,7 +8,6 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 $id = htmlspecialchars($_POST["id"]);
 $fio = mysqli_real_escape_string($conn, htmlspecialchars($_POST["fio"]));
 $phone = mysqli_real_escape_string($conn, htmlspecialchars($_POST["phone"]));
-$position = mysqli_real_escape_string($conn, htmlspecialchars($_POST["position"]));
 
 $error = 0;
 $error_text = "";
@@ -18,7 +17,7 @@ $params = "";
 $sql = "UPDATE 
                 accounts
             SET
-                fio = '$fio', phone = '$phone', position = '$position'
+                fio = '$fio', phone = '$phone'
             WHERE 
                 ID = '$id'";
 $sqls[] = $sql;

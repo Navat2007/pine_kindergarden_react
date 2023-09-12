@@ -3,7 +3,7 @@ import axios from "axios";
 
 import Button from "../button/button.component";
 import FieldInput from "../field/field.input.component";
-import AlertPopup from "../../alert.popup/alert.popup";
+import AlertPopup from "../alert.popup/alert.popup";
 import Popup from "../popup/popup.component";
 
 import styles from "./file.selector.module.scss";

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import useFeedbackStore from "../../../store/feedbackStore";
 
-import AlertPopup from "../../alert.popup/alert.popup";
+import AlertPopup from "../../general/alert.popup/alert.popup";
 
 import "./feedback.scss";
 
