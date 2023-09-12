@@ -19,6 +19,7 @@ import commonStyles from "../../common.module.scss";
 import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
 
 import { AdminIcons } from "../../../components/svgs";
+import TitleBlock from "../../../components/admin/title.block.component";
 
 const AdminNewsPage = (props) => {
     let { id } = useParams();
@@ -44,9 +45,7 @@ const AdminNewsPage = (props) => {
     const Loading = () => {
         if (newsStore.loading) {
             return (
-                <div className={commonStyles.title_block}>
-                    <h1 className={commonStyles.title}>Загрузка...</h1>
-                </div>
+                <TitleBlock title={`Загрузка...`}/>
             );
         }
     };
@@ -54,10 +53,7 @@ const AdminNewsPage = (props) => {
     const NotFound = () => {
         if (id && !newsStore.loading && Object.keys(newsStore.news).length === 0) {
             return (
-                <div className={commonStyles.title_block}>
-                    <Button type='button' iconName={AdminIcons.back} isIconBtn aria-label='Назад' onClick={back} />
-                    <h1 className={commonStyles.title}>Новость не найдена</h1>
-                </div>
+                <TitleBlock title={`Новость не найдена`} onBack={back}/>
             );
         }
     };
@@ -189,18 +185,7 @@ const AdminNewsPage = (props) => {
             if (!id) {
                 return (
                     <>
-                        <div className={commonStyles.title_block}>
-                            <Button
-                                type='button'
-                                theme='text'
-                                size='small'
-                                iconClass={"mdi mdi-arrow-left"}
-                                isIconBtn={true}
-                                aria-label='Назад'
-                                onClick={back}
-                            />
-                            <h1 className={commonStyles.title}>Создание новости</h1>
-                        </div>
+                        <TitleBlock title={"Создание новости"} onBack={back}/>
                         <form onSubmit={handleSubmit(onAddNews)} className='form'>
                             <Tabs>
                                 <Tab title={"Основная информация"}>
@@ -557,20 +542,7 @@ const AdminNewsPage = (props) => {
             if (id && edit) {
                 return (
                     <>
-                        <div className={commonStyles.title_block}>
-                            <Button
-                                type='button'
-                                theme='text'
-                                size='small'
-                                iconClass={"mdi mdi-arrow-left"}
-                                isIconBtn={true}
-                                aria-label='Назад'
-                                onClick={() => {
-                                    setEdit(false);
-                                }}
-                            />
-                            <h1 className={commonStyles.title}>Редактирование новости ID: {id}</h1>
-                        </div>
+                        <TitleBlock title={`Редактирование новости ID: ${id}`} onBack={back}/>
                         <form onSubmit={handleSubmit(onEditNews)} className='form'>
                             <Tabs>
                                 <Tab title={"Основная информация"}>
@@ -696,17 +668,7 @@ const AdminNewsPage = (props) => {
             if (id && !edit && !newsStore.loading && Object.keys(newsStore.news).length > 0) {
                 return (
                     <>
-                        <div className={commonStyles.title_block}>
-                            <Button
-                                type='button'
-                                theme='text'
-                                size='small'
-                                iconClass={"mdi mdi-arrow-left"}
-                                isIconBtn={true}
-                                aria-label='Назад'
-                                onClick={back}
-                            />
-                            <h1 className={commonStyles.title}>Новость ID: {newsStore.news.ID}</h1>
+                        <TitleBlock title={`Новость ID: ${newsStore.news.ID}`} onBack={back}>
                             <Button
                                 size='smaller'
                                 type='submit'
@@ -718,7 +680,7 @@ const AdminNewsPage = (props) => {
                                     setEdit(true);
                                 }}
                             />
-                        </div>
+                        </TitleBlock>
                         <Tabs>
                             <Tab title={"Основные сведения"}>
                                 <ul className={styles.list}>
