@@ -18,10 +18,10 @@ class helper
     function sendEmailWithPassword($conn, $email, $pwd, $new)
     {
 
-        $site_url = 'https://theatres.patriot-sport.ru';
+        $site_url = 'https://dssosny.ru/';
 
         $to = $email;
-        $subject = 'theatres.patriot-sport | ' . ($new ? 'Учетная запись создана' : 'Ваши данные были изменены администратором');
+        $subject = 'dssosny.ru | ' . ($new ? 'Учетная запись создана' : 'Ваши данные были изменены администратором');
         $message = include $_SERVER['DOCUMENT_ROOT'] . '/php/templates/email/header.php';
 
         if ($new) {
@@ -56,8 +56,8 @@ class helper
 
         $headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= "Content-type: text/html; charset=utf-8 \r\n";
-        $headers .= "From: patriot-sport <support@patriot-sport.ru> \r\n";
-        $headers .= "Reply-To: support@patriot-sport.ru \r\n";
+        $headers .= "From: patriot-sport <support@dssosny.ru> \r\n";
+        $headers .= "Reply-To: support@dssosny.ru \r\n";
 
         return (object)[
             'to' => $email,
