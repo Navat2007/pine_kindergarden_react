@@ -1,9 +1,10 @@
 import React from "react";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import useUsersStore from "../../../store/admin/usersStore";
 
+import TitleBlock from "../../../components/admin/title.block.component";
 import Button from "../../../components/admin/button/button.component";
 import FieldEmail from "../../../components/admin/field/field.email.component";
 import FieldText from "../../../components/admin/field/field.text.component";
@@ -21,7 +22,6 @@ const AdminUsersPage = () => {
     let { id } = useParams();
     const {
         register,
-        setValue,
         handleSubmit,
         reset,
         formState: { errors },
@@ -78,17 +78,7 @@ const AdminUsersPage = () => {
             if (!id) {
                 return (
                     <>
-                        <div className='app__title-block'>
-                            <Button
-                                type='button'
-                                theme='text'
-                                isIconBtn
-                                iconName={AdminIcons.back}
-                                aria-label='Назад'
-                                onClick={() => back()}
-                            />
-                            <h1 className='app__title'>Создание администратора</h1>
-                        </div>
+                        <TitleBlock title={"Создание администратора"} onBack={back} />
                         <form onSubmit={handleSubmit(onAddSubmit)} className='form'>
                             <div className='form__container --view-two-columns'>
                                 <fieldset className='form__section'>

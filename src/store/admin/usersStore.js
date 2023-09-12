@@ -48,15 +48,11 @@ const useUsersStore = create(
 
         loadAdmins: async () => {
 
-            console.log(axios.defaults.headers);
-
             set((state) => ({loading: {...state.loading, admins: true}}));
 
             const response = await axios.post(urlLoadAdmins);
 
             set((state) => ({loading: {...state.loading, admins: false}}));
-
-            console.log(response);
 
             if (response.data.params) {
 
