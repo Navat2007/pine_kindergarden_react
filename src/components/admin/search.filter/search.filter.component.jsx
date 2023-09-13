@@ -181,13 +181,11 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                                 height: 0,
                                 opacity: 0,
                                 y: -20,
-                                marginTop: "1.25em",
                             }}
                             animate={{
                                 height: "auto",
                                 opacity: 1,
                                 y: 0,
-                                marginTop: "1.25em",
                                 transition: {
                                     height: {
                                         duration: 0.25,
@@ -196,25 +194,18 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                                         duration: 0.25,
                                         delay: 0.15,
                                     },
-                                    marginTop: {
-                                        duration: 0.25,
-                                    },
                                 },
                             }}
                             exit={{
                                 height: 0,
                                 opacity: 0,
                                 y: -20,
-                                marginTop: "0",
                                 transition: {
                                     height: {
                                         duration: 0.25,
                                     },
                                     opacity: {
                                         duration: 0.15,
-                                    },
-                                    marginTop: {
-                                        duration: 0.25,
                                     },
                                 },
                             }}
