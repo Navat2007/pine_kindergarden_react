@@ -1,9 +1,21 @@
 import React, { forwardRef } from "react";
 
 import "./field.scss";
-import styles from "../../general/field/field.module.scss";
 
-const FieldSelect = ({ errorText, extraClass, label = "", placeholder = "", required = false, defaultSelectItem, selectItems = [], disabled, ...rest }, ref) => {
+const FieldSelect = (
+    {
+        errorText,
+        extraClass,
+        label = "",
+        placeholder = "",
+        required = false,
+        defaultSelectItem,
+        selectItems = [],
+        disabled,
+        ...rest
+    },
+    ref
+) => {
     const id = window.global.makeid(8);
 
     return (
@@ -11,8 +23,14 @@ const FieldSelect = ({ errorText, extraClass, label = "", placeholder = "", requ
             <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor={id}>
                 {label}
             </label>
-            <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>
-                <select ref={ref} className={styles.select} required={required} disabled={disabled} {...rest}>
+            <div className={`field__inner field__inner_content_select${extraClass ? ` ${extraClass}-inner` : ``}`}>
+                <select
+                    ref={ref}
+                    className={`field__select${extraClass ? ` ${extraClass}-select` : ``}`}
+                    required={required}
+                    disabled={disabled}
+                    {...rest}
+                >
                     {defaultSelectItem && (
                         <option defaultValue disabled={defaultSelectItem.disabled} value={defaultSelectItem.value}>
                             {defaultSelectItem.title}

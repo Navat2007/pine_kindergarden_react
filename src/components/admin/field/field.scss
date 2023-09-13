@@ -6,6 +6,12 @@
         .field__inner::after {
             @extend %visibility-block;
         }
+        .field__inner.field__inner_content_select::before {
+            @extend %hidden-block;
+        }
+        .field__input {
+            padding-inline-end: 2.875em;
+        }
         .field__info-text {
             padding-top: 10px;
             @extend %visibility-block;
@@ -55,12 +61,35 @@
 
             @extend %hidden-block;
         }
+
+        // Для селекта иконка
+        &_content_select::before {
+            content: "";
+            display: block;
+            background-color: currentColor;
+            mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgogIDxwYXRoIGQ9Im03IDEwIDUgNSA1LTVIN1oiLz4KPC9zdmc+Cg==");
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            @include box(1.5em);
+            grid-area: 1/1/2/2;
+            align-self: center;
+            justify-self: end;
+            margin-right: 0.875em;
+
+            pointer-events: none;
+        }
+    }
+
+    &__label {
+        line-height: 2;
+        font-size: 0.875em;
+        color: var(--admin-text-low-color);
     }
 
     &__input {
         @extend %reset-input;
         grid-area: 1/1/2/2;
-        padding: 1em 2.875em 1em 1em;
+        padding: 1em;
         outline: 1px solid var(--admin-grey-100-color);
         border-radius: 5px;
 
@@ -68,6 +97,10 @@
             background-color: white;
             outline: 1px solid var(--admin-grey-300-color);
         }
+    }
+
+    &__select {
+        @extend .field__input;
     }
 
     &__checkbox {
@@ -108,12 +141,6 @@
             box-shadow: 0 0 3px rgba(black, 0.15);
             transition: left 0.25s ease-in;
         }
-    }
-
-    &__label {
-        line-height: 2;
-        font-size: 0.875em;
-        color: var(--admin-text-low-color);
     }
 
     &__info-text {

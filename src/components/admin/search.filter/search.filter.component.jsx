@@ -64,7 +64,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
         });
     };
 
-    const getFieldByType = ({ filter, type, key, header, theme, size = "small" }) => {
+    const getFieldByType = ({ filter, type, key, header }) => {
         if (!filter) return <Fragment key={key} />;
 
         switch (filter) {
@@ -72,10 +72,8 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                 return (
                     <FieldNumber
                         key={key}
-                        theme={theme}
                         label={header}
-                        extraClass={"styles.field"}
-                        defaultValue={""}
+                        extraClass={`search-filter__field`}
                         placeholder={`...`}
                         {...register(key, {
                             setValueAs: (v) => (v !== "" ? parseInt(v) : ""),
@@ -87,34 +85,23 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                 return (
                     <FieldText
                         key={key}
-                        theme={theme}
-                        extraClass={"styles.field"}
                         label={header}
+                        extraClass={`search-filter__field`}
                         placeholder={`...`}
                         {...register(key)}
                     />
                 );
 
             case "date":
-                return (
-                    <FieldDate
-                        key={key}
-                        theme={theme}
-                        extraClass={"styles.field"}
-                        type={"date"}
-                        label={header}
-                        {...register(key)}
-                    />
-                );
+                return <FieldDate key={key} label={header} extraClass={`search-filter__field`} {...register(key)} />;
 
             case "datetime":
                 return (
                     <FieldDate
                         key={key}
-                        theme={theme}
-                        extraClass={"styles.field"}
                         type={"datetime-local"}
                         label={header}
+                        extraClass={`search-filter__field`}
                         {...register(key)}
                     />
                 );
@@ -123,9 +110,8 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                 return (
                     <FieldSelect
                         key={key}
-                        theme={theme}
-                        extraClass={"styles.field"}
                         label={header}
+                        extraClass={`search-filter__field`}
                         selectItems={getSortedUniqueItemsForSelect(
                             items.map((item) => item[key]).filter((item) => item !== null && item !== ""),
                             type
@@ -142,7 +128,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
             case "multiselect":
                 return (
                     <>
-                        <p className='form__label'>{header}</p>
+                        <p className='admin-form__label'>{header}</p>
                         <MultiSelect
                             placeholder={header + "..."}
                             control={control}
@@ -163,15 +149,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                 );
 
             default:
-                return (
-                    <FieldText
-                        theme={theme}
-                        extraClass={"styles.field"}
-                        key={key}
-                        label={header}
-                        {...register(key)}
-                    />
-                );
+                return <FieldText key={key} label={header} extraClass={`search-filter__field`} {...register(key)} />;
         }
     };
 
@@ -198,7 +176,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                 <AnimatePresence>
                     {opened && (
                         <motion.div
-                            className={"styles.row"}
+                            className={`search-filter__filed-columns`}
                             initial={{
                                 height: 0,
                                 opacity: 0,
@@ -242,19 +220,19 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
                             }}
                         >
                             {config.map((item) => getFieldByType(item))}
-                            <motion.div className={"styles.controls"}>
-                                <Button type='submit' size='small' text='Найти' />
+                            <div className={`search-filter__controls`}>
+                                <Button type='submit'>Найти</Button>
                                 <Button
                                     type='button'
-                                    text='Очистить'
-                                    size='small'
                                     theme='text'
                                     onClick={() => {
                                         reset();
                                         onSubmit();
                                     }}
-                                />
-                            </motion.div>
+                                >
+                                    Очистить
+                                </Button>
+                            </div>
                         </motion.div>
                     )}
                 </AnimatePresence>

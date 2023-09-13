@@ -48,7 +48,7 @@
 
         &:hover:not(disabled) {
             opacity: 1;
-            background-color: rgba(var(--admin-primary-opacity-color), 0.05);
+            background-color: rgba(var(--admin-primary-opacity-color), 0.1);
         }
     }
 
@@ -59,7 +59,7 @@
 
         &:hover:not(disabled) {
             opacity: 1;
-            background-color: rgba(var(--admin-primary-opacity-color), 0.05);
+            background-color: rgba(var(--admin-primary-opacity-color), 0.1);
         }
     }
 
