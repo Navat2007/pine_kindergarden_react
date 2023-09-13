@@ -1,11 +1,11 @@
 import React from "react";
 import axios from "axios";
 
-import Button from "../button/button.component";
-import FieldInput from "../field/field.input.component";
+import Button from "../../admin/button/button.component";
+import FieldInput from "../../admin/field/field.text.component";
 import AlertPopup from "../alert.popup/alert.popup";
 import Popup from "../popup/popup.component";
-import styles from "./image.module.scss";
+import "./image.selector.scss";
 import { AdminIcons } from "../../svgs.js";
 
 const ImageSelector = ({
@@ -170,12 +170,14 @@ const ImageSelector = ({
         if (errorFiles.length > 0) {
             setNotif(
                 <Popup opened={true} onClose={() => setNotif(<></>)} title={"Ошибка загрузки файлов"}>
-                    <h3 className={styles.errorCaption}>{AdminIcons.error} Не удалось добавить следующие файлы:</h3>
-                    <ol className={styles.errorList}>
+                    <h3 className={`image-selector__error-caption`}>
+                        {AdminIcons.error} Не удалось добавить следующие файлы:
+                    </h3>
+                    <ol className={`image-selector__list`}>
                         {errorFiles.map((error) => (
                             <li key={error.title}>
-                                <p className={styles.errorText}>
-                                    {error.title} <span className={styles.errorSpan}>{error.text}</span>
+                                <p className={`image-selector__error-text`}>
+                                    {error.title} <span className={`image-selector__error-span`}>{error.text}</span>
                                 </p>
                             </li>
                         ))}
@@ -209,17 +211,11 @@ const ImageSelector = ({
                     onClose={() => setNotif(<></>)}
                     buttons={
                         <>
+                            <Button type='button' theme='text' onClick={() => setNotif(<></>)}>
+                                Нет
+                            </Button>
                             <Button
                                 type='button'
-                                size={"small"}
-                                text={"Нет"}
-                                theme='text'
-                                onClick={() => setNotif(<></>)}
-                            />
-                            <Button
-                                type='button'
-                                size={"small"}
-                                theme='info'
                                 text={"Да"}
                                 onClick={async () => {
                                     if (itemElement.isFile === 1 && itemElement.isLoaded === 1) {
@@ -232,7 +228,9 @@ const ImageSelector = ({
 
                                     setNotif(<></>);
                                 }}
-                            />
+                            >
+                                Да
+                            </Button>
                         </>
                     }
                 />
@@ -246,7 +244,7 @@ const ImageSelector = ({
 
     return (
         <>
-            {title && <h2 className='form__title'>{title}</h2>}
+            {title && <h2 className='admin-form__title'>{title}</h2>}
             <ul className='gallery-form'>
                 {photo.map((item, index) =>
                     item.main ? (
@@ -263,16 +261,14 @@ const ImageSelector = ({
                             <div className='gallery-form__item-panel'>
                                 <Button
                                     type='button'
-                                    theme='white'
-                                    size='smaller'
                                     isIconBtn='true'
-                                    iconClass={"mdi mdi-close"}
+                                    iconName={AdminIcons.close}
                                     aria-label='Удалить'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <div className='gallery-form__title'>1. Главная</div>
+                            <p className='gallery-form__title'>1. Главная</p>
                         </li>
                     ) : (
                         <li key={index} className='gallery-form__item'>
@@ -289,19 +285,16 @@ const ImageSelector = ({
                             <div className='gallery-form__item-panel'>
                                 <Button
                                     type='button'
-                                    theme='white'
-                                    size='smaller'
-                                    text={"Сделать главной"}
                                     aria-label='Сделать главной'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleMovePhoto(item.order, 1)}
-                                />
+                                >
+                                    Сделать главной
+                                </Button>
                                 <Button
                                     type='button'
-                                    theme='white'
-                                    size='smaller'
                                     isIconBtn='true'
-                                    iconClass={"mdi mdi-close"}
+                                    iconName={AdminIcons.close}
                                     aria-label='Удалить'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleDeletePhoto(item)}
@@ -310,10 +303,8 @@ const ImageSelector = ({
                             <div className='gallery-form__thumbs'>
                                 <Button
                                     type='button'
-                                    theme='white'
-                                    size='smaller'
                                     isIconBtn='true'
-                                    iconClass={"mdi mdi-chevron-left"}
+                                    iconName={AdminIcons.chevron_left}
                                     aria-label='Назад'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleMovePhoto(item.order, item.order - 1)}
@@ -321,10 +312,8 @@ const ImageSelector = ({
                                 {index < photo.length - 1 && (
                                     <Button
                                         type='button'
-                                        theme='white'
-                                        size='smaller'
                                         isIconBtn='true'
-                                        iconClass={"mdi mdi-chevron-right"}
+                                        iconName={AdminIcons.chevron_right}
                                         aria-label='Вперед'
                                         disabled={photoAddBtnDisabled}
                                         onClick={() => handleMovePhoto(item.order, item.order + 1)}
@@ -356,10 +345,11 @@ const ImageSelector = ({
                     </p>
                     <Button
                         type='button'
-                        text={onlyOneImage ? "Выбрать файл" : "Выбрать файлы"}
                         disabled={photoFileAddBtnDisabled}
                         onClick={() => inputFileRef.current.click()}
-                    />
+                    >
+                        onlyOneImage ? "Выбрать файл" : "Выбрать файлы"
+                    </Button>
                     <input
                         ref={inputFileRef}
                         key={photoInputKey}
@@ -372,7 +362,7 @@ const ImageSelector = ({
                 </li>
             </ul>
             {withLinks && (
-                <div className='form__group-block'>
+                <div className='admin-form__group-block'>
                     <FieldInput
                         ref={inputRef}
                         label={"Ссылка на фото"}
@@ -381,22 +371,11 @@ const ImageSelector = ({
                         placeholder='Введите url-адрес...'
                         layout='flex'
                     />
-                    <a
-                        className='form__social-link --hide'
-                        href=''
-                        aria-label='Открыть в новой вкладке'
-                        title='Открыть в новой вкладке'
-                        target={"_blank"}
-                        rel='nofollow noreferer noopener'
-                    >
-                        <span className='mdi mdi-open-in-new' />
-                    </a>
                     <Button
                         type='button'
                         theme='text'
-                        size='small'
                         extraClass='form__icon-btn'
-                        iconClass={"mdi mdi-plus"}
+                        iconName={AdminIcons.plus}
                         isIconBtn='true'
                         aria-label='Добавить поле'
                         disabled={photoAddBtnDisabled}

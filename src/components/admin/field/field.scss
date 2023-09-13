@@ -29,7 +29,6 @@
 
         .field__label {
             flex: auto;
-            padding-inline-start: 1em;
         }
 
         .field__inner {
@@ -82,6 +81,7 @@
 
     &__label {
         line-height: 2;
+        padding-inline-start: 1rem;
         font-size: 0.875em;
         color: var(--admin-text-low-color);
     }

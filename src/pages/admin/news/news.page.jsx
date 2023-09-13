@@ -11,14 +11,12 @@ import Button from "../../../components/admin/button/button.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
 import Editor from "../../../components/general/reach_editor/editor.component";
-import ImageSelector from "../../../components/general/image_selector/image.selector.component";
+import ImageSelector from "../../../components/general/image.selector/image.selector.component";
 import ImageGallery from "../../../components/general/image_gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import FieldDate from "../../../components/admin/field/field.date.component";
-
-import styles from "../../../components/general/page_components/theatre/theatre.module.scss";
 
 const AdminNewsPage = (props) => {
     let { id } = useParams();
@@ -184,7 +182,7 @@ const AdminNewsPage = (props) => {
                         <form onSubmit={handleSubmit(onAddNews)} className='admin-form'>
                             <Tabs>
                                 <Tab title={"Основная информация"}>
-                                    <fieldset className='admin-form__section'>
+                                    <fieldset className="admin-form__section admin-form__section_width_one-col">
                                         <FieldCheckbox
                                             label={"Доступна для показа?"}
                                             {...register("active", {
@@ -195,6 +193,14 @@ const AdminNewsPage = (props) => {
                                             label={"Показывать на главной странице?"}
                                             {...register("mainPage")}
                                         />
+                                        <FieldDate
+                                            label='Дата и время'
+                                            type='datetime-local'
+                                            required={true}
+                                            {...register("date")}
+                                        />
+                                    </fieldset>
+                                    <fieldset className='admin-form__section'>
                                         <FieldText
                                             label={"Название новости для анонса*"}
                                             required={true}
@@ -206,12 +212,6 @@ const AdminNewsPage = (props) => {
                                             required={true}
                                             placeholder={"Введите название"}
                                             {...register("title")}
-                                        />
-                                        <FieldDate
-                                            label='Дата и время'
-                                            type='datetime-local'
-                                            required={true}
-                                            {...register("date")}
                                         />
                                         <div className='admin-form__multy-block'>
                                             <p className='admin-form__label'>Описание для анонса</p>
@@ -452,18 +452,11 @@ const AdminNewsPage = (props) => {
                         onClose={() => setPopup(<></>)}
                         buttons={
                             <>
+                                <Button type='button' theme='text' onClick={() => setPopup(<></>)}>
+                                    Нет
+                                </Button>
                                 <Button
                                     type='button'
-                                    size={"small"}
-                                    text={"Нет"}
-                                    theme='text'
-                                    onClick={() => setPopup(<></>)}
-                                />
-                                <Button
-                                    type='button'
-                                    size={"small"}
-                                    theme='info'
-                                    text={"Да"}
                                     onClick={async () => {
                                         let sendObject = {};
 
@@ -497,7 +490,9 @@ const AdminNewsPage = (props) => {
                                             );
                                         }
                                     }}
-                                />
+                                >
+                                    button
+                                </Button>
                             </>
                         }
                     />
@@ -663,24 +658,24 @@ const AdminNewsPage = (props) => {
                         </TitleBlock>
                         <Tabs>
                             <Tab title={"Основные сведения"}>
-                                <ul className={styles.list}>
-                                    <li className={styles.item}>
-                                        <h3 className={styles.label}>Доступна для показа?</h3>
-                                        <p className={styles.description}>
+                                <ul className={"styles.list"}>
+                                    <li className={"styles.item"}>
+                                        <h3 className={"styles.label"}>Доступна для показа?</h3>
+                                        <p className={"styles.description"}>
                                             {newsStore.news.active === "Активен" ? "Да" : "Нет"}
                                         </p>
                                     </li>
-                                    <li className={styles.item}>
-                                        <h3 className={styles.label}>Показывать на главной странице?</h3>
-                                        <p className={styles.description}>
+                                    <li className={"styles.item"}>
+                                        <h3 className={"styles.label"}>Показывать на главной странице?</h3>
+                                        <p className={"styles.description"}>
                                             {newsStore.news.show_on_main_page === "Активен" ? "Да" : "Нет"}
                                         </p>
                                     </li>
-                                    <li className={styles.item}>
-                                        <h3 className={styles.label}>Публичная страница</h3>
-                                        <p className={styles.description}>
+                                    <li className={"styles.item"}>
+                                        <h3 className={"styles.label"}>Публичная страница</h3>
+                                        <p className={"styles.description"}>
                                             <NavLink
-                                                className={'commonStyles.link'}
+                                                className={"commonStyles.link"}
                                                 to={"/news/" + id}
                                                 target={"_blank"}
                                                 rel='noopener nofollow noreferer'
@@ -689,38 +684,38 @@ const AdminNewsPage = (props) => {
                                             </NavLink>
                                         </p>
                                     </li>
-                                    <li className={styles.item}>
-                                        <h3 className={styles.label}>Название новости для анонса</h3>
-                                        <p className={styles.description}>{newsStore.news.preview_title}</p>
+                                    <li className={"styles.item"}>
+                                        <h3 className={"styles.label"}>Название новости для анонса</h3>
+                                        <p className={"styles.description"}>{newsStore.news.preview_title}</p>
                                     </li>
-                                    <li className={styles.item}>
-                                        <h3 className={styles.label}>Название новости</h3>
-                                        <p className={styles.description}>{newsStore.news.title}</p>
+                                    <li className={"styles.item"}>
+                                        <h3 className={"styles.label"}>Название новости</h3>
+                                        <p className={"styles.description"}>{newsStore.news.title}</p>
                                     </li>
-                                    <li className={styles.item}>
-                                        <h3 className={styles.label}>Дата новости</h3>
-                                        <p className={styles.description}>
+                                    <li className={"styles.item"}>
+                                        <h3 className={"styles.label"}>Дата новости</h3>
+                                        <p className={"styles.description"}>
                                             {moment(newsStore.news.date).format("DD MMMM YYYY HH:mm")}
                                         </p>
                                     </li>
                                 </ul>
-                                <h2 className={styles.title}>Описание для анонса</h2>
+                                <h2 className={"styles.title"}>Описание для анонса</h2>
                                 <div
-                                    className={styles.editor}
+                                    className={"styles.editor"}
                                     dangerouslySetInnerHTML={{
                                         __html: DOMPurify.sanitize(newsStore.news.preview_text),
                                     }}
                                 />
-                                <h2 className={styles.title}>Детальное описание</h2>
+                                <h2 className={"styles.title"}>Детальное описание</h2>
                                 <div
-                                    className={styles.editor}
+                                    className={"styles.editor"}
                                     dangerouslySetInnerHTML={{
                                         __html: DOMPurify.sanitize(newsStore.news.text),
                                     }}
                                 />
                             </Tab>
                             <Tab title={"Фотографии"}>
-                                <h2 className={styles.title}>Картинка для анонса</h2>
+                                <h2 className={"styles.title"}>Картинка для анонса</h2>
                                 <ImageGallery
                                     items={[
                                         {
@@ -729,7 +724,7 @@ const AdminNewsPage = (props) => {
                                     ]}
                                     front={false}
                                 />
-                                <h2 className={styles.title}>Детальная картинка</h2>
+                                <h2 className={"styles.title"}>Детальная картинка</h2>
                                 <ImageGallery
                                     items={[
                                         {
@@ -738,7 +733,7 @@ const AdminNewsPage = (props) => {
                                     ]}
                                     front={false}
                                 />
-                                <h2 className={styles.title}>Фото галерея</h2>
+                                <h2 className={"styles.title"}>Фото галерея</h2>
                                 <ImageGallery items={newsStore.news.images} front={false} />
                             </Tab>
                         </Tabs>

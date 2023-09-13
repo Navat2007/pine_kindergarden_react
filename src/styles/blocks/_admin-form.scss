@@ -23,6 +23,10 @@
         gap: 1em;
         flex-direction: column;
         margin: 0 0 min(3.5vmax, 1.875em);
+
+        &_width_one-col {
+            max-width: min(25em, 100%);
+        }
     }
 
     &__controls {
