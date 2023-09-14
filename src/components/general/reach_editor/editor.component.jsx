@@ -20,7 +20,7 @@ const Editor = ({control, name, readonly, placeholder = "", required, value, but
         askBeforePasteHTML: false,
         askBeforePasteFromWord: false,
         defaultActionOnPaste: "insert_only_text",
-        buttons: "bold,italic,underline,ul,align,|,undo,redo,fullsize,preview,print,|", //fontsize
+        buttons: "bold,italic,underline,ul,align,font,fontsize,superscript,subscript,|,undo,redo,|,fullsize,preview,print,|", //fontsize
         //preset: 'inline',
         placeholder: placeholder
     };

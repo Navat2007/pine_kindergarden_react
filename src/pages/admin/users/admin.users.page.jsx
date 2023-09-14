@@ -30,6 +30,8 @@ const AdminUsersPage = () => {
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
 
     React.useEffect(() => {
+        console.log(id);
+        console.log(admin);
         if (id) {
             reset();
             loadAdmin({ id });
@@ -50,7 +52,7 @@ const AdminUsersPage = () => {
     };
 
     const NotFound = () => {
-        if (id && (admin === null || admin.role === "Пользователь")) {
+        if (loading.admins === false && id && (admin === null || admin.role === "Пользователь")) {
             return <TitleBlock title={`Данного администратора не существует`} onBack={back} />;
         }
     };
@@ -143,7 +145,7 @@ const AdminUsersPage = () => {
                 if (!result.error) back();
             };
 
-            if (id && admin) {
+            if (loading.admins === false && id && admin) {
                 return (
                     <>
                         <TitleBlock title={`Редактирование администратора ID: ${id}`} onBack={back} />
