@@ -9,7 +9,6 @@ import "./image.selector.scss";
 import { AdminIcons } from "../../svgs.js";
 
 const ImageSelector = ({
-    title,
     items,
     multiFiles,
     onlyOneImage,
@@ -244,13 +243,12 @@ const ImageSelector = ({
 
     return (
         <>
-            {title && <h2 className='admin-form__title'>{title}</h2>}
-            <ul className='admin-gallery'>
+            <ul className='admin-image-selector'>
                 {photo.map((item, index) =>
                     item.main ? (
-                        <li key={index} className='admin-gallery__item'>
+                        <li key={index} className='admin-image-selector__item'>
                             <img
-                                className='admin-gallery__img'
+                                className='admin-image-selector__img'
                                 src={
                                     item.isFile === 1 && item.isLoaded === 1
                                         ? process.env.REACT_APP_BASE_URL + item.url
@@ -258,7 +256,7 @@ const ImageSelector = ({
                                 }
                                 alt={"Изображение " + item.url}
                             />
-                            <div className='admin-gallery__item-panel'>
+                            <div className='admin-image-selector__item-panel'>
                                 <Button
                                     type='button'
                                     isIconBtn='true'
@@ -269,12 +267,12 @@ const ImageSelector = ({
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <p className='admin-gallery__title'>1. Главная</p>
+                            <p className='admin-image-selector__title'>1. Главная</p>
                         </li>
                     ) : (
-                        <li key={index} className='admin-gallery__item'>
+                        <li key={index} className='admin-image-selector__item'>
                             <img
-                                className='admin-gallery__img'
+                                className='admin-image-selector__img'
                                 src={
                                     item.isFile === 1 && item.isLoaded === 1
                                         ? process.env.REACT_APP_BASE_URL + item.url
@@ -282,12 +280,12 @@ const ImageSelector = ({
                                 }
                                 alt={"Изображение " + item.url}
                             />
-                            <span className='admin-gallery__current-position'>{item.order}</span>
-                            <div className='admin-gallery__item-panel'>
+                            <span className='admin-image-selector__current-position'>{item.order}</span>
+                            <div className='admin-image-selector__item-panel'>
                                 <Button
                                     type='button'
                                     theme='white'
-                                    extraClass='admin-gallery__button'
+                                    extraClass='admin-image-selector__button'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleMovePhoto(item.order, 1)}
                                 >
@@ -303,7 +301,7 @@ const ImageSelector = ({
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <div className='admin-gallery__thumbs'>
+                            <div className='admin-image-selector__thumbs'>
                                 <Button
                                     type='button'
                                     isIconBtn='true'
@@ -329,7 +327,7 @@ const ImageSelector = ({
                     )
                 )}
                 <li
-                    className='admin-gallery__download-block'
+                    className='admin-image-selector__download-block'
                     onDrop={(e) => {
                         e.preventDefault();
                         handleAddFilePhoto({
@@ -342,11 +340,11 @@ const ImageSelector = ({
                         e.preventDefault();
                     }}
                 >
-                    <p className='admin-gallery__download-text'>
+                    <p className='admin-image-selector__download-text'>
                         Начните загружать изображения простым перетаскиванием в любое место этого окна. Ограничение на
                         размер изображения 5 MB.
                         {onlyOneImage && " Ограничение на кол-во файлов: 1 файл"}
-                        <span className='admin-gallery__download-span'>или</span>
+                        <span className='admin-image-selector__download-span'>или</span>
                     </p>
                     <Button
                         type='button'
@@ -367,7 +365,7 @@ const ImageSelector = ({
                 </li>
             </ul>
             {withLinks && (
-                <div className='admin-gallery__group-block'>
+                <div className='admin-image-selector__group-block'>
                     <FieldInput
                         ref={inputRef}
                         label={"Ссылка на фото"}

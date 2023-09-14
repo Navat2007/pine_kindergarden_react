@@ -12,7 +12,7 @@ import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
 import Editor from "../../../components/general/reach_editor/editor.component";
 import ImageSelector from "../../../components/general/image.selector/image.selector.component";
-import ImageGallery from "../../../components/general/image_gallery/image.gallery.component";
+import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
 import FieldText from "../../../components/admin/field/field.text.component";
@@ -231,28 +231,28 @@ const AdminNewsPage = (props) => {
                                     </fieldset>
                                 </Tab>
                                 <Tab title={"Фотографии"}>
-                                    <fieldset className='admin-form__section'>
-                                        <ImageSelector
-                                            title='Картинка для анонса'
-                                            items={photoPreview}
-                                            onlyOneImage={true}
-                                            multiFiles={false}
-                                            onChange={(items) => setPhotoPreview(items)}
-                                        />
-                                        <ImageSelector
-                                            title='Детальная картинка'
-                                            items={photoReview}
-                                            onlyOneImage={true}
-                                            multiFiles={false}
-                                            onChange={(items) => setPhotoReview(items)}
-                                        />
-                                        <ImageSelector
-                                            title='Фото галерея'
-                                            items={photo}
-                                            multiFiles={true}
-                                            onChange={(items) => setPhoto(items)}
-                                        />
-                                    </fieldset>
+                                    <h2 className='admin-form__title'>Картинка для анонса</h2>
+                                    <ImageSelector
+                                        title='Картинка для анонса'
+                                        items={photoPreview}
+                                        onlyOneImage={true}
+                                        multiFiles={false}
+                                        onChange={(items) => setPhotoPreview(items)}
+                                    />
+                                    <h2 className='admin-form__title'>Детальная картинка</h2>
+                                    <ImageSelector
+                                        items={photoReview}
+                                        onlyOneImage={true}
+                                        multiFiles={false}
+                                        onChange={(items) => setPhotoReview(items)}
+                                    />
+                                    <h2 className='admin-form__title'>Фото галерея</h2>
+                                    <ImageSelector
+                                        title='Фото галерея'
+                                        items={photo}
+                                        multiFiles={true}
+                                        onChange={(items) => setPhoto(items)}
+                                    />
                                 </Tab>
                             </Tabs>
                             <div className='admin-form__controls'>
@@ -586,31 +586,29 @@ const AdminNewsPage = (props) => {
                                     </fieldset>
                                 </Tab>
                                 <Tab title={"Фотографии"}>
-                                    <fieldset className='admin-form__section'>
-                                        <ImageSelector
-                                            title='Картинка для анонса'
-                                            items={photoPreview}
-                                            onlyOneImage={true}
-                                            multiFiles={false}
-                                            onChange={(items) => setPhotoPreview(items)}
-                                            onDelete={handleDeletePreviewPhoto}
-                                        />
-                                        <ImageSelector
-                                            title='Детальная картинка'
-                                            items={photoReview}
-                                            onlyOneImage={true}
-                                            multiFiles={false}
-                                            onChange={(items) => setPhotoReview(items)}
-                                            onDelete={handleDeleteReviewPhoto}
-                                        />
-                                        <ImageSelector
-                                            title='Фото галерея'
-                                            items={photo}
-                                            multiFiles={true}
-                                            onChange={(items) => setPhoto(items)}
-                                            onDelete={handleDeleteImages}
-                                        />
-                                    </fieldset>
+                                    <h2 className='admin-form__title'>Картинка для анонса</h2>
+                                    <ImageSelector
+                                        items={photoPreview}
+                                        onlyOneImage={true}
+                                        multiFiles={false}
+                                        onChange={(items) => setPhotoPreview(items)}
+                                        onDelete={handleDeletePreviewPhoto}
+                                    />
+                                    <h2 className='admin-form__title'>Детальная картинка</h2>
+                                    <ImageSelector
+                                        items={photoReview}
+                                        onlyOneImage={true}
+                                        multiFiles={false}
+                                        onChange={(items) => setPhotoReview(items)}
+                                        onDelete={handleDeleteReviewPhoto}
+                                    />
+                                    <h2 className='Фото галерея'>Детальная картинка</h2>
+                                    <ImageSelector
+                                        items={photo}
+                                        multiFiles={true}
+                                        onChange={(items) => setPhoto(items)}
+                                        onDelete={handleDeleteImages}
+                                    />
                                 </Tab>
                             </Tabs>
                             <div className='admin-form__controls'>

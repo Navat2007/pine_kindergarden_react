@@ -15,7 +15,7 @@ import AlertPopup from "../../alert.popup/alert.popup";
 import MultiSelect from "../../multi_select/multi_select.component";
 
 import styles from "./theatre.module.scss";
-import ImageGallery from "../../image_gallery/image.gallery.component";
+import ImageGallery from "../../image.gallery/image.gallery.component";
 import ReactPlayer from "react-player";
 import VideoPlayer from "../../video_player/video.player.component";
 
