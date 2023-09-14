@@ -78,47 +78,46 @@ const useAuthStore = create(
 
             login: async (params) => {
 
-                set({ loading: true });
+                window.localStorage.removeItem('login');
+                window.localStorage.removeItem('pwd');
+                window.localStorage.removeItem('remember');
+
+                if (params.remember) {
+
+                    window.localStorage.setItem('login', params.login);
+                    window.localStorage.setItem('pwd', params.password);
+                    window.localStorage.setItem('remember', 1);
+
+                }
+
+                set({ loading: true,error: false, errorText: "" });
 
                 let form = new FormData();
                 window.global.buildFormData(form, params);
 
                 const response = await axios.postForm(urlCheck, form);
 
+                console.log(response);
+
                 if (response.data.params && 'token' in response.data.params) {
-
-                    window.localStorage.removeItem('login');
-                    window.localStorage.removeItem('pwd');
-                    window.localStorage.removeItem('remember');
-
-                    if (params.remember) {
-
-                        window.localStorage.setItem('login', params.login);
-                        window.localStorage.setItem('pwd', params.password);
-                        window.localStorage.setItem('remember', 1);
-
-                    }
-
                     let tmpObject = {...response.data.params};
                     tmpObject['tokenDate'] = moment(Date.now()).format('DD.MM.YYYY');
                     window.localStorage.setItem('user', JSON.stringify(tmpObject));
                     axios.defaults.headers.post['Authorization'] = `${tmpObject.token}&${tmpObject.ID}`;
 
                     get().setUser(tmpObject);
-
                 } else {
                     set({user: null, loading: false, error: true, errorText: response.data.error_text});
                 }
 
                 set({ loading: false });
-
             },
             logout: () => {
 
                 window.localStorage.removeItem('user');
                 axios.defaults.headers.post['Authorization'] = '';
 
-                set({user: null});
+                set({user: null, error: false, errorText: ""});
 
             }
         }),

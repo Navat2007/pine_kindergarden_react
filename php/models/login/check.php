@@ -110,19 +110,6 @@ function get_all_info($row, $conn): object
     $sql = "UPDATE accounts SET token = '$token' WHERE ID = '$row->ID'";
     mysqli_query($conn, $sql);
 
-    $org_name = $row->org_name;
-
-    if((int)$row->schoolID != 0){
-        $sql1 = "SELECT * FROM schools WHERE ID = '$row->schoolID'";
-        $result1 = mysqli_query($conn, $sql1);
-
-        if(mysqli_num_rows($result1) > 0) {
-            $row1 = mysqli_fetch_object($result1);
-            $org_name = $row1->org_short_name;
-        }
-    }
-
-
     $roleTitle = "";
 
     switch ($row->role){
@@ -147,14 +134,11 @@ function get_all_info($row, $conn): object
         'phone' => $row->phone,
         'photo' => $row->photo,
         'fio' => $row->fio,
-        'position' => $row->position,
         'create_time' => $row->create_time,
         'role' => $row->role,
         'role_title' => $roleTitle,
-        'org_name' => $org_name,
         'roles' => get_roles($conn, $row->ID, $row->role),
         'new_user' => (int)$row->new_user,
-        'schoolID' => (int)$row->schoolID,
         'token' => $token,
 
     ];

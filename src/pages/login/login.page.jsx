@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import useAuthStore from "../../store/authStore";
@@ -9,6 +8,7 @@ import Logo from "../../components/public/logo/logo";
 import Button from "../../components/admin/button/button.component";
 import FieldEmail from "../../components/admin/field/field.email.component";
 import FieldPassword from "../../components/admin/field/field.password.component";
+import FieldCheckbox from "../../components/admin/field/field.checkbox.component";
 
 import "./login.scss";
 
@@ -19,7 +19,6 @@ const LoginPage = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         await login(data);
@@ -56,7 +55,15 @@ const LoginPage = () => {
                         }
                         errorText={errors?.password?.message}
                     />
+                    <br/>
+                    <FieldCheckbox
+                        type={"checkbox"}
+                        label={"Запомнить логин и пароль?"}
+                        {...register("remember")}
+                        defaultChecked={window.localStorage.getItem("remember")}
+                    />
                     <div className='auth-form__footer'>
+                        <p className='auth-form__error'>{errorText}</p>
                         <Button
                             extraClass={"auth-form__button"}
                             disabled={loading === "loading"}
