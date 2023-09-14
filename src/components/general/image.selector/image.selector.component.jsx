@@ -169,18 +169,21 @@ const ImageSelector = ({
         if (errorFiles.length > 0) {
             setNotif(
                 <Popup opened={true} onClose={() => setNotif(<></>)} title={"Ошибка загрузки файлов"}>
-                    <h3 className={`image-selector__error-caption`}>
-                        {AdminIcons.error} Не удалось добавить следующие файлы:
-                    </h3>
-                    <ol className={`image-selector__list`}>
-                        {errorFiles.map((error) => (
-                            <li key={error.title}>
-                                <p className={`image-selector__error-text`}>
-                                    {error.title} <span className={`image-selector__error-span`}>{error.text}</span>
-                                </p>
-                            </li>
-                        ))}
-                    </ol>
+                    <div className='admin-image-alert'>
+                        <h3 className={`admin-image-alert__caption`}>
+                            {AdminIcons.error} Не удалось добавить следующие файлы:
+                        </h3>
+                        <ol className={`admin-image-alert__list`}>
+                            {errorFiles.map((error) => (
+                                <li className='admin-image-alert__item' key={error.title}>
+                                    <p className={`admin-image-alert__text`}>
+                                        {error.title}{" "}
+                                        <span className={`admin-image-alert__error-span`}>{error.text}</span>
+                                    </p>
+                                </li>
+                            ))}
+                        </ol>
+                    </div>
                 </Popup>
             );
         }

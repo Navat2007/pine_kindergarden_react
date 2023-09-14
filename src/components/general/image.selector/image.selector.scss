@@ -1,12 +1,12 @@
 @import "../../../styles/mixins";
 @import "../../../styles/extends";
 
-.image-selector {
-    &__error-caption {
+.admin-image-alert {
+    &__caption {
         margin: 0 0 1.5em;
         font-size: 1em;
         font-weight: 500;
-        color: var(--error);
+        color: var(--admin-error-color);
         line-height: 1.5;
 
         svg {
@@ -15,17 +15,27 @@
             fill: currentColor;
         }
     }
-    &__error-text {
-        display: flex;
-        flex-wrap: wrap;
-        gap: min(2.75vmax, 1.25em);
-        align-items: center;
-        font-weight: 500;
+
+    &__list {
+        padding-left: 1.5rem;
+    }
+
+    &__item {
+        list-style-position: outside;
+    }
+
+    &__text {
         line-height: 1.5;
     }
+
     &__error-span {
-        font-weight: 600;
-        margin-left: auto;
+        color: var(--admin-text-low-color);
+        font-style: italic;
+        font-size: 0.875em;
+
+        &::before {
+            content: "/ ";
+        }
     }
 }
 
