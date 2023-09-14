@@ -94,6 +94,10 @@
         margin: 0;
         font-size: 150%;
         font-weight: bold;
+
+        &:empty {
+            display: none;
+        }
     }
 
     &__text {
@@ -105,6 +109,10 @@
         margin-top: 1em;
         display: flex;
         gap: 0.5em;
+
+        &:empty {
+            display: none;
+        }
     }
 }
 
