@@ -52,8 +52,6 @@ if ($error === 0) {
 
                 $url = "";
 
-                $helper->createDir("/files");
-                $helper->createDir("/files/news");
                 $helper->createDir("/files/news/" . $lastID);
 
                 $temp_name = $_FILES['previewImage']['tmp_name'][$i]['file'];
@@ -107,8 +105,6 @@ if ($error === 0) {
 
                 $url = "";
 
-                $helper->createDir("/files");
-                $helper->createDir("/files/news");
                 $helper->createDir("/files/news/" . $lastID);
 
                 $temp_name = $_FILES['reviewImage']['tmp_name'][$i]['file'];
@@ -162,8 +158,6 @@ if ($error === 0) {
 
                 $url = "";
 
-                $helper->createDir("/files");
-                $helper->createDir("/files/news");
                 $helper->createDir("/files/news/" . $lastID);
 
                 $temp_name = $_FILES['images']['tmp_name'][$i]['file'];
