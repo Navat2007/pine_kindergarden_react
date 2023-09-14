@@ -30,8 +30,6 @@ const AdminUsersPage = () => {
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
 
     React.useEffect(() => {
-        console.log(id);
-        console.log(admin);
         if (id) {
             reset();
             loadAdmin({ id });
