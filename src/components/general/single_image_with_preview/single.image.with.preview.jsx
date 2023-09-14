@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ImagePreview from "../image_preview/image.preview.component";
+import ImagePreview from "../image.preview/image.preview.component";
 
 import noImage from "../../../images/no_image.png";
 import styles from "../page_components/theatre/theatre.module.scss";

@@ -49,7 +49,7 @@
         &:after {
             content: "";
             display: block;
-            background-color: var(--admin-eror-color);
+            background-color: var(--admin-error-color);
             mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgogIDxwYXRoIGQ9Ik0xMyAxM2gtMlY3aDJtMCAxMGgtMnYtMmgyTTEyIDJhMTAgMTAgMCAxIDAgMCAyMCAxMCAxMCAwIDAgMCAwLTIwWiIvPgo8L3N2Zz4K");
             mask-size: contain;
             mask-repeat: no-repeat;
@@ -150,7 +150,7 @@
         display: block;
         font-size: 0.75em;
         line-height: 1;
-        color: var(--admin-eror-color);
+        color: var(--admin-error-color);
 
         @extend %hidden-block;
     }
