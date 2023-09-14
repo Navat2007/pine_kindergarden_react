@@ -183,7 +183,7 @@ const AdminNewsPage = (props) => {
                         <form onSubmit={handleSubmit(onAddNews)} className='admin-form'>
                             <Tabs>
                                 <Tab title={"Основная информация"}>
-                                    <fieldset className="admin-form__section admin-form__section_width_one-col">
+                                    <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                         <FieldCheckbox
                                             label={"Доступна для показа?"}
                                             {...register("active", {
@@ -203,35 +203,31 @@ const AdminNewsPage = (props) => {
                                     </fieldset>
                                     <fieldset className='admin-form__section'>
                                         <FieldText
-                                            label={"Название новости для анонса*"}
-                                            required={true}
-                                            placeholder={"Введите название"}
-                                            {...register("previewTitle")}
-                                        />
-                                        <FieldText
                                             label={"Название новости*"}
                                             required={true}
                                             placeholder={"Введите название"}
                                             {...register("title")}
                                         />
-                                        <div className='admin-form__multy-block'>
-                                            <p className='admin-form__label'>Описание для анонса</p>
-                                            <Editor
-                                                control={control}
-                                                name='editorPreview'
-                                                minHeight={250}
-                                                buttons={{ link: true }}
-                                            />
-                                        </div>
-                                        <div className='admin-form__multy-block'>
-                                            <p className='admin-form__label'>Детальное описание</p>
-                                            <Editor
-                                                control={control}
-                                                name='editorReview'
-                                                minHeight={250}
-                                                buttons={{ link: true }}
-                                            />
-                                        </div>
+                                        <FieldText
+                                            label={"Название новости для анонса*"}
+                                            required={true}
+                                            placeholder={"Введите название"}
+                                            {...register("previewTitle")}
+                                        />
+                                        <p className='admin-form__subtitle'>Описание для анонса</p>
+                                        <Editor
+                                            control={control}
+                                            name='editorPreview'
+                                            minHeight={250}
+                                            buttons={{ link: true }}
+                                        />
+                                        <p className='admin-form__subtitle'>Детальное описание</p>
+                                        <Editor
+                                            control={control}
+                                            name='editorReview'
+                                            minHeight={250}
+                                            buttons={{ link: true }}
+                                        />
                                     </fieldset>
                                 </Tab>
                                 <Tab title={"Фотографии"}>
@@ -534,7 +530,7 @@ const AdminNewsPage = (props) => {
                         <form onSubmit={handleSubmit(onEditNews)} className='admin-form'>
                             <Tabs>
                                 <Tab title={"Основная информация"}>
-                                    <fieldset className='admin-form__section'>
+                                    <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                         <FieldCheckbox
                                             label={"Доступна для показа?"}
                                             {...register("active", {
@@ -547,22 +543,6 @@ const AdminNewsPage = (props) => {
                                                 value: newsStore.news.show_on_main_page === "Активен",
                                             })}
                                         />
-                                        <FieldText
-                                            label={"Название новости для анонса*"}
-                                            required={true}
-                                            placeholder={"Введите название"}
-                                            {...register("previewTitle", {
-                                                value: newsStore.news.preview_title,
-                                            })}
-                                        />
-                                        <FieldText
-                                            label={"Название новости*"}
-                                            required={true}
-                                            placeholder={"Введите название"}
-                                            {...register("title", {
-                                                value: newsStore.news.title,
-                                            })}
-                                        />
                                         <FieldDate
                                             label='Дата и время'
                                             type='datetime-local'
@@ -571,24 +551,38 @@ const AdminNewsPage = (props) => {
                                                 value: moment(newsStore.news.date).format("YYYY-MM-DD HH:mm"),
                                             })}
                                         />
-                                        <div className='admin-form__multy-block'>
-                                            <p className='admin-form__label'>Описание для анонса</p>
-                                            <Editor
-                                                control={control}
-                                                name='editorPreview'
-                                                minHeight={250}
-                                                buttons={{ link: true }}
-                                            />
-                                        </div>
-                                        <div className='admin-form__multy-block'>
-                                            <p className='admin-form__label'>Детальное описание</p>
-                                            <Editor
-                                                control={control}
-                                                name='editorReview'
-                                                minHeight={250}
-                                                buttons={{ link: true }}
-                                            />
-                                        </div>
+                                    </fieldset>
+                                    <fieldset className='admin-form__section'>
+                                        <FieldText
+                                            label={"Название новости*"}
+                                            required={true}
+                                            placeholder={"Введите название"}
+                                            {...register("title", {
+                                                value: newsStore.news.title,
+                                            })}
+                                        />
+                                        <FieldText
+                                            label={"Название новости для анонса*"}
+                                            required={true}
+                                            placeholder={"Введите название"}
+                                            {...register("previewTitle", {
+                                                value: newsStore.news.preview_title,
+                                            })}
+                                        />
+                                        <p className='admin-form__subtitle'>Описание для анонса</p>
+                                        <Editor
+                                            control={control}
+                                            name='editorPreview'
+                                            minHeight={250}
+                                            buttons={{ link: true }}
+                                        />
+                                        <p className='admin-form__subtitle'>Детальное описание</p>
+                                        <Editor
+                                            control={control}
+                                            name='editorReview'
+                                            minHeight={250}
+                                            buttons={{ link: true }}
+                                        />
                                     </fieldset>
                                 </Tab>
                                 <Tab title={"Фотографии"}>
@@ -660,64 +654,70 @@ const AdminNewsPage = (props) => {
                         </TitleBlock>
                         <Tabs>
                             <Tab title={"Основные сведения"}>
-                                <ul className={``}>
-                                    <li className={"styles.item"}>
-                                        <h3 className={"styles.label"}>Доступна для показа?</h3>
-                                        <p className={"styles.description"}>
-                                            {newsStore.news.active === "Активен" ? "Да" : "Нет"}
-                                        </p>
-                                    </li>
-                                    <li className={"styles.item"}>
-                                        <h3 className={"styles.label"}>Показывать на главной странице?</h3>
-                                        <p className={"styles.description"}>
-                                            {newsStore.news.show_on_main_page === "Активен" ? "Да" : "Нет"}
-                                        </p>
-                                    </li>
-                                    <li className={"styles.item"}>
-                                        <h3 className={"styles.label"}>Публичная страница</h3>
-                                        <p className={"styles.description"}>
-                                            <NavLink
-                                                className={"commonStyles.link"}
-                                                to={"/news/" + id}
-                                                target={"_blank"}
-                                                rel='noopener nofollow noreferer'
-                                            >
-                                                На страницу <span className='mdi mdi-open-in-new' />
-                                            </NavLink>
-                                        </p>
-                                    </li>
-                                    <li className={"styles.item"}>
-                                        <h3 className={"styles.label"}>Название новости для анонса</h3>
-                                        <p className={"styles.description"}>{newsStore.news.preview_title}</p>
-                                    </li>
-                                    <li className={"styles.item"}>
-                                        <h3 className={"styles.label"}>Название новости</h3>
-                                        <p className={"styles.description"}>{newsStore.news.title}</p>
-                                    </li>
-                                    <li className={"styles.item"}>
-                                        <h3 className={"styles.label"}>Дата новости</h3>
-                                        <p className={"styles.description"}>
-                                            {moment(newsStore.news.date).format("DD MMMM YYYY HH:mm")}
-                                        </p>
-                                    </li>
-                                </ul>
-                                <h2 className={"styles.title"}>Описание для анонса</h2>
-                                <div
-                                    className={"styles.editor"}
-                                    dangerouslySetInnerHTML={{
-                                        __html: DOMPurify.sanitize(newsStore.news.preview_text),
-                                    }}
-                                />
-                                <h2 className={"styles.title"}>Детальное описание</h2>
-                                <div
-                                    className={"styles.editor"}
-                                    dangerouslySetInnerHTML={{
-                                        __html: DOMPurify.sanitize(newsStore.news.text),
-                                    }}
-                                />
+                                <section className='admin-view-section'>
+                                    <ul className='admin-view-section__list'>
+                                        <li className='admin-view-section__item'>
+                                            <h3 className='admin-view-section__label'>Доступна для показа?</h3>
+                                            <p className='admin-view-section__description'>
+                                                {newsStore.news.active === "Активен" ? "Да" : "Нет"}
+                                            </p>
+                                        </li>
+                                        <li className='admin-view-section__item'>
+                                            <h3 className='admin-view-section__label'>
+                                                Показывать на главной странице?
+                                            </h3>
+                                            <p className='admin-view-section__description'>
+                                                {newsStore.news.show_on_main_page === "Активен" ? "Да" : "Нет"}
+                                            </p>
+                                        </li>
+                                        <li className='admin-view-section__item'>
+                                            <h3 className='admin-view-section__label'>Публичная страница</h3>
+                                            <p className='admin-view-section__description'>
+                                                <NavLink
+                                                    className='admin-view-section__link'
+                                                    to={"/news/" + id}
+                                                    target={"_blank"}
+                                                    rel='noopener nofollow noreferer'
+                                                >
+                                                    На страницу {AdminIcons.open_in_new}
+                                                </NavLink>
+                                            </p>
+                                        </li>
+                                        <li className='admin-view-section__item'>
+                                            <h3 className='admin-view-section__label'>Название новости для анонса</h3>
+                                            <p className='admin-view-section__description'>
+                                                {newsStore.news.preview_title}
+                                            </p>
+                                        </li>
+                                        <li className='admin-view-section__item'>
+                                            <h3 className='admin-view-section__label'>Название новости</h3>
+                                            <p className='admin-view-section__description'>{newsStore.news.title}</p>
+                                        </li>
+                                        <li className='admin-view-section__item'>
+                                            <h3 className='admin-view-section__label'>Дата новости</h3>
+                                            <p className='admin-view-section__description'>
+                                                {moment(newsStore.news.date).format("DD MMMM YYYY HH:mm")}
+                                            </p>
+                                        </li>
+                                    </ul>
+                                    <h2 className='admin-view-section__title'>Описание для анонса</h2>
+                                    <div
+                                        className='admin-view-section__editor'
+                                        dangerouslySetInnerHTML={{
+                                            __html: DOMPurify.sanitize(newsStore.news.preview_text),
+                                        }}
+                                    />
+                                    <h2 className='admin-view-section__title'>Детальное описание</h2>
+                                    <div
+                                        className='admin-view-section__editor'
+                                        dangerouslySetInnerHTML={{
+                                            __html: DOMPurify.sanitize(newsStore.news.text),
+                                        }}
+                                    />
+                                </section>
                             </Tab>
                             <Tab title={"Фотографии"}>
-                                <h2 className={"styles.title"}>Картинка для анонса</h2>
+                                <h2 className='admin-view-section__title'>Картинка для анонса</h2>
                                 <ImageGallery
                                     items={[
                                         {
@@ -726,7 +726,7 @@ const AdminNewsPage = (props) => {
                                     ]}
                                     front={false}
                                 />
-                                <h2 className={"styles.title"}>Детальная картинка</h2>
+                                <h2 className='admin-view-section__title'>Детальная картинка</h2>
                                 <ImageGallery
                                     items={[
                                         {
@@ -735,7 +735,7 @@ const AdminNewsPage = (props) => {
                                     ]}
                                     front={false}
                                 />
-                                <h2 className={"styles.title"}>Фото галерея</h2>
+                                <h2 className='admin-view-section__title'>Фото галерея</h2>
                                 <ImageGallery items={newsStore.news.images} front={false} />
                             </Tab>
                         </Tabs>
