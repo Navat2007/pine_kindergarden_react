@@ -17,6 +17,7 @@ import TitleBlock from "../../../components/admin/title.block/title.block.compon
 import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import FieldDate from "../../../components/admin/field/field.date.component";
+import { AdminIcons } from "../../../components/svgs";
 
 const AdminNewsPage = (props) => {
     let { id } = useParams();
@@ -649,7 +650,8 @@ const AdminNewsPage = (props) => {
                             <Button
                                 type='submit'
                                 isIconBtn='true'
-                                theme='outline'
+                                theme='text'
+                                iconName={AdminIcons.edit}
                                 aria-label='Редактировать новость'
                                 onClick={() => {
                                     setEdit(true);
@@ -658,7 +660,7 @@ const AdminNewsPage = (props) => {
                         </TitleBlock>
                         <Tabs>
                             <Tab title={"Основные сведения"}>
-                                <ul className={"styles.list"}>
+                                <ul className={``}>
                                     <li className={"styles.item"}>
                                         <h3 className={"styles.label"}>Доступна для показа?</h3>
                                         <p className={"styles.description"}>

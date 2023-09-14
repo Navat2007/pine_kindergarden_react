@@ -186,6 +186,7 @@
 
     &__button {
         flex: none;
+        min-inline-size: unset;
         border-radius: 0;
         padding-block-start: 0.25em;
         padding-block-end: 0.25em;
