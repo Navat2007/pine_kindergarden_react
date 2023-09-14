@@ -42,6 +42,16 @@
         }
     }
 
+    &_theme_white {
+        background-color: #fff;
+        color: var(--admin-primary-color);
+
+        &:hover:not(disabled) {
+            opacity: 1;
+            background-color: #ffffffbf;
+        }
+    }
+
     &_theme_text {
         background-color: transparent;
         color: var(--admin-text-color);

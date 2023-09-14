@@ -245,12 +245,12 @@ const ImageSelector = ({
     return (
         <>
             {title && <h2 className='admin-form__title'>{title}</h2>}
-            <ul className='gallery-form'>
+            <ul className='admin-gallery'>
                 {photo.map((item, index) =>
                     item.main ? (
-                        <li key={index} className='gallery-form__item'>
+                        <li key={index} className='admin-gallery__item'>
                             <img
-                                className='gallery-form__img'
+                                className='admin-gallery__img'
                                 src={
                                     item.isFile === 1 && item.isLoaded === 1
                                         ? process.env.REACT_APP_BASE_URL + item.url
@@ -258,22 +258,23 @@ const ImageSelector = ({
                                 }
                                 alt={"Изображение " + item.url}
                             />
-                            <div className='gallery-form__item-panel'>
+                            <div className='admin-gallery__item-panel'>
                                 <Button
                                     type='button'
                                     isIconBtn='true'
+                                    theme='white'
                                     iconName={AdminIcons.close}
                                     aria-label='Удалить'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <p className='gallery-form__title'>1. Главная</p>
+                            <p className='admin-gallery__title'>1. Главная</p>
                         </li>
                     ) : (
-                        <li key={index} className='gallery-form__item'>
+                        <li key={index} className='admin-gallery__item'>
                             <img
-                                className='gallery-form__img'
+                                className='admin-gallery__img'
                                 src={
                                     item.isFile === 1 && item.isLoaded === 1
                                         ? process.env.REACT_APP_BASE_URL + item.url
@@ -281,11 +282,12 @@ const ImageSelector = ({
                                 }
                                 alt={"Изображение " + item.url}
                             />
-                            <span className='gallery-form__current-position'>{item.order}</span>
-                            <div className='gallery-form__item-panel'>
+                            <span className='admin-gallery__current-position'>{item.order}</span>
+                            <div className='admin-gallery__item-panel'>
                                 <Button
                                     type='button'
-                                    aria-label='Сделать главной'
+                                    theme='white'
+                                    extraClass='admin-gallery__button'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleMovePhoto(item.order, 1)}
                                 >
@@ -294,16 +296,18 @@ const ImageSelector = ({
                                 <Button
                                     type='button'
                                     isIconBtn='true'
+                                    theme='white'
                                     iconName={AdminIcons.close}
                                     aria-label='Удалить'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <div className='gallery-form__thumbs'>
+                            <div className='admin-gallery__thumbs'>
                                 <Button
                                     type='button'
                                     isIconBtn='true'
+                                    theme='white'
                                     iconName={AdminIcons.chevron_left}
                                     aria-label='Назад'
                                     disabled={photoAddBtnDisabled}
@@ -312,6 +316,7 @@ const ImageSelector = ({
                                 {index < photo.length - 1 && (
                                     <Button
                                         type='button'
+                                        theme='white'
                                         isIconBtn='true'
                                         iconName={AdminIcons.chevron_right}
                                         aria-label='Вперед'
@@ -324,7 +329,7 @@ const ImageSelector = ({
                     )
                 )}
                 <li
-                    className='gallery-form__download-block'
+                    className='admin-gallery__download-block'
                     onDrop={(e) => {
                         e.preventDefault();
                         handleAddFilePhoto({
@@ -337,18 +342,18 @@ const ImageSelector = ({
                         e.preventDefault();
                     }}
                 >
-                    <p className='gallery-form__download-text'>
+                    <p className='admin-gallery__download-text'>
                         Начните загружать изображения простым перетаскиванием в любое место этого окна. Ограничение на
                         размер изображения 5 MB.
                         {onlyOneImage && " Ограничение на кол-во файлов: 1 файл"}
-                        <span className='gallery-form__download-span'>или</span>
+                        <span className='admin-gallery__download-span'>или</span>
                     </p>
                     <Button
                         type='button'
                         disabled={photoFileAddBtnDisabled}
                         onClick={() => inputFileRef.current.click()}
                     >
-                        onlyOneImage ? "Выбрать файл" : "Выбрать файлы"
+                        {onlyOneImage ? "Выбрать файл" : "Выбрать файлы"}
                     </Button>
                     <input
                         ref={inputFileRef}
@@ -362,19 +367,17 @@ const ImageSelector = ({
                 </li>
             </ul>
             {withLinks && (
-                <div className='admin-form__group-block'>
+                <div className='admin-gallery__group-block'>
                     <FieldInput
                         ref={inputRef}
                         label={"Ссылка на фото"}
                         type='url'
-                        extraClass='form__field'
                         placeholder='Введите url-адрес...'
                         layout='flex'
                     />
                     <Button
                         type='button'
                         theme='text'
-                        extraClass='form__icon-btn'
                         iconName={AdminIcons.plus}
                         isIconBtn='true'
                         aria-label='Добавить поле'

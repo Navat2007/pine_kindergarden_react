@@ -7,9 +7,9 @@ const Tabs = ({ extraClass, theme, children }) => {
 
     if (!children.length)
         return (
-            <section key={children.props.title} className={children.props.extraClass}>
+            <div key={children.props.title} className={children.props.extraClass}>
                 {children}
-            </section>
+            </div>
         );
 
     return (
@@ -39,9 +39,9 @@ const Tabs = ({ extraClass, theme, children }) => {
                     {children
                         .filter((child, index) => activeTab === index)
                         .map((child) => (
-                            <section key={child.props.title} className={child.props.extraClass}>
+                            <div key={child.props.title} className={child.props.extraClass}>
                                 {child.props.children}
-                            </section>
+                            </div>
                         ))}
                 </motion.div>
             </AnimatePresence>
