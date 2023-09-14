@@ -5,7 +5,7 @@ import useAuthStore from "../store/authStore";
 import AdminLayout from "../layout/admin.layout.component";
 import PublicLayout from "../layout/public.layout.component";
 
-import Page404 from "../pages/404.page";
+import Page404 from "../pages/404/404.page";
 import LoginPage from "../pages/login/login.page";
 import ProfilePage from "../pages/admin/profile/profile.page";
 

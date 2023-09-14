@@ -1,8 +1,9 @@
 import React from "react";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import { NavLink } from "react-router-dom";
 
 import styles from "./404.page.module.scss";
+import { AdminIcons } from "../../components/svgs";
 
 const Page404 = () => {
     return (
@@ -29,13 +30,7 @@ const Page404 = () => {
                     Повторите попытку позже.
                     <br />
                     <br />
-                    <NavLink
-                        className={'commonStyles.link'}
-                        to={"/"}
-                    >
-                        Вернуться на главную{" "}
-                        <span className="mdi mdi-open-in-new"></span>
-                    </NavLink>
+                    <NavLink to={"/"}>Вернуться на главную {AdminIcons.open_in_new}</NavLink>
                 </p>
             </div>
         </>
