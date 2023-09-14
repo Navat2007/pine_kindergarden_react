@@ -16,13 +16,20 @@
         aspect-ratio: 16/9;
         background-color: var(--admin-grey-200-color);
         outline: 2px solid var(--admin-grey-300-color);
+        cursor: pointer;
 
         &_portrait {
             aspect-ratio: 210/297;
         }
 
-        &:hover .admin-gallery__item-panel,
-        &:hover .admin-gallery__thumbs {
+        &:hover {
+            .admin-image-gallery__img {
+                transform: scale(1.05);
+            }
+        }
+
+        &:hover .admin-image-gallery__item-panel,
+        &:hover .admin-image-gallery__thumbs {
             @extend %visibility-block;
         }
     }
@@ -58,6 +65,7 @@
         display: block;
         @include box(100%);
         object-fit: contain;
+        transition: transform 0.35s ease-in;
     }
 
     // &__item {

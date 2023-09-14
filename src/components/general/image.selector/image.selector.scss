@@ -49,33 +49,34 @@
             aspect-ratio: 210/297;
         }
 
-        &:hover .admin-gallery__item-panel,
-        &:hover .admin-gallery__thumbs {
+        &:hover .admin-image-selector__item-panel,
+        &:hover .admin-image-selector__thumbs {
             @extend %visibility-block;
         }
 
-        &_is_changed {
-            border: 2px solid var(--admin-info-color);
+        // Пока не реализован
+        // &_is_changed {
+        //     border: 2px solid var(--admin-info-color);
 
-            &::after {
-                content: "NEW";
-                position: absolute;
-                bottom: 0.5em;
-                right: 0.5em;
+        //     &::after {
+        //         content: "NEW";
+        //         position: absolute;
+        //         bottom: 0.5em;
+        //         right: 0.5em;
 
-                display: flex;
-                align-items: center;
-                justify-content: center;
+        //         display: flex;
+        //         align-items: center;
+        //         justify-content: center;
 
-                @include box(2.75rem);
-                font-size: 0.75em;
-                color: var(--admin-info-color);
-                font-weight: bold;
-                background-color: #fff;
-                border-radius: 50%;
-                box-shadow: 0 0 15px 1px rgba(black, 0.15);
-            }
-        }
+        //         @include box(2.75rem);
+        //         font-size: 0.75em;
+        //         color: var(--admin-info-color);
+        //         font-weight: bold;
+        //         background-color: #fff;
+        //         border-radius: 50%;
+        //         box-shadow: 0 0 15px 1px rgba(black, 0.15);
+        //     }
+        // }
     }
 
     &__item-panel {
