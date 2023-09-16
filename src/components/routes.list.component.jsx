@@ -14,6 +14,17 @@ import UsersPage from "../pages/admin/users/users.page";
 import AdminUsersPage from "../pages/admin/users/admin.users.page";
 import AdminAllNewsPage from "../pages/admin/news/all.news.page";
 import AdminNewsPage from "../pages/admin/news/news.page";
+import AdminDocumentsPage from "../pages/admin/documents/documents.page";
+import AdminDocumentPage from "../pages/admin/documents/document.page";
+import AdminTeachersPage from "../pages/admin/teachers/teachers.page";
+import AdminFoodsPage from "../pages/admin/food/foods.page";
+import AdminFoodPage from "../pages/admin/food/food.page";
+import AdminModesPage from "../pages/admin/mode/modes.page";
+import AdminModePage from "../pages/admin/mode/mode.page";
+import AdminLessonsPage from "../pages/admin/lessons/lessons.page";
+import AdminLessonPage from "../pages/admin/lessons/lesson.page";
+import AdminAboutPage from "../pages/admin/about/about.page";
+import AdminGroupPage from "../pages/admin/about/group.page";
 
 // PUBLIC PAGES
 import MainPage from "../pages/public/index.page";
@@ -51,6 +62,36 @@ const RoutesList = () => {
                     <Route index element={<AdminAllNewsPage />} />
                     <Route path=':id' element={<AdminNewsPage />} />
                     <Route path='new' element={<AdminNewsPage />} />
+                </Route>
+                <Route path='documents'>
+                    <Route index element={<AdminDocumentsPage />} />
+                    <Route path=':id' element={<AdminDocumentPage />} />
+                    <Route path='new' element={<AdminDocumentPage />} />
+                </Route>
+                <Route path='teachers'>
+                    <Route index element={<AdminTeachersPage />} />
+                    <Route path=':id' element={<AdminTeachersPage />} />
+                    <Route path='new' element={<AdminTeachersPage />} />
+                </Route>
+                <Route path='food'>
+                    <Route index element={<AdminFoodsPage />} />
+                    <Route path=':id' element={<AdminFoodPage />} />
+                    <Route path='new' element={<AdminFoodPage />} />
+                </Route>
+                <Route path='mode'>
+                    <Route index element={<AdminModesPage />} />
+                    <Route path=':id' element={<AdminModePage />} />
+                    <Route path='new' element={<AdminModePage />} />
+                </Route>
+                <Route path='lessons'>
+                    <Route index element={<AdminLessonsPage />} />
+                    <Route path=':id' element={<AdminLessonPage />} />
+                    <Route path='new' element={<AdminLessonPage />} />
+                </Route>
+                <Route path='about'>
+                    <Route index element={<AdminAboutPage />} />
+                    <Route path='group/:id' element={<AdminGroupPage />} />
+                    <Route path='group/new' element={<AdminGroupPage />} />
                 </Route>
             </Route>
             <Route path='/profile' exact={true} element={<AdminLayout />}>

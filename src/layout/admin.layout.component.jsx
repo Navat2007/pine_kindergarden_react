@@ -16,6 +16,36 @@ const AdminLayout = () => {
             link: "/admin/users",
         },
         {
+            title: "Документы",
+            icon: MenuIcons.news,
+            link: "/admin/documents",
+        },
+        {
+            title: "Занятия",
+            icon: MenuIcons.news,
+            link: "/admin/lessons",
+        },
+        {
+            title: "Работники",
+            icon: MenuIcons.news,
+            link: "/admin/teachers",
+        },
+        {
+            title: "Питание",
+            icon: MenuIcons.news,
+            link: "/admin/food",
+        },
+        {
+            title: "Режим",
+            icon: MenuIcons.news,
+            link: "/admin/mode",
+        },
+        {
+            title: "О нас",
+            icon: MenuIcons.news,
+            link: "/admin/about",
+        },
+        {
             title: "Новости",
             icon: MenuIcons.news,
             link: "/admin/news",
