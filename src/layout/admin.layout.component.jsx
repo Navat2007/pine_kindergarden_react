@@ -41,14 +41,14 @@ const AdminLayout = () => {
             link: "/admin/mode",
         },
         {
-            title: "О нас",
-            icon: MenuIcons.news,
-            link: "/admin/about",
-        },
-        {
             title: "Новости",
             icon: MenuIcons.news,
             link: "/admin/news",
+        },
+        {
+            title: "О нас",
+            icon: MenuIcons.news,
+            link: "/admin/about",
         },
     ];
 
