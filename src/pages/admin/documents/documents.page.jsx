@@ -59,7 +59,7 @@ const AdminDocumentsPage = () => {
 
     return (
         <Table
-            title={"Таблица новостей администратора" + user.ID}
+            title={"Таблица документов администратора" + user.ID}
             loading={newsStore.loading}
             items={newsStore.allNews}
             itemsConfig={itemConfig}
@@ -69,7 +69,7 @@ const AdminDocumentsPage = () => {
             <Button
                 type='button'
                 iconName={AdminIcons.plus}
-                aria-label='Добавить новость'
+                aria-label='Добавить документ'
                 onClick={() => navigate("/admin/news/new")}
             >
                 Создать

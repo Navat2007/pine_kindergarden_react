@@ -8,15 +8,11 @@ import useNewsStore from "../../../store/admin/newsStore";
 
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
-import Tabs from "../../../components/general/tabs/tabs.component";
-import Tab from "../../../components/general/tabs/tab.component";
-import Editor from "../../../components/general/reach_editor/editor.component";
 import ImageSelector from "../../../components/general/image.selector/image.selector.component";
 import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
-import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
 import FieldText from "../../../components/admin/field/field.text.component";
-import FieldDate from "../../../components/admin/field/field.date.component";
+import FieldUrl from "../../../components/admin/field/field.url.component";
 import { AdminIcons } from "../../../components/svgs";
 
 const AdminDocumentPage = (props) => {
@@ -52,8 +48,8 @@ const AdminDocumentPage = (props) => {
         }
     };
 
-    const MainBlock = () => {
-        const NewNews = () => {
+    const Article = () => {
+        const Create = () => {
             const [photo, setPhoto] = React.useState([]);
             const [photoPreview, setPhotoPreview] = React.useState([]);
             const [photoReview, setPhotoReview] = React.useState([]);
@@ -155,7 +151,7 @@ const AdminDocumentPage = (props) => {
                     setPopup(
                         <AlertPopup
                             title=''
-                            text={"Новость успешно добавлена"}
+                            text={"Документ успешно добавлен"}
                             opened={true}
                             onClose={() => {
                                 back();
@@ -179,82 +175,35 @@ const AdminDocumentPage = (props) => {
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание новости"} onBack={back} />
+                        <TitleBlock title={"Создание"} onBack={back} />
                         <form onSubmit={handleSubmit(onAddNews)} className='admin-form'>
-                            <Tabs>
-                                <Tab title={"Основная информация"}>
-                                    <fieldset className='admin-form__section admin-form__section_width_one-col'>
-                                        <FieldCheckbox
-                                            label={"Доступна для показа?"}
-                                            {...register("active", {
-                                                value: true,
-                                            })}
-                                        />
-                                        <FieldCheckbox
-                                            label={"Показывать на главной странице?"}
-                                            {...register("mainPage")}
-                                        />
-                                        <FieldDate
-                                            label='Дата и время'
-                                            type='datetime-local'
-                                            required={true}
-                                            {...register("date")}
-                                        />
-                                    </fieldset>
-                                    <fieldset className='admin-form__section'>
-                                        <FieldText
-                                            label={"Название новости*"}
-                                            required={true}
-                                            placeholder={"Введите название"}
-                                            {...register("title")}
-                                        />
-                                        <FieldText
-                                            label={"Название новости для анонса*"}
-                                            required={true}
-                                            placeholder={"Введите название"}
-                                            {...register("previewTitle")}
-                                        />
-                                        <p className='admin-form__subtitle'>Описание для анонса</p>
-                                        <Editor
-                                            control={control}
-                                            name='editorPreview'
-                                            minHeight={250}
-                                            buttons={{ link: true }}
-                                        />
-                                        <p className='admin-form__subtitle'>Детальное описание</p>
-                                        <Editor
-                                            control={control}
-                                            name='editorReview'
-                                            minHeight={250}
-                                            buttons={{ link: true }}
-                                        />
-                                    </fieldset>
-                                </Tab>
-                                <Tab title={"Фотографии"}>
-                                    <h2 className='admin-form__title'>Картинка для анонса</h2>
-                                    <ImageSelector
-                                        title='Картинка для анонса'
-                                        items={photoPreview}
-                                        onlyOneImage={true}
-                                        multiFiles={false}
-                                        onChange={(items) => setPhotoPreview(items)}
-                                    />
-                                    <h2 className='admin-form__title'>Детальная картинка</h2>
-                                    <ImageSelector
-                                        items={photoReview}
-                                        onlyOneImage={true}
-                                        multiFiles={false}
-                                        onChange={(items) => setPhotoReview(items)}
-                                    />
-                                    <h2 className='admin-form__title'>Фото галерея</h2>
-                                    <ImageSelector
-                                        title='Фото галерея'
-                                        items={photo}
-                                        multiFiles={true}
-                                        onChange={(items) => setPhoto(items)}
-                                    />
-                                </Tab>
-                            </Tabs>
+                            <fieldset className='admin-form__section admin-form__section_width_one-col'>
+                                <FieldText
+                                    label={"Название документа (кратко)*"}
+                                    required={true}
+                                    placeholder={"Введите название"}
+                                    {...register("title")}
+                                />
+                                <FieldText
+                                    label={"Название документа (полностью)*"}
+                                    required={true}
+                                    placeholder={"Введите название"}
+                                    {...register("previewTitle")}
+                                />
+                                <h2 className='admin-form__title'>Картинка для превью документа</h2>
+                                <ImageSelector
+                                    items={photoPreview}
+                                    onlyOneImage={true}
+                                    multiFiles={false}
+                                    onChange={(items) => setPhotoPreview(items)}
+                                />
+                                <FieldUrl
+                                    label={"Ссылка на документ*"}
+                                    required={true}
+                                    placeholder={"https://..."}
+                                    {...register("previewTitle")}
+                                />
+                            </fieldset>
                             <div className='admin-form__controls'>
                                 <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
                                     Сохранить
@@ -276,7 +225,7 @@ const AdminDocumentPage = (props) => {
             }
         };
 
-        const EditNews = () => {
+        const Edit = () => {
             const [photo, setPhoto] = React.useState([]);
             const [photoPreview, setPhotoPreview] = React.useState([]);
             const [photoReview, setPhotoReview] = React.useState([]);
@@ -466,7 +415,7 @@ const AdminDocumentPage = (props) => {
                                             setPopup(
                                                 <AlertPopup
                                                     title=''
-                                                    text={"Новость удалена"}
+                                                    text={"Документ удален"}
                                                     opened={true}
                                                     onClose={() => {
                                                         setPopup(<></>);
@@ -526,91 +475,40 @@ const AdminDocumentPage = (props) => {
             if (id && edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование новости ID: ${id}`} onBack={back} />
+                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
                         <form onSubmit={handleSubmit(onEditNews)} className='admin-form'>
-                            <Tabs>
-                                <Tab title={"Основная информация"}>
-                                    <fieldset className='admin-form__section admin-form__section_width_one-col'>
-                                        <FieldCheckbox
-                                            label={"Доступна для показа?"}
-                                            {...register("active", {
-                                                value: newsStore.news.active === "Активен",
-                                            })}
-                                        />
-                                        <FieldCheckbox
-                                            label={"Показывать на главной странице?"}
-                                            {...register("mainPage", {
-                                                value: newsStore.news.show_on_main_page === "Активен",
-                                            })}
-                                        />
-                                        <FieldDate
-                                            label='Дата и время'
-                                            type='datetime-local'
-                                            required={true}
-                                            {...register("date", {
-                                                value: moment(newsStore.news.date).format("YYYY-MM-DD HH:mm"),
-                                            })}
-                                        />
-                                    </fieldset>
-                                    <fieldset className='admin-form__section'>
-                                        <FieldText
-                                            label={"Название новости*"}
-                                            required={true}
-                                            placeholder={"Введите название"}
-                                            {...register("title", {
-                                                value: newsStore.news.title,
-                                            })}
-                                        />
-                                        <FieldText
-                                            label={"Название новости для анонса*"}
-                                            required={true}
-                                            placeholder={"Введите название"}
-                                            {...register("previewTitle", {
-                                                value: newsStore.news.preview_title,
-                                            })}
-                                        />
-                                        <p className='admin-form__subtitle'>Описание для анонса</p>
-                                        <Editor
-                                            control={control}
-                                            name='editorPreview'
-                                            minHeight={250}
-                                            buttons={{ link: true }}
-                                        />
-                                        <p className='admin-form__subtitle'>Детальное описание</p>
-                                        <Editor
-                                            control={control}
-                                            name='editorReview'
-                                            minHeight={250}
-                                            buttons={{ link: true }}
-                                        />
-                                    </fieldset>
-                                </Tab>
-                                <Tab title={"Фотографии"}>
-                                    <h2 className='admin-form__title'>Картинка для анонса</h2>
-                                    <ImageSelector
-                                        items={photoPreview}
-                                        onlyOneImage={true}
-                                        multiFiles={false}
-                                        onChange={(items) => setPhotoPreview(items)}
-                                        onDelete={handleDeletePreviewPhoto}
-                                    />
-                                    <h2 className='admin-form__title'>Детальная картинка</h2>
-                                    <ImageSelector
-                                        items={photoReview}
-                                        onlyOneImage={true}
-                                        multiFiles={false}
-                                        onChange={(items) => setPhotoReview(items)}
-                                        onDelete={handleDeleteReviewPhoto}
-                                    />
-                                    <h2 className='Фото галерея'>Детальная картинка</h2>
-                                    <ImageSelector
-                                        items={photo}
-                                        multiFiles={true}
-                                        onChange={(items) => setPhoto(items)}
-                                        onDelete={handleDeleteImages}
-                                    />
-                                </Tab>
-                            </Tabs>
+                            <fieldset className='admin-form__section admin-form__section_width_one-col'>
+                                <FieldText
+                                    label={"Название документа (кратко)*"}
+                                    required={true}
+                                    placeholder={"Введите название"}
+                                    {...register("title", {
+                                        value: newsStore.news.title,
+                                    })}
+                                />
+                                <FieldText
+                                    label={"Название документа (полностью)*"}
+                                    required={true}
+                                    placeholder={"Введите название"}
+                                    {...register("previewTitle", {
+                                        value: newsStore.news.preview_title,
+                                    })}
+                                />
+                                <h2 className='admin-form__title'>Картинка для превью документа</h2>
+                                <ImageSelector
+                                    items={photoPreview}
+                                    onlyOneImage={true}
+                                    multiFiles={false}
+                                    onChange={(items) => setPhotoPreview(items)}
+                                    onDelete={handleDeletePreviewPhoto}
+                                />
+                                <FieldUrl
+                                    label={"Ссылка на документ*"}
+                                    required={true}
+                                    placeholder={"https://..."}
+                                    {...register("previewTitle")}
+                                />
+                            </fieldset>
                             <div className='admin-form__controls'>
                                 <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
                                 <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
@@ -634,109 +532,56 @@ const AdminDocumentPage = (props) => {
             }
         };
 
-        const ViewNews = () => {
+        const View = () => {
             if (id && !edit && !newsStore.loading && Object.keys(newsStore.news).length > 0) {
                 return (
                     <>
-                        <TitleBlock title={`Новость ID: ${newsStore.news.ID}`} onBack={back}>
+                        <TitleBlock title={`Документ ID: ${newsStore.news.ID}`} onBack={back}>
                             <Button
                                 type='submit'
                                 isIconBtn='true'
                                 theme='text'
                                 iconName={AdminIcons.edit}
-                                aria-label='Редактировать новость'
+                                aria-label='Редактировать'
                                 onClick={() => {
                                     setEdit(true);
                                 }}
                             />
                         </TitleBlock>
-                        <Tabs>
-                            <Tab title={"Основные сведения"}>
-                                <section className='admin-view-section'>
-                                    <ul className='admin-view-section__list'>
-                                        <li className='admin-view-section__item'>
-                                            <h3 className='admin-view-section__label'>Доступна для показа?</h3>
-                                            <p className='admin-view-section__description'>
-                                                {newsStore.news.active === "Активен" ? "Да" : "Нет"}
-                                            </p>
-                                        </li>
-                                        <li className='admin-view-section__item'>
-                                            <h3 className='admin-view-section__label'>
-                                                Показывать на главной странице?
-                                            </h3>
-                                            <p className='admin-view-section__description'>
-                                                {newsStore.news.show_on_main_page === "Активен" ? "Да" : "Нет"}
-                                            </p>
-                                        </li>
-                                        <li className='admin-view-section__item'>
-                                            <h3 className='admin-view-section__label'>Публичная страница</h3>
-                                            <p className='admin-view-section__description'>
-                                                <NavLink
-                                                    className='admin-view-section__link'
-                                                    to={"/news/" + id}
-                                                    target={"_blank"}
-                                                    rel='noopener nofollow noreferer'
-                                                >
-                                                    На страницу {AdminIcons.open_in_new}
-                                                </NavLink>
-                                            </p>
-                                        </li>
-                                        <li className='admin-view-section__item'>
-                                            <h3 className='admin-view-section__label'>Название новости для анонса</h3>
-                                            <p className='admin-view-section__description'>
-                                                {newsStore.news.preview_title}
-                                            </p>
-                                        </li>
-                                        <li className='admin-view-section__item'>
-                                            <h3 className='admin-view-section__label'>Название новости</h3>
-                                            <p className='admin-view-section__description'>{newsStore.news.title}</p>
-                                        </li>
-                                        <li className='admin-view-section__item'>
-                                            <h3 className='admin-view-section__label'>Дата новости</h3>
-                                            <p className='admin-view-section__description'>
-                                                {moment(newsStore.news.date).format("DD MMMM YYYY HH:mm")}
-                                            </p>
-                                        </li>
-                                    </ul>
-                                    <h2 className='admin-view-section__title'>Описание для анонса</h2>
-                                    <div
-                                        className='admin-view-section__editor'
-                                        dangerouslySetInnerHTML={{
-                                            __html: DOMPurify.sanitize(newsStore.news.preview_text),
-                                        }}
-                                    />
-                                    <h2 className='admin-view-section__title'>Детальное описание</h2>
-                                    <div
-                                        className='admin-view-section__editor'
-                                        dangerouslySetInnerHTML={{
-                                            __html: DOMPurify.sanitize(newsStore.news.text),
-                                        }}
-                                    />
-                                </section>
-                            </Tab>
-                            <Tab title={"Фотографии"}>
-                                <h2 className='admin-view-section__title'>Картинка для анонса</h2>
-                                <ImageGallery
-                                    items={[
-                                        {
-                                            url: newsStore.news.preview_image,
-                                        },
-                                    ]}
-                                    front={false}
-                                />
-                                <h2 className='admin-view-section__title'>Детальная картинка</h2>
-                                <ImageGallery
-                                    items={[
-                                        {
-                                            url: newsStore.news.image,
-                                        },
-                                    ]}
-                                    front={false}
-                                />
-                                <h2 className='admin-view-section__title'>Фото галерея</h2>
-                                <ImageGallery items={newsStore.news.images} front={false} />
-                            </Tab>
-                        </Tabs>
+                        <section className='admin-view-section'>
+                            <ul className='admin-view-section__list'>
+                                <li className='admin-view-section__item'>
+                                    <h3 className='admin-view-section__label'>Название документа (кратко)</h3>
+                                    <p className='admin-view-section__description'>{newsStore.news.preview_title}</p>
+                                </li>
+                                <li className='admin-view-section__item'>
+                                    <h3 className='admin-view-section__label'>Название документа (полностью)</h3>
+                                    <p className='admin-view-section__description'>{newsStore.news.title}</p>
+                                </li>
+                                <li className='admin-view-section__item'>
+                                    <h3 className='admin-view-section__label'>Ссылка на документ</h3>
+                                    <p className='admin-view-section__description'>
+                                        <NavLink
+                                            className='admin-view-section__link'
+                                            to={"/news/" + id}
+                                            target={"_blank"}
+                                            rel='noopener nofollow noreferer'
+                                        >
+                                            На страницу {AdminIcons.open_in_new}
+                                        </NavLink>
+                                    </p>
+                                </li>
+                            </ul>
+                            <h2 className='admin-view-section__title'>Картинка для превью документа</h2>
+                            <ImageGallery
+                                items={[
+                                    {
+                                        url: newsStore.news.preview_image,
+                                    },
+                                ]}
+                                front={false}
+                            />
+                        </section>
                     </>
                 );
             }
@@ -744,9 +589,9 @@ const AdminDocumentPage = (props) => {
 
         return (
             <>
-                <NewNews />
-                <EditNews />
-                <ViewNews />
+                <Create />
+                <Edit />
+                <View />
             </>
         );
     };
@@ -754,7 +599,7 @@ const AdminDocumentPage = (props) => {
     return (
         <>
             <Loading />
-            <MainBlock />
+            <Article />
             <NotFound />
         </>
     );
