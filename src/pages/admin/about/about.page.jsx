@@ -42,7 +42,8 @@ const AdminAboutPage = () => {
 
             React.useEffect(() => {
                 if (edit) {
-
+                    setValue("preview", store.item.preview);
+                    setValue("text", store.item.text);
                 }
             }, [edit]);
 
