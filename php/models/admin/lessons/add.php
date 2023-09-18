@@ -11,8 +11,8 @@ $title = mysqli_real_escape_string($conn, htmlspecialchars($_POST["title"]));
 $text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
 $image = $_POST["image"];
 
-$sql = "
-        INSERT INTO lessons (title, text, userID, last_userID) 
+$sql = "INSERT INTO 
+            lessons (title, text, userID, last_userID) 
         VALUES ('$title', '$text', '$userID', '$userID')
     ";
 $sqls[] = $sql;
@@ -29,9 +29,10 @@ if($lastID > 0){
 
         if($isFile === 1 && $isLoaded === 0){
 
+            $dir_name = 'lessons';
             $url = "";
 
-            $helper->createDir("/files/lessons/" . $lastID);
+            $helper->createDir("/files/" . $dir_name . "/" . $lastID);
 
             $temp_name = $_FILES['image']['tmp_name'][$i]['file'];
             $name = $_FILES['image']['name'][$i]['file'];
@@ -41,13 +42,13 @@ if($lastID > 0){
 
             $file_token = $helper->gen_token();
 
-            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/lessons/" . $lastID . "/" . $file_token . "_" . $name;
+            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
 
             @unlink($path);
 
             if(copy($temp_name, $path))
             {
-                $url = "/files/lessons/" . $lastID . "/" . $file_token . "_" . $name;
+                $url = "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
 
                 $sql = "
                     UPDATE 

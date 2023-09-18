@@ -232,7 +232,7 @@ const AdminAboutPage = () => {
             },
             {
                 header: "Название",
-                key: "preview_title",
+                key: "title",
                 type: "string",
                 filter: "string",
                 sorting: true,
@@ -242,13 +242,6 @@ const AdminAboutPage = () => {
                 key: "date",
                 type: "datetime",
                 filter: "date",
-                sorting: true,
-            },
-            {
-                header: "Статус",
-                key: "active",
-                type: "string",
-                filter: "select",
                 sorting: true,
             },
         ];

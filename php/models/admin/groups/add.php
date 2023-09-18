@@ -6,30 +6,20 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
-$id = htmlspecialchars($_POST["id"]);
 $userID = $authorization[1];
 $title = mysqli_real_escape_string($conn, htmlspecialchars($_POST["title"]));
 $text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
 $image = $_POST["image"];
 
-$sql = "UPDATE 
-                lessons
-            SET
-                title = '$title', 
-                text = '$text', 
-                last_userID = '$userID'
-            WHERE 
-                ID = '$id'";
+$sql = "
+        INSERT INTO groups (title, text, userID, last_userID) 
+        VALUES ('$title', '$text', '$userID', '$userID')
+    ";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
+$lastID = mysqli_insert_id($conn);
 
-if (!$result) {
-    $error = 1;
-    $error_text = "Ошибка при редактировании занятия: " . mysqli_error($conn);
-}
-else {
-    $lastID = $id;
-
+if($lastID > 0){
     for ($i = 0; $i < count($image); $i++) {
         $url = $image[$i]['url'];
         $main = $image[$i]['main'];
@@ -38,10 +28,11 @@ else {
         $isLoaded = (int)$image[$i]['isLoaded'];
 
         if($isFile === 1 && $isLoaded === 0){
-            $dir_name = 'lessons';
+
+            $dir_name = 'groups';
             $url = "";
 
-            $helper->createDir("/files/" . $dir_name . "/" . $id);
+            $helper->createDir("/files/" . $dir_name . "/" . $lastID);
 
             $temp_name = $_FILES['image']['tmp_name'][$i]['file'];
             $name = $_FILES['image']['name'][$i]['file'];
@@ -51,28 +42,33 @@ else {
 
             $file_token = $helper->gen_token();
 
-            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $id . "/" . $file_token . "_" . $name;
+            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
 
             @unlink($path);
 
             if(copy($temp_name, $path))
             {
-                $url = "/files/" . $dir_name . "/" . $id . "/" . $file_token . "_" . $name;
+                $url = "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
 
                 $sql = "
                     UPDATE 
-                        lessons
+                        groups
                     SET
                         image = '$url'
                     WHERE 
-                        ID = '$id'";
+                        ID = '$lastID'";
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);
             }
         }
     }
+}
 
-    $log->add($conn, $authorization[1], 'Занятие ID: ' . $id . ' отредактировано');
+if (!$result  || (int)$lastID === 0) {
+    $error = 1;
+    $error_text = "Ошибка добавления группы: " .  mysqli_error($conn);
+} else {
+    $log->add($conn, $userID, 'Добавлена группа ID: ' . $lastID);
 }
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

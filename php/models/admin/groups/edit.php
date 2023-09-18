@@ -13,7 +13,7 @@ $text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
 $image = $_POST["image"];
 
 $sql = "UPDATE 
-                lessons
+                groups
             SET
                 title = '$title', 
                 text = '$text', 
@@ -25,7 +25,7 @@ $result = mysqli_query($conn, $sql);
 
 if (!$result) {
     $error = 1;
-    $error_text = "Ошибка при редактировании занятия: " . mysqli_error($conn);
+    $error_text = "Ошибка при редактировании группы: " . mysqli_error($conn);
 }
 else {
     $lastID = $id;
@@ -38,7 +38,7 @@ else {
         $isLoaded = (int)$image[$i]['isLoaded'];
 
         if($isFile === 1 && $isLoaded === 0){
-            $dir_name = 'lessons';
+            $dir_name = 'groups';
             $url = "";
 
             $helper->createDir("/files/" . $dir_name . "/" . $id);
@@ -61,7 +61,7 @@ else {
 
                 $sql = "
                     UPDATE 
-                        lessons
+                        groups
                     SET
                         image = '$url'
                     WHERE 
@@ -72,7 +72,7 @@ else {
         }
     }
 
-    $log->add($conn, $authorization[1], 'Занятие ID: ' . $id . ' отредактировано');
+    $log->add($conn, $authorization[1], 'Группа ID: ' . $id . ' отредактирована');
 }
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

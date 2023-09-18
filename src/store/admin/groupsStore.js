@@ -1,7 +1,7 @@
 import axios from "axios";
 import create from 'zustand'
 
-const directory = 'documents';
+const directory = 'groups';
 
 const urlLoadAll = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load.php`;
 const urlLoadByID = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load_by_id.php`;
