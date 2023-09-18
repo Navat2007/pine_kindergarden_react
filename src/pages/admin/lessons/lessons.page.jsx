@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import useNewsStore from "../../../store/admin/newsStore";
 import useAuthStore from "../../../store/authStore";
+import { Helmet } from "react-helmet";
 
 import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
@@ -58,23 +59,28 @@ const AdminLessonsPage = () => {
     ];
 
     return (
-        <Table
-            title={"Таблица новостей администратора" + user.ID}
-            loading={newsStore.loading}
-            items={newsStore.allNews}
-            itemsConfig={itemConfig}
-            onItemClick={onItemClick}
-            withFilter={true}
-        >
-            <Button
-                type='button'
-                iconName={AdminIcons.plus}
-                aria-label='Добавить новость'
-                onClick={() => navigate("/admin/news/new")}
+        <>
+            <Helmet>
+                <title>Административный раздел. Занятия</title>
+            </Helmet>
+            <Table
+                title={"Таблица занятий " + user.ID}
+                loading={newsStore.loading}
+                items={newsStore.allNews}
+                itemsConfig={itemConfig}
+                onItemClick={onItemClick}
+                withFilter={true}
             >
-                Создать
-            </Button>
-        </Table>
+                <Button
+                    type='button'
+                    iconName={AdminIcons.plus}
+                    aria-label='Добавить занятие'
+                    onClick={() => navigate("/admin/news/new")}
+                >
+                    Создать
+                </Button>
+            </Table>
+        </>
     );
 };
 

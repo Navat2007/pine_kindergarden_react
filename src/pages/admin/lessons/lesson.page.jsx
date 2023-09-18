@@ -179,7 +179,7 @@ const AdminLessonPage = (props) => {
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание новости"} onBack={back} />
+                        <TitleBlock title={"Создание занятия"} onBack={back} />
                         <form onSubmit={handleSubmit(onAddNews)} className='admin-form'>
                             <Tabs>
                                 <Tab title={"Основная информация"}>
