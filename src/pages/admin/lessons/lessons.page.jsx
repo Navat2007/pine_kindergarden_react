@@ -37,7 +37,7 @@ const AdminLessonsPage = () => {
         },
         {
             header: "Название",
-            key: "preview_title",
+            key: "title",
             type: "string",
             filter: "string",
             sorting: true,

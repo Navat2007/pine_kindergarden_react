@@ -177,7 +177,7 @@ const AdminLessonPage = (props) => {
         };
 
         const Edit = () => {
-            const [photoPreview, setPhotoPreview] = React.useState([]);
+            const [image, setImage] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
@@ -185,8 +185,10 @@ const AdminLessonPage = (props) => {
                 if (edit) {
                     setValue("text", store.item.text);
 
-                    setPhotoPreview(
-                        store.item.image
+                    console.log(store.item.image);
+
+                    setImage(
+                        store.item.image !== ""
                             ? [
                                 {
                                     ID: store.item.ID,
@@ -201,6 +203,10 @@ const AdminLessonPage = (props) => {
                     );
                 }
             }, [edit]);
+
+            React.useEffect(() => {
+                console.log(image);
+            }, [image]);
 
             const checkForComplete = (sendObject) => {
                 if (!sendObject.title) {
@@ -240,7 +246,7 @@ const AdminLessonPage = (props) => {
                 let sendObject = {...data};
 
                 sendObject["id"] = id;
-                sendObject["image"] = photoPreview;
+                sendObject["image"] = image;
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -355,10 +361,10 @@ const AdminLessonPage = (props) => {
                                 />
                                 <p className='admin-form__subtitle'>Фотография</p>
                                 <ImageSelector
-                                    items={photoPreview}
+                                    items={image}
                                     onlyOneImage={true}
                                     multiFiles={false}
-                                    onChange={(items) => setPhotoPreview(items)}
+                                    onChange={(items) => setImage(items)}
                                     onDelete={handleDeletePreviewPhoto}
                                 />
                             </fieldset>
@@ -415,7 +421,7 @@ const AdminLessonPage = (props) => {
                                     <p className='admin-view-section__description'>
                                         <NavLink
                                             className='admin-view-section__link'
-                                            to={"/item/" + id}
+                                            to={"/lesson/" + id}
                                             target={"_blank"}
                                             rel='noopener nofollow noreferer'
                                         >

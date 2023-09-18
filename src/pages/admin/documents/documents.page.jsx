@@ -19,7 +19,7 @@ const AdminDocumentsPage = () => {
     };
 
     const fetchData = async () => {
-        await newsStore.loadAllNews();
+        await newsStore.loadAll();
     };
 
     React.useEffect(() => {
@@ -61,7 +61,7 @@ const AdminDocumentsPage = () => {
         <Table
             title={"Таблица документов администратора" + user.ID}
             loading={newsStore.loading}
-            items={newsStore.allNews}
+            items={newsStore.items}
             itemsConfig={itemConfig}
             onItemClick={onItemClick}
             withFilter={true}
