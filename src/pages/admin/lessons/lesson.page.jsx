@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import createDOMPurify from "dompurify";
 import { useForm } from "react-hook-form";
-import moment from "moment";
 
 import useNewsStore from "../../../store/admin/newsStore";
 
@@ -12,9 +11,7 @@ import Editor from "../../../components/general/reach_editor/editor.component";
 import ImageSelector from "../../../components/general/image.selector/image.selector.component";
 import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
-import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
 import FieldText from "../../../components/admin/field/field.text.component";
-import FieldDate from "../../../components/admin/field/field.date.component";
 import { AdminIcons } from "../../../components/svgs";
 
 const AdminLessonPage = (props) => {
