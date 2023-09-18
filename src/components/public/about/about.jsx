@@ -3,6 +3,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import createDOMPurify from "dompurify";
 
 import useAboutStore from "../../../store/public/aboutStore";
+import useGroupsStore from "../../../store/public/groupsStore";
 
 import "./about.scss";
 import about__image from "../../../images/about__image.jpg";
@@ -17,17 +18,19 @@ import person_4 from "../../../images/person_4.jpg";
 
 const About = () => {
     const DOMPurify = createDOMPurify(window);
-    const store = useAboutStore();
+    const aboutStore = useAboutStore();
+    const groupsStore = useGroupsStore();
 
     const fetchData = async () => {
-        await store.load();
+        await aboutStore.load();
+        await groupsStore.loadAll();
     };
 
     React.useEffect(() => {
         fetchData();
     }, []);
 
-    console.log(store);
+    console.log(groupsStore.items);
 
     return (
         <>
@@ -40,7 +43,7 @@ const About = () => {
                         <h2 className='about__title'>О нас</h2>
                         <div
                             dangerouslySetInnerHTML={{
-                                __html: DOMPurify.sanitize(store.item.preview),
+                                __html: DOMPurify.sanitize(aboutStore.item.preview),
                             }}
                         />
                     </div>
@@ -55,7 +58,7 @@ const About = () => {
                 <div className='about__inner about__inner_bg_half-image'>
                     <div className='about__description'
                          dangerouslySetInnerHTML={{
-                             __html: DOMPurify.sanitize(store.item.text),
+                             __html: DOMPurify.sanitize(aboutStore.item.text),
                          }}
                     />
                 </div>
@@ -63,39 +66,21 @@ const About = () => {
             <section className='about about_contain_inner main-section'>
                 <h2 className='about__title'>Наши группы</h2>
                 <ul className='about__list'>
-                    <li className='about__card'>
-                        <img
-                            className='about__card-image'
-                            src={about__card_1}
-                            alt='Малыши играют в игрушечную посуду'
-                        />
-                        <h3 className='about__card-title'>1-ая младшая группа</h3>
-                        <p>1,5 - 3 лет.</p>
-                    </li>
-                    <li className='about__card'>
-                        <img
-                            className='about__card-image'
-                            src={about__card_2}
-                            alt='Малыш показывает накрашенный водными красками ручки'
-                        />
-                        <h3 className='about__card-title'>2-ая младшая группа</h3>
-                        <p>3 - 4 лет.</p>
-                    </li>
-                    <li className='about__card'>
-                        <img className='about__card-image' src={about__card_3} alt='Малышка собирает пазлы' />
-                        <h3 className='about__card-title'>Средняя группа</h3>
-                        <p>4 - 5 лет.</p>
-                    </li>
-                    <li className='about__card'>
-                        <img className='about__card-image' src={about__card_4} alt='Малыш строит домик из кубиков' />
-                        <h3 className='about__card-title'>Старшая группа</h3>
-                        <p>5 - 6 лет.</p>
-                    </li>
-                    <li className='about__card'>
-                        <img className='about__card-image' src={about__card_3} alt='Малыш строит домик из кубиков' />
-                        <h3 className='about__card-title'>Подготовительная группа</h3>
-                        <p>6 - до прекращения образовательных отношений (7-8 лет)</p>
-                    </li>
+                    {
+                        groupsStore.items.map((item, index) => {
+                            return (
+                                <li className='about__card' key={index}>
+                                    <img
+                                        className='about__card-image'
+                                        src={item.image.includes("http") ? item.image : process.env.REACT_APP_BASE_URL + item.image}
+                                        alt='Изображение группы'
+                                    />
+                                    <h3 className='about__card-title'>{item.title}</h3>
+                                    {/*<p>{item.description}</p>*/}
+                                </li>
+                            );
+                        })
+                    }
                 </ul>
             </section>
             <section className='about about_contain_inner main-section'>
