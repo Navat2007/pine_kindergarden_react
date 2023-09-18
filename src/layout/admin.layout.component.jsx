@@ -17,27 +17,27 @@ const AdminLayout = () => {
         },
         {
             title: "Документы",
-            icon: MenuIcons.news,
+            icon: MenuIcons.documents,
             link: "/admin/documents",
         },
         {
             title: "Занятия",
-            icon: MenuIcons.news,
+            icon: MenuIcons.lessons,
             link: "/admin/lessons",
         },
         {
             title: "Работники",
-            icon: MenuIcons.news,
+            icon: MenuIcons.employers,
             link: "/admin/teachers",
         },
         {
             title: "Питание",
-            icon: MenuIcons.news,
+            icon: MenuIcons.food,
             link: "/admin/food",
         },
         {
             title: "Режим",
-            icon: MenuIcons.news,
+            icon: MenuIcons.mode,
             link: "/admin/mode",
         },
         {
@@ -47,7 +47,7 @@ const AdminLayout = () => {
         },
         {
             title: "О нас",
-            icon: MenuIcons.news,
+            icon: MenuIcons.company,
             link: "/admin/about",
         },
     ];
