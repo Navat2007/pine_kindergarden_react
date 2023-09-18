@@ -26,20 +26,6 @@ $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 $admin_row = mysqli_fetch_object($result);
 
-if($admin_row->login != $login){
-
-    $sql = "SELECT * FROM accounts WHERE login = '$login' AND archive = 0";
-    $sqls[] = $sql;
-    $result = mysqli_query($conn, $sql);
-
-    if(mysqli_num_rows($result) > 0)
-    {
-        $error = 1;
-        $error_text = "Такой логин уже существует";
-    }
-
-}
-
 if($admin_row->email != $email){
 
     $sql = "SELECT * FROM accounts WHERE email = '$email' AND archive = 0";
@@ -54,7 +40,7 @@ if($admin_row->email != $email){
 
 }
 
-if((int)$authorization[1] !== (int)$ID && (int)$ID === 1){
+if((int)$authorization[1] !== (int)$ID && ((int)$ID === 1 || (int)$ID === 2)){
     $error = 1;
     $error_text = "Данного администратора нельзя редактировать!";
 }
