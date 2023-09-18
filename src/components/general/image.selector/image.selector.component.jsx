@@ -28,12 +28,10 @@ const ImageSelector = ({
     const inputFileRef = React.createRef();
 
     React.useEffect(() => {
-        console.log(photo);
         onChange(photo);
     }, [photo]);
 
     React.useEffect(() => {
-        console.log(items);
         setPhoto(items);
     }, []);
 
@@ -232,9 +230,7 @@ const ImageSelector = ({
 
                                     setNotif(<></>);
                                 }}
-                            >
-                                Да
-                            </Button>
+                            />
                         </>
                     }
                 />
@@ -347,7 +343,10 @@ const ImageSelector = ({
                 >
                     <p className='admin-image-selector__download-text'>
                         {onlyOneImage && "Ограничение на кол-во файлов: 1 файл"}
-                        <p>Ограничение на размер изображения: 5 MB.</p>
+                        <br/>
+                        <span>Ограничение на размер изображения: 5 MB.</span>
+                        <br/>
+                        <br/>
                         Начните загружать изображения простым перетаскиванием в любое место этого окна.
                         <span className='admin-image-selector__download-span'>или</span>
                     </p>

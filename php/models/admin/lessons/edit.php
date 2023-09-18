@@ -39,9 +39,13 @@ else {
 
         if($isFile === 1 && $isLoaded === 0){
 
+            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/lessons/" . $id;
+            array_map('unlink', glob("$path/*.*"));
+            rmdir($path);
+
             $url = "";
 
-            $helper->createDir("/files/lessons/" . $lastID);
+            $helper->createDir("/files/lessons/" . $id);
 
             $temp_name = $_FILES['image']['tmp_name'][$i]['file'];
             $name = $_FILES['image']['name'][$i]['file'];
@@ -51,13 +55,13 @@ else {
 
             $file_token = $helper->gen_token();
 
-            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/lessons/" . $lastID . "/" . $file_token . "_" . $name;
+            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/lessons/" . $id . "/" . $file_token . "_" . $name;
 
             @unlink($path);
 
             if(copy($temp_name, $path))
             {
-                $url = "/files/lessons/" . $lastID . "/" . $file_token . "_" . $name;
+                $url = "/files/lessons/" . $id . "/" . $file_token . "_" . $name;
 
                 $sql = "
                     UPDATE 
@@ -65,7 +69,7 @@ else {
                     SET
                         image = '$url'
                     WHERE 
-                        ID = '$lastID'";
+                        ID = '$id'";
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);
             }

@@ -177,36 +177,26 @@ const AdminLessonPage = (props) => {
         };
 
         const Edit = () => {
-            const [image, setImage] = React.useState([]);
+            const [image, setImage] = React.useState(store.item.image !== ""
+                ? [
+                    {
+                        ID: store.item.ID,
+                        url: store.item.image,
+                        main: 1,
+                        order: 1,
+                        isFile: 1,
+                        isLoaded: 1,
+                    },
+                ]
+                : []);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
             React.useEffect(() => {
                 if (edit) {
                     setValue("text", store.item.text);
-
-                    console.log(store.item.image);
-
-                    setImage(
-                        store.item.image !== ""
-                            ? [
-                                {
-                                    ID: store.item.ID,
-                                    url: store.item.image,
-                                    main: 1,
-                                    order: 1,
-                                    isFile: 1,
-                                    isLoaded: 1,
-                                },
-                            ]
-                            : []
-                    );
                 }
             }, [edit]);
-
-            React.useEffect(() => {
-                console.log(image);
-            }, [image]);
 
             const checkForComplete = (sendObject) => {
                 if (!sendObject.title) {
