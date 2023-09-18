@@ -488,7 +488,7 @@ const AdminTeacherPage = (props) => {
                                         }
                                     }}
                                 >
-                                    button
+                                    Да
                                 </Button>
                             </>
                         }

@@ -488,7 +488,7 @@ const AdminModePage = (props) => {
                                         }
                                     }}
                                 >
-                                    button
+                                    Да
                                 </Button>
                             </>
                         }

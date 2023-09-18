@@ -362,7 +362,7 @@ const AdminDocumentPage = (props) => {
                                         }
                                     }}
                                 >
-                                    button
+                                    Да
                                 </Button>
                             </>
                         }

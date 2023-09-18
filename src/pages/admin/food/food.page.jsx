@@ -488,7 +488,7 @@ const AdminFoodPage = (props) => {
                                         }
                                     }}
                                 >
-                                    button
+                                    Да
                                 </Button>
                             </>
                         }

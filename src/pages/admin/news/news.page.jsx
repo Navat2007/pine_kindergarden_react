@@ -488,7 +488,7 @@ const AdminNewsPage = (props) => {
                                         }
                                     }}
                                 >
-                                    button
+                                    Да
                                 </Button>
                             </>
                         }
