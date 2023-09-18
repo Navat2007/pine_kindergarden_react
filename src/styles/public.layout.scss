@@ -96,3 +96,8 @@
     @extend %main-width;
     padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
 }
+.card-link {
+    height: 100%;
+    display: flex;
+    text-decoration: none;
+}

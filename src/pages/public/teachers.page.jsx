@@ -1,8 +1,8 @@
 import React from "react";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 import Feedback from "../../components/public/feedback/feedback";
-import Construction from "../../components/public/cunstruction/construction";
+import Teachers from "../../components/public/teachers/teachers";
 
 const TeachersPage = () => {
     return (
@@ -10,7 +10,7 @@ const TeachersPage = () => {
             <Helmet>
                 <title>Педагоги</title>
             </Helmet>
-            <Construction/>
+            <Teachers />
             <Feedback />
         </>
     );
