@@ -15,6 +15,8 @@ import about__card_4 from "../../../images/about__card_4.jpg";
 import person_2 from "../../../images/person_2.jpg";
 import person_3 from "../../../images/person_3.jpg";
 import person_4 from "../../../images/person_4.jpg";
+import logo from "../../../images/logo.svg";
+import {NavLink} from "react-router-dom";
 
 const About = () => {
     const DOMPurify = createDOMPurify(window);
@@ -29,8 +31,6 @@ const About = () => {
     React.useEffect(() => {
         fetchData();
     }, []);
-
-    console.log(groupsStore.items);
 
     return (
         <>
@@ -69,15 +69,22 @@ const About = () => {
                     {
                         groupsStore.items.map((item, index) => {
                             return (
-                                <li className='about__card' key={index}>
-                                    <img
-                                        className='about__card-image'
-                                        src={item.image.includes("http") ? item.image : process.env.REACT_APP_BASE_URL + item.image}
-                                        alt='Изображение группы'
-                                    />
-                                    <h3 className='about__card-title'>{item.title}</h3>
-                                    {/*<p>{item.description}</p>*/}
-                                </li>
+                                <NavLink
+                                    to={"/about/group/" + item.ID}
+                                    key={index}
+                                    rel='noreferer nofollow noopener'
+                                    aria-label={"Главная страница"}
+                                >
+                                    <li className='about__card' >
+                                        <img
+                                            className='about__card-image'
+                                            src={item.image.includes("http") ? item.image : process.env.REACT_APP_BASE_URL + item.image}
+                                            alt='Изображение группы'
+                                        />
+                                        <h3 className='about__card-title'>{item.title}</h3>
+                                        {/*<p>{item.description}</p>*/}
+                                    </li>
+                                </NavLink>
                             );
                         })
                     }

@@ -34,6 +34,7 @@ import TeachersPage from "../pages/public/teachers.page";
 import FoodPage from "../pages/public/food.page";
 import AboutPage from "../pages/public/about.page";
 import ModePage from "../pages/public/mode.page";
+import GroupPage from "../pages/public/group.page";
 
 const RoutesList = () => {
     const { user } = useAuthStore();
@@ -46,7 +47,10 @@ const RoutesList = () => {
             <Route path='/teachers' exact={true} element={<TeachersPage />} />
             <Route path='/food' exact={true} element={<FoodPage />} />
             <Route path='/mode' exact={true} element={<ModePage />} />
-            <Route path='/about' exact={true} element={<AboutPage />} />
+            <Route path='about'>
+                <Route index element={<AboutPage />} />
+                <Route path='group/:id' element={<GroupPage />} />
+            </Route>
         </Route>
     );
 
