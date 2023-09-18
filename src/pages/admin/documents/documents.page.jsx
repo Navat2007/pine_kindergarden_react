@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import useNewsStore from "../../../store/admin/newsStore";
+import useDocumentsStore from "../../../store/admin/documentsStore";
 import useAuthStore from "../../../store/authStore";
 
 import Table from "../../../components/admin/table/table.component";
@@ -12,14 +12,14 @@ import { AdminIcons } from "../../../components/svgs";
 const AdminDocumentsPage = () => {
     const { user } = useAuthStore();
     const navigate = useNavigate();
-    const newsStore = useNewsStore();
+    const store = useDocumentsStore();
 
     const onItemClick = (props) => {
-        navigate(`/admin/news/${props}`);
+        navigate(`/admin/documents/${props}`);
     };
 
     const fetchData = async () => {
-        await newsStore.loadAll();
+        await store.loadAll();
     };
 
     React.useEffect(() => {
@@ -36,23 +36,16 @@ const AdminDocumentsPage = () => {
         },
         {
             header: "Название",
-            key: "preview_title",
+            key: "titleShort",
             type: "string",
             filter: "string",
             sorting: true,
         },
         {
             header: "Дата",
-            key: "date",
+            key: "create_time",
             type: "datetime",
             filter: "date",
-            sorting: true,
-        },
-        {
-            header: "Статус",
-            key: "active",
-            type: "string",
-            filter: "select",
             sorting: true,
         },
     ];
@@ -60,8 +53,8 @@ const AdminDocumentsPage = () => {
     return (
         <Table
             title={"Таблица документов администратора" + user.ID}
-            loading={newsStore.loading}
-            items={newsStore.items}
+            loading={store.loading}
+            items={store.items}
             itemsConfig={itemConfig}
             onItemClick={onItemClick}
             withFilter={true}
@@ -70,7 +63,7 @@ const AdminDocumentsPage = () => {
                 type='button'
                 iconName={AdminIcons.plus}
                 aria-label='Добавить документ'
-                onClick={() => navigate("/admin/news/new")}
+                onClick={() => navigate("/admin/documents/new")}
             >
                 Создать
             </Button>

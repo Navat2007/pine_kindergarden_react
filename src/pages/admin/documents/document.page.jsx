@@ -1,10 +1,9 @@
 import React from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import createDOMPurify from "dompurify";
-import { useForm } from "react-hook-form";
-import moment from "moment";
+import {useForm} from "react-hook-form";
 
-import useNewsStore from "../../../store/admin/newsStore";
+import useDocumentsStore from "../../../store/admin/documentsStore";
 
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
@@ -13,55 +12,53 @@ import ImageGallery from "../../../components/general/image.gallery/image.galler
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import FieldUrl from "../../../components/admin/field/field.url.component";
-import { AdminIcons } from "../../../components/svgs";
+import {AdminIcons} from "../../../components/svgs";
 
 const AdminDocumentPage = (props) => {
-    let { id } = useParams();
+    let {id} = useParams();
     const navigate = useNavigate();
     const DOMPurify = createDOMPurify(window);
-    const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
+    const {register, handleSubmit, reset, control, setValue, getValues} = useForm();
 
-    const newsStore = useNewsStore();
+    const store = useDocumentsStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-        await newsStore.loadNews({ id });
+        await store.loadByID({id});
     };
 
     React.useEffect(() => {
         fetchData();
     }, [id]);
 
-    const back = () => navigate("/admin/news");
+    const back = () => navigate("/admin/documents");
 
     //Private component
     const Loading = () => {
-        if (newsStore.loading) {
-            return <TitleBlock title={`Загрузка...`} />;
+        if (store.loading) {
+            return <TitleBlock title={`Загрузка...`}/>;
         }
     };
 
     const NotFound = () => {
-        if (id && !newsStore.loading && Object.keys(newsStore.news).length === 0) {
-            return <TitleBlock title={`Новость не найдена`} onBack={back} />;
+        if (id && !store.loading && Object.keys(store.item).length === 0) {
+            return <TitleBlock title={`Документ не найден`} onBack={back}/>;
         }
     };
 
     const Article = () => {
         const Create = () => {
-            const [photo, setPhoto] = React.useState([]);
-            const [photoPreview, setPhotoPreview] = React.useState([]);
-            const [photoReview, setPhotoReview] = React.useState([]);
+            const [image, setImage] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
             const checkForComplete = (sendObject) => {
-                if (!sendObject.previewTitle) {
+                if (!sendObject.titleShort) {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Название для анонса должно быть заполнено."}
+                            text={"Краткое название должно быть заполнено."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -85,39 +82,11 @@ const AdminDocumentPage = (props) => {
                     return false;
                 }
 
-                if (sendObject.date === "") {
+                if (!sendObject.url) {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Дата должна быть заполнена."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.editorPreview || sendObject.editorPreview === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Описание для анонса должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.editorReview || sendObject.editorReview === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Детальное описание должно быть заполнено."}
+                            text={"Ссылка на документ должна быть заполнена."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -130,20 +99,18 @@ const AdminDocumentPage = (props) => {
                 return true;
             };
 
-            const onAddNews = async (params) => {
+            const onAdd = async (params) => {
                 const data = getValues();
 
-                let sendObject = { ...data };
+                let sendObject = {...data};
 
-                sendObject["previewImage"] = photoPreview;
-                sendObject["reviewImage"] = photoReview;
-                sendObject["images"] = photo;
+                sendObject["image"] = image;
 
                 if (!checkForComplete(sendObject)) return;
 
                 setSending(true);
 
-                const result = await newsStore.addNews(sendObject);
+                const result = await store.add(sendObject);
 
                 setSending(false);
 
@@ -175,33 +142,33 @@ const AdminDocumentPage = (props) => {
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание"} onBack={back} />
-                        <form onSubmit={handleSubmit(onAddNews)} className='admin-form'>
+                        <TitleBlock title={"Создание"} onBack={back}/>
+                        <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
                             <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                 <FieldText
                                     label={"Название документа (кратко)*"}
                                     required={true}
                                     placeholder={"Введите название"}
-                                    {...register("title")}
+                                    {...register("titleShort")}
                                 />
                                 <FieldText
                                     label={"Название документа (полностью)*"}
                                     required={true}
                                     placeholder={"Введите название"}
-                                    {...register("previewTitle")}
-                                />
-                                <h2 className='admin-form__title'>Картинка для превью документа</h2>
-                                <ImageSelector
-                                    items={photoPreview}
-                                    onlyOneImage={true}
-                                    multiFiles={false}
-                                    onChange={(items) => setPhotoPreview(items)}
+                                    {...register("title")}
                                 />
                                 <FieldUrl
                                     label={"Ссылка на документ*"}
                                     required={true}
                                     placeholder={"https://..."}
-                                    {...register("previewTitle")}
+                                    {...register("url")}
+                                />
+                                <h2 className='admin-form__title'>Картинка для превью документа</h2>
+                                <ImageSelector
+                                    items={image}
+                                    onlyOneImage={true}
+                                    multiFiles={false}
+                                    onChange={(items) => setImage(items)}
                                 />
                             </fieldset>
                             <div className='admin-form__controls'>
@@ -226,57 +193,46 @@ const AdminDocumentPage = (props) => {
         };
 
         const Edit = () => {
-            const [photo, setPhoto] = React.useState([]);
-            const [photoPreview, setPhotoPreview] = React.useState([]);
-            const [photoReview, setPhotoReview] = React.useState([]);
+            const [image, setImage] = React.useState(store.item.image
+                ? [
+                    {
+                        ID: store.item.ID,
+                        url: store.item.image,
+                        main: 1,
+                        order: 1,
+                        isFile: 1,
+                        isLoaded: 1,
+                    },
+                ]
+                : []);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
             React.useEffect(() => {
                 if (edit) {
-                    setValue("editorPreview", newsStore.news.preview_text);
-                    setValue("editorReview", newsStore.news.text);
-
-                    setPhotoPreview(
-                        newsStore.news.preview_image
+                    setImage(
+                        store.item.image
                             ? [
-                                  {
-                                      ID: newsStore.news.ID,
-                                      url: newsStore.news.preview_image,
-                                      main: 1,
-                                      order: 1,
-                                      isFile: 1,
-                                      isLoaded: 1,
-                                  },
-                              ]
+                                {
+                                    ID: store.item.ID,
+                                    url: store.item.image,
+                                    main: 1,
+                                    order: 1,
+                                    isFile: 1,
+                                    isLoaded: 1,
+                                },
+                            ]
                             : []
                     );
-
-                    setPhotoReview(
-                        newsStore.news.image
-                            ? [
-                                  {
-                                      ID: newsStore.news.ID,
-                                      url: newsStore.news.image,
-                                      main: 1,
-                                      order: 1,
-                                      isFile: 1,
-                                      isLoaded: 1,
-                                  },
-                              ]
-                            : []
-                    );
-
-                    setPhoto(newsStore.news.images ? newsStore.news.images : []);
                 }
             }, [edit]);
 
             const checkForComplete = (sendObject) => {
-                if (!sendObject.previewTitle) {
+                if (!sendObject.titleShort) {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Название для анонса должно быть заполнено."}
+                            text={"Краткое название должно быть заполнено."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -300,39 +256,11 @@ const AdminDocumentPage = (props) => {
                     return false;
                 }
 
-                if (sendObject.date === "") {
+                if (!sendObject.url) {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Дата должна быть заполнена."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.editorPreview || sendObject.editorPreview === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Описание для анонса должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.editorReview || sendObject.editorReview === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Детальное описание должно быть заполнено."}
+                            text={"Ссылка на документ должна быть заполнена."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -345,21 +273,19 @@ const AdminDocumentPage = (props) => {
                 return true;
             };
 
-            const onEditNews = async (params) => {
+            const onEdit = async (params) => {
                 const data = getValues();
 
-                let sendObject = { ...data };
+                let sendObject = {...data};
 
                 sendObject["id"] = id;
-                sendObject["previewImage"] = photoPreview;
-                sendObject["reviewImage"] = photoReview;
-                sendObject["images"] = photo;
+                sendObject["image"] = image;
 
                 if (!checkForComplete(sendObject)) return;
 
                 setSending(true);
 
-                const result = await newsStore.editNews(sendObject);
+                const result = await store.edit(sendObject);
 
                 setSending(false);
 
@@ -369,7 +295,7 @@ const AdminDocumentPage = (props) => {
                     setPopup(
                         <AlertPopup
                             title=''
-                            text={"Новость успешно отредактирована"}
+                            text={"Документ успешно отредактирован"}
                             opened={true}
                             onClose={() => {
                                 back();
@@ -407,9 +333,8 @@ const AdminDocumentPage = (props) => {
                                         let sendObject = {};
 
                                         sendObject["id"] = id;
-                                        sendObject["archive"] = 1;
 
-                                        const result = await newsStore.removeNews(sendObject);
+                                        const result = await store.remove(sendObject);
 
                                         if (!result.error) {
                                             setPopup(
@@ -445,72 +370,55 @@ const AdminDocumentPage = (props) => {
                 );
             };
 
-            const handleDeleteImages = async (item) => {
-                let sendObject = { ...item };
-
-                sendObject["place"] = "images";
-                sendObject["newsID"] = id;
-
-                const result = await newsStore.removeFile(sendObject);
-            };
-
             const handleDeletePreviewPhoto = async (item) => {
-                let sendObject = { ...item };
+                let sendObject = {...item};
 
-                sendObject["place"] = "preview";
-                sendObject["newsID"] = id;
+                sendObject["ID"] = id;
 
-                const result = await newsStore.removeFile(sendObject);
-            };
-
-            const handleDeleteReviewPhoto = async (item) => {
-                let sendObject = { ...item };
-
-                sendObject["place"] = "review";
-                sendObject["newsID"] = id;
-
-                const result = await newsStore.removeFile(sendObject);
+                const result = await store.removeFile(sendObject);
             };
 
             if (id && edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
-                        <form onSubmit={handleSubmit(onEditNews)} className='admin-form'>
+                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
+                        <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
                             <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                 <FieldText
                                     label={"Название документа (кратко)*"}
                                     required={true}
                                     placeholder={"Введите название"}
-                                    {...register("title", {
-                                        value: newsStore.news.title,
+                                    {...register("titleShort", {
+                                        value: store.item.titleShort,
                                     })}
                                 />
                                 <FieldText
                                     label={"Название документа (полностью)*"}
                                     required={true}
                                     placeholder={"Введите название"}
-                                    {...register("previewTitle", {
-                                        value: newsStore.news.preview_title,
+                                    {...register("title", {
+                                        value: store.item.title,
                                     })}
-                                />
-                                <h2 className='admin-form__title'>Картинка для превью документа</h2>
-                                <ImageSelector
-                                    items={photoPreview}
-                                    onlyOneImage={true}
-                                    multiFiles={false}
-                                    onChange={(items) => setPhotoPreview(items)}
-                                    onDelete={handleDeletePreviewPhoto}
                                 />
                                 <FieldUrl
                                     label={"Ссылка на документ*"}
                                     required={true}
                                     placeholder={"https://..."}
-                                    {...register("previewTitle")}
+                                    {...register("url", {
+                                        value: store.item.url,
+                                    })}
+                                />
+                                <h2 className='admin-form__title'>Картинка для превью документа</h2>
+                                <ImageSelector
+                                    items={image}
+                                    onlyOneImage={true}
+                                    multiFiles={false}
+                                    onChange={(items) => setImage(items)}
+                                    onDelete={handleDeletePreviewPhoto}
                                 />
                             </fieldset>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
+                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending}/>
                                 <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
                                     Удалить
                                 </Button>
@@ -533,10 +441,10 @@ const AdminDocumentPage = (props) => {
         };
 
         const View = () => {
-            if (id && !edit && !newsStore.loading && Object.keys(newsStore.news).length > 0) {
+            if (id && !edit && !store.loading && Object.keys(store.item).length > 0) {
                 return (
                     <>
-                        <TitleBlock title={`Документ ID: ${newsStore.news.ID}`} onBack={back}>
+                        <TitleBlock title={`Документ ID: ${store.item.ID}`} onBack={back}>
                             <Button
                                 type='submit'
                                 isIconBtn='true'
@@ -552,22 +460,22 @@ const AdminDocumentPage = (props) => {
                             <ul className='admin-view-section__list'>
                                 <li className='admin-view-section__item'>
                                     <h3 className='admin-view-section__label'>Название документа (кратко)</h3>
-                                    <p className='admin-view-section__description'>{newsStore.news.preview_title}</p>
+                                    <p className='admin-view-section__description'>{store.item.titleShort}</p>
                                 </li>
                                 <li className='admin-view-section__item'>
                                     <h3 className='admin-view-section__label'>Название документа (полностью)</h3>
-                                    <p className='admin-view-section__description'>{newsStore.news.title}</p>
+                                    <p className='admin-view-section__description'>{store.item.title}</p>
                                 </li>
                                 <li className='admin-view-section__item'>
                                     <h3 className='admin-view-section__label'>Ссылка на документ</h3>
                                     <p className='admin-view-section__description'>
                                         <NavLink
                                             className='admin-view-section__link'
-                                            to={"/news/" + id}
+                                            to={store.item.url}
                                             target={"_blank"}
                                             rel='noopener nofollow noreferer'
                                         >
-                                            На страницу {AdminIcons.open_in_new}
+                                            Открыть {AdminIcons.open_in_new}
                                         </NavLink>
                                     </p>
                                 </li>
@@ -576,7 +484,7 @@ const AdminDocumentPage = (props) => {
                             <ImageGallery
                                 items={[
                                     {
-                                        url: newsStore.news.preview_image,
+                                        url: store.item.image,
                                     },
                                 ]}
                                 front={false}
@@ -589,18 +497,18 @@ const AdminDocumentPage = (props) => {
 
         return (
             <>
-                <Create />
-                <Edit />
-                <View />
+                <Create/>
+                <Edit/>
+                <View/>
             </>
         );
     };
 
     return (
         <>
-            <Loading />
-            <Article />
-            <NotFound />
+            <Loading/>
+            <Article/>
+            <NotFound/>
         </>
     );
 };

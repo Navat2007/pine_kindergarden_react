@@ -1,13 +1,15 @@
 import axios from "axios";
 import create from 'zustand'
 
-const urlLoadAll = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/load.php';
-const urlLoadByID = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/load_by_id.php';
+const directory = 'news';
 
-const urlAdd = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/add.php';
-const urlEdit = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/edit.php';
-const urlRemove = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/remove.php';
-const urlRemoveFile = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/remove_file.php';
+const urlLoadAll = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load.php`;
+const urlLoadByID = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load_by_id.php`;
+
+const urlAdd = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/add.php`;
+const urlEdit = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/edit.php`;
+const urlRemove = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/remove.php`;
+const urlRemoveFile = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/remove_file.php`;
 
 const useNewsStore = create(
     (set, get) => ({

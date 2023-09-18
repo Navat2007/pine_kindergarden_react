@@ -1,7 +1,7 @@
 import axios from "axios";
 import create from 'zustand'
 
-const directory = 'lessons';
+const directory = 'documents';
 
 const urlLoadAll = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load.php`;
 const urlLoadByID = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load_by_id.php`;
@@ -11,7 +11,7 @@ const urlEdit = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/
 const urlRemove = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/remove.php`;
 const urlRemoveFile = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/remove_file.php`;
 
-const useLessonsStore = create(
+const useDocumentsStore = create(
     (set, get) => ({
         items: [],
         item: {},
@@ -168,4 +168,4 @@ const useLessonsStore = create(
     })
 );
 
-export default useLessonsStore;
+export default useDocumentsStore;
