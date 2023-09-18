@@ -34,7 +34,7 @@ const AdminAboutPage = () => {
 
         React.useEffect(() => {
             fetchData();
-        }, []);
+        }, [edit]);
 
         const Edit = () => {
             const [popup, setPopup] = React.useState(<></>);
@@ -79,7 +79,7 @@ const AdminAboutPage = () => {
                 return true;
             };
 
-            const onEdit = async (params) => {
+            const onEdit = async () => {
                 const data = getValues();
 
                 let sendObject = { ...data };
@@ -208,7 +208,7 @@ const AdminAboutPage = () => {
     const Groups = () => {
         const store = useGroupsStore();
 
-        const url = 'admin/groups';
+        const url = 'admin/about/groups';
 
         const onItemClick = (props) => {
             navigate(`/${url}/${props}`);
@@ -264,7 +264,7 @@ const AdminAboutPage = () => {
             <Button
                 type='button'
                 iconName={AdminIcons.plus}
-                aria-label='Добавить новость'
+                aria-label='Добавить группу'
                 onClick={() => navigate(`/${url}/new`)}
             >
                 Создать

@@ -90,8 +90,8 @@ const RoutesList = () => {
                 </Route>
                 <Route path='about'>
                     <Route index element={<AdminAboutPage />} />
-                    <Route path='group/:id' element={<AdminGroupPage />} />
-                    <Route path='group/new' element={<AdminGroupPage />} />
+                    <Route path='groups/:id' element={<AdminGroupPage />} />
+                    <Route path='groups/new' element={<AdminGroupPage />} />
                 </Route>
             </Route>
             <Route path='/profile' exact={true} element={<AdminLayout />}>
