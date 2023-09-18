@@ -19,7 +19,7 @@ const AdminDocumentsPage = () => {
     };
 
     const fetchData = async () => {
-        await newsStore.loadAll();
+        await newsStore.loadAllNews();
     };
 
     React.useEffect(() => {
@@ -59,9 +59,9 @@ const AdminDocumentsPage = () => {
 
     return (
         <Table
-            title={"Таблица новостей администратора" + user.ID}
+            title={"Таблица документов администратора" + user.ID}
             loading={newsStore.loading}
-            items={newsStore.items}
+            items={newsStore.allNews}
             itemsConfig={itemConfig}
             onItemClick={onItemClick}
             withFilter={true}
@@ -69,8 +69,8 @@ const AdminDocumentsPage = () => {
             <Button
                 type='button'
                 iconName={AdminIcons.plus}
-                aria-label='Добавить новость'
-                onClick={() => navigate("/admin/item/new")}
+                aria-label='Добавить документ'
+                onClick={() => navigate("/admin/news/new")}
             >
                 Создать
             </Button>
