@@ -28,6 +28,14 @@ const AdminAboutPage = () => {
         const store = useAboutStore();
         const [edit, setEdit] = React.useState(false);
 
+        const fetchData = async () => {
+            await store.load();
+        };
+
+        React.useEffect(() => {
+            fetchData();
+        }, []);
+
         const Edit = () => {
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
@@ -39,11 +47,11 @@ const AdminAboutPage = () => {
             }, [edit]);
 
             const checkForComplete = (sendObject) => {
-                if (!sendObject.previewTitle) {
+                if (!sendObject.preview || sendObject.preview === "<p><br></p>") {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Название для анонса должно быть заполнено."}
+                            text={"Краткое описание должно быть заполнено."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -53,49 +61,7 @@ const AdminAboutPage = () => {
                     return false;
                 }
 
-                if (!sendObject.title) {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Название должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (sendObject.date === "") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Дата должна быть заполнена."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.editorPreview || sendObject.editorPreview === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Описание для анонса должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.editorReview || sendObject.editorReview === "<p><br></p>") {
+                if (!sendObject.text || sendObject.text === "<p><br></p>") {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
@@ -214,7 +180,7 @@ const AdminAboutPage = () => {
                             <div
                                 className='admin-view-section__editor'
                                 dangerouslySetInnerHTML={{
-                                    __html: DOMPurify.sanitize(store.item.preview_text),
+                                    __html: DOMPurify.sanitize(store.item.preview),
                                 }}
                             />
                             <h2 className='admin-view-section__title'>Детальное описание</h2>

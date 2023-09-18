@@ -1,19 +1,13 @@
 import axios from "axios";
 import create from 'zustand'
 
-const directory = 'documents';
+const directory = 'about';
 
-const urlLoadAll = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load.php`;
-const urlLoadByID = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load_by_id.php`;
-
-const urlAdd = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/add.php`;
+const urlLoad = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load.php`;
 const urlEdit = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/edit.php`;
-const urlRemove = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/remove.php`;
-const urlRemoveFile = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/remove_file.php`;
 
 const useAboutStore = create(
     (set, get) => ({
-        items: [],
         item: {},
 
         loading: false,
@@ -28,32 +22,14 @@ const useAboutStore = create(
             set({error: false, errorText: ""});
         },
 
-        loadAll: async (params) => {
+        load: async (params) => {
 
             set({loading: true});
 
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.postForm(urlLoadAll, form);
-
-            set({loading: false});
-
-            if(response.data.params){
-
-                set((state) => ({items: response.data.params}));
-
-            }
-
-        },
-        loadByID: async (params) => {
-
-            set({loading: true});
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlLoadByID, form);
+            const response = await axios.postForm(urlLoad, form);
 
             set({loading: false});
 
@@ -64,88 +40,12 @@ const useAboutStore = create(
             }
 
         },
-
-        add: async (params) => {
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlAdd, form);
-
-            if (response.data) {
-
-                console.log(response.data);
-
-                if (response.data.error === 1) {
-
-                    return {
-                        error: true,
-                        errorText: response.data.error_text
-                    };
-
-                }
-
-            }
-
-            return {error: false};
-
-        },
         edit: async (params) => {
 
             let form = new FormData();
             window.global.buildFormData(form, params);
 
             const response = await axios.postForm(urlEdit, form);
-
-            if (response.data) {
-
-                console.log(response.data);
-
-                if (response.data.error === 1) {
-
-                    return {
-                        error: true,
-                        errorText: response.data.error_text
-                    };
-
-                }
-
-            }
-
-            return {error: false};
-
-        },
-        remove: async (params) => {
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlRemove, form);
-
-            if (response.data) {
-
-                console.log(response.data);
-
-                if (response.data.error === 1) {
-
-                    return {
-                        error: true,
-                        errorText: response.data.error_text
-                    };
-
-                }
-
-            }
-
-            return {error: false};
-
-        },
-        removeFile: async (params) => {
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlRemoveFile, form);
 
             if (response.data) {
 

@@ -6,6 +6,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 $ID = htmlspecialchars($_POST["id"]);
+$userID = $authorization[1];
 $login = htmlspecialchars($_POST["login"]);
 $email = htmlspecialchars($_POST["email"]);
 $password = htmlspecialchars($_POST["password"]);
@@ -27,7 +28,6 @@ $result = mysqli_query($conn, $sql);
 $admin_row = mysqli_fetch_object($result);
 
 if($admin_row->email != $email){
-
     $sql = "SELECT * FROM accounts WHERE email = '$email' AND archive = 0";
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
@@ -37,7 +37,6 @@ if($admin_row->email != $email){
         $error = 1;
         $error_text = "Такой email уже существует";
     }
-
 }
 
 if((int)$authorization[1] !== (int)$ID && ((int)$ID === 1 || (int)$ID === 2)){
@@ -46,8 +45,20 @@ if((int)$authorization[1] !== (int)$ID && ((int)$ID === 1 || (int)$ID === 2)){
 }
 
 if($error === 0){
-
-    $sql = "UPDATE accounts SET email = '$email', login = '$login', role = '$role', fio = '$fio', phone = '$phone', position = '$position', org_name = '$org_name', active = '$active', token = '' WHERE ID = '$ID' AND archive = '0'";
+    $sql = "UPDATE 
+                accounts 
+            SET 
+                email = '$email', 
+                login = '$login', 
+                role = '$role', 
+                fio = '$fio', 
+                phone = '$phone', 
+                position = '$position', 
+                org_name = '$org_name',
+                active = '$active', 
+                token = '', 
+                last_userID = '$userID' 
+            WHERE ID = '$ID' AND archive = '0'";
     $sqls[] = $sql;
     mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);
@@ -76,17 +87,14 @@ if($error === 0){
             mysqli_query($conn, $update_query);
 
             $helper->sendEmailWithPassword($conn, $email, $pwd, false);
-
         }
 
     }
 
     $log->add($conn, $authorization[1], 'Администратор отредактирован #' . $ID);
-
 }
 
 $content = (object)[
-
     'input_params' => (object)[
         'POST' => $_POST
     ],
@@ -94,6 +102,5 @@ $content = (object)[
     'error_text' => $error_text,
     'sql' => $sqls,
     'params' => $params,
-
 ];
 echo json_encode($content);

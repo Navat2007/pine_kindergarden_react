@@ -5,6 +5,7 @@ header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Aut
 require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
+$userID = $authorization[1];
 $email = mysqli_real_escape_string($conn, htmlspecialchars($_POST["email"]));
 $password = htmlspecialchars($_POST["password"]);
 $fio = mysqli_real_escape_string($conn, htmlspecialchars($_POST["fio"]));
@@ -31,7 +32,9 @@ if($error === 0){
 
     $new_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO accounts (email, pwd, role, fio, phone, active) VALUES ('$email', '$new_password', '$role', '$fio', '$phone', '$active')";
+    $sql = "INSERT INTO 
+                accounts (email, pwd, role, fio, phone, active, userID, last_userID) 
+            VALUES ('$email', '$new_password', '$role', '$fio', '$phone', '$active', '$userID', '$userID')";
     $sqls[] = $sql;
     mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);
