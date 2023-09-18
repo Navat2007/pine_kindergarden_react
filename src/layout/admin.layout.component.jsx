@@ -35,11 +35,11 @@ const AdminLayout = () => {
             icon: MenuIcons.food,
             link: "/admin/food",
         },
-        {
-            title: "Режим",
-            icon: MenuIcons.mode,
-            link: "/admin/mode",
-        },
+        // {
+        //     title: "Режим",
+        //     icon: MenuIcons.mode,
+        //     link: "/admin/mode",
+        // },
         {
             title: "Новости",
             icon: MenuIcons.news,

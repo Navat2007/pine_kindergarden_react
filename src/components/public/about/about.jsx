@@ -1,8 +1,8 @@
 import React from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-import { NavLink, useParams } from "react-router-dom";
+import createDOMPurify from "dompurify";
 
-import useTeachersStore from "../../../store/public/teachersStore";
+import useAboutStore from "../../../store/public/aboutStore";
 
 import "./about.scss";
 import about__image from "../../../images/about__image.jpg";
@@ -16,6 +16,19 @@ import person_3 from "../../../images/person_3.jpg";
 import person_4 from "../../../images/person_4.jpg";
 
 const About = () => {
+    const DOMPurify = createDOMPurify(window);
+    const store = useAboutStore();
+
+    const fetchData = async () => {
+        await store.load();
+    };
+
+    React.useEffect(() => {
+        fetchData();
+    }, []);
+
+    console.log(store);
+
     return (
         <>
             <section className='about about_contain_inner main-section'>
@@ -25,14 +38,11 @@ const About = () => {
                 <div className='about__column'>
                     <div className='about__text'>
                         <h2 className='about__title'>О нас</h2>
-                        <p>
-                            Детский сад СОСНЫ <br />
-                            расположен вдали от города и шумный дорог, там, где кругом лес и свежий воздух.
-                        </p>
-                        <br />
-                        <p>
-                            Мы принимаем детей в группы <br />с 3 лет до прекращения образовательных отношений (7-8 лет)
-                        </p>
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(store.item.preview),
+                            }}
+                        />
                     </div>
                     <img
                         className='about__image'
@@ -43,25 +53,11 @@ const About = () => {
             </section>
             <section className='about about_bg_light-primary main-section' aria-label='Описание о нас'>
                 <div className='about__inner about__inner_bg_half-image'>
-                    <div className='about__description'>
-                        <p>
-                            Именно в детском саду у ребенка вырабатываются первые навыки общения, способствующие его
-                            дальнейшей социализации. Уже в два года дети активно идут на контакт как со взрослыми, так
-                            и со сверстниками. У малыша могут появиться первые друзья, он учится взаимодействовать
-                            с коллективом, находить выход из конфликтных ситуаций.
-                        </p>
-                        <p>
-                            Программа дошкольного учреждения ориентирована на всестороннее развитие личности ребенка.
-                            Для этого воспитатели проводят многочисленные занятия различной направленности. Большое
-                            внимание уделяется физической культуре, ведь именно от нее зависит здоровье будущего
-                            поколения. Ребята делают утреннюю зарядку, посещают спортивные занятия. Детский сад создает
-                            благоприятные условия для развития творческих способностей. Малыши занимаются пением,
-                            танцами, рисованием, лепкой, изготавливают поделки. Дети средней и старшей группы принимают
-                            участие в торжественных утренниках, ставят интересные номера, разыгрывают сценки. Также
-                            воспитатели проводят занятия, направленные на воспитание у детей чувства патриотизма, любви
-                            к родному краю и т. д.
-                        </p>
-                    </div>
+                    <div className='about__description'
+                         dangerouslySetInnerHTML={{
+                             __html: DOMPurify.sanitize(store.item.text),
+                         }}
+                    />
                 </div>
             </section>
             <section className='about about_contain_inner main-section'>

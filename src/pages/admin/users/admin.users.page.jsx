@@ -222,7 +222,6 @@ const AdminUsersPage = () => {
                                     </Button>
                                     <Button
                                         type='button'
-                                        text={"Да"}
                                         size='small'
                                         theme={"info"}
                                         onClick={() => {

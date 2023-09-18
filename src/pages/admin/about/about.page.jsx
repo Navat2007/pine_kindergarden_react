@@ -239,7 +239,7 @@ const AdminAboutPage = () => {
             },
             {
                 header: "Дата",
-                key: "date",
+                key: "create_time",
                 type: "datetime",
                 filter: "date",
                 sorting: true,

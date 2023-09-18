@@ -11,6 +11,7 @@ import Editor from "../../../components/general/reach_editor/editor.component";
 import ImageSelector from "../../../components/general/image.selector/image.selector.component";
 import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
+import MultiSelect from "../../../components/general/multi_select/multi_select.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 
 import { AdminIcons } from "../../../components/svgs";
@@ -137,6 +138,22 @@ const AdminGroupPage = (props) => {
                                     required={true}
                                     placeholder={"Введите название"}
                                     {...register("title")}
+                                />
+                                <p className='admin-form__subtitle'>Воспитатели</p>
+                                <MultiSelect
+                                    required={true}
+                                    control={control}
+                                    isMulti={true}
+                                    name={"teachers_select"}
+                                    closeMenuOnSelect={false}
+                                    options={store.teachers?.map(
+                                        (item) => {
+                                            return {
+                                                label: item.title,
+                                                value: item.ID,
+                                            };
+                                        }
+                                    )}
                                 />
                                 <p className='admin-form__subtitle'>Фотография</p>
                                 <ImageSelector
@@ -348,6 +365,30 @@ const AdminGroupPage = (props) => {
                                     {...register("title", {
                                         value: store.item.title,
                                     })}
+                                />
+                                <p className='admin-form__subtitle'>Воспитатели</p>
+                                <MultiSelect
+                                    required={true}
+                                    control={control}
+                                    isMulti={true}
+                                    name={"teachers_select"}
+                                    closeMenuOnSelect={false}
+                                    values={store.teachers?.map(
+                                        (item) => {
+                                            return {
+                                                label: item.title,
+                                                value: item.ID,
+                                            };
+                                        }
+                                    )}
+                                    options={store.teachers?.map(
+                                        (item) => {
+                                            return {
+                                                label: item.title,
+                                                value: item.ID,
+                                            };
+                                        }
+                                    )}
                                 />
                                 <p className='admin-form__subtitle'>Фотография</p>
                                 <ImageSelector

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import "./tabs.scss";
 
 const Tabs = ({ extraClass, theme, children }) => {
-    const [activeTab, setActiveTab] = React.useState(0);
+    const [activeTab, setActiveTab] = React.useState(window.localStorage.getItem(`${children?.props?.title}_tab`) ? parseInt(window.localStorage.getItem(`${children?.props?.title}_tab`)) : 0);
 
     if (!children.length)
         return (
@@ -18,7 +18,10 @@ const Tabs = ({ extraClass, theme, children }) => {
                 {children.map((child, index) => (
                     <li
                         key={child.props.title}
-                        onClick={() => setActiveTab(index)}
+                        onClick={() => {
+                            window.localStorage.setItem(`${children?.props?.title}_tab`, index);
+                            setActiveTab(index)
+                        }}
                         className={`tabs__item${index === activeTab ? ` tabs__item_active` : ``}${
                             child.props.hidden ? ` --hide` : ``
                         }`}
