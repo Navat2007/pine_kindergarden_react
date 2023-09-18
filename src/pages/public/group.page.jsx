@@ -7,6 +7,7 @@ import useGroupsStore from "../../store/public/groupsStore";
 const GroupPage = () => {
     let {id} = useParams();
     const DOMPurify = createDOMPurify(window);
+
     const store = useGroupsStore();
 
     const fetchData = async () => {
