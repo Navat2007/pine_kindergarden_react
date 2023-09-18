@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 
 import "./field.scss";
 
-const FieldDate = ({ errorText, extraClass, label = "", placeholder = "", type, required = false, ...rest }, ref) => {
+const FieldDate = ({ errorText, extraClass, label = "", placeholder = "", type = "date", required = false, ...rest }, ref) => {
     const id = window.global.makeid(8);
 
     return (
