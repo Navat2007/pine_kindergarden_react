@@ -43,7 +43,7 @@ const AdminLayout = () => {
         {
             title: "Новости",
             icon: MenuIcons.news,
-            link: "/admin/item",
+            link: "/admin/news",
         },
         {
             title: "О нас",
