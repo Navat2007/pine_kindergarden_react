@@ -42,11 +42,11 @@ function getPhoto($ID)
 $id = htmlspecialchars($_POST["id"]);
 
 $sql = "SELECT 
-        news.*
+        item.*
     FROM 
-        news as news
+        item as item
     WHERE 
-        news.ID = '$id'";
+        item.ID = '$id'";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 

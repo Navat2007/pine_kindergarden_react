@@ -1,15 +1,15 @@
 import axios from "axios";
 import create from 'zustand'
 
-const urlLoadAll = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/load.php';
-const urlLoadByID = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/load_by_id.php';
+const urlLoadAll = process.env.REACT_APP_BASE_URL + 'php/models/admin/lessons/load.php';
+const urlLoadByID = process.env.REACT_APP_BASE_URL + 'php/models/admin/lessons/load_by_id.php';
 
-const urlAdd = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/add.php';
-const urlEdit = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/edit.php';
-const urlRemove = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/remove.php';
-const urlRemoveFile = process.env.REACT_APP_BASE_URL + 'php/models/admin/news/remove_file.php';
+const urlAdd = process.env.REACT_APP_BASE_URL + 'php/models/admin/lessons/add.php';
+const urlEdit = process.env.REACT_APP_BASE_URL + 'php/models/admin/lessons/edit.php';
+const urlRemove = process.env.REACT_APP_BASE_URL + 'php/models/admin/lessons/remove.php';
+const urlRemoveFile = process.env.REACT_APP_BASE_URL + 'php/models/admin/lessons/remove_file.php';
 
-const useNewsStore = create(
+const useLessonsStore = create(
     (set, get) => ({
         items: [],
         item: {},
@@ -166,4 +166,4 @@ const useNewsStore = create(
     })
 );
 
-export default useNewsStore;
+export default useLessonsStore;

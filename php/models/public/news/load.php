@@ -6,11 +6,11 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $sql = "SELECT 
-        news.ID, news.preview_title, news.preview_text, news.preview_image, news.date, news.active
+        item.ID, item.preview_title, item.preview_text, item.preview_image, item.date, item.active
     FROM 
-        news as news
+        item as item
     WHERE 
-        news.archive = '0' AND news.active = '1' AND news.date <= NOW()
+        item.archive = '0' AND item.active = '1' AND item.date <= NOW()
     ORDER BY date DESC";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);

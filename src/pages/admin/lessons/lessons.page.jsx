@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
-import useNewsStore from "../../../store/admin/newsStore";
-import useAuthStore from "../../../store/authStore";
 import { Helmet } from "react-helmet";
+
+import useLessonsStore from "../../../store/admin/lessonsStore";
+import useAuthStore from "../../../store/authStore";
 
 import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
@@ -13,14 +13,14 @@ import { AdminIcons } from "../../../components/svgs";
 const AdminLessonsPage = () => {
     const { user } = useAuthStore();
     const navigate = useNavigate();
-    const newsStore = useNewsStore();
+    const store = useLessonsStore();
 
     const onItemClick = (props) => {
         navigate(`/admin/lessons/${props}`);
     };
 
     const fetchData = async () => {
-        await newsStore.loadAllNews();
+        await store.loadAll();
     };
 
     React.useEffect(() => {
@@ -44,16 +44,9 @@ const AdminLessonsPage = () => {
         },
         {
             header: "Дата",
-            key: "date",
+            key: "create_time",
             type: "datetime",
             filter: "date",
-            sorting: true,
-        },
-        {
-            header: "Статус",
-            key: "active",
-            type: "string",
-            filter: "select",
             sorting: true,
         },
     ];
@@ -65,8 +58,8 @@ const AdminLessonsPage = () => {
             </Helmet>
             <Table
                 title={"Таблица занятий " + user.ID}
-                loading={newsStore.loading}
-                items={newsStore.allNews}
+                loading={store.loading}
+                items={store.items}
                 itemsConfig={itemConfig}
                 onItemClick={onItemClick}
                 withFilter={true}

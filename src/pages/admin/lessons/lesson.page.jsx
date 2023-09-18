@@ -1,9 +1,9 @@
 import React from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import createDOMPurify from "dompurify";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 
-import useNewsStore from "../../../store/admin/newsStore";
+import useLessonsStore from "../../../store/admin/lessonsStore";
 
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
@@ -11,65 +11,50 @@ import Editor from "../../../components/general/reach_editor/editor.component";
 import ImageSelector from "../../../components/general/image.selector/image.selector.component";
 import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
+
 import FieldText from "../../../components/admin/field/field.text.component";
-import { AdminIcons } from "../../../components/svgs";
+import {AdminIcons} from "../../../components/svgs";
 
 const AdminLessonPage = (props) => {
-    let { id } = useParams();
+    let {id} = useParams();
     const navigate = useNavigate();
     const DOMPurify = createDOMPurify(window);
-    const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
+    const {register, handleSubmit, reset, control, setValue, getValues} = useForm();
 
-    const newsStore = useNewsStore();
+    const store = useLessonsStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-        await newsStore.loadNews({ id });
+        await store.loadByID({id});
     };
 
     React.useEffect(() => {
         fetchData();
     }, [id]);
 
-    const back = () => navigate("/admin/news");
+    const back = () => navigate("/admin/lessons");
 
     //Private component
     const Loading = () => {
-        if (newsStore.loading) {
-            return <TitleBlock title={`Загрузка...`} />;
+        if (store.loading) {
+            return <TitleBlock title={`Загрузка...`}/>;
         }
     };
 
     const NotFound = () => {
-        if (id && !newsStore.loading && Object.keys(newsStore.news).length === 0) {
-            return <TitleBlock title={`Занятия не найдены`} onBack={back} />;
+        if (id && !store.loading && Object.keys(store.item).length === 0) {
+            return <TitleBlock title={`Занятия не найдены`} onBack={back}/>;
         }
     };
 
     const Article = () => {
         const Create = () => {
-            const [photo, setPhoto] = React.useState([]);
             const [photoPreview, setPhotoPreview] = React.useState([]);
-            const [photoReview, setPhotoReview] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
             const checkForComplete = (sendObject) => {
-                if (!sendObject.previewTitle) {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Название для анонса должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
                 if (!sendObject.title) {
                     setPopup(
                         <AlertPopup
@@ -84,39 +69,11 @@ const AdminLessonPage = (props) => {
                     return false;
                 }
 
-                if (sendObject.date === "") {
+                if (!sendObject.text || sendObject.text === "<p><br></p>") {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Дата должна быть заполнена."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.editorPreview || sendObject.editorPreview === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Описание для анонса должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.editorReview || sendObject.editorReview === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Детальное описание должно быть заполнено."}
+                            text={"Описание должно быть заполнено."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -129,20 +86,18 @@ const AdminLessonPage = (props) => {
                 return true;
             };
 
-            const onAddNews = async (params) => {
+            const onAdd = async (params) => {
                 const data = getValues();
 
-                let sendObject = { ...data };
+                let sendObject = {...data};
 
-                sendObject["previewImage"] = photoPreview;
-                sendObject["reviewImage"] = photoReview;
-                sendObject["images"] = photo;
+                sendObject["image"] = photoPreview;
 
                 if (!checkForComplete(sendObject)) return;
 
                 setSending(true);
 
-                const result = await newsStore.addNews(sendObject);
+                const result = await store.add(sendObject);
 
                 setSending(false);
 
@@ -174,8 +129,8 @@ const AdminLessonPage = (props) => {
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание"} onBack={back} />
-                        <form onSubmit={handleSubmit(onAddNews)} className='admin-form'>
+                        <TitleBlock title={"Создание"} onBack={back}/>
+                        <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
                             <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                 <FieldText
                                     label={"Название*"}
@@ -185,19 +140,19 @@ const AdminLessonPage = (props) => {
                                 />
                                 <p className='admin-form__subtitle'>Фотография</p>
                                 <ImageSelector
-                                    items={photoReview}
+                                    items={photoPreview}
                                     onlyOneImage={true}
                                     multiFiles={false}
-                                    onChange={(items) => setPhotoReview(items)}
+                                    onChange={(items) => setPhotoPreview(items)}
                                 />
                             </fieldset>
                             <fieldset className='admin-form__section'>
                                 <p className='admin-form__subtitle'>Детальное описание</p>
                                 <Editor
                                     control={control}
-                                    name='editorReview'
+                                    name='text'
                                     minHeight={250}
-                                    buttons={{ link: true }}
+                                    buttons={{link: true}}
                                 />
                             </fieldset>
                             <div className='admin-form__controls'>
@@ -222,66 +177,32 @@ const AdminLessonPage = (props) => {
         };
 
         const Edit = () => {
-            const [photo, setPhoto] = React.useState([]);
             const [photoPreview, setPhotoPreview] = React.useState([]);
-            const [photoReview, setPhotoReview] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
             React.useEffect(() => {
                 if (edit) {
-                    setValue("editorPreview", newsStore.news.preview_text);
-                    setValue("editorReview", newsStore.news.text);
+                    setValue("text", store.item.text);
 
                     setPhotoPreview(
-                        newsStore.news.preview_image
+                        store.item.image
                             ? [
-                                  {
-                                      ID: newsStore.news.ID,
-                                      url: newsStore.news.preview_image,
-                                      main: 1,
-                                      order: 1,
-                                      isFile: 1,
-                                      isLoaded: 1,
-                                  },
-                              ]
+                                {
+                                    ID: store.item.ID,
+                                    url: store.item.image,
+                                    main: 1,
+                                    order: 1,
+                                    isFile: 1,
+                                    isLoaded: 1,
+                                },
+                            ]
                             : []
                     );
-
-                    setPhotoReview(
-                        newsStore.news.image
-                            ? [
-                                  {
-                                      ID: newsStore.news.ID,
-                                      url: newsStore.news.image,
-                                      main: 1,
-                                      order: 1,
-                                      isFile: 1,
-                                      isLoaded: 1,
-                                  },
-                              ]
-                            : []
-                    );
-
-                    setPhoto(newsStore.news.images ? newsStore.news.images : []);
                 }
             }, [edit]);
 
             const checkForComplete = (sendObject) => {
-                if (!sendObject.previewTitle) {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Название для анонса должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
                 if (!sendObject.title) {
                     setPopup(
                         <AlertPopup
@@ -296,39 +217,11 @@ const AdminLessonPage = (props) => {
                     return false;
                 }
 
-                if (sendObject.date === "") {
+                if (!sendObject.text || sendObject.text === "<p><br></p>") {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Дата должна быть заполнена."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.editorPreview || sendObject.editorPreview === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Описание для анонса должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.editorReview || sendObject.editorReview === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Детальное описание должно быть заполнено."}
+                            text={"Описание должно быть заполнено."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -341,21 +234,19 @@ const AdminLessonPage = (props) => {
                 return true;
             };
 
-            const onEditNews = async (params) => {
+            const onEdit = async (params) => {
                 const data = getValues();
 
-                let sendObject = { ...data };
+                let sendObject = {...data};
 
                 sendObject["id"] = id;
-                sendObject["previewImage"] = photoPreview;
-                sendObject["reviewImage"] = photoReview;
-                sendObject["images"] = photo;
+                sendObject["image"] = photoPreview;
 
                 if (!checkForComplete(sendObject)) return;
 
                 setSending(true);
 
-                const result = await newsStore.editNews(sendObject);
+                const result = await store.edit(sendObject);
 
                 setSending(false);
 
@@ -365,7 +256,7 @@ const AdminLessonPage = (props) => {
                     setPopup(
                         <AlertPopup
                             title=''
-                            text={"Новость успешно отредактирована"}
+                            text={"Занятие успешно отредактировано"}
                             opened={true}
                             onClose={() => {
                                 back();
@@ -403,15 +294,14 @@ const AdminLessonPage = (props) => {
                                         let sendObject = {};
 
                                         sendObject["id"] = id;
-                                        sendObject["archive"] = 1;
 
-                                        const result = await newsStore.removeNews(sendObject);
+                                        const result = await store.remove(sendObject);
 
                                         if (!result.error) {
                                             setPopup(
                                                 <AlertPopup
                                                     title=''
-                                                    text={"Новость удалена"}
+                                                    text={"Занятие удалено"}
                                                     opened={true}
                                                     onClose={() => {
                                                         setPopup(<></>);
@@ -441,45 +331,26 @@ const AdminLessonPage = (props) => {
                 );
             };
 
-            const handleDeleteImages = async (item) => {
-                let sendObject = { ...item };
-
-                sendObject["place"] = "images";
-                sendObject["newsID"] = id;
-
-                const result = await newsStore.removeFile(sendObject);
-            };
-
             const handleDeletePreviewPhoto = async (item) => {
-                let sendObject = { ...item };
+                let sendObject = {...item};
 
-                sendObject["place"] = "preview";
-                sendObject["newsID"] = id;
+                sendObject["ID"] = id;
 
-                const result = await newsStore.removeFile(sendObject);
-            };
-
-            const handleDeleteReviewPhoto = async (item) => {
-                let sendObject = { ...item };
-
-                sendObject["place"] = "review";
-                sendObject["newsID"] = id;
-
-                const result = await newsStore.removeFile(sendObject);
+                const result = await store.removeFile(sendObject);
             };
 
             if (id && edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
-                        <form onSubmit={handleSubmit(onEditNews)} className='admin-form'>
+                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
+                        <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
                             <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                 <FieldText
                                     label={"Название*"}
                                     required={true}
                                     placeholder={"Введите название"}
                                     {...register("title", {
-                                        value: newsStore.news.title,
+                                        value: store.item.title,
                                     })}
                                 />
                                 <p className='admin-form__subtitle'>Фотография</p>
@@ -495,26 +366,24 @@ const AdminLessonPage = (props) => {
                                 <p className='admin-form__subtitle'>Детальное описание</p>
                                 <Editor
                                     control={control}
-                                    name='editorReview'
+                                    name='text'
                                     minHeight={250}
-                                    buttons={{ link: true }}
+                                    buttons={{link: true}}
                                 />
                             </fieldset>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
-                                <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
-                                    Удалить
-                                </Button>
+                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending}/>
+                                <Button type='button' theme='text' text='Удалить' onClick={onDelete}
+                                        spinnerActive={sending}/>
                                 <Button
                                     type='button'
                                     theme='text'
+                                    text='Отмена'
                                     onClick={() => {
                                         setEdit(false);
                                     }}
                                     spinnerActive={sending}
-                                >
-                                    Отмена
-                                </Button>
+                                />
                             </div>
                         </form>
                         {popup}
@@ -524,10 +393,10 @@ const AdminLessonPage = (props) => {
         };
 
         const View = () => {
-            if (id && !edit && !newsStore.loading && Object.keys(newsStore.news).length > 0) {
+            if (id && !edit && !store.loading && Object.keys(store.item).length > 0) {
                 return (
                     <>
-                        <TitleBlock title={`Занятие ID: ${newsStore.news.ID}`} onBack={back}>
+                        <TitleBlock title={`Занятие ID: ${store.item.ID}`} onBack={back}>
                             <Button
                                 type='submit'
                                 isIconBtn='true'
@@ -546,7 +415,7 @@ const AdminLessonPage = (props) => {
                                     <p className='admin-view-section__description'>
                                         <NavLink
                                             className='admin-view-section__link'
-                                            to={"/news/" + id}
+                                            to={"/item/" + id}
                                             target={"_blank"}
                                             rel='noopener nofollow noreferer'
                                         >
@@ -556,14 +425,14 @@ const AdminLessonPage = (props) => {
                                 </li>
                                 <li className='admin-view-section__item'>
                                     <h3 className='admin-view-section__label'>Название</h3>
-                                    <p className='admin-view-section__description'>{newsStore.news.preview_title}</p>
+                                    <p className='admin-view-section__description'>{store.item.title}</p>
                                 </li>
                             </ul>
                             <h2 className='admin-view-section__title'>Фотография</h2>
                             <ImageGallery
                                 items={[
                                     {
-                                        url: newsStore.news.preview_image,
+                                        url: store.item.image,
                                     },
                                 ]}
                                 front={false}
@@ -572,7 +441,7 @@ const AdminLessonPage = (props) => {
                             <div
                                 className='admin-view-section__editor'
                                 dangerouslySetInnerHTML={{
-                                    __html: DOMPurify.sanitize(newsStore.news.text),
+                                    __html: DOMPurify.sanitize(store.item.text),
                                 }}
                             />
                         </section>
@@ -583,18 +452,18 @@ const AdminLessonPage = (props) => {
 
         return (
             <>
-                <Create />
-                <Edit />
-                <View />
+                <Create/>
+                <Edit/>
+                <View/>
             </>
         );
     };
 
     return (
         <>
-            <Loading />
-            <Article />
-            <NotFound />
+            <Loading/>
+            <Article/>
+            <NotFound/>
         </>
     );
 };

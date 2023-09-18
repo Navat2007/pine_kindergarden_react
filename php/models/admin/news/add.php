@@ -19,7 +19,7 @@ $previewImage = $_POST["previewImage"];
 $reviewImage = $_POST["reviewImage"];
 $images = $_POST["images"];
 
-$sql = "SELECT * FROM news WHERE title = '$title' AND archive = 0";
+$sql = "SELECT * FROM item WHERE title = '$title' AND archive = 0";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
@@ -31,7 +31,7 @@ if (mysqli_num_rows($result) > 0) {
 if ($error === 0) {
 
     $sql = "
-        INSERT INTO news (preview_title, title, date, text, preview_text, show_on_main_page, active, userID, last_userID) 
+        INSERT INTO item (preview_title, title, date, text, preview_text, show_on_main_page, active, userID, last_userID) 
         VALUES ('$previewTitle', '$title', '$date', '$review', '$preview', '$mainPage', '$active', '$userID', '$userID')
     ";
     $sqls[] = $sql;
@@ -52,7 +52,7 @@ if ($error === 0) {
 
                 $url = "";
 
-                $helper->createDir("/files/news/" . $lastID);
+                $helper->createDir("/files/item/" . $lastID);
 
                 $temp_name = $_FILES['previewImage']['tmp_name'][$i]['file'];
                 $name = $_FILES['previewImage']['name'][$i]['file'];
@@ -62,20 +62,20 @@ if ($error === 0) {
 
                 $file_token = $helper->gen_token();
 
-                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/news/" . $lastID . "/" . $file_token . "_" . $name;
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/item/" . $lastID . "/" . $file_token . "_" . $name;
 
                 @unlink($path);
 
                 if(copy($temp_name, $path))
                 {
-                    $url = "/files/news/" . $lastID . "/" . $file_token . "_" . $name;
+                    $url = "/files/item/" . $lastID . "/" . $file_token . "_" . $name;
                 }
 
             }
 
             $sql = "
             UPDATE 
-                news
+                item
             SET
                 preview_image = '$url'
             WHERE 
@@ -105,7 +105,7 @@ if ($error === 0) {
 
                 $url = "";
 
-                $helper->createDir("/files/news/" . $lastID);
+                $helper->createDir("/files/item/" . $lastID);
 
                 $temp_name = $_FILES['reviewImage']['tmp_name'][$i]['file'];
                 $name = $_FILES['reviewImage']['name'][$i]['file'];
@@ -115,20 +115,20 @@ if ($error === 0) {
 
                 $file_token = $helper->gen_token();
 
-                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/news/" . $lastID . "/" . $file_token . "_" . $name;
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/item/" . $lastID . "/" . $file_token . "_" . $name;
 
                 @unlink($path);
 
                 if(copy($temp_name, $path))
                 {
-                    $url = "/files/news/" . $lastID . "/" . $file_token . "_" . $name;
+                    $url = "/files/item/" . $lastID . "/" . $file_token . "_" . $name;
                 }
 
             }
 
             $sql = "
             UPDATE 
-                news
+                item
             SET
                 image = '$url'
             WHERE 
@@ -158,7 +158,7 @@ if ($error === 0) {
 
                 $url = "";
 
-                $helper->createDir("/files/news/" . $lastID);
+                $helper->createDir("/files/item/" . $lastID);
 
                 $temp_name = $_FILES['images']['tmp_name'][$i]['file'];
                 $name = $_FILES['images']['name'][$i]['file'];
@@ -168,13 +168,13 @@ if ($error === 0) {
 
                 $file_token = $helper->gen_token();
 
-                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/news/" . $lastID . "/" . $file_token . "_" . $name;
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/item/" . $lastID . "/" . $file_token . "_" . $name;
 
                 @unlink($path);
 
                 if(copy($temp_name, $path))
                 {
-                    $url = "/files/news/" . $lastID . "/" . $file_token . "_" . $name;
+                    $url = "/files/item/" . $lastID . "/" . $file_token . "_" . $name;
 
                     $sql = "
                     INSERT INTO news_images (newsID, url, main, photo_order)

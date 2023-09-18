@@ -26,13 +26,13 @@ switch ($place){
         break;
 
     case "preview":
-        $sql = "UPDATE news SET preview_image = '' WHERE ID = '$newsID'";
+        $sql = "UPDATE item SET preview_image = '' WHERE ID = '$newsID'";
         $sqls[] = $sql;
         $result = mysqli_query($conn, $sql);
         break;
 
     case "review":
-        $sql = "UPDATE news SET image = '' WHERE ID = '$newsID'";
+        $sql = "UPDATE item SET image = '' WHERE ID = '$newsID'";
         $sqls[] = $sql;
         $result = mysqli_query($conn, $sql);
         break;

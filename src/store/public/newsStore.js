@@ -1,9 +1,9 @@
 import axios from "axios";
 import create from 'zustand'
 
-const urlLoadAllNews = process.env.REACT_APP_BASE_URL + 'php/models/public/news/load.php';
-const urlLoadNews = process.env.REACT_APP_BASE_URL + 'php/models/public/news/load_by_id.php';
-const urlLoadLastNewsForMainPage = process.env.REACT_APP_BASE_URL + 'php/models/public/news/load_last_for_main_page.php';
+const urlLoadAllNews = process.env.REACT_APP_BASE_URL + 'php/models/public/item/load.php';
+const urlLoadNews = process.env.REACT_APP_BASE_URL + 'php/models/public/item/load_by_id.php';
+const urlLoadLastNewsForMainPage = process.env.REACT_APP_BASE_URL + 'php/models/public/item/load_last_for_main_page.php';
 
 const useNewsStore = create(
     (set, get) => ({

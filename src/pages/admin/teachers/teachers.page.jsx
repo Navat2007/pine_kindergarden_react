@@ -19,7 +19,7 @@ const AdminTeachersPage = () => {
     };
 
     const fetchData = async () => {
-        await newsStore.loadAllNews();
+        await newsStore.loadAll();
     };
 
     React.useEffect(() => {
@@ -61,7 +61,7 @@ const AdminTeachersPage = () => {
         <Table
             title={"Таблица новостей администратора" + user.ID}
             loading={newsStore.loading}
-            items={newsStore.allNews}
+            items={newsStore.items}
             itemsConfig={itemConfig}
             onItemClick={onItemClick}
             withFilter={true}
@@ -70,7 +70,7 @@ const AdminTeachersPage = () => {
                 type='button'
                 iconName={AdminIcons.plus}
                 aria-label='Добавить новость'
-                onClick={() => navigate("/admin/news/new")}
+                onClick={() => navigate("/admin/item/new")}
             >
                 Создать
             </Button>

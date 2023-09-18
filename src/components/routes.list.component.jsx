@@ -58,7 +58,7 @@ const RoutesList = () => {
                     <Route path='admin/:id' element={<AdminUsersPage />} />
                     <Route path='admin/new' element={<AdminUsersPage />} />
                 </Route>
-                <Route path='news'>
+                <Route path='item'>
                     <Route index element={<AdminAllNewsPage />} />
                     <Route path=':id' element={<AdminNewsPage />} />
                     <Route path='new' element={<AdminNewsPage />} />

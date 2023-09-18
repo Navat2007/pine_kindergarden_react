@@ -7,12 +7,10 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $sql = "SELECT 
-        item.ID, item.preview_title, item.date, item.active
+        ID, title, create_time
     FROM 
-        item as item
-    WHERE 
-        item.archive = '0'
-    ORDER BY date DESC";
+        lessons
+    ORDER BY create_time DESC";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
@@ -20,11 +18,9 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_object($result)) {
 
         $params[] = (object)[
-
             'ID' => (int)$row->ID,
-            'preview_title' => htmlspecialchars_decode($row->preview_title),
-            'date' => $row->date,
-            'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
+            'title' => htmlspecialchars_decode($row->title),
+            'create_time' => $row->create_time,
         ];
 
     }
