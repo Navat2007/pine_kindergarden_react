@@ -16,7 +16,7 @@ const AdminLessonsPage = () => {
     const newsStore = useNewsStore();
 
     const onItemClick = (props) => {
-        navigate(`/admin/news/${props}`);
+        navigate(`/admin/lessons/${props}`);
     };
 
     const fetchData = async () => {
@@ -75,7 +75,7 @@ const AdminLessonsPage = () => {
                     type='button'
                     iconName={AdminIcons.plus}
                     aria-label='Добавить занятие'
-                    onClick={() => navigate("/admin/news/new")}
+                    onClick={() => navigate("/admin/lessons/new")}
                 >
                     Создать
                 </Button>
