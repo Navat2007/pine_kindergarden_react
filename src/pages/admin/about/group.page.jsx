@@ -17,6 +17,7 @@ import TitleBlock from "../../../components/admin/title.block/title.block.compon
 import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import FieldDate from "../../../components/admin/field/field.date.component";
+
 import { AdminIcons } from "../../../components/svgs";
 
 const AdminGroupPage = (props) => {
@@ -25,12 +26,12 @@ const AdminGroupPage = (props) => {
     const DOMPurify = createDOMPurify(window);
     const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
 
-    const newsStore = useNewsStore();
+    const store = useNewsStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-        await newsStore.loadByID({ id });
+        await store.loadByID({ id });
     };
 
     React.useEffect(() => {
@@ -41,13 +42,13 @@ const AdminGroupPage = (props) => {
 
     //Private component
     const Loading = () => {
-        if (newsStore.loading) {
+        if (store.loading) {
             return <TitleBlock title={`Загрузка...`} />;
         }
     };
 
     const NotFound = () => {
-        if (id && !newsStore.loading && Object.keys(newsStore.item).length === 0) {
+        if (id && !store.loading && Object.keys(store.item).length === 0) {
             return <TitleBlock title={`Новость не найдена`} onBack={back} />;
         }
     };
@@ -147,7 +148,7 @@ const AdminGroupPage = (props) => {
 
                 setSending(true);
 
-                const result = await newsStore.add(sendObject);
+                const result = await store.add(sendObject);
 
                 setSending(false);
 
@@ -285,15 +286,15 @@ const AdminGroupPage = (props) => {
 
             React.useEffect(() => {
                 if (edit) {
-                    setValue("editorPreview", newsStore.item.preview_text);
-                    setValue("editorReview", newsStore.item.text);
+                    setValue("editorPreview", store.item.preview_text);
+                    setValue("editorReview", store.item.text);
 
                     setPhotoPreview(
-                        newsStore.item.preview_image
+                        store.item.preview_image
                             ? [
                                   {
-                                      ID: newsStore.item.ID,
-                                      url: newsStore.item.preview_image,
+                                      ID: store.item.ID,
+                                      url: store.item.preview_image,
                                       main: 1,
                                       order: 1,
                                       isFile: 1,
@@ -304,11 +305,11 @@ const AdminGroupPage = (props) => {
                     );
 
                     setPhotoReview(
-                        newsStore.item.image
+                        store.item.image
                             ? [
                                   {
-                                      ID: newsStore.item.ID,
-                                      url: newsStore.item.image,
+                                      ID: store.item.ID,
+                                      url: store.item.image,
                                       main: 1,
                                       order: 1,
                                       isFile: 1,
@@ -318,7 +319,7 @@ const AdminGroupPage = (props) => {
                             : []
                     );
 
-                    setPhoto(newsStore.item.images ? newsStore.item.images : []);
+                    setPhoto(store.item.images ? store.item.images : []);
                 }
             }, [edit]);
 
@@ -410,7 +411,7 @@ const AdminGroupPage = (props) => {
 
                 setSending(true);
 
-                const result = await newsStore.edit(sendObject);
+                const result = await store.edit(sendObject);
 
                 setSending(false);
 
@@ -460,7 +461,7 @@ const AdminGroupPage = (props) => {
                                         sendObject["id"] = id;
                                         sendObject["archive"] = 1;
 
-                                        const result = await newsStore.remove(sendObject);
+                                        const result = await store.remove(sendObject);
 
                                         if (!result.error) {
                                             setPopup(
@@ -502,7 +503,7 @@ const AdminGroupPage = (props) => {
                 sendObject["place"] = "images";
                 sendObject["newsID"] = id;
 
-                const result = await newsStore.removeFile(sendObject);
+                const result = await store.removeFile(sendObject);
             };
 
             const handleDeletePreviewPhoto = async (item) => {
@@ -511,7 +512,7 @@ const AdminGroupPage = (props) => {
                 sendObject["place"] = "preview";
                 sendObject["newsID"] = id;
 
-                const result = await newsStore.removeFile(sendObject);
+                const result = await store.removeFile(sendObject);
             };
 
             const handleDeleteReviewPhoto = async (item) => {
@@ -520,7 +521,7 @@ const AdminGroupPage = (props) => {
                 sendObject["place"] = "review";
                 sendObject["newsID"] = id;
 
-                const result = await newsStore.removeFile(sendObject);
+                const result = await store.removeFile(sendObject);
             };
 
             if (id && edit) {
@@ -534,13 +535,13 @@ const AdminGroupPage = (props) => {
                                         <FieldCheckbox
                                             label={"Доступна для показа?"}
                                             {...register("active", {
-                                                value: newsStore.item.active === "Активен",
+                                                value: store.item.active === "Активен",
                                             })}
                                         />
                                         <FieldCheckbox
                                             label={"Показывать на главной странице?"}
                                             {...register("mainPage", {
-                                                value: newsStore.item.show_on_main_page === "Активен",
+                                                value: store.item.show_on_main_page === "Активен",
                                             })}
                                         />
                                         <FieldDate
@@ -548,7 +549,7 @@ const AdminGroupPage = (props) => {
                                             type='datetime-local'
                                             required={true}
                                             {...register("date", {
-                                                value: moment(newsStore.item.date).format("YYYY-MM-DD HH:mm"),
+                                                value: moment(store.item.date).format("YYYY-MM-DD HH:mm"),
                                             })}
                                         />
                                     </fieldset>
@@ -558,7 +559,7 @@ const AdminGroupPage = (props) => {
                                             required={true}
                                             placeholder={"Введите название"}
                                             {...register("title", {
-                                                value: newsStore.item.title,
+                                                value: store.item.title,
                                             })}
                                         />
                                         <FieldText
@@ -566,7 +567,7 @@ const AdminGroupPage = (props) => {
                                             required={true}
                                             placeholder={"Введите название"}
                                             {...register("previewTitle", {
-                                                value: newsStore.item.preview_title,
+                                                value: store.item.preview_title,
                                             })}
                                         />
                                         <p className='admin-form__subtitle'>Описание для анонса</p>
@@ -635,10 +636,10 @@ const AdminGroupPage = (props) => {
         };
 
         const ViewNews = () => {
-            if (id && !edit && !newsStore.loading && Object.keys(newsStore.item).length > 0) {
+            if (id && !edit && !store.loading && Object.keys(store.item).length > 0) {
                 return (
                     <>
-                        <TitleBlock title={`Новость ID: ${newsStore.item.ID}`} onBack={back}>
+                        <TitleBlock title={`Новость ID: ${store.item.ID}`} onBack={back}>
                             <Button
                                 type='submit'
                                 isIconBtn='true'
@@ -657,7 +658,7 @@ const AdminGroupPage = (props) => {
                                         <li className='admin-view-section__item'>
                                             <h3 className='admin-view-section__label'>Доступна для показа?</h3>
                                             <p className='admin-view-section__description'>
-                                                {newsStore.item.active === "Активен" ? "Да" : "Нет"}
+                                                {store.item.active === "Активен" ? "Да" : "Нет"}
                                             </p>
                                         </li>
                                         <li className='admin-view-section__item'>
@@ -665,7 +666,7 @@ const AdminGroupPage = (props) => {
                                                 Показывать на главной странице?
                                             </h3>
                                             <p className='admin-view-section__description'>
-                                                {newsStore.item.show_on_main_page === "Активен" ? "Да" : "Нет"}
+                                                {store.item.show_on_main_page === "Активен" ? "Да" : "Нет"}
                                             </p>
                                         </li>
                                         <li className='admin-view-section__item'>
@@ -684,17 +685,17 @@ const AdminGroupPage = (props) => {
                                         <li className='admin-view-section__item'>
                                             <h3 className='admin-view-section__label'>Название новости для анонса</h3>
                                             <p className='admin-view-section__description'>
-                                                {newsStore.item.preview_title}
+                                                {store.item.preview_title}
                                             </p>
                                         </li>
                                         <li className='admin-view-section__item'>
                                             <h3 className='admin-view-section__label'>Название новости</h3>
-                                            <p className='admin-view-section__description'>{newsStore.item.title}</p>
+                                            <p className='admin-view-section__description'>{store.item.title}</p>
                                         </li>
                                         <li className='admin-view-section__item'>
                                             <h3 className='admin-view-section__label'>Дата новости</h3>
                                             <p className='admin-view-section__description'>
-                                                {moment(newsStore.item.date).format("DD MMMM YYYY HH:mm")}
+                                                {moment(store.item.date).format("DD MMMM YYYY HH:mm")}
                                             </p>
                                         </li>
                                     </ul>
@@ -702,14 +703,14 @@ const AdminGroupPage = (props) => {
                                     <div
                                         className='admin-view-section__editor'
                                         dangerouslySetInnerHTML={{
-                                            __html: DOMPurify.sanitize(newsStore.item.preview_text),
+                                            __html: DOMPurify.sanitize(store.item.preview_text),
                                         }}
                                     />
                                     <h2 className='admin-view-section__title'>Детальное описание</h2>
                                     <div
                                         className='admin-view-section__editor'
                                         dangerouslySetInnerHTML={{
-                                            __html: DOMPurify.sanitize(newsStore.item.text),
+                                            __html: DOMPurify.sanitize(store.item.text),
                                         }}
                                     />
                                 </section>
@@ -719,7 +720,7 @@ const AdminGroupPage = (props) => {
                                 <ImageGallery
                                     items={[
                                         {
-                                            url: newsStore.item.preview_image,
+                                            url: store.item.preview_image,
                                         },
                                     ]}
                                     front={false}
@@ -728,13 +729,13 @@ const AdminGroupPage = (props) => {
                                 <ImageGallery
                                     items={[
                                         {
-                                            url: newsStore.item.image,
+                                            url: store.item.image,
                                         },
                                     ]}
                                     front={false}
                                 />
                                 <h2 className='admin-view-section__title'>Фото галерея</h2>
-                                <ImageGallery items={newsStore.item.images} front={false} />
+                                <ImageGallery items={store.item.images} front={false} />
                             </Tab>
                         </Tabs>
                     </>

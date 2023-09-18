@@ -12,14 +12,16 @@ import { AdminIcons } from "../../../components/svgs";
 const AdminFoodsPage = () => {
     const { user } = useAuthStore();
     const navigate = useNavigate();
-    const newsStore = useNewsStore();
+    const store = useNewsStore();
+
+    const url = 'admin/foods';
 
     const onItemClick = (props) => {
-        navigate(`/admin/news/${props}`);
+        navigate(`/${url}/${props}`);
     };
 
     const fetchData = async () => {
-        await newsStore.loadAll();
+        await store.loadAll();
     };
 
     React.useEffect(() => {
@@ -59,9 +61,9 @@ const AdminFoodsPage = () => {
 
     return (
         <Table
-            title={"Таблица новостей администратора" + user.ID}
-            loading={newsStore.loading}
-            items={newsStore.items}
+            title={`Таблица ${url} ${user.ID}`}
+            loading={store.loading}
+            items={store.items}
             itemsConfig={itemConfig}
             onItemClick={onItemClick}
             withFilter={true}
@@ -69,8 +71,8 @@ const AdminFoodsPage = () => {
             <Button
                 type='button'
                 iconName={AdminIcons.plus}
-                aria-label='Добавить новость'
-                onClick={() => navigate("/admin/item/new")}
+                aria-label='Добавить питание'
+                onClick={() => navigate(`/${url}/new`)}
             >
                 Создать
             </Button>
