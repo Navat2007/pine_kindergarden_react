@@ -14,8 +14,10 @@ const AdminAllNewsPage = () => {
     const navigate = useNavigate();
     const store = useNewsStore();
 
+    const url = 'admin/news';
+
     const onItemClick = (props) => {
-        navigate(`/admin/news/${props}`);
+        navigate(`/${url}/${props}`);
     };
 
     const fetchData = async () => {
@@ -59,7 +61,7 @@ const AdminAllNewsPage = () => {
 
     return (
         <Table
-            title={"Таблица новостей администратора" + user.ID}
+            title={`Таблица ${url} ${user.ID}`}
             loading={store.loading}
             items={store.items}
             itemsConfig={itemConfig}
@@ -70,7 +72,7 @@ const AdminAllNewsPage = () => {
                 type='button'
                 iconName={AdminIcons.plus}
                 aria-label='Добавить новость'
-                onClick={() => navigate("/admin/news/new")}
+                onClick={() => navigate(`/${url}/new`)}
             >
                 Создать
             </Button>

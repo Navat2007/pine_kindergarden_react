@@ -14,8 +14,10 @@ const AdminDocumentsPage = () => {
     const navigate = useNavigate();
     const store = useDocumentsStore();
 
+    const url = 'admin/documents';
+
     const onItemClick = (props) => {
-        navigate(`/admin/documents/${props}`);
+        navigate(`/${url}/${props}`);
     };
 
     const fetchData = async () => {
@@ -52,7 +54,7 @@ const AdminDocumentsPage = () => {
 
     return (
         <Table
-            title={"Таблица документов администратора" + user.ID}
+            title={`Таблица ${url} ${user.ID}`}
             loading={store.loading}
             items={store.items}
             itemsConfig={itemConfig}
@@ -63,7 +65,7 @@ const AdminDocumentsPage = () => {
                 type='button'
                 iconName={AdminIcons.plus}
                 aria-label='Добавить документ'
-                onClick={() => navigate("/admin/documents/new")}
+                onClick={() => navigate(`/${url}/new`)}
             >
                 Создать
             </Button>

@@ -15,8 +15,10 @@ const AdminLessonsPage = () => {
     const navigate = useNavigate();
     const store = useLessonsStore();
 
+    const url = 'admin/lessons';
+
     const onItemClick = (props) => {
-        navigate(`/admin/lessons/${props}`);
+        navigate(`/${url}/${props}`);
     };
 
     const fetchData = async () => {
@@ -57,7 +59,7 @@ const AdminLessonsPage = () => {
                 <title>Административный раздел. Занятия</title>
             </Helmet>
             <Table
-                title={"Таблица занятий " + user.ID}
+                title={`Таблица ${url} ${user.ID}`}
                 loading={store.loading}
                 items={store.items}
                 itemsConfig={itemConfig}
@@ -68,7 +70,7 @@ const AdminLessonsPage = () => {
                     type='button'
                     iconName={AdminIcons.plus}
                     aria-label='Добавить занятие'
-                    onClick={() => navigate("/admin/lessons/new")}
+                    onClick={() => navigate(`/${url}/new`)}
                 >
                     Создать
                 </Button>
