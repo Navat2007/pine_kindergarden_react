@@ -268,7 +268,7 @@ const ImageSelector = ({
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <p className='admin-image-selector__title'>1. Главная</p>
+                            {photo.length > 1 && <p className='admin-image-selector__title'>1. Главная</p>}
                         </li>
                     ) : (
                         <li key={index} className='admin-image-selector__item'>
@@ -327,46 +327,50 @@ const ImageSelector = ({
                         </li>
                     )
                 )}
-                <li
-                    className='admin-image-selector__download-block'
-                    onDrop={(e) => {
-                        e.preventDefault();
-                        handleAddFilePhoto({
-                            target: {
-                                files: e.dataTransfer.files,
-                            },
-                        });
-                    }}
-                    onDragOver={(e) => {
-                        e.preventDefault();
-                    }}
-                >
-                    <p className='admin-image-selector__download-text'>
-                        {onlyOneImage && "Ограничение на кол-во файлов: 1 файл"}
-                        <br/>
-                        <span>Ограничение на размер изображения: 5 MB.</span>
-                        <br/>
-                        <br/>
-                        Начните загружать изображения простым перетаскиванием в любое место этого окна.
-                        <span className='admin-image-selector__download-span'>или</span>
-                    </p>
-                    <Button
-                        type='button'
-                        disabled={photoFileAddBtnDisabled}
-                        onClick={() => inputFileRef.current.click()}
-                    >
-                        {onlyOneImage ? "Выбрать файл" : "Выбрать файлы"}
-                    </Button>
-                    <input
-                        ref={inputFileRef}
-                        key={photoInputKey}
-                        onChange={handleAddFilePhoto}
-                        hidden={true}
-                        type='file'
-                        accept='image/*'
-                        multiple={multiFiles}
-                    />
-                </li>
+                {
+                    photo.length === 0 && (
+                        <li
+                            className='admin-image-selector__download-block'
+                            onDrop={(e) => {
+                                e.preventDefault();
+                                handleAddFilePhoto({
+                                    target: {
+                                        files: e.dataTransfer.files,
+                                    },
+                                });
+                            }}
+                            onDragOver={(e) => {
+                                e.preventDefault();
+                            }}
+                        >
+                            <p className='admin-image-selector__download-text'>
+                                {onlyOneImage && "Ограничение на кол-во файлов: 1 файл"}
+                                <br/>
+                                <span>Ограничение на размер изображения: 5 MB.</span>
+                                <br/>
+                                <br/>
+                                Начните загружать изображения простым перетаскиванием в любое место этого окна.
+                                <span className='admin-image-selector__download-span'>или</span>
+                            </p>
+                            <Button
+                                type='button'
+                                disabled={photoFileAddBtnDisabled}
+                                onClick={() => inputFileRef.current.click()}
+                            >
+                                {onlyOneImage ? "Выбрать файл" : "Выбрать файлы"}
+                            </Button>
+                            <input
+                                ref={inputFileRef}
+                                key={photoInputKey}
+                                onChange={handleAddFilePhoto}
+                                hidden={true}
+                                type='file'
+                                accept='image/*'
+                                multiple={multiFiles}
+                            />
+                        </li>
+                    )
+                }
             </ul>
             {withLinks && (
                 <div className='admin-image-selector__group-block'>
