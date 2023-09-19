@@ -121,51 +121,6 @@
             justify-content: space-between;
         }
     }
-
-    &__slider {
-        padding: min(3.25vmax, 1.875em) 0;
-
-        .splide__arrows .splide__arrow {
-            opacity: 1;
-            @include box(min(4.875vmax, 4em));
-            border-radius: 50%;
-            border: 3px solid var(--primary);
-            background-color: var(--primary);
-            box-shadow: 0 0 15px 1px rgba(black, 0.54);
-
-            & svg {
-                @include box(1.875em);
-                fill: black;
-            }
-        }
-    }
-
-    &__slider-track {
-        @include media(sm) {
-            position: relative;
-
-            &:before,
-            &:after {
-                content: "";
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                z-index: 1;
-                width: min(12vmax, 8em);
-                display: inline-block;
-            }
-
-            &:before {
-                left: 0;
-                background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(white, 0) 100%);
-            }
-
-            &:after {
-                right: 0;
-                background: linear-gradient(-90deg, rgba(255, 255, 255, 1) 0%, rgba(white, 0) 100%);
-            }
-        }
-    }
 }
 
 .about-card {
@@ -178,20 +133,5 @@
         margin: 0.75em 0;
         font-family: var(--font-headings);
         font-size: var(--title-size-sm);
-    }
-}
-
-.slider-card {
-    &__image {
-        aspect-ratio: 288/419;
-        object-fit: cover;
-        object-position: center;
-        @extend %alt-text-on-after;
-    }
-
-    &__title {
-        margin: min(2vmax, 1.25rem) 0;
-        font-size: var(--text-size-xl);
-        font-weight: normal;
     }
 }
