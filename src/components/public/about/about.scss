@@ -6,9 +6,11 @@
         @extend %main-width;
         padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
     }
+
     &_bg_light-primary {
         background-color: #a4bd24;
     }
+
     &__inner {
         @extend %main-width;
         padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
@@ -37,6 +39,7 @@
             }
         }
     }
+
     &__column {
         display: flex;
         flex-direction: column;
@@ -46,12 +49,14 @@
             flex-direction: row;
         }
     }
+
     &__title {
         margin: 0;
         font-family: var(--font-headings);
         font-size: var(--title-size-lg);
         text-align: center;
     }
+
     &__text {
         .about__title {
             text-align: left;
@@ -66,6 +71,7 @@
             }
         }
     }
+
     &__image {
         align-self: start;
         margin-left: auto;
@@ -84,6 +90,7 @@
             aspect-ratio: 6.23/3.12;
         }
     }
+
     &__description {
         font-size: var(--text-size-xl);
         line-height: 157%;
@@ -94,6 +101,7 @@
             margin: min(3.25vmax, 1.875em) 0;
         }
     }
+
     &__list {
         @extend %reset-list;
 
@@ -113,17 +121,7 @@
             justify-content: space-between;
         }
     }
-    // &__card {}
-    &__card-image {
-        object-fit: cover;
-        aspect-ratio: 541/318;
-        @extend %alt-text-on-after;
-    }
-    &__card-title {
-        margin: 0.75em 0;
-        font-family: var(--font-headings);
-        font-size: var(--title-size-sm);
-    }
+
     &__slider {
         padding: min(3.25vmax, 1.875em) 0;
 
@@ -141,6 +139,7 @@
             }
         }
     }
+
     &__slider-track {
         @include media(sm) {
             position: relative;
@@ -166,6 +165,19 @@
                 background: linear-gradient(-90deg, rgba(255, 255, 255, 1) 0%, rgba(white, 0) 100%);
             }
         }
+    }
+}
+
+.about-card {
+    &__image {
+        object-fit: cover;
+        aspect-ratio: 541/318;
+        @extend %alt-text-on-after;
+    }
+    &__title {
+        margin: 0.75em 0;
+        font-family: var(--font-headings);
+        font-size: var(--title-size-sm);
     }
 }
 

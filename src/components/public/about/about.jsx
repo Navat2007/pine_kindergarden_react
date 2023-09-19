@@ -16,7 +16,7 @@ import person_2 from "../../../images/person_2.jpg";
 import person_3 from "../../../images/person_3.jpg";
 import person_4 from "../../../images/person_4.jpg";
 import logo from "../../../images/logo.svg";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const About = () => {
     const DOMPurify = createDOMPurify(window);
@@ -56,36 +56,42 @@ const About = () => {
             </section>
             <section className='about about_bg_light-primary main-section' aria-label='Описание о нас'>
                 <div className='about__inner about__inner_bg_half-image'>
-                    <div className='about__description'
-                         dangerouslySetInnerHTML={{
-                             __html: DOMPurify.sanitize(aboutStore.item.text),
-                         }}
+                    <div
+                        className='about__description'
+                        dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(aboutStore.item.text),
+                        }}
                     />
                 </div>
             </section>
             <section className='about about_contain_inner main-section'>
                 <h2 className='about__title'>Наши группы</h2>
                 <ul className='about__list'>
-                    {
-                        groupsStore.items.map((item, index) => {
-                            return (
-                                <li className='about__card' key={index}>
-                                    <NavLink
-                                        to={"/group/" + item.ID}
-                                        aria-label={"Главная страница"}
-                                    >
+                    {groupsStore.items.map((item, index) => {
+                        return (
+                            <li key={index}>
+                                <NavLink
+                                    className={"card-link"}
+                                    to={"/group/" + item.ID}
+                                    aria-label={"Главная страница"}
+                                >
+                                    <article className='about-card'>
                                         <img
-                                            className='about__card-image'
-                                            src={item.image.includes("http") ? item.image : process.env.REACT_APP_BASE_URL + item.image}
+                                            className='about-card__image'
+                                            src={
+                                                item.image.includes("http")
+                                                    ? item.image
+                                                    : process.env.REACT_APP_BASE_URL + item.image
+                                            }
                                             alt='Изображение группы'
                                         />
-                                        <h3 className='about__card-title'>{item.title}</h3>
-                                    </NavLink>
-                                    {/*<p>{item.description}</p>*/}
-                                </li>
-                            );
-                        })
-                    }
+                                        <h3 className='about-card__title'>{item.title}</h3>
+                                        <p>Текст {item.description}</p>
+                                    </article>
+                                </NavLink>
+                            </li>
+                        );
+                    })}
                 </ul>
             </section>
             <section className='about about_contain_inner main-section'>
