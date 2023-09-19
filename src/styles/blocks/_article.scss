@@ -1,0 +1,26 @@
+.article {
+    @extend %main-width;
+    padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
+
+    &__columns {
+        display: grid;
+        gap: min(3.25vmax, 1.875em);
+        grid-template-columns: repeat(auto-fit, minmax(min(20em, 100%), 1fr));
+    }
+
+    // &__column {}
+
+    // &__image {}
+
+    &__title {
+        margin: 0.75rem 0;
+        font-family: var(--font-headings);
+        font-size: var(--title-size-lg);
+    }
+
+    &__subtitle {
+        margin: 0.75em 0;
+        font-size: var(--text-size-xl);
+        font-weight: 600;
+    }
+}

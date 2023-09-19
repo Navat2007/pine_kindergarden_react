@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 import createDOMPurify from "dompurify";
-import {useParams} from "react-router-dom";
-import {motion} from "framer-motion";
+import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import useGroupsStore from "../../store/public/groupsStore";
 import Feedback from "../../components/public/feedback/feedback";
 
 const GroupPage = () => {
-    let {id} = useParams();
+    let { id } = useParams();
     const DOMPurify = createDOMPurify(window);
 
     const store = useGroupsStore();
 
     const fetchData = async () => {
-        await store.loadByID({id});
+        await store.loadByID({ id });
     };
 
     React.useEffect(() => {
@@ -48,39 +48,50 @@ const GroupPage = () => {
     const MainBlock = () => {
         return (
             <>
-                <section className='about about_contain_inner'>
+                <section className='article'>
                     {!store.loading && Object.keys(store.item).length > 0 && (
                         <>
-                            <img
-                                className='about__card-image'
-                                src={store.item.image.includes("http") ? store.item.image : process.env.REACT_APP_BASE_URL + store.item.image}
-                                alt='Изображение группы'
-                            />
-                            <h1>{store.item.title}</h1>
-                            <p>{store.item.preview}</p>
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html: DOMPurify.sanitize(store.item.text),
-                                }}
-                            />
+                            <div className='article__columns'>
+                                <div className='article__column'>
+                                    <img
+                                        className='article__image'
+                                        src={
+                                            store.item.image.includes("http")
+                                                ? store.item.image
+                                                : process.env.REACT_APP_BASE_URL + store.item.image
+                                        }
+                                        alt='Изображение группы'
+                                    />
+                                </div>
+                                <div className='article__column'>
+                                    <h1 className='article__title'>{store.item.title}</h1>
+                                    <p className='article__subtitle'>{store.item.preview}</p>
+                                    <div
+                                        className='article__main-content'
+                                        dangerouslySetInnerHTML={{
+                                            __html: DOMPurify.sanitize(store.item.text),
+                                        }}
+                                    />
+                                </div>
+                            </div>
                         </>
                     )}
                 </section>
-                <Feedback/>
+                <Feedback />
             </>
         );
     };
 
     return (
         <motion.div
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            exit={{opacity: 0}}
-            transition={{duration: 0.5}}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
         >
-            <Loading/>
-            <MainBlock/>
-            <NotFound/>
+            <Loading />
+            <MainBlock />
+            <NotFound />
         </motion.div>
     );
 };
