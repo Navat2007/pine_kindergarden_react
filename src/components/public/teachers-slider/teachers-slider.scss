@@ -18,7 +18,7 @@
         }
     }
 
-    &__track {
+    .splide__track {
         @include media(sm) {
             position: relative;
 

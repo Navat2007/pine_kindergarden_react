@@ -23,6 +23,7 @@
                 padding: 0 var(--padding-gor-size-sm);
                 gap: min(2.5vmax, 2.5em);
                 flex-direction: row;
+                min-block-size: min(40vmax, 30em);
             }
             &::after {
                 flex: 0 0 min(40vmax, 30em);
