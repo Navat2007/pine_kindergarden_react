@@ -251,7 +251,7 @@ const ImageSelector = ({
                         <li
                             key={index}
                             className={`admin-image-selector__item${
-                                orientation === "portrait" ? `admin-image-selector__item_portrait` : ``
+                                orientation === "portrait" ? ` admin-image-selector__item_portrait` : ``
                             }`}
                         >
                             <img
@@ -280,7 +280,7 @@ const ImageSelector = ({
                         <li
                             key={index}
                             className={`admin-image-selector__item${
-                                orientation === "portrait" ? `admin-image-selector__item_portrait` : ``
+                                orientation === "portrait" ? ` admin-image-selector__item_portrait` : ``
                             }`}
                         >
                             <img
