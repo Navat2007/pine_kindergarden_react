@@ -84,8 +84,8 @@ const ProfilePage = () => {
                     setPopup(<></>);
                 }}
             >
-                <form onSubmit={handleSubmit(onUserEditSubmit)} className='form'>
-                    <fieldset className='form__section --content-info'>
+                <form onSubmit={handleSubmit(onUserEditSubmit)} className='admin-form'>
+                    <fieldset className='admin-form__section'>
                         <FieldInput
                             label={"ФИО:"}
                             placeholder={"..."}
