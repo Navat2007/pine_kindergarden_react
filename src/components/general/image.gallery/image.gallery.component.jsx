@@ -4,7 +4,7 @@ import ImagePreview from "../image.preview/image.preview.component";
 
 import "./image.gallery.scss";
 
-const ImageGallery = ({ extraClass, title, items, front = true }) => {
+const ImageGallery = ({ extraClass, title, orientation = "landsape", items, front = true }) => {
     const [preview, setPreview] = React.useState(<></>);
 
     const handleOpenPreview = (slideIndex) => {
@@ -52,7 +52,9 @@ const ImageGallery = ({ extraClass, title, items, front = true }) => {
                         item.order === 1 ? (
                             <li
                                 key={item.url}
-                                className='admin-image-gallery__item'
+                                className={`admin-image-gallery__item${
+                                    orientation === "portrait" ? ` admin-image-gallery__item_portrait` : ``
+                                }`}
                                 onClick={() => handleOpenPreview(item.order - 1, items)}
                             >
                                 <img
@@ -67,7 +69,9 @@ const ImageGallery = ({ extraClass, title, items, front = true }) => {
                         ) : (
                             <li
                                 key={item.url}
-                                className='admin-image-gallery__item'
+                                className={`admin-image-gallery__item${
+                                    orientation === "portrait" ? ` admin-image-gallery__item_portrait` : ``
+                                }`}
                                 onClick={() => handleOpenPreview(item.order - 1, items)}
                             >
                                 <img
@@ -77,7 +81,9 @@ const ImageGallery = ({ extraClass, title, items, front = true }) => {
                                     }
                                     alt='Изображение '
                                 />
-                                {item.order && <span className='admin-image-gallery__current-position'>{item.order}</span>}
+                                {item.order && (
+                                    <span className='admin-image-gallery__current-position'>{item.order}</span>
+                                )}
                             </li>
                         )
                     )}

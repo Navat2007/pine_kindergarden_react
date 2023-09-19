@@ -1,7 +1,7 @@
 import React from "react";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import createDOMPurify from "dompurify";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import useDocumentsStore from "../../../store/admin/documentsStore";
 
@@ -12,20 +12,20 @@ import ImageGallery from "../../../components/general/image.gallery/image.galler
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import FieldUrl from "../../../components/admin/field/field.url.component";
-import {AdminIcons} from "../../../components/svgs";
+import { AdminIcons } from "../../../components/svgs";
 
 const AdminDocumentPage = (props) => {
-    let {id} = useParams();
+    let { id } = useParams();
     const navigate = useNavigate();
     const DOMPurify = createDOMPurify(window);
-    const {register, handleSubmit, reset, control, setValue, getValues} = useForm();
+    const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
 
     const store = useDocumentsStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-        await store.loadByID({id});
+        await store.loadByID({ id });
     };
 
     React.useEffect(() => {
@@ -37,13 +37,13 @@ const AdminDocumentPage = (props) => {
     //Private component
     const Loading = () => {
         if (store.loading) {
-            return <TitleBlock title={`Загрузка...`}/>;
+            return <TitleBlock title={`Загрузка...`} />;
         }
     };
 
     const NotFound = () => {
         if (id && !store.loading && Object.keys(store.item).length === 0) {
-            return <TitleBlock title={`Документ не найден`} onBack={back}/>;
+            return <TitleBlock title={`Документ не найден`} onBack={back} />;
         }
     };
 
@@ -102,7 +102,7 @@ const AdminDocumentPage = (props) => {
             const onAdd = async (params) => {
                 const data = getValues();
 
-                let sendObject = {...data};
+                let sendObject = { ...data };
 
                 sendObject["image"] = image;
 
@@ -142,7 +142,7 @@ const AdminDocumentPage = (props) => {
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание"} onBack={back}/>
+                        <TitleBlock title={"Создание"} onBack={back} />
                         <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
                             <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                 <FieldText
@@ -193,18 +193,20 @@ const AdminDocumentPage = (props) => {
         };
 
         const Edit = () => {
-            const [image, setImage] = React.useState(store.item.image
-                ? [
-                    {
-                        ID: store.item.ID,
-                        url: store.item.image,
-                        main: 1,
-                        order: 1,
-                        isFile: 1,
-                        isLoaded: 1,
-                    },
-                ]
-                : []);
+            const [image, setImage] = React.useState(
+                store.item.image
+                    ? [
+                          {
+                              ID: store.item.ID,
+                              url: store.item.image,
+                              main: 1,
+                              order: 1,
+                              isFile: 1,
+                              isLoaded: 1,
+                          },
+                      ]
+                    : []
+            );
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
@@ -213,15 +215,15 @@ const AdminDocumentPage = (props) => {
                     setImage(
                         store.item.image
                             ? [
-                                {
-                                    ID: store.item.ID,
-                                    url: store.item.image,
-                                    main: 1,
-                                    order: 1,
-                                    isFile: 1,
-                                    isLoaded: 1,
-                                },
-                            ]
+                                  {
+                                      ID: store.item.ID,
+                                      url: store.item.image,
+                                      main: 1,
+                                      order: 1,
+                                      isFile: 1,
+                                      isLoaded: 1,
+                                  },
+                              ]
                             : []
                     );
                 }
@@ -276,7 +278,7 @@ const AdminDocumentPage = (props) => {
             const onEdit = async (params) => {
                 const data = getValues();
 
-                let sendObject = {...data};
+                let sendObject = { ...data };
 
                 sendObject["id"] = id;
                 sendObject["image"] = image;
@@ -371,7 +373,7 @@ const AdminDocumentPage = (props) => {
             };
 
             const handleDeletePreviewPhoto = async (item) => {
-                let sendObject = {...item};
+                let sendObject = { ...item };
 
                 sendObject["ID"] = id;
 
@@ -381,7 +383,7 @@ const AdminDocumentPage = (props) => {
             if (id && edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
+                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
                         <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
                             <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                 <FieldText
@@ -413,12 +415,13 @@ const AdminDocumentPage = (props) => {
                                     items={image}
                                     onlyOneImage={true}
                                     multiFiles={false}
+                                    orientation={'portrait'}
                                     onChange={(items) => setImage(items)}
                                     onDelete={handleDeletePreviewPhoto}
                                 />
                             </fieldset>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending}/>
+                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
                                 <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
                                     Удалить
                                 </Button>
@@ -487,6 +490,7 @@ const AdminDocumentPage = (props) => {
                                         url: store.item.image,
                                     },
                                 ]}
+                                orientation={'portrait'}
                                 front={false}
                             />
                         </section>
@@ -497,18 +501,18 @@ const AdminDocumentPage = (props) => {
 
         return (
             <>
-                <Create/>
-                <Edit/>
-                <View/>
+                <Create />
+                <Edit />
+                <View />
             </>
         );
     };
 
     return (
         <>
-            <Loading/>
-            <Article/>
-            <NotFound/>
+            <Loading />
+            <Article />
+            <NotFound />
         </>
     );
 };

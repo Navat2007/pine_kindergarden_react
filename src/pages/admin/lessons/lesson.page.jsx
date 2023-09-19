@@ -1,7 +1,7 @@
 import React from "react";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import createDOMPurify from "dompurify";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import useLessonsStore from "../../../store/admin/lessonsStore";
 
@@ -13,20 +13,20 @@ import ImageGallery from "../../../components/general/image.gallery/image.galler
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 
 import FieldText from "../../../components/admin/field/field.text.component";
-import {AdminIcons} from "../../../components/svgs";
+import { AdminIcons } from "../../../components/svgs";
 
 const AdminLessonPage = (props) => {
-    let {id} = useParams();
+    let { id } = useParams();
     const navigate = useNavigate();
     const DOMPurify = createDOMPurify(window);
-    const {register, handleSubmit, reset, control, setValue, getValues} = useForm();
+    const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
 
     const store = useLessonsStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-        await store.loadByID({id});
+        await store.loadByID({ id });
     };
 
     React.useEffect(() => {
@@ -38,13 +38,13 @@ const AdminLessonPage = (props) => {
     //Private component
     const Loading = () => {
         if (store.loading) {
-            return <TitleBlock title={`Загрузка...`}/>;
+            return <TitleBlock title={`Загрузка...`} />;
         }
     };
 
     const NotFound = () => {
         if (id && !store.loading && Object.keys(store.item).length === 0) {
-            return <TitleBlock title={`Занятия не найдены`} onBack={back}/>;
+            return <TitleBlock title={`Занятия не найдены`} onBack={back} />;
         }
     };
 
@@ -89,7 +89,7 @@ const AdminLessonPage = (props) => {
             const onAdd = async (params) => {
                 const data = getValues();
 
-                let sendObject = {...data};
+                let sendObject = { ...data };
 
                 sendObject["image"] = photoPreview;
 
@@ -129,7 +129,7 @@ const AdminLessonPage = (props) => {
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание"} onBack={back}/>
+                        <TitleBlock title={"Создание"} onBack={back} />
                         <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
                             <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                 <FieldText
@@ -148,12 +148,7 @@ const AdminLessonPage = (props) => {
                             </fieldset>
                             <fieldset className='admin-form__section'>
                                 <p className='admin-form__subtitle'>Детальное описание</p>
-                                <Editor
-                                    control={control}
-                                    name='text'
-                                    minHeight={250}
-                                    buttons={{link: true}}
-                                />
+                                <Editor control={control} name='text' minHeight={250} buttons={{ link: true }} />
                             </fieldset>
                             <div className='admin-form__controls'>
                                 <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
@@ -177,18 +172,20 @@ const AdminLessonPage = (props) => {
         };
 
         const Edit = () => {
-            const [image, setImage] = React.useState(store.item.image !== ""
-                ? [
-                    {
-                        ID: store.item.ID,
-                        url: store.item.image,
-                        main: 1,
-                        order: 1,
-                        isFile: 1,
-                        isLoaded: 1,
-                    },
-                ]
-                : []);
+            const [image, setImage] = React.useState(
+                store.item.image !== ""
+                    ? [
+                          {
+                              ID: store.item.ID,
+                              url: store.item.image,
+                              main: 1,
+                              order: 1,
+                              isFile: 1,
+                              isLoaded: 1,
+                          },
+                      ]
+                    : []
+            );
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
@@ -233,7 +230,7 @@ const AdminLessonPage = (props) => {
             const onEdit = async (params) => {
                 const data = getValues();
 
-                let sendObject = {...data};
+                let sendObject = { ...data };
 
                 sendObject["id"] = id;
                 sendObject["image"] = image;
@@ -252,7 +249,7 @@ const AdminLessonPage = (props) => {
                     setPopup(
                         <AlertPopup
                             title=''
-                            text={"Занятие успешно отредактировано"}
+                            text={"Занятие успешно отредактирована"}
                             opened={true}
                             onClose={() => {
                                 back();
@@ -328,7 +325,7 @@ const AdminLessonPage = (props) => {
             };
 
             const handleDeletePreviewPhoto = async (item) => {
-                let sendObject = {...item};
+                let sendObject = { ...item };
 
                 sendObject["ID"] = id;
 
@@ -338,7 +335,7 @@ const AdminLessonPage = (props) => {
             if (id && edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
+                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
                         <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
                             <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                 <FieldText
@@ -360,17 +357,17 @@ const AdminLessonPage = (props) => {
                             </fieldset>
                             <fieldset className='admin-form__section'>
                                 <p className='admin-form__subtitle'>Детальное описание</p>
-                                <Editor
-                                    control={control}
-                                    name='text'
-                                    minHeight={250}
-                                    buttons={{link: true}}
-                                />
+                                <Editor control={control} name='text' minHeight={250} buttons={{ link: true }} />
                             </fieldset>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending}/>
-                                <Button type='button' theme='text' text='Удалить' onClick={onDelete}
-                                        spinnerActive={sending}/>
+                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
+                                <Button
+                                    type='button'
+                                    theme='text'
+                                    text='Удалить'
+                                    onClick={onDelete}
+                                    spinnerActive={sending}
+                                />
                                 <Button
                                     type='button'
                                     theme='text'
@@ -448,18 +445,18 @@ const AdminLessonPage = (props) => {
 
         return (
             <>
-                <Create/>
-                <Edit/>
-                <View/>
+                <Create />
+                <Edit />
+                <View />
             </>
         );
     };
 
     return (
         <>
-            <Loading/>
-            <Article/>
-            <NotFound/>
+            <Loading />
+            <Article />
+            <NotFound />
         </>
     );
 };
