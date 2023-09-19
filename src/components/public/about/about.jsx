@@ -69,22 +69,20 @@ const About = () => {
                     {
                         groupsStore.items.map((item, index) => {
                             return (
-                                <NavLink
-                                    to={"/about/group/" + item.ID}
-                                    key={index}
-                                    rel='noreferer nofollow noopener'
-                                    aria-label={"Главная страница"}
-                                >
-                                    <li className='about__card' >
+                                <li className='about__card' key={index}>
+                                    <NavLink
+                                        to={"/group/" + item.ID}
+                                        aria-label={"Главная страница"}
+                                    >
                                         <img
                                             className='about__card-image'
                                             src={item.image.includes("http") ? item.image : process.env.REACT_APP_BASE_URL + item.image}
                                             alt='Изображение группы'
                                         />
                                         <h3 className='about__card-title'>{item.title}</h3>
-                                        {/*<p>{item.description}</p>*/}
-                                    </li>
-                                </NavLink>
+                                    </NavLink>
+                                    {/*<p>{item.description}</p>*/}
+                                </li>
                             );
                         })
                     }

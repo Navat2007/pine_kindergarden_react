@@ -47,10 +47,8 @@ const RoutesList = () => {
             <Route path='/teachers' exact={true} element={<TeachersPage />} />
             <Route path='/food' exact={true} element={<FoodPage />} />
             <Route path='/mode' exact={true} element={<ModePage />} />
-            <Route path='about'>
-                <Route index element={<AboutPage />} />
-                <Route path='group/:id' element={<GroupPage />} />
-            </Route>
+            <Route path='/about' exact={true} element={<AboutPage />} />
+            <Route path='/group/:id' exact={true} element={<GroupPage />} />
         </Route>
     );
 

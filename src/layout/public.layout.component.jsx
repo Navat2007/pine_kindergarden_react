@@ -11,6 +11,7 @@ const PublicLayout = () => {
 
     React.useLayoutEffect(() => {
         function onEntry(entry) {
+            console.log(entry);
             entry.forEach((change) => {
                 if (change.isIntersecting) {
                     change.target.classList.add("main-section_showed");
@@ -25,6 +26,8 @@ const PublicLayout = () => {
         for (let elm of elements) {
             observer.observe(elm);
         }
+
+        console.log("effect");
     }, [location]);
 
     return (
