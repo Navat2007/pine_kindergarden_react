@@ -23,7 +23,7 @@ const Header = () => {
     }, []);
 
     return (
-        <header ref={stickyHeader} className='header main-section section_type_fixed'>
+        <header ref={stickyHeader} className='header'>
             <div className='header__inner'>
                 <Logo place={"header"} />
                 <Menu place={"header"} />

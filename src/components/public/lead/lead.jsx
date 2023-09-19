@@ -4,7 +4,7 @@ import Image from "../../../images/lead__image.jpg";
 
 const Lead = () => {
     return (
-        <section className='lead main-section'>
+        <section className='lead'>
             <h1 className='main-title'>
                 ФГБДОУ &laquo;Центр развития ребенка&nbsp;&mdash; детский сад &laquo;Сосны&raquo;
             </h1>

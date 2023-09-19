@@ -9,7 +9,7 @@ import person_4 from "../../../images/person_4.jpg";
 
 const Teachers = () => {
     return (
-        <section className='teachers main-section'>
+        <section className='teachers'>
             <h2 className='teachers__title'>Администрация</h2>
             <ul className='teachers__list'>
                 <li className="teachers__item">

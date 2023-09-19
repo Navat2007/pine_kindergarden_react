@@ -5,7 +5,7 @@ import "./contact.scss";
 
 const Contact = () => {
     return (
-        <section className='contact main-section'>
+        <section className='contact'>
             <div className='contact__map' id='contact_map'>
                 <YMaps>
                     <Map

@@ -34,7 +34,7 @@ const About = () => {
 
     return (
         <>
-            <section className='about about_contain_inner main-section'>
+            <section className='about about_contain_inner'>
                 <h1 className='main-title'>
                     ФГБДОУ &laquo;Центр развития ребенка&nbsp;&mdash; детский сад &laquo;Сосны&raquo;
                 </h1>
@@ -54,7 +54,7 @@ const About = () => {
                     />
                 </div>
             </section>
-            <section className='about about_bg_light-primary main-section' aria-label='Описание о нас'>
+            <section className='about about_bg_light-primary' aria-label='Описание о нас'>
                 <div className='about__inner about__inner_bg_half-image'>
                     <div
                         className='about__description'
@@ -64,7 +64,7 @@ const About = () => {
                     />
                 </div>
             </section>
-            <section className='about about_contain_inner main-section'>
+            <section className='about about_contain_inner'>
                 <h2 className='about__title'>Наши группы</h2>
                 <ul className='about__list'>
                     {groupsStore.items.map((item, index) => {
@@ -94,7 +94,7 @@ const About = () => {
                     })}
                 </ul>
             </section>
-            <section className='about about_contain_inner main-section'>
+            <section className='about about_contain_inner'>
                 <h2 className='about__title'>Наша команда</h2>
                 <Splide
                     className='splide about__slider'

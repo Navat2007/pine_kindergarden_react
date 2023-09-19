@@ -17,10 +17,10 @@ import Card_image_12 from "../../../images/lessons__card-image_12.jpg";
 const Lessons = () => {
     return (
         <section className='lessons'>
-            <h1 className='lessons__title main-section'>Занятия</h1>
-            <p className='lessons__title main-section'>Что будем делать?</p>
+            <h1 className='lessons__title'>Занятия</h1>
+            <p className='lessons__title'>Что будем делать?</p>
             <ul className='lessons__list'>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_1}
@@ -28,7 +28,7 @@ const Lessons = () => {
                     />
                     <h2 className='lessons__card-title'>Шахматы</h2>
                 </li>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_2}
@@ -36,7 +36,7 @@ const Lessons = () => {
                     />
                     <h2 className='lessons__card-title'>Бассейн</h2>
                 </li>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_3}
@@ -44,7 +44,7 @@ const Lessons = () => {
                     />
                     <h2 className='lessons__card-title'>Ангийский язык</h2>
                 </li>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_4}
@@ -52,7 +52,7 @@ const Lessons = () => {
                     />
                     <h2 className='lessons__card-title'>Гончарный круг</h2>
                 </li>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_5}
@@ -60,7 +60,7 @@ const Lessons = () => {
                     />
                     <h2 className='lessons__card-title'>Вокал</h2>
                 </li>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_6}
@@ -68,7 +68,7 @@ const Lessons = () => {
                     />
                     <h2 className='lessons__card-title'>Актерское мастерство</h2>
                 </li>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_7}
@@ -76,7 +76,7 @@ const Lessons = () => {
                     />
                     <h2 className='lessons__card-title'>Математика</h2>
                 </li>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_8}
@@ -84,11 +84,11 @@ const Lessons = () => {
                     />
                     <h2 className='lessons__card-title'>Робототехника</h2>
                 </li>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img className='lessons__card-image' src={Card_image_9} alt='Изображение детей' />
                     <h2 className='lessons__card-title'>Аэробика</h2>
                 </li>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_10}
@@ -96,7 +96,7 @@ const Lessons = () => {
                     />
                     <h2 className='lessons__card-title'>Логопед</h2>
                 </li>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_11}
@@ -104,7 +104,7 @@ const Lessons = () => {
                     />
                     <h2 className='lessons__card-title'>Живчики</h2>
                 </li>
-                <li className='lessons__card main-section'>
+                <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_12}

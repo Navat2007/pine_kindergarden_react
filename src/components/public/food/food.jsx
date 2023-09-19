@@ -4,7 +4,7 @@ import Food__image from "../../../images/food__image.jpg";
 
 const Food = () => {
     return (
-        <section className='food main-section'>
+        <section className='food'>
             <img
                 className='food__image'
                 src={Food__image}

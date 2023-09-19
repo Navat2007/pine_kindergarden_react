@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <footer className='footer main-section section_type_fixed'>
+        <footer className='footer'>
             <div className='footer__inner'>
                 <Menu place={"footer"} logoPlace={"footer"} />
                 <div className='footer__content'>
