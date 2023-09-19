@@ -144,33 +144,38 @@ const AdminDocumentPage = (props) => {
                     <>
                         <TitleBlock title={"Создание"} onBack={back} />
                         <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
-                            <fieldset className='admin-form__section admin-form__section_width_one-col'>
-                                <FieldText
-                                    label={"Название документа (кратко)*"}
-                                    required={true}
-                                    placeholder={"Введите название"}
-                                    {...register("titleShort")}
-                                />
-                                <FieldText
-                                    label={"Название документа (полностью)*"}
-                                    required={true}
-                                    placeholder={"Введите название"}
-                                    {...register("title")}
-                                />
-                                <FieldUrl
-                                    label={"Ссылка на документ*"}
-                                    required={true}
-                                    placeholder={"https://..."}
-                                    {...register("url")}
-                                />
-                                <h2 className='admin-form__title'>Картинка для превью документа</h2>
-                                <ImageSelector
-                                    items={image}
-                                    onlyOneImage={true}
-                                    multiFiles={false}
-                                    onChange={(items) => setImage(items)}
-                                />
-                            </fieldset>
+                            <div className='admin-form__two-columns'>
+                                <fieldset className='admin-form__section'>
+                                    <h2 className='admin-form__title'>Основная информация</h2>
+                                    <FieldText
+                                        label={"Название документа (кратко)*"}
+                                        required={true}
+                                        placeholder={"Введите название"}
+                                        {...register("titleShort")}
+                                    />
+                                    <FieldText
+                                        label={"Название документа (полностью)*"}
+                                        required={true}
+                                        placeholder={"Введите название"}
+                                        {...register("title")}
+                                    />
+                                    <FieldUrl
+                                        label={"Ссылка на документ*"}
+                                        required={true}
+                                        placeholder={"https://..."}
+                                        {...register("url")}
+                                    />
+                                </fieldset>
+                                <fieldset className='admin-form__section'>
+                                    <h2 className='admin-form__title'>Картинка для превью документа</h2>
+                                    <ImageSelector
+                                        items={image}
+                                        onlyOneImage={true}
+                                        multiFiles={false}
+                                        onChange={(items) => setImage(items)}
+                                    />
+                                </fieldset>
+                            </div>
                             <div className='admin-form__controls'>
                                 <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
                                     Сохранить
@@ -385,41 +390,46 @@ const AdminDocumentPage = (props) => {
                     <>
                         <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
                         <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
-                            <fieldset className='admin-form__section admin-form__section_width_one-col'>
-                                <FieldText
-                                    label={"Название документа (кратко)*"}
-                                    required={true}
-                                    placeholder={"Введите название"}
-                                    {...register("titleShort", {
-                                        value: store.item.titleShort,
-                                    })}
-                                />
-                                <FieldText
-                                    label={"Название документа (полностью)*"}
-                                    required={true}
-                                    placeholder={"Введите название"}
-                                    {...register("title", {
-                                        value: store.item.title,
-                                    })}
-                                />
-                                <FieldUrl
-                                    label={"Ссылка на документ*"}
-                                    required={true}
-                                    placeholder={"https://..."}
-                                    {...register("url", {
-                                        value: store.item.url,
-                                    })}
-                                />
-                                <h2 className='admin-form__title'>Картинка для превью документа</h2>
-                                <ImageSelector
-                                    items={image}
-                                    onlyOneImage={true}
-                                    multiFiles={false}
-                                    orientation={'portrait'}
-                                    onChange={(items) => setImage(items)}
-                                    onDelete={handleDeletePreviewPhoto}
-                                />
-                            </fieldset>
+                            <div className='admin-form__two-columns'>
+                                <fieldset className='admin-form__section'>
+                                    <h2 className='admin-form__title'>Основная информация</h2>
+                                    <FieldText
+                                        label={"Название документа (кратко)*"}
+                                        required={true}
+                                        placeholder={"Введите название"}
+                                        {...register("titleShort", {
+                                            value: store.item.titleShort,
+                                        })}
+                                    />
+                                    <FieldText
+                                        label={"Название документа (полностью)*"}
+                                        required={true}
+                                        placeholder={"Введите название"}
+                                        {...register("title", {
+                                            value: store.item.title,
+                                        })}
+                                    />
+                                    <FieldUrl
+                                        label={"Ссылка на документ*"}
+                                        required={true}
+                                        placeholder={"https://..."}
+                                        {...register("url", {
+                                            value: store.item.url,
+                                        })}
+                                    />
+                                </fieldset>
+                                <fieldset className='admin-form__section'>
+                                    <h2 className='admin-form__title'>Картинка для превью документа</h2>
+                                    <ImageSelector
+                                        items={image}
+                                        onlyOneImage={true}
+                                        multiFiles={false}
+                                        orientation={"portrait"}
+                                        onChange={(items) => setImage(items)}
+                                        onDelete={handleDeletePreviewPhoto}
+                                    />
+                                </fieldset>
+                            </div>
                             <div className='admin-form__controls'>
                                 <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
                                 <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
@@ -460,39 +470,48 @@ const AdminDocumentPage = (props) => {
                             />
                         </TitleBlock>
                         <section className='admin-view-section'>
-                            <ul className='admin-view-section__list'>
-                                <li className='admin-view-section__item'>
-                                    <h3 className='admin-view-section__label'>Название документа (кратко)</h3>
-                                    <p className='admin-view-section__description'>{store.item.titleShort}</p>
-                                </li>
-                                <li className='admin-view-section__item'>
-                                    <h3 className='admin-view-section__label'>Название документа (полностью)</h3>
-                                    <p className='admin-view-section__description'>{store.item.title}</p>
-                                </li>
-                                <li className='admin-view-section__item'>
-                                    <h3 className='admin-view-section__label'>Ссылка на документ</h3>
-                                    <p className='admin-view-section__description'>
-                                        <NavLink
-                                            className='admin-view-section__link'
-                                            to={store.item.url}
-                                            target={"_blank"}
-                                            rel='noopener nofollow noreferer'
-                                        >
-                                            Открыть {AdminIcons.open_in_new}
-                                        </NavLink>
-                                    </p>
-                                </li>
-                            </ul>
-                            <h2 className='admin-view-section__title'>Картинка для превью документа</h2>
-                            <ImageGallery
-                                items={[
-                                    {
-                                        url: store.item.image,
-                                    },
-                                ]}
-                                orientation={'portrait'}
-                                front={false}
-                            />
+                            <div className='admin-view-section__two-columns'>
+                                <div className='admin-view-section__column'>
+                                    <h2 className='admin-view-section__title'>Основная информация</h2>
+                                    <ul className='admin-view-section__list'>
+                                        <li className='admin-view-section__item'>
+                                            <h3 className='admin-view-section__label'>Название документа (кратко)</h3>
+                                            <p className='admin-view-section__description'>{store.item.titleShort}</p>
+                                        </li>
+                                        <li className='admin-view-section__item'>
+                                            <h3 className='admin-view-section__label'>
+                                                Название документа (полностью)
+                                            </h3>
+                                            <p className='admin-view-section__description'>{store.item.title}</p>
+                                        </li>
+                                        <li className='admin-view-section__item'>
+                                            <h3 className='admin-view-section__label'>Ссылка на документ</h3>
+                                            <p className='admin-view-section__description'>
+                                                <NavLink
+                                                    className='admin-view-section__link'
+                                                    to={store.item.url}
+                                                    target={"_blank"}
+                                                    rel='noopener nofollow noreferer'
+                                                >
+                                                    Открыть {AdminIcons.open_in_new}
+                                                </NavLink>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className='admin-view-section__column'>
+                                    <h2 className='admin-view-section__title'>Картинка для превью документа</h2>
+                                    <ImageGallery
+                                        items={[
+                                            {
+                                                url: store.item.image,
+                                            },
+                                        ]}
+                                        orientation={"portrait"}
+                                        front={false}
+                                    />
+                                </div>
+                            </div>
                         </section>
                     </>
                 );

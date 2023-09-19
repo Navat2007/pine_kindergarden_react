@@ -1,4 +1,12 @@
 .admin-view-section {
+    &__two-columns {
+        display: grid;
+        gap: 0 1em;
+        grid-template-columns: repeat(auto-fit, minmax(min(20em, 100%), 1fr));
+    }
+
+    // &__column {}
+
     &__title {
         margin: min(2.5vmax, 1.25rem) 0;
         font-size: 1.25em;
@@ -54,53 +62,4 @@
     &__editor {
         max-width: 50em;
     }
-
-    // .logo {
-    //     display: block;
-    //     width: 100%;
-    //     min-width: 8em;
-    //     max-width: 8em;
-    //     object-fit: contain;
-    // }
-    // .logoPanel {
-    //     text-align: center;
-    // }
-
-    // .social {
-    //     @extend %reset-list;
-    //     display: flex;
-    //     gap: 0.675em;
-    // }
-
-    // .socialLink {
-    //     text-decoration: unset;
-    //     border-radius: 50%;
-    //     @include box(2.5em);
-    //     display: flex;
-    //     background-color: var(--g200);
-    //     transition: all 0.15s ease-in;
-
-    //     &:hover {
-    //         transform: translateZ(0) scale(1.1);
-    //     }
-    //     & svg {
-    //         margin: auto;
-    //         @include box(1.5em);
-    //     }
-    // }
-
-    // .eventIcon {
-    //     position: relative;
-    //     width: 1em;
-    //     margin-left: 0.25em;
-    //     display: inline-block;
-    //     svg {
-    //         position: absolute;
-    //         right: 0;
-    //         bottom: -0.25em;
-
-    //         width: 1em;
-    //         fill: var(--primary);
-    //     }
-    // }
 }

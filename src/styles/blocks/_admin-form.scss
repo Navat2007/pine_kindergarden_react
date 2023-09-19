@@ -6,7 +6,7 @@
     &__two-columns {
         display: grid;
         gap: 0 1em;
-        grid-template-columns: repeat(auto-fit, minmax(min(17em, 100%), 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(20em, 100%), 1fr));
     }
 
     &__title {
