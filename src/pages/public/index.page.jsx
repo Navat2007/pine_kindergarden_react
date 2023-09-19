@@ -5,6 +5,7 @@ import {motion} from "framer-motion";
 import Lead from "../../components/public/lead/lead";
 import Advantages from "../../components/public/advantages/advantages";
 import Contact from "../../components/public/contact/contact";
+import News from "../../components/public/news/news";
 import Feedback from "../../components/public/feedback/feedback";
 
 const MainPage = () => {
@@ -20,6 +21,7 @@ const MainPage = () => {
             </Helmet>
             <Lead />
             <Advantages />
+            <News />
             <Contact />
             <Feedback />
         </motion.div>
