@@ -1,10 +1,11 @@
 import React from "react";
 import createDOMPurify from "dompurify";
 import { useParams } from "react-router-dom";
-import { motion } from "framer-motion";
 
 import useGroupsStore from "../../store/public/groupsStore";
+
 import Feedback from "../../components/public/feedback/feedback";
+import PageTransition from "../../components/public/animation/page.transition";
 
 const GroupPage = () => {
     let { id } = useParams();
@@ -83,16 +84,11 @@ const GroupPage = () => {
     };
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: 0.2, duration: 1 }}
-        >
+        <PageTransition>
             <Loading />
             <MainBlock />
             <NotFound />
-        </motion.div>
+        </PageTransition>
     );
 };
 

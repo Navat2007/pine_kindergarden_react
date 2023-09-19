@@ -9,6 +9,7 @@ import TeachersSlider from "../teachers-slider/teachers-slider";
 
 import "./about.scss";
 import about__image from "../../../images/about__image.jpg";
+import ScrollTransition from "../animation/scroll.transition";
 
 const About = () => {
     const DOMPurify = createDOMPurify(window);
@@ -62,25 +63,27 @@ const About = () => {
                     {groupsStore.items.map((item, index) => {
                         return (
                             <li key={index}>
-                                <NavLink
-                                    className={"card-link"}
-                                    to={"/group/" + item.ID}
-                                    aria-label={"Главная страница"}
-                                >
-                                    <article className='about-card'>
-                                        <img
-                                            className='about-card__image'
-                                            src={
-                                                item.image.includes("http")
-                                                    ? item.image
-                                                    : process.env.REACT_APP_BASE_URL + item.image
-                                            }
-                                            alt='Изображение группы'
-                                        />
-                                        <h3 className='about-card__title'>{item.title}</h3>
-                                        <p>{item.preview}</p>
-                                    </article>
-                                </NavLink>
+                                <ScrollTransition>
+                                    <NavLink
+                                        className={"card-link"}
+                                        to={"/group/" + item.ID}
+                                        aria-label={"Главная страница"}
+                                    >
+                                        <article className='about-card'>
+                                            <img
+                                                className='about-card__image'
+                                                src={
+                                                    item.image.includes("http")
+                                                        ? item.image
+                                                        : process.env.REACT_APP_BASE_URL + item.image
+                                                }
+                                                alt='Изображение группы'
+                                            />
+                                            <h3 className='about-card__title'>{item.title}</h3>
+                                            <p>{item.preview}</p>
+                                        </article>
+                                    </NavLink>
+                                </ScrollTransition>
                             </li>
                         );
                     })}
