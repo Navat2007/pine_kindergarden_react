@@ -8,6 +8,7 @@ import "./teachers-slider.scss";
 import person_2 from "../../../images/person_2.jpg";
 import person_3 from "../../../images/person_3.jpg";
 import person_4 from "../../../images/person_4.jpg";
+import { NavLink } from "react-router-dom";
 
 const TeachersSlider = () => {
     const aboutStore = useAboutStore();
@@ -51,41 +52,49 @@ const TeachersSlider = () => {
                 },
             }}
         >
-            <SplideSlide data-splide-interval='5000' onClick={() => {}}>
-                <div className='teachers-card'>
-                    <img className='teachers-card__image' src='' alt='Фотография Юлия Викторовна Щетенкова' />
-                    <h3 className='teachers-card__title'>
-                        Юлия Викторовна Щетенкова <br />
-                        И.О. Заведующая детского сада
-                    </h3>
-                </div>
+            <SplideSlide data-splide-interval='5000'>
+                <NavLink className={"card-link"} to={"/teachers/"}>
+                    <article className='person-card'>
+                        <img className='person-card__image' src='' alt='Фотография Юлия Викторовна Щетенкова' />
+                        <h3 className='person-card__title'>
+                            Юлия Викторовна Щетенкова <br />
+                            И.О. Заведующая детского сада
+                        </h3>
+                    </article>
+                </NavLink>
             </SplideSlide>
-            <SplideSlide data-splide-interval='5000' onClick={() => {}}>
-                <div className='teachers-card__card'>
-                    <img className='teachers-card__image' src={person_2} alt='Фотография Инга Марковна Шелест' />
-                    <h3 className='teachers-card__title'>
-                        Инга Марковна Шелест <br />
-                        Преподаватель по английскому языку
-                    </h3>
-                </div>
+            <SplideSlide data-splide-interval='5000'>
+                <NavLink className={"card-link"} to={"/teachers/"}>
+                    <article className='person-card'>
+                        <img className='person-card__image' src={person_2} alt='Фотография Инга Марковна Шелест' />
+                        <h3 className='person-card__title'>
+                            Инга Марковна Шелест <br />
+                            Преподаватель по английскому языку
+                        </h3>
+                    </article>
+                </NavLink>
             </SplideSlide>
-            <SplideSlide data-splide-interval='5000' onClick={() => {}}>
-                <div className='teachers-card__card'>
-                    <img className='teachers-card__image' src={person_3} alt='Фотография Игорь Петрович Михалев' />
-                    <h3 className='teachers-card__title'>
-                        Игорь Петрович Михалев <br />
-                        Преподаветель по шахматам
-                    </h3>
-                </div>
+            <SplideSlide data-splide-interval='5000'>
+                <NavLink className={"card-link"} to={"/teachers/"}>
+                    <article className='person-card'>
+                        <img className='person-card__image' src={person_3} alt='Фотография Игорь Петрович Михалев' />
+                        <h3 className='person-card__title'>
+                            Игорь Петрович Михалев <br />
+                            Преподаветель по шахматам
+                        </h3>
+                    </article>
+                </NavLink>
             </SplideSlide>
-            <SplideSlide data-splide-interval='5000' onClick={() => {}}>
-                <div className='teachers-card__card'>
-                    <img className='teachers-card__image' src={person_4} alt='Фотография Инна Федоровна Осипова' />
-                    <h3 className='teachers-card__title'>
-                        Инна Федоровна Осипова <br />
-                        Логопед
-                    </h3>
-                </div>
+            <SplideSlide data-splide-interval='5000'>
+                <NavLink className={"card-link"} to={"/teachers/"}>
+                    <article className='person-card'>
+                        <img className='person-card__image' src={person_4} alt='Фотография Инна Федоровна Осипова' />
+                        <h3 className='person-card__title'>
+                            Инна Федоровна Осипова <br />
+                            Логопед
+                        </h3>
+                    </article>
+                </NavLink>
             </SplideSlide>
         </Splide>
     );
