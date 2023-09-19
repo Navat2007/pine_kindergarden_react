@@ -57,6 +57,7 @@ const GroupPage = () => {
                                 alt='Изображение группы'
                             />
                             <h1>{store.item.title}</h1>
+                            <p>{store.item.preview}</p>
                             <div
                                 dangerouslySetInnerHTML={{
                                     __html: DOMPurify.sanitize(store.item.text),

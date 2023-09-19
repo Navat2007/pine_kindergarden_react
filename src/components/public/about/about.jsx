@@ -77,7 +77,7 @@ const About = () => {
                                             alt='Изображение группы'
                                         />
                                         <h3 className='about-card__title'>{item.title}</h3>
-                                        <p>Текст {item.description}</p>
+                                        <p>{item.preview}</p>
                                     </article>
                                 </NavLink>
                             </li>

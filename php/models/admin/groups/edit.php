@@ -9,6 +9,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 $id = htmlspecialchars($_POST["id"]);
 $userID = $authorization[1];
 $title = mysqli_real_escape_string($conn, htmlspecialchars($_POST["title"]));
+$preview = mysqli_real_escape_string($conn, htmlspecialchars($_POST["preview"]));
 $text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
 $image = $_POST["image"];
 
@@ -16,6 +17,7 @@ $sql = "UPDATE
                 groups
             SET
                 title = '$title', 
+                preview = '$preview', 
                 text = '$text', 
                 last_userID = '$userID'
             WHERE 
