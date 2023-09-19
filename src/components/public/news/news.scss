@@ -65,27 +65,17 @@
         @include clamp(3);
     }
     &__button {
-        justify-self: end;
-
-        @extend %reset-btn;
-        font-family: var(--font-headings);
-        border-radius: 10px;
+        margin: 0.5em 0 0;
+        border-radius: 5px;
         background-color: #9dd641;
-        border-color: #9dd641;
-        box-sizing: border-box;
         width: 100%;
         text-align: center;
         max-width: 9.375rem;
-        font-size: var(--text-size-xl);
-        min-height: min(6vmax, 3em);
+        font-size: var(--text-size-lg);
+        padding: 0.75em;
         transition: 0.35s ease-out;
 
-        margin-left: auto;
-
-        &:disabled {
-            pointer-events: none;
-            background-color: #e1e1e1;
-        }
+        justify-self: end;
 
         &:hover,
         &:focus-visible {
