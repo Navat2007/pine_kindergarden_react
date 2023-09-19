@@ -1,13 +1,14 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import createDOMPurify from "dompurify";
 
 import useAboutStore from "../../../store/public/aboutStore";
 import useGroupsStore from "../../../store/public/groupsStore";
 
+import TeachersSlider from "../teachers-slider/teachers-slider";
+
 import "./about.scss";
 import about__image from "../../../images/about__image.jpg";
-import { NavLink } from "react-router-dom";
-import TeachersSlider from "../teachers-slider/teachers-slider";
 
 const About = () => {
     const DOMPurify = createDOMPurify(window);
