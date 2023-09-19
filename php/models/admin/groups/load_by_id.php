@@ -24,8 +24,9 @@ if (mysqli_num_rows($result) > 0) {
 
             'ID' => (int)$row->ID,
             'title' => htmlspecialchars_decode($row->title),
-            'image' => $row->image,
+            'preview' => htmlspecialchars_decode($row->preview),
             'text' => htmlspecialchars_decode($row->text),
+            'image' => $row->image,
             'create_time' => $row->create_time,
         ];
 

@@ -8,12 +8,13 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $userID = $authorization[1];
 $title = mysqli_real_escape_string($conn, htmlspecialchars($_POST["title"]));
+$preview = mysqli_real_escape_string($conn, htmlspecialchars($_POST["preview"]));
 $text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
 $image = $_POST["image"];
 
 $sql = "
-        INSERT INTO groups (title, text, userID, last_userID) 
-        VALUES ('$title', '$text', '$userID', '$userID')
+        INSERT INTO groups (title, preview, text, userID, last_userID) 
+        VALUES ('$title', '$preview', '$text', '$userID', '$userID')
     ";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);

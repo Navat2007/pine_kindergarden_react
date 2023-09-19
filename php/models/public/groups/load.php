@@ -6,7 +6,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $sql = "SELECT 
-        ID, title, image, create_time
+        ID, title, preview, image, create_time
     FROM 
         groups";
 $sqls[] = $sql;
@@ -18,6 +18,7 @@ if (mysqli_num_rows($result) > 0) {
         $params[] = (object)[
             'ID' => (int)$row->ID,
             'title' => htmlspecialchars_decode($row->title),
+            'preview' => htmlspecialchars_decode($row->preview),
             'image' => $row->image,
             'create_time' => $row->create_time,
         ];

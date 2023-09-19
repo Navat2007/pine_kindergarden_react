@@ -70,20 +70,6 @@ const AdminGroupPage = (props) => {
                     return false;
                 }
 
-                if (!sendObject.text || sendObject.text === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Описание должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
                 return true;
             };
 
@@ -139,9 +125,13 @@ const AdminGroupPage = (props) => {
                                     placeholder={"Введите название"}
                                     {...register("title")}
                                 />
+                                <FieldText
+                                    label={"Краткое описание"}
+                                    placeholder={"Введите краткое описание"}
+                                    {...register("preview")}
+                                />
                                 <p className='admin-form__subtitle'>Воспитатели</p>
                                 <MultiSelect
-                                    required={true}
                                     control={control}
                                     isMulti={true}
                                     name={"teachers_select"}
@@ -221,20 +211,6 @@ const AdminGroupPage = (props) => {
                         <AlertPopup
                             title='Ошибка'
                             text={"Название должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.text || sendObject.text === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Описание должно быть заполнено."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -366,9 +342,15 @@ const AdminGroupPage = (props) => {
                                         value: store.item.title,
                                     })}
                                 />
+                                <FieldText
+                                    label={"Краткое описание"}
+                                    placeholder={"Введите краткое описание"}
+                                    {...register("preview", {
+                                        value: store.item.preview,
+                                    })}
+                                />
                                 <p className='admin-form__subtitle'>Воспитатели</p>
                                 <MultiSelect
-                                    required={true}
                                     control={control}
                                     isMulti={true}
                                     name={"teachers_select"}
@@ -463,6 +445,10 @@ const AdminGroupPage = (props) => {
                                 <li className='admin-view-section__item'>
                                     <h3 className='admin-view-section__label'>Название</h3>
                                     <p className='admin-view-section__description'>{store.item.title}</p>
+                                </li>
+                                <li className='admin-view-section__item'>
+                                    <h3 className='admin-view-section__label'>Краткое описание</h3>
+                                    <p className='admin-view-section__description'>{store.item.preview}</p>
                                 </li>
                             </ul>
                             <h2 className='admin-view-section__title'>Фотография</h2>
