@@ -2,9 +2,14 @@ import React from 'react';
 import { motion, Variants } from "framer-motion";
 
 const ScrollTransition = ({children, ...props}) => {
+    const getRandomNumber = (min, max) => {
+        return Math.floor(Math.random() * (max - min) + min)
+    }
+
     const cardVariants: Variants = {
         offscreen: {
-            y: 300
+            y: 300,
+            rotate: getRandomNumber(-30, 30),
         },
         onscreen: {
             y: 0,
