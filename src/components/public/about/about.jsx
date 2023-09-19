@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import createDOMPurify from "dompurify";
-import { motion } from "framer-motion";
 
 import useAboutStore from "../../../store/public/aboutStore";
 import useGroupsStore from "../../../store/public/groupsStore";
@@ -26,12 +25,7 @@ const About = () => {
     }, []);
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: 0.2, duration: 1 }}
-        >
+        <>
             <section className='about about_contain_inner'>
                 <h1 className='main-title'>
                     ФГБДОУ &laquo;Центр развития ребенка&nbsp;&mdash; детский сад &laquo;Сосны&raquo;
@@ -96,7 +90,7 @@ const About = () => {
                 <h2 className='about__title'>Наша команда</h2>
                 <TeachersSlider />
             </section>
-        </motion.div>
+        </>
     );
 };
 
