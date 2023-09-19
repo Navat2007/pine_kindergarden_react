@@ -60,6 +60,10 @@
     }
 
     &__editor {
-        max-width: 50em;
+        max-width: 55em;
+        background-color: #f5f6f8;
+        padding: 1em 1.5em;
+        border-radius: 5px;
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.06);
     }
 }
