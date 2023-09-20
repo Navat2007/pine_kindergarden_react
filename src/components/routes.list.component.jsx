@@ -17,6 +17,7 @@ import AdminNewsPage from "../pages/admin/news/news.page";
 import AdminDocumentsPage from "../pages/admin/documents/documents.page";
 import AdminDocumentPage from "../pages/admin/documents/document.page";
 import AdminTeachersPage from "../pages/admin/teachers/teachers.page";
+import AdminTeacherPage from "../pages/admin/teachers/teacher.page";
 import AdminFoodsPage from "../pages/admin/food/foods.page";
 import AdminFoodPage from "../pages/admin/food/food.page";
 import AdminModesPage from "../pages/admin/mode/modes.page";
@@ -35,6 +36,7 @@ import FoodPage from "../pages/public/food.page";
 import AboutPage from "../pages/public/about.page";
 import ModePage from "../pages/public/mode.page";
 import GroupPage from "../pages/public/group.page";
+import AdminCategoryTeachersPage from "../pages/admin/teachers/category.teachers.page";
 
 const RoutesList = () => {
     const { user } = useAuthStore();
@@ -73,7 +75,9 @@ const RoutesList = () => {
                 <Route path='teachers'>
                     <Route index element={<AdminTeachersPage />} />
                     <Route path=':id' element={<AdminTeachersPage />} />
-                    <Route path='new' element={<AdminTeachersPage />} />
+                    <Route path='new' element={<AdminTeacherPage />} />
+                    <Route path='category/:id' element={<AdminCategoryTeachersPage />} />
+                    <Route path='category/new' element={<AdminCategoryTeachersPage />} />
                 </Route>
                 <Route path='food'>
                     <Route index element={<AdminFoodsPage />} />
