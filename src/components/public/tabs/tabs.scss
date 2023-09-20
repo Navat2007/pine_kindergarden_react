@@ -1,0 +1,53 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.tabs {
+    background-color: rgba(var(--primary-opacity), 0.1);
+    border-radius: 5px;
+    padding: 1em;
+
+    &__list {
+        @extend %reset-list;
+        display: flex;
+        gap: 0.5em;
+        overflow-x: auto;
+    }
+
+    &__item {
+        min-width: 7em;
+        text-align: center;
+
+        padding: 1em;
+        color: #fff;
+        font-weight: normal;
+        border-radius: 5px 5px 0 0;
+        background-color: var(--primary);
+        border: 1px solid rgba(var(--primary-opacity), 0.3);
+        border-bottom-color: transparent;
+        transition:
+            background-color 0.25s ease-in,
+            color 0.25s ease-in;
+        cursor: pointer;
+
+        flex: none;
+
+        &:not(&_active):hover {
+            color: var(--primary);
+            background-color: #fff;
+        }
+
+        &_active {
+            pointer-events: none;
+            color: var(--primary);
+            background-color: #fff;
+        }
+    }
+
+    &__section {
+        padding: 1.5em 1em;
+        background-color: #fff;
+        border: 1px solid rgba(var(--primary-opacity), 0.3);
+        border-top-color: transparent;
+        border-radius: 0 0 5px 5px;
+    }
+}

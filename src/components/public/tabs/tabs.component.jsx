@@ -3,7 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import "./tabs.scss";
 
 const Tabs = ({ extraClass, theme, children }) => {
-    const [activeTab, setActiveTab] = React.useState(window.localStorage.getItem(`${children?.props?.title}_tab`) ? parseInt(window.localStorage.getItem(`${children?.props?.title}_tab`)) : 0);
+    const [activeTab, setActiveTab] = React.useState(
+        window.localStorage.getItem(`${children?.props?.title}_tab`)
+            ? parseInt(window.localStorage.getItem(`${children?.props?.title}_tab`))
+            : 0
+    );
 
     if (!children.length)
         return (
@@ -13,16 +17,16 @@ const Tabs = ({ extraClass, theme, children }) => {
         );
 
     return (
-        <div className={`admin-tabs${theme ? ` admin-tabs_theme_${theme}` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
-            <ul className={`admin-tabs__list${extraClass ? ` ${extraClass}-list` : ``}`}>
+        <div className={`tabs${theme ? ` tabs_theme_${theme}` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
+            <ul className={`tabs__list${extraClass ? ` ${extraClass}-list` : ``}`}>
                 {children.map((child, index) => (
                     <li
                         key={child.props.title}
                         onClick={() => {
                             window.localStorage.setItem(`${children?.props?.title}_tab`, index);
-                            setActiveTab(index)
+                            setActiveTab(index);
                         }}
-                        className={`admin-tabs__item${index === activeTab ? ` admin-tabs__item_active` : ``}${
+                        className={`tabs__item${index === activeTab ? ` tabs__item_active` : ``}${
                             child.props.hidden ? ` --hide` : ``
                         }`}
                     >
@@ -32,11 +36,11 @@ const Tabs = ({ extraClass, theme, children }) => {
             </ul>
             <AnimatePresence mode={"wait"}>
                 <motion.div
-                    className='admin-tabs__section'
+                    className='tabs__section'
                     key={activeTab}
-                    initial={{ y: -10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 10, opacity: 0 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
                 >
                     {children
