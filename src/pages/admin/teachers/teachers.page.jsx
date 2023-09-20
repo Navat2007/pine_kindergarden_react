@@ -2,6 +2,7 @@ import React from "react";
 import {useNavigate} from "react-router-dom";
 
 import useTeachersStore from "../../../store/admin/teachersStore";
+import useTeachersCategoriesStore from "../../../store/admin/teacherCategoriesStore";
 import useAuthStore from "../../../store/authStore";
 
 import Table from "../../../components/admin/table/table.component";
@@ -86,7 +87,7 @@ const AdminTeachersPage = () => {
     };
 
     const Category = () => {
-        const store = useTeachersStore();
+        const store = useTeachersCategoriesStore();
 
         const url = 'admin/teachers/category';
 
@@ -95,7 +96,7 @@ const AdminTeachersPage = () => {
         };
 
         const fetchData = async () => {
-            await store.loadCategories();
+            await store.loadAll();
         };
 
         React.useEffect(() => {
@@ -122,7 +123,7 @@ const AdminTeachersPage = () => {
             <Table
                 title={`Таблица ${url} ${user.ID}`}
                 loading={store.loading}
-                items={store.categories}
+                items={store.items}
                 itemsConfig={itemConfig}
                 onItemClick={onItemClick}
                 withFilter={true}

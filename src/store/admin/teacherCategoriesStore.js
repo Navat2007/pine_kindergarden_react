@@ -1,7 +1,7 @@
 import axios from "axios";
 import create from 'zustand'
 
-const directory = 'teachers';
+const directory = 'teachers/categories';
 
 const urlLoadAll = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load.php`;
 const urlLoadByID = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load_by_id.php`;
@@ -9,9 +9,8 @@ const urlLoadByID = process.env.REACT_APP_BASE_URL + `php/models/admin/${directo
 const urlAdd = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/add.php`;
 const urlEdit = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/edit.php`;
 const urlRemove = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/remove.php`;
-const urlRemoveFile = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/remove_file.php`;
 
-const useTeachersStore = create(
+const useTeachersCategoriesStore = create(
     (set, get) => ({
         items: [],
         item: {},
@@ -140,32 +139,7 @@ const useTeachersStore = create(
             return {error: false};
 
         },
-        removeFile: async (params) => {
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlRemoveFile, form);
-
-            if (response.data) {
-
-                console.log(response.data);
-
-                if (response.data.error === 1) {
-
-                    return {
-                        error: true,
-                        errorText: response.data.error_text
-                    };
-
-                }
-
-            }
-
-            return {error: false};
-
-        },
     })
 );
 
-export default useTeachersStore;
+export default useTeachersCategoriesStore;
