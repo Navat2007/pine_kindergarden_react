@@ -51,19 +51,17 @@ const GroupPage = () => {
                 <section className='article'>
                     {!store.loading && Object.keys(store.item).length > 0 && (
                         <>
-                            <div className='article__columns'>
-                                <div className='article__column'>
-                                    <img
-                                        className='article__image'
-                                        src={
-                                            store.item.image.includes("http")
-                                                ? store.item.image
-                                                : process.env.REACT_APP_BASE_URL + store.item.image
-                                        }
-                                        alt='Изображение группы'
-                                    />
-                                </div>
-                                <div className='article__column'>
+                            <div className='article__two-columns'>
+                                <img
+                                    className='article__image'
+                                    src={
+                                        store.item.image.includes("http")
+                                            ? store.item.image
+                                            : process.env.REACT_APP_BASE_URL + store.item.image
+                                    }
+                                    alt='Изображение группы'
+                                />
+                                <div>
                                     <h1 className='article__title'>{store.item.title}</h1>
                                     <p className='article__subtitle'>{store.item.preview}</p>
                                     <div
