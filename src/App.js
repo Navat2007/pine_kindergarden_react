@@ -87,22 +87,14 @@ const App = () => {
         fetchData();
     }, []);
 
-    const AnimatedPageTransition = ({ children }) => {
-        return (
-            <AnimatePresence mode={'wait'}>
-                <Preloader loading={timer > 0}>{children}</Preloader>
-            </AnimatePresence>
-        );
-    };
-
     return (
         <>
             {app && (
                 <BrowserRouter>
-                    <AnimatedPageTransition>
+                    <Preloader loading={timer > 0}>
                         <RoutesList />
                         <ToTopButton />
-                    </AnimatedPageTransition>
+                    </Preloader>
                 </BrowserRouter>
             )}
         </>

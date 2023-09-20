@@ -1,5 +1,6 @@
 import React from "react";
-import {Outlet, useLocation} from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import Header from "../components/public/header/header";
 import Footer from "../components/public/footer/footer";
@@ -15,11 +16,17 @@ const PublicLayout = () => {
 
     return (
         <>
-            <Header/>
-            <main className='main-content'>
-                <Outlet/>
-            </main>
-            <Footer/>
+            <Header />
+            <motion.main
+                className='main-content'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.2, duration: 1 }}
+            >
+                <Outlet />
+            </motion.main>
+            <Footer />
         </>
     );
 };

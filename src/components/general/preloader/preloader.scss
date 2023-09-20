@@ -8,7 +8,7 @@
   --preloaderSize: 60;
   --preloaderDuration: .7;
 
-  background-color: var(--white);
+  background-color: #fff;
   position: absolute;
   top: 0;
   left: 0;
@@ -20,10 +20,10 @@
   align-items: center;
   justify-content: center;
 
-  // @extend %visibility-block;
+  @extend %visibility-block;
 
   &_hidden {
-    // @extend %hidden-block;
+    @extend %hidden-block;
     transition: visibility 0s calc(#{var(--preloaderDuration)} * 1s),
     opacity calc(#{var(--preloaderDuration)} * 1s);
   }
@@ -46,7 +46,7 @@
 
       &:first-child {
         animation-delay: -1.5s;
-        background-color: var(--accent);
+        background-color: var(--accent-light);
       }
 
       &:nth-child(2) {
@@ -55,7 +55,7 @@
 
       &:nth-child(3) {
         animation-delay: -0.5s;
-        background-color: var(--accent);
+        background-color: var(--accent-light);
       }
     }
   }

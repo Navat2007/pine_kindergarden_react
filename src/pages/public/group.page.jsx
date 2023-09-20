@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import useGroupsStore from "../../store/public/groupsStore";
 
 import Feedback from "../../components/public/feedback/feedback";
-import PageTransition from "../../components/public/animation/page.transition";
 
 const GroupPage = () => {
     let { id } = useParams();
@@ -84,11 +83,11 @@ const GroupPage = () => {
     };
 
     return (
-        <PageTransition>
+        <>
             <Loading />
             <MainBlock />
             <NotFound />
-        </PageTransition>
+        </>
     );
 };
 

@@ -1,7 +1,8 @@
-import React from 'react';
-import {motion} from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 
-const PageTransition = ({children}) => {
+// В структуре не применен - в разметку брать только как шаблон для секций.
+const PageTransition = ({ children }) => {
     return (
         <motion.div
             initial={{ opacity: 0 }}
