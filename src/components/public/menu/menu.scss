@@ -86,7 +86,7 @@
                 grid-template-columns: auto;
             }
 
-            @include media(md) {
+            @include media(lg) {
                 justify-content: unset;
                 grid-template-columns: minmax(max-content, 30em) min-content;
             }
@@ -99,7 +99,7 @@
                 flex-direction: row;
             }
 
-            @include media(md) {
+            @include media(lg) {
                 gap: 0 min(1.25vmax, 0.875em);
             }
         }

@@ -12,7 +12,7 @@
         flex-direction: column;
         padding: 1em var(--padding-gor-size-sm);
 
-        @include media(md) {
+        @include media(lg) {
             flex-direction: row;
         }
     }
@@ -24,7 +24,7 @@
         flex-direction: column;
         padding: min(1.25vmax, 0.875em) min(2vmax, 1.875em);
 
-        @include media(md) {
+        @include media(lg) {
             text-align: right;
         }
     }
@@ -32,8 +32,9 @@
     &__author {
         font-family: var(--font-headings);
         font-size: var(--text-size-md);
+        margin: 0;
 
-        @include media(md) {
+        @include media(lg) {
             order: -1;
         }
     }
