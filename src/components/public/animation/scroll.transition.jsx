@@ -1,15 +1,11 @@
 import React from 'react';
-import { motion, Variants } from "framer-motion";
+import {motion, Variants} from "framer-motion";
 
 const ScrollTransition = ({children, ...props}) => {
-    const getRandomNumber = (min, max) => {
-        return Math.floor(Math.random() * (max - min) + min)
-    }
-
     const cardVariants: Variants = {
         offscreen: {
             y: 300,
-            rotate: getRandomNumber(-30, 30),
+            rotate: window.global.getRandomIntNumber(-30, 30),
         },
         onscreen: {
             y: 0,
@@ -24,10 +20,9 @@ const ScrollTransition = ({children, ...props}) => {
 
     return (
         <motion.div
-            className="card-container"
             initial="offscreen"
             whileInView="onscreen"
-            viewport={{ once: true, amount: 0.05 }}
+            viewport={{once: true, amount: 0.05}}
             variants={cardVariants}
         >
             {children}

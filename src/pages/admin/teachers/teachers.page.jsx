@@ -71,7 +71,7 @@ const AdminTeachersPage = () => {
             <Button
                 type='button'
                 iconName={AdminIcons.plus}
-                aria-label='Добавить новость'
+                aria-label='Добавить педагога'
                 onClick={() => navigate(`/${url}/new`)}
             >
                 Создать

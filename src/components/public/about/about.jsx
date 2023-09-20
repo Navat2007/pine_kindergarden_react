@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import createDOMPurify from "dompurify";
+import {motion, Variants} from "framer-motion";
 
 import useAboutStore from "../../../store/public/aboutStore";
 import useGroupsStore from "../../../store/public/groupsStore";
@@ -9,7 +10,6 @@ import TeachersSlider from "../teachers-slider/teachers-slider";
 
 import "./about.scss";
 import about__image from "../../../images/about__image.jpg";
-import ScrollTransition from "../animation/scroll.transition";
 
 const About = () => {
     const DOMPurify = createDOMPurify(window);
@@ -62,31 +62,51 @@ const About = () => {
                 <h2 className='about__title'>Наши группы</h2>
                 <ul className='about__list'>
                     {groupsStore.items.map((item, index) => {
+                        const cardVariants: Variants = {
+                            offscreen: {
+                                y: 300,
+                                rotate: window.global.getRandomIntNumber(-30, 30),
+                            },
+                            onscreen: {
+                                y: 0,
+                                rotate: 0,
+                                transition: {
+                                    type: "spring",
+                                    bounce: 0.4,
+                                    duration: 0.8
+                                }
+                            }
+                        };
+
                         return (
-                            <li key={index}>
-                                <ScrollTransition>
-                                    <NavLink
-                                        className={"card-link"}
-                                        to={"/group/" + item.ID}
-                                        aria-label={"Главная страница"}
-                                    >
-                                        <article className='about-card'>
-                                            <img
-                                                className='about-card__image'
-                                                src={
-                                                    item.image.includes("http")
-                                                        ? item.image
-                                                        : process.env.REACT_APP_BASE_URL + item.image
-                                                }
-                                                loading="lazy"
-                                                alt='Изображение группы'
-                                            />
-                                            <h3 className='about-card__title'>{item.title}</h3>
-                                            <p>{item.preview}</p>
-                                        </article>
-                                    </NavLink>
-                                </ScrollTransition>
-                            </li>
+                            <motion.li
+                                key={index}
+                                initial="offscreen"
+                                whileInView="onscreen"
+                                viewport={{once: true, amount: 0.05}}
+                                variants={cardVariants}
+                            >
+                                <NavLink
+                                    className={"card-link"}
+                                    to={"/group/" + item.ID}
+                                    aria-label={"Главная страница"}
+                                >
+                                    <article className='about-card'>
+                                        <img
+                                            className='about-card__image'
+                                            src={
+                                                item.image.includes("http")
+                                                    ? item.image
+                                                    : process.env.REACT_APP_BASE_URL + item.image
+                                            }
+                                            loading="lazy"
+                                            alt='Изображение группы'
+                                        />
+                                        <h3 className='about-card__title'>{item.title}</h3>
+                                        <p>{item.preview}</p>
+                                    </article>
+                                </NavLink>
+                            </motion.li>
                         );
                     })}
                 </ul>
