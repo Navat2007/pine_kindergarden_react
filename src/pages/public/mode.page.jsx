@@ -3,8 +3,8 @@ import { Helmet } from "react-helmet";
 
 import Feedback from "../../components/public/feedback/feedback";
 import Construction from "../../components/public/cunstruction/construction";
-import Tabs from "../../components/general/tabs/tabs.component";
-import Tab from "../../components/general/tabs/tab.component";
+import Tabs from "../../components/public/tabs/tabs.component";
+import Tab from "../../components/public/tabs/tab.component";
 
 const ModePage = () => {
     return (
@@ -26,7 +26,13 @@ const ModePage = () => {
                         <h1 className='person__title'>Инна Федоровна Осипова</h1>
                         <p className='person__subtitle'>Логопед</p>
                         <Tabs>
-                            <Tab title={"Образование"}></Tab>
+                            <Tab title={"Образование"}>
+                                <div className='table'></div>
+
+                                Наименование учебного учреждения	Дата окончания	Специальность, квалификация по диплому
+Московский государственный заочный педагогический институт	1990 год
+Педагогика и психология (дошкольная), преподаватель дошкольной педагогики и психологии, методист по дошкольному воспитанию
+                            </Tab>
                             <Tab title={"Повышение квалификации"}></Tab>
                             <Tab title={"Трудовой стаж"}></Tab>
                             <Tab title={"Награды, благодарности"}></Tab>
