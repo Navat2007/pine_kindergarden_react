@@ -61,7 +61,11 @@ const About = () => {
             <section className='about about_contain_inner'>
                 <h2 className='about__title'>Наши группы</h2>
                 <ul className='about__list'>
-                    {groupsStore.items.map((item, index) => {
+                    {
+                        groupsStore.loading && <h3>Загрузка...</h3>
+                    }
+                    {
+                        groupsStore.loading === false && groupsStore.items.map((item, index) => {
                         const cardVariants: Variants = {
                             offscreen: {
                                 y: 300,
