@@ -15,6 +15,7 @@ const Advantages = () => {
                         <img
                             className='card__image'
                             src={advantages__image_1}
+                            loading='lazy'
                             alt='Изображение малышки с игрушечным фотоаппаратом'
                         />
                         <h3 className='card__title'>Безопасная среда</h3>
@@ -28,7 +29,12 @@ const Advantages = () => {
                 </li>
                 <li className='card'>
                     <div className='card__wrap'>
-                        <img className='card__image' src={advantages__image_2} alt='Изображение мальчика в зеленой маске' />
+                        <img
+                            className='card__image'
+                            src={advantages__image_2}
+                            loading='lazy'
+                            alt='Изображение мальчика в зеленой маске'
+                        />
                         <h3 className='card__title'>Социализация</h3>
                         <div className='card__text'>
                             <p>
@@ -40,7 +46,12 @@ const Advantages = () => {
                 </li>
                 <li className='card'>
                     <div className='card__wrap'>
-                        <img className='card__image' src={advantages__image_3} alt='Изображение девочки с книгой' />
+                        <img
+                            className='card__image'
+                            src={advantages__image_3}
+                            loading='lazy'
+                            alt='Изображение девочки с книгой'
+                        />
                         <h3 className='card__title'>Обучение и развитие</h3>
                         <div className='card__text'>
                             <p>
@@ -53,7 +64,12 @@ const Advantages = () => {
                 </li>
                 <li className='card'>
                     <div className='card__wrap'>
-                        <img className='card__image' src={advantages__image_4} alt='Изображение домика из кубиков' />
+                        <img
+                            className='card__image'
+                            src={advantages__image_4}
+                            loading='lazy'
+                            alt='Изображение домика из кубиков'
+                        />
                         <h3 className='card__title'>Подготовка к школе</h3>
                         <div className='card__text'>
                             <p>

@@ -55,7 +55,12 @@ const TeachersSlider = () => {
             <SplideSlide data-splide-interval='5000'>
                 <NavLink className={"card-link"} to={"/teachers/"}>
                     <article className='person-card'>
-                        <img className='person-card__image' src='' alt='Фотография Юлия Викторовна Щетенкова' />
+                        <img
+                            className='person-card__image'
+                            loding='lazy'
+                            src=''
+                            alt='Фотография Юлия Викторовна Щетенкова'
+                        />
                         <h3 className='person-card__title'>
                             Юлия Викторовна Щетенкова <br />
                             И.О. Заведующая детского сада
@@ -66,7 +71,12 @@ const TeachersSlider = () => {
             <SplideSlide data-splide-interval='5000'>
                 <NavLink className={"card-link"} to={"/teachers/"}>
                     <article className='person-card'>
-                        <img className='person-card__image' src={person_2} alt='Фотография Инга Марковна Шелест' />
+                        <img
+                            className='person-card__image'
+                            loding='lazy'
+                            src={person_2}
+                            alt='Фотография Инга Марковна Шелест'
+                        />
                         <h3 className='person-card__title'>
                             Инга Марковна Шелест <br />
                             Преподаватель по английскому языку
@@ -77,7 +87,12 @@ const TeachersSlider = () => {
             <SplideSlide data-splide-interval='5000'>
                 <NavLink className={"card-link"} to={"/teachers/"}>
                     <article className='person-card'>
-                        <img className='person-card__image' src={person_3} alt='Фотография Игорь Петрович Михалев' />
+                        <img
+                            className='person-card__image'
+                            loding='lazy'
+                            src={person_3}
+                            alt='Фотография Игорь Петрович Михалев'
+                        />
                         <h3 className='person-card__title'>
                             Игорь Петрович Михалев <br />
                             Преподаветель по шахматам
@@ -88,7 +103,12 @@ const TeachersSlider = () => {
             <SplideSlide data-splide-interval='5000'>
                 <NavLink className={"card-link"} to={"/teachers/"}>
                     <article className='person-card'>
-                        <img className='person-card__image' src={person_4} alt='Фотография Инна Федоровна Осипова' />
+                        <img
+                            className='person-card__image'
+                            loding='lazy'
+                            src={person_4}
+                            alt='Фотография Инна Федоровна Осипова'
+                        />
                         <h3 className='person-card__title'>
                             Инна Федоровна Осипова <br />
                             Логопед

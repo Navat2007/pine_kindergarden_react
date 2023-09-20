@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import "./logo.scss";
 import logo from "../../../images/logo.svg";
@@ -12,7 +12,7 @@ const Logo = ({ place }) => {
             rel='noreferer nofollow noopener'
             aria-label={"Главная страница"}
         >
-            <img src={logo} alt='Векторное изображение трех сосен с надписью - Сосны' />
+            <img src={logo} loading='lazy' alt='Векторное изображение трех сосен с надписью - Сосны' />
         </NavLink>
     );
 };

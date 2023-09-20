@@ -24,6 +24,7 @@ const Lessons = () => {
                     <img
                         className='lessons__card-image'
                         src={Card_image_1}
+                        loading='lazy'
                         alt='Изображение шахмат на шахматной доске'
                     />
                     <h2 className='lessons__card-title'>Шахматы</h2>
@@ -32,6 +33,7 @@ const Lessons = () => {
                     <img
                         className='lessons__card-image'
                         src={Card_image_2}
+                        loading='lazy'
                         alt='Изображение пляжного мяча на воде'
                     />
                     <h2 className='lessons__card-title'>Бассейн</h2>
@@ -40,6 +42,7 @@ const Lessons = () => {
                     <img
                         className='lessons__card-image'
                         src={Card_image_3}
+                        loading='lazy'
                         alt='Изображение букв на асфальте'
                     />
                     <h2 className='lessons__card-title'>Ангийский язык</h2>
@@ -48,6 +51,7 @@ const Lessons = () => {
                     <img
                         className='lessons__card-image'
                         src={Card_image_4}
+                        loading='lazy'
                         alt='Изображение работы на гончарном круге'
                     />
                     <h2 className='lessons__card-title'>Гончарный круг</h2>
@@ -56,6 +60,7 @@ const Lessons = () => {
                     <img
                         className='lessons__card-image'
                         src={Card_image_5}
+                        loading='lazy'
                         alt='Изображение студийного микрофона'
                     />
                     <h2 className='lessons__card-title'>Вокал</h2>
@@ -64,6 +69,7 @@ const Lessons = () => {
                     <img
                         className='lessons__card-image'
                         src={Card_image_6}
+                        loading='lazy'
                         alt='Изображение мальчика в аквагримме на сцене'
                     />
                     <h2 className='lessons__card-title'>Актерское мастерство</h2>
@@ -72,6 +78,7 @@ const Lessons = () => {
                     <img
                         className='lessons__card-image'
                         src={Card_image_7}
+                        loading='lazy'
                         alt='Изображение кубика-рубика'
                     />
                     <h2 className='lessons__card-title'>Математика</h2>
@@ -80,18 +87,20 @@ const Lessons = () => {
                     <img
                         className='lessons__card-image'
                         src={Card_image_8}
+                        loading='lazy'
                         alt='Изображение механизмов из лего конструкторов'
                     />
                     <h2 className='lessons__card-title'>Робототехника</h2>
                 </li>
                 <li className='lessons__card'>
-                    <img className='lessons__card-image' src={Card_image_9} alt='Изображение детей' />
+                    <img className='lessons__card-image' src={Card_image_9} loading='lazy' alt='Изображение детей' />
                     <h2 className='lessons__card-title'>Аэробика</h2>
                 </li>
                 <li className='lessons__card'>
                     <img
                         className='lessons__card-image'
                         src={Card_image_10}
+                        loading='lazy'
                         alt='Изображение игры с кукольными игрушками'
                     />
                     <h2 className='lessons__card-title'>Логопед</h2>
@@ -100,6 +109,7 @@ const Lessons = () => {
                     <img
                         className='lessons__card-image'
                         src={Card_image_11}
+                        loading='lazy'
                         alt='Изображение деток, занимающихся пилатесом'
                     />
                     <h2 className='lessons__card-title'>Живчики</h2>
@@ -108,6 +118,7 @@ const Lessons = () => {
                     <img
                         className='lessons__card-image'
                         src={Card_image_12}
+                        loading='lazy'
                         alt='Изображение мальчика, рассмотривающего бабочку на цветке через лупу'
                     />
                     <h2 className='lessons__card-title'>Окружающий мир</h2>

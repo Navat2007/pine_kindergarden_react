@@ -43,6 +43,7 @@ const About = () => {
                     <img
                         className='about__image'
                         src={about__image}
+                        loading="lazy"
                         alt='Изображение девочки с большим мыльным пузырем'
                     />
                 </div>
@@ -77,6 +78,7 @@ const About = () => {
                                                         ? item.image
                                                         : process.env.REACT_APP_BASE_URL + item.image
                                                 }
+                                                loading="lazy"
                                                 alt='Изображение группы'
                                             />
                                             <h3 className='about-card__title'>{item.title}</h3>

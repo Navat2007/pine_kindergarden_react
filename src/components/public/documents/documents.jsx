@@ -16,6 +16,7 @@ const Documents = () => {
                     <img
                         className='documents__item-image'
                         src={Image_samo}
+                        loading='lazy'
                         alt='Изображение документа Результаты самообследования'
                     />
                     <div className='documents__item-section'>
@@ -32,7 +33,12 @@ const Documents = () => {
                     </div>
                 </li>
                 <li className='documents__item'>
-                    <img className='documents__item-image' src={Image_d41} alt='Изображение документа Приказ' />
+                    <img
+                        className='documents__item-image'
+                        src={Image_d41}
+                        loading='lazy'
+                        alt='Изображение документа Приказ'
+                    />
                     <div className='documents__item-section'>
                         <h3 className='documents__item-title'>Приказ</h3>
                         <div className='documents__item-text'>

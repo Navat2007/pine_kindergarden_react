@@ -8,6 +8,7 @@ const Food = () => {
             <img
                 className='food__image'
                 src={Food__image}
+                loading='lazy'
                 alt='Изображение супа со слоненком из хлеба, обед в детском садике'
             />
             <h1 className='food__title'>Питание</h1>

@@ -13,6 +13,7 @@ const News = () => {
                             <img
                                 className='article-card__image'
                                 src='https://ds1387.ru/images/news/2021/06/pushkin-sm.jpg'
+                                loading='lazy'
                                 alt='Изображение новости'
                             />
                             <time dateTime='2023-06-09' className='article-card__date'>
@@ -35,6 +36,7 @@ const News = () => {
                             <img
                                 className='article-card__image'
                                 src='https://ds1387.ru/images/news/2021/05/olimp-07.jpg'
+                                loading='lazy'
                                 alt='Изображение новости'
                             />
                             <time dateTime='2023-06-09' className='article-card__date'>
@@ -57,6 +59,7 @@ const News = () => {
                             <img
                                 className='article-card__image'
                                 src='https://ds1387.ru/images/news/2021/04/snowdrop-07.jpg'
+                                loading='lazy'
                                 alt='Изображение новости'
                             />
                             <time dateTime='2023-06-09' className='article-card__date'>

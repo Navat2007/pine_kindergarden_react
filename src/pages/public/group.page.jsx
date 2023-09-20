@@ -25,7 +25,7 @@ const GroupPage = () => {
         return (
             <>
                 {store.loading && (
-                    <section className='about about_contain_inner'>
+                    <section className='article'>
                         <h2 className='main-title'>Загрузка...</h2>
                     </section>
                 )}
@@ -37,7 +37,7 @@ const GroupPage = () => {
         return (
             <>
                 {!store.loading && Object.keys(store.item).length === 0 && (
-                    <section className='about about_contain_inner'>
+                    <section className='article'>
                         <h2 className='main-title'>Группа не найдена...</h2>
                     </section>
                 )}
