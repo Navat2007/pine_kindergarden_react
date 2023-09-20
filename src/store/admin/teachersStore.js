@@ -1,17 +1,22 @@
 import axios from "axios";
-
 import create from 'zustand'
 
-const urlLoadTeachers = process.env.REACT_APP_BASE_URL + 'php/models/admin/teachers/load.php';
-const urlLoadTeacher = process.env.REACT_APP_BASE_URL + 'php/models/admin/teachers/load_by_id.php';
-const urlAddTeacher = process.env.REACT_APP_BASE_URL + 'php/models/admin/teachers/add.php';
-const urlEditTeacher = process.env.REACT_APP_BASE_URL + 'php/models/admin/teachers/edit.php';
-const urlRemoveTeacher = process.env.REACT_APP_BASE_URL + 'php/models/admin/teachers/remove.php';
+const directory = 'teachers';
+
+const urlLoadAll = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load.php`;
+const urlLoadCategories = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load_categories.php`;
+const urlLoadByID = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load_by_id.php`;
+
+const urlAdd = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/add.php`;
+const urlEdit = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/edit.php`;
+const urlRemove = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/remove.php`;
+const urlRemoveFile = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/remove_file.php`;
 
 const useTeachersStore = create(
     (set, get) => ({
-        teachers: [],
-        teacher: {},
+        items: [],
+        categories: [],
+        item: {},
 
         loading: false,
         sending: false,
@@ -25,92 +30,67 @@ const useTeachersStore = create(
             set({error: false, errorText: ""});
         },
 
-        loadTeachers: async (params) => {
+        loadAll: async (params) => {
 
             set({loading: true});
 
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.postForm(urlLoadTeachers, form);
+            const response = await axios.postForm(urlLoadAll, form);
 
             set({loading: false});
 
             if(response.data.params){
 
-                set((state) => ({teachers: response.data.params}));
+                set((state) => ({items: response.data.params}));
 
             }
 
         },
-        loadTeacher: async (params) => {
+        loadCategories: async (params) => {
 
             set({loading: true});
 
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.postForm(urlLoadTeacher, form);
+            const response = await axios.postForm(urlLoadCategories, form);
 
             set({loading: false});
 
             if(response.data.params){
 
-                set((state) => ({teacher: response.data.params[0]}));
+                set((state) => ({categories: response.data.params}));
+
+            }
+
+        },
+        loadByID: async (params) => {
+
+            set({loading: true});
+
+            let form = new FormData();
+            window.global.buildFormData(form, params);
+
+            const response = await axios.postForm(urlLoadByID, form);
+
+            set({loading: false});
+
+            if(response.data.params){
+
+                set((state) => ({item: response.data.params}));
 
             }
 
         },
 
-        addTeacher: async (params) => {
+        add: async (params) => {
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-
-                if(key === "photo"){
-                    form.append("files[]", params[key]);
-                }
-                else {
-                    form.append(key, params[key]);
-                }
-
-            }
-
-            const response = await axios.postForm(urlAddTeacher, form);
-
-            if (response.data) {
-
-                if (response.data.error === 1) {
-
-                    return {
-                        error: true,
-                        errorText: response.data.error_text
-                    };
-
-                }
-
-            }
-
-            return {error: false};
-
-        },
-        editTeacher: async (params) => {
-
-            let form = new FormData();
-
-            for (let key in params) {
-
-                if(key === "photo"){
-                    form.append("files[]", params[key]);
-                }
-                else {
-                    form.append(key, params[key]);
-                }
-
-            }
-
-            const response = await axios.postForm(urlEditTeacher, form);
+            const response = await axios.postForm(urlAdd, form);
 
             if (response.data) {
 
@@ -130,14 +110,66 @@ const useTeachersStore = create(
             return {error: false};
 
         },
-        removeTeacher: async (params) => {
+        edit: async (params) => {
 
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.postForm(urlRemoveTeacher, form);
+            const response = await axios.postForm(urlEdit, form);
 
             if (response.data) {
+
+                console.log(response.data);
+
+                if (response.data.error === 1) {
+
+                    return {
+                        error: true,
+                        errorText: response.data.error_text
+                    };
+
+                }
+
+            }
+
+            return {error: false};
+
+        },
+        remove: async (params) => {
+
+            let form = new FormData();
+            window.global.buildFormData(form, params);
+
+            const response = await axios.postForm(urlRemove, form);
+
+            if (response.data) {
+
+                console.log(response.data);
+
+                if (response.data.error === 1) {
+
+                    return {
+                        error: true,
+                        errorText: response.data.error_text
+                    };
+
+                }
+
+            }
+
+            return {error: false};
+
+        },
+        removeFile: async (params) => {
+
+            let form = new FormData();
+            window.global.buildFormData(form, params);
+
+            const response = await axios.postForm(urlRemoveFile, form);
+
+            if (response.data) {
+
+                console.log(response.data);
 
                 if (response.data.error === 1) {
 
