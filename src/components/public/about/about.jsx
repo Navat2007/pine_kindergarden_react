@@ -27,7 +27,11 @@ const About = () => {
 
     return (
         <>
-            <section className='about about_contain_inner'>
+            <motion.section className='about about_contain_inner'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}>
                 <h1 className='main-title'>
                     ФГБДОУ &laquo;Центр развития ребенка&nbsp;&mdash; детский сад &laquo;Сосны&raquo;
                 </h1>
@@ -47,8 +51,12 @@ const About = () => {
                         alt='Изображение девочки с большим мыльным пузырем'
                     />
                 </div>
-            </section>
-            <section className='about about_bg_light-primary' aria-label='Описание о нас'>
+            </motion.section>
+            <motion.section className='about about_bg_light-primary' aria-label='Описание о нас'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}>
                 <div className='about__inner about__inner_bg_half-image'>
                     <div
                         className='about__description'
@@ -57,8 +65,12 @@ const About = () => {
                         }}
                     />
                 </div>
-            </section>
-            <section className='about about_contain_inner'>
+            </motion.section>
+            <motion.section className='about about_contain_inner'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}>
                 <h2 className='about__title'>Наши группы</h2>
                 <ul className='about__list'>
                     {
@@ -114,11 +126,15 @@ const About = () => {
                         );
                     })}
                 </ul>
-            </section>
-            <section className='about about_contain_inner'>
+            </motion.section>
+            <motion.section className='about about_contain_inner'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}>
                 <h2 className='about__title'>Наша команда</h2>
                 <TeachersSlider />
-            </section>
+            </motion.section>
         </>
     );
 };

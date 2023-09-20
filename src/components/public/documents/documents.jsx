@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 import "./documents.scss";
 
@@ -9,7 +10,13 @@ import Docs_d41 from "../../../documents/d41.pdf";
 
 const Documents = () => {
     return (
-        <section className='documents'>
+        <motion.section
+            className='documents'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
+        >
             <h2 className='documents__title'>Документы</h2>
             <ul className='documents__list'>
                 <li className='documents__item'>
@@ -53,7 +60,7 @@ const Documents = () => {
                     </div>
                 </li>
             </ul>
-        </section>
+        </motion.section>
     );
 };
 

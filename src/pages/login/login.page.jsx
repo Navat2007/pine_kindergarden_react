@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
+import { motion } from "framer-motion";
 
 import useAuthStore from "../../store/authStore";
 
@@ -29,7 +30,13 @@ const LoginPage = () => {
             <Helmet>
                 <title>Авторизация</title>
             </Helmet>
-            <main className='auth-form'>
+            <motion.main
+                className='auth-form'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.2, duration: 1 }}
+            >
                 <form className='auth-form__form' onSubmit={handleSubmit(onSubmit)}>
                     <Logo place={`auth-form`} />
                     <h1 className='auth-form__title'>Рады видеть!</h1>
@@ -55,7 +62,7 @@ const LoginPage = () => {
                         }
                         errorText={errors?.password?.message}
                     />
-                    <br/>
+                    <br />
                     <FieldCheckbox
                         type={"checkbox"}
                         label={"Запомнить логин и пароль?"}
@@ -73,7 +80,7 @@ const LoginPage = () => {
                         </Button>
                     </div>
                 </form>
-            </main>
+            </motion.main>
         </>
     );
 };

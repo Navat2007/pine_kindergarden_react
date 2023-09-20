@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 import "./lessons.scss";
 import Card_image_1 from "../../../images/lessons__card-image_1.jpg";
@@ -16,7 +17,13 @@ import Card_image_12 from "../../../images/lessons__card-image_12.jpg";
 
 const Lessons = () => {
     return (
-        <section className='lessons'>
+        <motion.section
+            className='lessons'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
+        >
             <h1 className='lessons__title'>Занятия</h1>
             <p className='lessons__title'>Что будем делать?</p>
             <ul className='lessons__list'>
@@ -124,7 +131,7 @@ const Lessons = () => {
                     <h2 className='lessons__card-title'>Окружающий мир</h2>
                 </li>
             </ul>
-        </section>
+        </motion.section>
     );
 };
 

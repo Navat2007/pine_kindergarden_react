@@ -1,6 +1,7 @@
 import React from "react";
 import createDOMPurify from "dompurify";
 import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import useGroupsStore from "../../store/public/groupsStore";
 
@@ -48,7 +49,13 @@ const GroupPage = () => {
     const MainBlock = () => {
         return (
             <>
-                <section className='article'>
+                <motion.section
+                    className='article'
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: 0.2, duration: 1 }}
+                >
                     {!store.loading && Object.keys(store.item).length > 0 && (
                         <>
                             <div className='article__two-columns'>
@@ -74,7 +81,7 @@ const GroupPage = () => {
                             </div>
                         </>
                     )}
-                </section>
+                </motion.section>
                 <Feedback />
             </>
         );

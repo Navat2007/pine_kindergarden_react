@@ -1,10 +1,17 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import "./news.scss";
 
 const News = () => {
     return (
-        <section className='news'>
+        <motion.section
+            className='news'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
+        >
             <h2 className='news__title'>Новости</h2>
             <ul className='news__list'>
                 <li>
@@ -76,7 +83,7 @@ const News = () => {
                     </NavLink>
                 </li>
             </ul>
-        </section>
+        </motion.section>
     );
 };
 

@@ -1,10 +1,18 @@
 import React from "react";
+import { motion } from "framer-motion";
+
 import "./food.scss";
 import Food__image from "../../../images/food__image.jpg";
 
 const Food = () => {
     return (
-        <section className='food'>
+        <motion.section
+            className='food'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
+        >
             <img
                 className='food__image'
                 src={Food__image}
@@ -81,7 +89,7 @@ const Food = () => {
                     </li>
                 </ul>
             </div>
-        </section>
+        </motion.section>
     );
 };
 

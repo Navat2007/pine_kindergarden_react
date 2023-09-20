@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import "./not-found.scss";
 import { AdminIcons } from "../../components/svgs";
@@ -11,7 +12,13 @@ const Page404 = () => {
             <Helmet>
                 <title>Страница не найдена</title>
             </Helmet>
-            <main className='not-found'>
+            <motion.main
+                className='not-found'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.2, duration: 1 }}
+            >
                 <section className='not-found__inner'>
                     <h1 className='not-found__title'>
                         <span className='not-found__span-accent'>404!</span>
@@ -28,7 +35,7 @@ const Page404 = () => {
                         </NavLink>
                     </p>
                 </section>
-            </main>
+            </motion.main>
         </>
     );
 };

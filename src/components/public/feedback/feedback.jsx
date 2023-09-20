@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
 
 import useFeedbackStore from "../../../store/feedbackStore";
 
@@ -28,7 +29,13 @@ const Feedback = () => {
 
     return (
         <>
-            <section className='feedback'>
+            <motion.section
+                className='feedback'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.2, duration: 1 }}
+            >
                 <div className='feedback__inner'>
                     <div className='feedback__description'>
                         <p className='feedback__description-text'>
@@ -79,7 +86,7 @@ const Feedback = () => {
                         </button>
                     </form>
                 </div>
-            </section>
+            </motion.section>
             {notif}
         </>
     );

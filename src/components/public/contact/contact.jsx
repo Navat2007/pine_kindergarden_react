@@ -1,11 +1,18 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 
 import "./contact.scss";
 
 const Contact = () => {
     return (
-        <section className='contact'>
+        <motion.section
+            className='contact'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
+        >
             <div className='contact__map' id='contact_map'>
                 <YMaps>
                     <Map
@@ -52,7 +59,7 @@ const Contact = () => {
                     </a>
                 </address>
             </div>
-        </section>
+        </motion.section>
     );
 };
 

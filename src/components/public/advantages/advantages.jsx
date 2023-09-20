@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import "./advantages.scss";
 import advantages__image_1 from "../../../images/advantages__image_1.png";
 import advantages__image_2 from "../../../images/advantages__image_2.png";
@@ -7,7 +8,13 @@ import advantages__image_4 from "../../../images/advantages__image_4.png";
 
 const Advantages = () => {
     return (
-        <section className='advantages'>
+        <motion.section
+            className='advantages'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
+        >
             <h2 className='advantages__title'>Наши преимущества</h2>
             <ul className='advantages__list'>
                 <li className='card'>
@@ -80,7 +87,7 @@ const Advantages = () => {
                     </div>
                 </li>
             </ul>
-        </section>
+        </motion.section>
     );
 };
 

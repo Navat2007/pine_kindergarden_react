@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 
 import "./teachers.scss";
@@ -9,7 +10,13 @@ import person_4 from "../../../images/person_4.jpg";
 
 const Teachers = () => {
     return (
-        <section className='teachers'>
+        <motion.section
+            className='teachers'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
+        >
             <h2 className='teachers__title'>Администрация</h2>
             <ul className='teachers__list'>
                 <li className='teachers__item'>
@@ -72,7 +79,7 @@ const Teachers = () => {
                     </NavLink>
                 </li>
             </ul>
-        </section>
+        </motion.section>
     );
 };
 
