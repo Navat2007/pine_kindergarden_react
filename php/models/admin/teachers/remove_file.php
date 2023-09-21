@@ -15,7 +15,7 @@ if(!empty($url))
     @unlink($photo_path);
 }
 
-$sql = "UPDATE lessons SET image = '' WHERE ID = '$ID'";
+$sql = "UPDATE teachers SET photo = '' WHERE ID = '$ID'";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 

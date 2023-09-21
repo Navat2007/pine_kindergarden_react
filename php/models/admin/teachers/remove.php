@@ -8,11 +8,11 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $id = htmlspecialchars($_POST["id"]);
 
-$sql = "DELETE FROM lessons WHERE ID = '$id'";
+$sql = "DELETE FROM teachers WHERE ID = '$id'";
 $sqls[] = $sql;
 mysqli_query($conn, $sql);
 
-$path = $_SERVER['DOCUMENT_ROOT'] . "/files/lessons/" . $id;
+$path = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers/" . $id;
 array_map('unlink', glob("$path/*.*"));
 rmdir($path);
 

@@ -8,15 +8,19 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $id = htmlspecialchars($_POST["id"]);
 $userID = $authorization[1];
-$title = mysqli_real_escape_string($conn, htmlspecialchars($_POST["title"]));
-$text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
+$fio = mysqli_real_escape_string($conn, htmlspecialchars($_POST["fio"]));
+$position = mysqli_real_escape_string($conn, htmlspecialchars($_POST["position"]));
+$categoryID = mysqli_real_escape_string($conn, htmlspecialchars($_POST["categoryID"]));
+$page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["page"]));
 $image = $_POST["image"];
 
 $sql = "UPDATE 
-                lessons
+                teachers
             SET
-                title = '$title', 
-                text = '$text', 
+                fio = '$fio', 
+                position = '$position', 
+                categoryID = '$categoryID', 
+                page = '$page', 
                 last_userID = '$userID'
             WHERE 
                 ID = '$id'";
@@ -38,7 +42,7 @@ else {
         $isLoaded = (int)$image[$i]['isLoaded'];
 
         if($isFile === 1 && $isLoaded === 0){
-            $dir_name = 'lessons';
+            $dir_name = 'teachers';
             $url = "";
 
             $helper->createDir("/files/" . $dir_name . "/" . $id);
@@ -61,9 +65,9 @@ else {
 
                 $sql = "
                     UPDATE 
-                        lessons
+                        teachers
                     SET
-                        image = '$url'
+                        photo = '$url'
                     WHERE 
                         ID = '$id'";
                 $sqls[] = $sql;

@@ -7,13 +7,15 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $userID = $authorization[1];
-$title = mysqli_real_escape_string($conn, htmlspecialchars($_POST["title"]));
-$text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
+$fio = mysqli_real_escape_string($conn, htmlspecialchars($_POST["fio"]));
+$position = mysqli_real_escape_string($conn, htmlspecialchars($_POST["position"]));
+$categoryID = mysqli_real_escape_string($conn, htmlspecialchars($_POST["categoryID"]));
+$page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["page"]));
 $image = $_POST["image"];
 
 $sql = "INSERT INTO 
-            lessons (title, text, userID, last_userID) 
-        VALUES ('$title', '$text', '$userID', '$userID')
+            teachers (fio, position, categoryID, page, userID, last_userID) 
+        VALUES ('$fio', '$position', '$categoryID', '$page', '$userID', '$userID')
     ";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
@@ -29,7 +31,7 @@ if($lastID > 0){
 
         if($isFile === 1 && $isLoaded === 0){
 
-            $dir_name = 'lessons';
+            $dir_name = 'teachers';
             $url = "";
 
             $helper->createDir("/files/" . $dir_name . "/" . $lastID);
@@ -52,9 +54,9 @@ if($lastID > 0){
 
                 $sql = "
                     UPDATE 
-                        lessons
+                        teachers
                     SET
-                        image = '$url'
+                        photo = '$url'
                     WHERE 
                         ID = '$lastID'";
                 $sqls[] = $sql;
@@ -66,9 +68,9 @@ if($lastID > 0){
 
 if (!$result  || (int)$lastID === 0) {
     $error = 1;
-    $error_text = "Ошибка добавления занятия: " .  mysqli_error($conn);
+    $error_text = "Ошибка добавления педагога: " .  mysqli_error($conn);
 } else {
-    $log->add($conn, $userID, 'Добавлено занятие ID: ' . $lastID);
+    $log->add($conn, $userID, 'Добавлен педагог ID: ' . $lastID);
 }
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

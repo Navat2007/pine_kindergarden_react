@@ -2,7 +2,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./tabs.scss";
 
-const Tabs = ({ extraClass, theme, children }) => {
+const Tabs = ({ children, extraClass, theme }) => {
     const [activeTab, setActiveTab] = React.useState(window.localStorage.getItem(`${children?.props?.title}_tab`) ? parseInt(window.localStorage.getItem(`${children?.props?.title}_tab`)) : 0);
 
     if (!children.length)

@@ -7,10 +7,10 @@ import useAuthStore from "../../../store/authStore";
 
 import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
-
-import {AdminIcons} from "../../../components/svgs";
 import Tab from "../../../components/general/tabs/tab.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
+
+import {AdminIcons} from "../../../components/svgs";
 
 const AdminTeachersPage = () => {
     const {user} = useAuthStore();

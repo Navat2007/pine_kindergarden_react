@@ -9,25 +9,20 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 $id = htmlspecialchars($_POST["id"]);
 
 $sql = "SELECT 
-        *
-    FROM 
-        lessons
-    WHERE 
-        ID = '$id'";
+            t1.*, t2.title as category
+        FROM 
+             teachers as t1
+        LEFT JOIN 
+            teacher_category as t2 ON t1.categoryID = t2.ID
+        WHERE 
+            t1.ID = '$id'";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_object($result)) {
 
-        $params = (object)[
-
-            'ID' => (int)$row->ID,
-            'title' => htmlspecialchars_decode($row->title),
-            'image' => $row->image,
-            'text' => htmlspecialchars_decode($row->text),
-            'create_time' => $row->create_time,
-        ];
+        $params[] = $row;
 
     }
 }

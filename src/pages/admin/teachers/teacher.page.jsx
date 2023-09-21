@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import moment from "moment";
 
 import useTeachersStore from "../../../store/admin/teachersStore";
+import useTeachersCategoriesStore from "../../../store/admin/teacherCategoriesStore";
 
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
@@ -17,6 +18,8 @@ import TitleBlock from "../../../components/admin/title.block/title.block.compon
 import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import FieldDate from "../../../components/admin/field/field.date.component";
+import FieldUrl from "../../../components/admin/field/field.url.component";
+import FieldSelect from "../../../components/admin/field/field.select.component";
 
 import { AdminIcons } from "../../../components/svgs";
 
@@ -27,10 +30,12 @@ const AdminTeacherPage = (props) => {
     const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
 
     const store = useTeachersStore();
+    const storeCategories = useTeachersCategoriesStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
+        await storeCategories.loadAll();
         await store.loadByID({ id });
     };
 
@@ -42,7 +47,7 @@ const AdminTeacherPage = (props) => {
 
     //Private component
     const Loading = () => {
-        if (store.loading) {
+        if (store.loading || storeCategories.loading) {
             return <TitleBlock title={`Загрузка...`} />;
         }
     };
@@ -65,20 +70,6 @@ const AdminTeacherPage = (props) => {
                         <AlertPopup
                             title='Ошибка'
                             text={"Название должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.text || sendObject.text === "<p><br></p>") {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Описание должно быть заполнено."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -135,41 +126,75 @@ const AdminTeacherPage = (props) => {
                 return (
                     <>
                         <TitleBlock title={"Создание"} onBack={back} />
-                        <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
-                            <fieldset className='admin-form__section admin-form__section_width_one-col'>
-                                <FieldText
-                                    label={"Название*"}
-                                    required={true}
-                                    placeholder={"Введите название"}
-                                    {...register("title")}
-                                />
-                                <p className='admin-form__subtitle'>Фотография</p>
-                                <ImageSelector
-                                    items={photoPreview}
-                                    onlyOneImage={true}
-                                    multiFiles={false}
-                                    onChange={(items) => setPhotoPreview(items)}
-                                />
-                            </fieldset>
-                            <fieldset className='admin-form__section'>
-                                <p className='admin-form__subtitle'>Детальное описание</p>
-                                <Editor control={control} name='text' minHeight={250} buttons={{ link: true }} />
-                            </fieldset>
-                            <div className='admin-form__controls'>
-                                <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
-                                    Сохранить
-                                </Button>
-                                <Button
-                                    type='button'
-                                    extraClass={"admin-form__button"}
-                                    theme='text'
-                                    onClick={back}
-                                    spinnerActive={sending}
-                                >
-                                    Отмена
-                                </Button>
-                            </div>
-                        </form>
+                        <Tabs>
+                            <Tab title={"Основная информация"}>
+                                <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
+                                    <fieldset className='admin-form__section admin-form__section_width_one-col'>
+                                        <FieldText
+                                            label={"ФИО*"}
+                                            required={true}
+                                            placeholder={"Введите фио"}
+                                            {...register("fio")}
+                                        />
+                                        <FieldText
+                                            label={"Должность*"}
+                                            required={true}
+                                            placeholder={"Введите должность"}
+                                            {...register("position")}
+                                        />
+                                        <FieldSelect
+                                            label={"Структурное подразделение*"}
+                                            required={true}
+                                            selectItems={storeCategories.items.map((item) => {
+                                                return {
+                                                    title: item.title,
+                                                    value: item.ID,
+                                                };
+                                            })}
+                                            {...register("category")}
+                                        />
+                                        <FieldUrl
+                                            label={"Ссылка на личную страницу"}
+                                            placeholder={"https://..."}
+                                            {...register("page")}
+                                        />
+                                        <p className='admin-form__subtitle'>Фотография</p>
+                                        <ImageSelector
+                                            items={photoPreview}
+                                            onlyOneImage={true}
+                                            multiFiles={false}
+                                            onChange={(items) => setPhotoPreview(items)}
+                                        />
+                                    </fieldset>
+                                    <div className='admin-form__controls'>
+                                        <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
+                                            Сохранить
+                                        </Button>
+                                        <Button
+                                            type='button'
+                                            extraClass={"admin-form__button"}
+                                            theme='text'
+                                            onClick={back}
+                                            spinnerActive={sending}
+                                        >
+                                            Отмена
+                                        </Button>
+                                    </div>
+                                </form>
+                            </Tab>
+                            <Tab title={"Образование"}>
+
+                            </Tab>
+                            <Tab title={"Повышение квалификации"}>
+
+                            </Tab>
+                            <Tab title={"Трудовой стаж"}>
+
+                            </Tab>
+                            <Tab title={"Награды, благодарности"}>
+
+                            </Tab>
+                        </Tabs>
                         {popup}
                     </>
                 );
