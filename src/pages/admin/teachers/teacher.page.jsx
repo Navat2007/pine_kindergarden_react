@@ -187,26 +187,31 @@ const AdminTeacherPage = (props) => {
                                 </Tab>
                                 <Tab title={"Образование"}>
                                     <fieldset className='admin-form__section admin-form__section_width_one-col'>
+                                        <Button
+                                            type="button"
+                                            extraClass={"admin-form__button"}
+                                            text={"Добавить"}
+                                            onClick={onEducationAdd}
+                                        />
                                         {educations.map((item) => (
                                             <div
                                                 key={item.id}
                                             >
                                                 <FieldText
-                                                    label={"ФИО*"}
+                                                    label={"Наименование учебного учреждения*"}
                                                     required={true}
-                                                    placeholder={"Введите фио"}
+                                                    placeholder={"Введите наименование"}
                                                     {...register("org_name")}
                                                 />
-                                                <FieldText
-                                                    label={"ФИО*"}
+                                                <FieldDate
+                                                    label={"Дата окончания*"}
                                                     required={true}
-                                                    placeholder={"Введите фио"}
                                                     {...register("end_date")}
                                                 />
                                                 <FieldText
-                                                    label={"ФИО*"}
+                                                    label={"Специальность, квалификация по диплому*"}
                                                     required={true}
-                                                    placeholder={"Введите фио"}
+                                                    placeholder={"Введите специальность"}
                                                     {...register("qualification")}
                                                 />
                                                 <Button
@@ -228,16 +233,6 @@ const AdminTeacherPage = (props) => {
                                                 />
                                             </div>
                                         ))}
-                                        <Button
-                                            type="button"
-                                            theme="text"
-                                            size="small"
-                                            extraClass="form__icon-btn"
-                                            iconClass={"mdi mdi-plus"}
-                                            isIconBtn="true"
-                                            aria-label="Добавить поле"
-                                            onClick={onEducationAdd}
-                                        />
                                     </fieldset>
                                 </Tab>
                                 <Tab title={"Повышение квалификации"}>
