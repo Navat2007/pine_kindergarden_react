@@ -19,7 +19,12 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_object($result)) {
 
-        $params[] = $row;
+        $params[] = (object)[
+            'ID' => (int)$row->ID,
+            'fio' => htmlspecialchars_decode($row->fio),
+            'position' => htmlspecialchars_decode($row->position),
+            'category' => htmlspecialchars_decode($row->category),
+        ];
 
     }
 }

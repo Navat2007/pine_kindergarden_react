@@ -10,7 +10,7 @@ $id = htmlspecialchars($_POST["id"]);
 $userID = $authorization[1];
 $fio = mysqli_real_escape_string($conn, htmlspecialchars($_POST["fio"]));
 $position = mysqli_real_escape_string($conn, htmlspecialchars($_POST["position"]));
-$categoryID = mysqli_real_escape_string($conn, htmlspecialchars($_POST["categoryID"]));
+$categoryID = mysqli_real_escape_string($conn, htmlspecialchars($_POST["category"]));
 $page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["page"]));
 $image = $_POST["image"];
 

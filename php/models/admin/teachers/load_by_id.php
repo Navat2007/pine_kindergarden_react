@@ -11,7 +11,7 @@ $id = htmlspecialchars($_POST["id"]);
 $sql = "SELECT 
             t1.*, t2.title as category
         FROM 
-             teachers as t1
+            teachers as t1
         LEFT JOIN 
             teacher_category as t2 ON t1.categoryID = t2.ID
         WHERE 
@@ -22,7 +22,14 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_object($result)) {
 
-        $params[] = $row;
+        $params = (object)[
+            'ID' => (int)$row->ID,
+            'fio' => htmlspecialchars_decode($row->fio),
+            'photo' => htmlspecialchars_decode($row->photo),
+            'position' => htmlspecialchars_decode($row->position),
+            'category' => htmlspecialchars_decode($row->category),
+            'page' => htmlspecialchars_decode($row->page),
+        ];
 
     }
 }

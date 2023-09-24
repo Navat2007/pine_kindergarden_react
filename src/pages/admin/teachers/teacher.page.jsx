@@ -11,7 +11,6 @@ import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
-import Editor from "../../../components/general/reach_editor/editor.component";
 import ImageSelector from "../../../components/general/image.selector/image.selector.component";
 import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
@@ -60,16 +59,30 @@ const AdminTeacherPage = (props) => {
 
     const Article = () => {
         const Create = () => {
-            const [photoPreview, setPhotoPreview] = React.useState([]);
+            const [photo, setPhoto] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
             const checkForComplete = (sendObject) => {
-                if (!sendObject.title) {
+                if (!sendObject.fio) {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Название должно быть заполнено."}
+                            text={"ФИО должно быть заполнено."}
+                            opened={true}
+                            onClose={() => {
+                                setPopup(<></>);
+                            }}
+                        />
+                    );
+                    return false;
+                }
+
+                if (!sendObject.position) {
+                    setPopup(
+                        <AlertPopup
+                            title='Ошибка'
+                            text={"Должность должна быть заполнена."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -87,7 +100,7 @@ const AdminTeacherPage = (props) => {
 
                 let sendObject = { ...data };
 
-                sendObject["image"] = photoPreview;
+                sendObject["image"] = photo;
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -160,10 +173,10 @@ const AdminTeacherPage = (props) => {
                                         />
                                         <p className='admin-form__subtitle'>Фотография</p>
                                         <ImageSelector
-                                            items={photoPreview}
+                                            items={photo}
                                             onlyOneImage={true}
                                             multiFiles={false}
-                                            onChange={(items) => setPhotoPreview(items)}
+                                            onChange={(items) => setPhoto(items)}
                                         />
                                     </fieldset>
                                     <div className='admin-form__controls'>
@@ -202,20 +215,7 @@ const AdminTeacherPage = (props) => {
         };
 
         const Edit = () => {
-            const [image, setImage] = React.useState(
-                store.item.image !== ""
-                    ? [
-                        {
-                            ID: store.item.ID,
-                            url: store.item.image,
-                            main: 1,
-                            order: 1,
-                            isFile: 1,
-                            isLoaded: 1,
-                        },
-                    ]
-                    : []
-            );
+            const [photo, setPhoto] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
@@ -226,11 +226,11 @@ const AdminTeacherPage = (props) => {
             }, [edit]);
 
             const checkForComplete = (sendObject) => {
-                if (!sendObject.title) {
+                if (!sendObject.fio) {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Название должно быть заполнено."}
+                            text={"ФИО должно быть заполнено."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -240,11 +240,11 @@ const AdminTeacherPage = (props) => {
                     return false;
                 }
 
-                if (!sendObject.text || sendObject.text === "<p><br></p>") {
+                if (!sendObject.position) {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Описание должно быть заполнено."}
+                            text={"Должность должна быть заполнена."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -263,7 +263,7 @@ const AdminTeacherPage = (props) => {
                 let sendObject = { ...data };
 
                 sendObject["id"] = id;
-                sendObject["image"] = image;
+                sendObject["image"] = photo;
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -279,7 +279,7 @@ const AdminTeacherPage = (props) => {
                     setPopup(
                         <AlertPopup
                             title=''
-                            text={"Занятие успешно отредактирована"}
+                            text={"Сотрудник успешно отредактирован"}
                             opened={true}
                             onClose={() => {
                                 back();
@@ -324,7 +324,7 @@ const AdminTeacherPage = (props) => {
                                             setPopup(
                                                 <AlertPopup
                                                     title=''
-                                                    text={"Занятие удалено"}
+                                                    text={"Сотрудник удален"}
                                                     opened={true}
                                                     onClose={() => {
                                                         setPopup(<></>);
@@ -354,7 +354,7 @@ const AdminTeacherPage = (props) => {
                 );
             };
 
-            const handleDeletePreviewPhoto = async (item) => {
+            const handleDeletePhoto = async (item) => {
                 let sendObject = { ...item };
 
                 sendObject["ID"] = id;
@@ -366,49 +366,79 @@ const AdminTeacherPage = (props) => {
                 return (
                     <>
                         <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
-                        <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
-                            <fieldset className='admin-form__section admin-form__section_width_one-col'>
-                                <FieldText
-                                    label={"Название*"}
-                                    required={true}
-                                    placeholder={"Введите название"}
-                                    {...register("title", {
-                                        value: store.item.title,
-                                    })}
-                                />
-                                <p className='admin-form__subtitle'>Фотография</p>
-                                <ImageSelector
-                                    items={image}
-                                    onlyOneImage={true}
-                                    multiFiles={false}
-                                    onChange={(items) => setImage(items)}
-                                    onDelete={handleDeletePreviewPhoto}
-                                />
-                            </fieldset>
-                            <fieldset className='admin-form__section'>
-                                <p className='admin-form__subtitle'>Детальное описание</p>
-                                <Editor control={control} name='text' minHeight={250} buttons={{ link: true }} />
-                            </fieldset>
-                            <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    text='Удалить'
-                                    onClick={onDelete}
-                                    spinnerActive={sending}
-                                />
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    text='Отмена'
-                                    onClick={() => {
-                                        setEdit(false);
-                                    }}
-                                    spinnerActive={sending}
-                                />
-                            </div>
-                        </form>
+                        <Tabs>
+                            <Tab title={"Основная информация"}>
+                                <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
+                                    <fieldset className='admin-form__section admin-form__section_width_one-col'>
+                                        <FieldText
+                                            label={"ФИО*"}
+                                            required={true}
+                                            placeholder={"Введите фио"}
+                                            {...register("fio")}
+                                        />
+                                        <FieldText
+                                            label={"Должность*"}
+                                            required={true}
+                                            placeholder={"Введите должность"}
+                                            {...register("position")}
+                                        />
+                                        <FieldSelect
+                                            label={"Структурное подразделение*"}
+                                            required={true}
+                                            selectItems={storeCategories.items.map((item) => {
+                                                return {
+                                                    title: item.title,
+                                                    value: item.ID,
+                                                };
+                                            })}
+                                            {...register("category")}
+                                        />
+                                        <FieldUrl
+                                            label={"Ссылка на личную страницу"}
+                                            placeholder={"https://..."}
+                                            {...register("page")}
+                                        />
+                                        <p className='admin-form__subtitle'>Фотография</p>
+                                        <ImageSelector
+                                            items={photo}
+                                            onlyOneImage={true}
+                                            multiFiles={false}
+                                            onChange={(items) => setPhoto(items)}
+                                            onDelete={handleDeletePhoto}
+                                        />
+                                    </fieldset>
+                                    <div className='admin-form__controls'>
+                                        <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
+                                            Сохранить
+                                        </Button>
+                                        <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
+                                            Удалить
+                                        </Button>
+                                        <Button
+                                            type='button'
+                                            extraClass={"admin-form__button"}
+                                            theme='text'
+                                            onClick={back}
+                                            spinnerActive={sending}
+                                        >
+                                            Отмена
+                                        </Button>
+                                    </div>
+                                </form>
+                            </Tab>
+                            <Tab title={"Образование"}>
+
+                            </Tab>
+                            <Tab title={"Повышение квалификации"}>
+
+                            </Tab>
+                            <Tab title={"Трудовой стаж"}>
+
+                            </Tab>
+                            <Tab title={"Награды, благодарности"}>
+
+                            </Tab>
+                        </Tabs>
                         {popup}
                     </>
                 );
@@ -419,7 +449,7 @@ const AdminTeacherPage = (props) => {
             if (id && !edit && !store.loading && Object.keys(store.item).length > 0) {
                 return (
                     <>
-                        <TitleBlock title={`Занятие ID: ${store.item.ID}`} onBack={back}>
+                        <TitleBlock title={`Сотрудник ID: ${store.item.ID}`} onBack={back}>
                             <Button
                                 type='submit'
                                 isIconBtn='true'
@@ -438,7 +468,7 @@ const AdminTeacherPage = (props) => {
                                     <p className='admin-view-section__description'>
                                         <NavLink
                                             className='admin-view-section__link'
-                                            to={"/lesson/" + id}
+                                            to={"/teacher/" + id}
                                             target={"_blank"}
                                             rel='noopener nofollow noreferer'
                                         >
@@ -455,17 +485,10 @@ const AdminTeacherPage = (props) => {
                             <ImageGallery
                                 items={[
                                     {
-                                        url: store.item.image,
+                                        url: store.item.photo,
                                     },
                                 ]}
                                 front={false}
-                            />
-                            <h2 className='admin-view-section__title'>Детальное описание</h2>
-                            <div
-                                className='admin-view-section__editor'
-                                dangerouslySetInnerHTML={{
-                                    __html: DOMPurify.sanitize(store.item.text),
-                                }}
                             />
                         </section>
                     </>

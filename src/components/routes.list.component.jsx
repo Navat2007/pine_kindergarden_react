@@ -74,7 +74,7 @@ const RoutesList = () => {
                 </Route>
                 <Route path='teachers'>
                     <Route index element={<AdminTeachersPage />} />
-                    <Route path=':id' element={<AdminTeachersPage />} />
+                    <Route path=':id' element={<AdminTeacherPage />} />
                     <Route path='new' element={<AdminTeacherPage />} />
                     <Route path='category/:id' element={<AdminCategoryTeachersPage />} />
                     <Route path='category/new' element={<AdminCategoryTeachersPage />} />

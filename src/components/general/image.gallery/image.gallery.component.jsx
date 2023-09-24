@@ -11,7 +11,7 @@ const ImageGallery = ({ extraClass, title, orientation = "landsape", items, fron
         setPreview(<ImagePreview open={true} index={slideIndex} items={items} onClose={() => setPreview(<></>)} />);
     };
 
-    if (items && items.length === 1 && items[0].url === "")
+    if (items && items.length === 1 && (items[0].url === "" || items[0].url === undefined))
         return (
             <>
                 <p>Нет фото</p>
