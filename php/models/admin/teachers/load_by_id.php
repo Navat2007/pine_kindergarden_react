@@ -27,7 +27,7 @@ if (mysqli_num_rows($result) > 0) {
             'fio' => htmlspecialchars_decode($row->fio),
             'photo' => htmlspecialchars_decode($row->photo),
             'position' => htmlspecialchars_decode($row->position),
-            'category' => htmlspecialchars_decode($row->category),
+            'category' => htmlspecialchars_decode($row->categoryID),
             'page' => htmlspecialchars_decode($row->page),
         ];
 

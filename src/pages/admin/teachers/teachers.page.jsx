@@ -141,7 +141,7 @@ const AdminTeachersPage = () => {
     };
 
     return (
-        <Tabs>
+        <Tabs place={"admin/teachers"}>
             <Tab title={"Педагоги"}>
                 <Teachers/>
             </Tab>

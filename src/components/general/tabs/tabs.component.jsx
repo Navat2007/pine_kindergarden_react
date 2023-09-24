@@ -2,8 +2,8 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./tabs.scss";
 
-const Tabs = ({ children, extraClass, theme }) => {
-    const [activeTab, setActiveTab] = React.useState(window.localStorage.getItem(`${children?.props?.title}_tab`) ? parseInt(window.localStorage.getItem(`${children?.props?.title}_tab`)) : 0);
+const Tabs = ({ children, place, extraClass, theme }) => {
+    const [activeTab, setActiveTab] = React.useState(place && window.localStorage.getItem(`${place}_tab`) ? parseInt(window.localStorage.getItem(`${place}_tab`)) : 0);
 
     if (!children.length)
         return (
@@ -19,7 +19,9 @@ const Tabs = ({ children, extraClass, theme }) => {
                     <li
                         key={child.props.title}
                         onClick={() => {
-                            window.localStorage.setItem(`${children?.props?.title}_tab`, index);
+                            if(place)
+                                window.localStorage.setItem(`${place}_tab`, index);
+
                             setActiveTab(index)
                         }}
                         className={`admin-tabs__item${index === activeTab ? ` admin-tabs__item_active` : ``}${

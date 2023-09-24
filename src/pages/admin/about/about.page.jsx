@@ -266,7 +266,7 @@ const AdminAboutPage = () => {
     }
 
     return (
-        <Tabs>
+        <Tabs place={"admin/about"}>
             <Tab title={"О нас"}>
                 <About />
             </Tab>

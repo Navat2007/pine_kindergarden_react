@@ -1,7 +1,7 @@
 import React from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import createDOMPurify from "dompurify";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import moment from "moment";
 
 import useTeachersStore from "../../../store/admin/teachersStore";
@@ -20,13 +20,13 @@ import FieldDate from "../../../components/admin/field/field.date.component";
 import FieldUrl from "../../../components/admin/field/field.url.component";
 import FieldSelect from "../../../components/admin/field/field.select.component";
 
-import { AdminIcons } from "../../../components/svgs";
+import {AdminIcons} from "../../../components/svgs";
 
 const AdminTeacherPage = (props) => {
-    let { id } = useParams();
+    let {id} = useParams();
     const navigate = useNavigate();
     const DOMPurify = createDOMPurify(window);
-    const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
+    const {register, handleSubmit, reset, control, setValue, getValues} = useForm();
 
     const store = useTeachersStore();
     const storeCategories = useTeachersCategoriesStore();
@@ -35,7 +35,7 @@ const AdminTeacherPage = (props) => {
 
     const fetchData = async () => {
         await storeCategories.loadAll();
-        await store.loadByID({ id });
+        await store.loadByID({id});
     };
 
     React.useEffect(() => {
@@ -47,19 +47,20 @@ const AdminTeacherPage = (props) => {
     //Private component
     const Loading = () => {
         if (store.loading || storeCategories.loading) {
-            return <TitleBlock title={`Загрузка...`} />;
+            return <TitleBlock title={`Загрузка...`}/>;
         }
     };
 
     const NotFound = () => {
         if (id && !store.loading && Object.keys(store.item).length === 0) {
-            return <TitleBlock title={`Педагог не найден`} onBack={back} />;
+            return <TitleBlock title={`Педагог не найден`} onBack={back}/>;
         }
     };
 
     const Article = () => {
         const Create = () => {
             const [photo, setPhoto] = React.useState([]);
+            const [educations, setEducations] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
@@ -98,7 +99,7 @@ const AdminTeacherPage = (props) => {
             const onAdd = async (params) => {
                 const data = getValues();
 
-                let sendObject = { ...data };
+                let sendObject = {...data};
 
                 sendObject["image"] = photo;
 
@@ -135,13 +136,17 @@ const AdminTeacherPage = (props) => {
                 }
             };
 
+            const onEducationAdd = () => {
+                setEducations([...educations, {id: window.global.makeid(12), url: ""}]);
+            };
+
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание"} onBack={back} />
-                        <Tabs>
-                            <Tab title={"Основная информация"}>
-                                <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
+                        <TitleBlock title={"Создание"} onBack={back}/>
+                        <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
+                            <Tabs >
+                                <Tab title={"Основная информация"}>
                                     <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                         <FieldText
                                             label={"ФИО*"}
@@ -179,35 +184,87 @@ const AdminTeacherPage = (props) => {
                                             onChange={(items) => setPhoto(items)}
                                         />
                                     </fieldset>
-                                    <div className='admin-form__controls'>
-                                        <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
-                                            Сохранить
-                                        </Button>
+                                </Tab>
+                                <Tab title={"Образование"}>
+                                    <fieldset className='admin-form__section admin-form__section_width_one-col'>
+                                        {educations.map((item) => (
+                                            <div
+                                                key={item.id}
+                                            >
+                                                <FieldText
+                                                    label={"ФИО*"}
+                                                    required={true}
+                                                    placeholder={"Введите фио"}
+                                                    {...register("org_name")}
+                                                />
+                                                <FieldText
+                                                    label={"ФИО*"}
+                                                    required={true}
+                                                    placeholder={"Введите фио"}
+                                                    {...register("end_date")}
+                                                />
+                                                <FieldText
+                                                    label={"ФИО*"}
+                                                    required={true}
+                                                    placeholder={"Введите фио"}
+                                                    {...register("qualification")}
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    theme="text"
+                                                    size="smaller"
+                                                    extraClass="form__icon-btn"
+                                                    iconClass={"mdi mdi-close"}
+                                                    isIconBtn="true"
+                                                    aria-label="Удалить поле"
+                                                    onClick={() => {
+                                                        setEducations(
+                                                            educations.filter(
+                                                                (link) =>
+                                                                    link.id !== item.id
+                                                            )
+                                                        );
+                                                    }}
+                                                />
+                                            </div>
+                                        ))}
                                         <Button
-                                            type='button'
-                                            extraClass={"admin-form__button"}
-                                            theme='text'
-                                            onClick={back}
-                                            spinnerActive={sending}
-                                        >
-                                            Отмена
-                                        </Button>
-                                    </div>
-                                </form>
-                            </Tab>
-                            <Tab title={"Образование"}>
+                                            type="button"
+                                            theme="text"
+                                            size="small"
+                                            extraClass="form__icon-btn"
+                                            iconClass={"mdi mdi-plus"}
+                                            isIconBtn="true"
+                                            aria-label="Добавить поле"
+                                            onClick={onEducationAdd}
+                                        />
+                                    </fieldset>
+                                </Tab>
+                                <Tab title={"Повышение квалификации"}>
 
-                            </Tab>
-                            <Tab title={"Повышение квалификации"}>
+                                </Tab>
+                                <Tab title={"Трудовой стаж"}>
 
-                            </Tab>
-                            <Tab title={"Трудовой стаж"}>
+                                </Tab>
+                                <Tab title={"Награды, благодарности"}>
 
-                            </Tab>
-                            <Tab title={"Награды, благодарности"}>
-
-                            </Tab>
-                        </Tabs>
+                                </Tab>
+                            </Tabs>
+                            <div className='admin-form__controls'>
+                                <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
+                                    Сохранить
+                                </Button>
+                                <Button
+                                    type='button'
+                                    extraClass={"admin-form__button"}
+                                    theme='text'
+                                    onClick={back}
+                                    spinnerActive={sending}
+                                >
+                                    Отмена
+                                </Button>
+                            </div>
+                        </form>
                         {popup}
                     </>
                 );
@@ -215,13 +272,37 @@ const AdminTeacherPage = (props) => {
         };
 
         const Edit = () => {
-            const [photo, setPhoto] = React.useState([]);
+            const [photo, setPhoto] = React.useState(store.item.photo
+                ? [
+                    {
+                        ID: store.item.ID,
+                        url: store.item.photo,
+                        main: 1,
+                        order: 1,
+                        isFile: 1,
+                        isLoaded: 1,
+                    },
+                ]
+                : []);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
             React.useEffect(() => {
                 if (edit) {
-                    setValue("text", store.item.text);
+                    setPhoto(
+                        store.item.photo
+                            ? [
+                                {
+                                    ID: store.item.ID,
+                                    url: store.item.photo,
+                                    main: 1,
+                                    order: 1,
+                                    isFile: 1,
+                                    isLoaded: 1,
+                                },
+                            ]
+                            : []
+                    );
                 }
             }, [edit]);
 
@@ -260,7 +341,7 @@ const AdminTeacherPage = (props) => {
             const onEdit = async (params) => {
                 const data = getValues();
 
-                let sendObject = { ...data };
+                let sendObject = {...data};
 
                 sendObject["id"] = id;
                 sendObject["image"] = photo;
@@ -355,7 +436,7 @@ const AdminTeacherPage = (props) => {
             };
 
             const handleDeletePhoto = async (item) => {
-                let sendObject = { ...item };
+                let sendObject = {...item};
 
                 sendObject["ID"] = id;
 
@@ -365,7 +446,7 @@ const AdminTeacherPage = (props) => {
             if (id && edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
+                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
                         <Tabs>
                             <Tab title={"Основная информация"}>
                                 <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
@@ -374,13 +455,17 @@ const AdminTeacherPage = (props) => {
                                             label={"ФИО*"}
                                             required={true}
                                             placeholder={"Введите фио"}
-                                            {...register("fio")}
+                                            {...register("fio", {
+                                                value: store.item.fio,
+                                            })}
                                         />
                                         <FieldText
                                             label={"Должность*"}
                                             required={true}
                                             placeholder={"Введите должность"}
-                                            {...register("position")}
+                                            {...register("position", {
+                                                value: store.item.position,
+                                            })}
                                         />
                                         <FieldSelect
                                             label={"Структурное подразделение*"}
@@ -391,12 +476,16 @@ const AdminTeacherPage = (props) => {
                                                     value: item.ID,
                                                 };
                                             })}
-                                            {...register("category")}
+                                            {...register("category", {
+                                                value: store.item.category,
+                                            })}
                                         />
                                         <FieldUrl
                                             label={"Ссылка на личную страницу"}
                                             placeholder={"https://..."}
-                                            {...register("page")}
+                                            {...register("page", {
+                                                value: store.item.page,
+                                            })}
                                         />
                                         <p className='admin-form__subtitle'>Фотография</p>
                                         <ImageSelector
@@ -498,18 +587,18 @@ const AdminTeacherPage = (props) => {
 
         return (
             <>
-                <Create />
-                <Edit />
-                <View />
+                <Create/>
+                <Edit/>
+                <View/>
             </>
         );
     };
 
     return (
         <>
-            <Loading />
-            <Article />
-            <NotFound />
+            <Loading/>
+            <Article/>
+            <NotFound/>
         </>
     );
 };

@@ -483,7 +483,8 @@ class helper
     function createDir($dir){
         $path = $_SERVER['DOCUMENT_ROOT'] . $dir;
 
-        mkdir($path, 0777, true);
+        if (!file_exists($path))
+            mkdir($path, 0777, true);
 
         unset($path);
     }
