@@ -66,6 +66,8 @@ const AdminTeacherPage = (props) => {
             const [sending, setSending] = React.useState(false);
 
             const checkForComplete = (sendObject) => {
+                console.log(sendObject);
+
                 if (!sendObject.fio) {
                     setPopup(
                         <AlertPopup
@@ -97,12 +99,31 @@ const AdminTeacherPage = (props) => {
                 return true;
             };
 
-            const onAdd = async (params) => {
-                const data = getValues();
-
-                let sendObject = { ...data };
+            const onAdd = async () => {
+                let sendObject = {...getValues()};
 
                 sendObject["image"] = photo;
+
+                if (educations.length > 0) {
+                    let tmpArray = Array.from(
+                        educations
+                            .filter(
+                                (education) =>
+                                    getValues("orgName_" + education.id) !== "" &&
+                                    getValues("endDate_" + education.id) !== "" &&
+                                    getValues("qualification_" + education.id) !== ""
+                            )
+                            .map((education) => {
+                                return {
+                                    orgName: getValues("orgName_" + education.id),
+                                    endDate: getValues("endDate_" + education.id),
+                                    qualification: getValues("qualification_" + education.id),
+                                };
+                            })
+                    );
+
+                    sendObject["educations"] = tmpArray.length > 0 ? tmpArray : [];
+                }
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -138,7 +159,7 @@ const AdminTeacherPage = (props) => {
             };
 
             const onEducationAdd = () => {
-                setEducations([...educations, { id: window.global.makeid(12), url: "" }]);
+                setEducations([...educations, {id: window.global.makeid(12), url: ""}]);
             };
 
             const itemConfig = [
@@ -287,43 +308,48 @@ const AdminTeacherPage = (props) => {
                                             iconName={AdminIcons.plus}
                                             aria-label='Добавить'
                                             onClick={onEducationAdd}
-                                        >
-                                            Добавить
-                                        </Button>
-                                    </Table>
-                                    {/* Здесь можно вывести попап для добавления образования как обычную форму */}
-                                    {educations.map((item) => (
-                                        <div key={item.id}>
-                                            <FieldText
-                                                label={"Наименование учебного учреждения*"}
-                                                required={true}
-                                                placeholder={"Введите наименование"}
-                                                {...register("org_name")}
-                                            />
-                                            <FieldDate
-                                                label={"Дата окончания*"}
-                                                required={true}
-                                                {...register("end_date")}
-                                            />
-                                            <FieldText
-                                                label={"Специальность, квалификация по диплому*"}
-                                                required={true}
-                                                placeholder={"Введите специальность"}
-                                                {...register("qualification")}
-                                            />
-                                            <Button
-                                                type='button'
-                                                theme='text'
-                                                extraClass='form__icon-btn'
-                                                iconClass={"mdi mdi-close"}
-                                                isIconBtn='true'
-                                                aria-label='Удалить поле'
-                                                onClick={() => {
-                                                    setEducations(educations.filter((link) => link.id !== item.id));
-                                                }}
-                                            />
-                                        </div>
-                                    ))}
+                                        />
+                                        {educations.map((item) => (
+                                            <div
+                                                key={item.id}
+                                            >
+                                                <FieldText
+                                                    label={"Наименование учебного учреждения*"}
+                                                    required={true}
+                                                    placeholder={"Введите наименование"}
+                                                    {...register("org_name")}
+                                                />
+                                                <FieldDate
+                                                    label={"Дата окончания*"}
+                                                    required={true}
+                                                    {...register("end_date")}
+                                                />
+                                                <FieldText
+                                                    label={"Специальность, квалификация по диплому*"}
+                                                    required={true}
+                                                    placeholder={"Введите специальность"}
+                                                    {...register("qualification")}
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    theme="text"
+                                                    size="smaller"
+                                                    extraClass="form__icon-btn"
+                                                    iconClass={"mdi mdi-close"}
+                                                    isIconBtn="true"
+                                                    aria-label="Удалить поле"
+                                                    onClick={() => {
+                                                        setEducations(
+                                                            educations.filter(
+                                                                (link) =>
+                                                                    link.id !== item.id
+                                                            )
+                                                        );
+                                                    }}
+                                                />
+                                            </div>
+                                        ))}
+                                    </fieldset>
                                 </Tab>
                                 <Tab title={"Повышение квалификации"}></Tab>
                                 <Tab title={"Трудовой стаж"}></Tab>
