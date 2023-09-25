@@ -256,6 +256,7 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
                     {children}
                 </SearchFilter>
             )}
+            {children && !withFilter && <div className='admin-table-panel'>{children}</div>}
             {filtered && filtered.length === 0 && <p>Нет данных для отображения</p>}
             {filtered && filtered.length > 0 && (
                 <>

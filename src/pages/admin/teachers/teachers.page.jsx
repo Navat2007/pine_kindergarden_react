@@ -1,5 +1,5 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useTeachersCategoriesStore from "../../../store/admin/teacherCategoriesStore";
@@ -10,17 +10,17 @@ import Button from "../../../components/admin/button/button.component";
 import Tab from "../../../components/general/tabs/tab.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
 
-import {AdminIcons} from "../../../components/svgs";
+import { AdminIcons } from "../../../components/svgs";
 
 const AdminTeachersPage = () => {
-    const {user} = useAuthStore();
+    const { user } = useAuthStore();
     const navigate = useNavigate();
 
     //Private components
     const Teachers = () => {
         const store = useTeachersStore();
 
-        const url = 'admin/teachers';
+        const url = "admin/teachers";
 
         const onItemClick = (props) => {
             navigate(`/${url}/${props}`);
@@ -89,7 +89,7 @@ const AdminTeachersPage = () => {
     const Category = () => {
         const store = useTeachersCategoriesStore();
 
-        const url = 'admin/teachers/category';
+        const url = "admin/teachers/category";
 
         const onItemClick = (props) => {
             navigate(`/${url}/${props}`);
@@ -143,10 +143,10 @@ const AdminTeachersPage = () => {
     return (
         <Tabs place={"admin/teachers"}>
             <Tab title={"Педагоги"}>
-                <Teachers/>
+                <Teachers />
             </Tab>
             <Tab title={"Структурные подразделения"}>
-                <Category/>
+                <Category />
             </Tab>
         </Tabs>
     );

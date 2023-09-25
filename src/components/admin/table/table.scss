@@ -9,8 +9,14 @@
     border-radius: 5px;
 }
 
-.admin-table {
+.admin-table-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.675em;
+    margin-block: 1em;
+}
 
+.admin-table {
     &__container {
         width: 100%;
         overflow: auto;
@@ -54,6 +60,17 @@
     &__cell {
         padding: 0.75em 0.75em;
         border-bottom: 1px solid var(--admin-grey-200-color);
+    }
+
+    &__cell-panel {
+        display: flex;
+        align-items: center;
+    }
+
+    &__cell-panel-button {
+        .admin-table__cell-panel-button-icon {
+            @include box(1em);
+        }
     }
 }
 
