@@ -453,6 +453,10 @@ const AdminTeacherPage = (props) => {
                     ]
                     : []
             );
+            const [educations, setEducations] = React.useState([]);
+            const [qualification, setQualification] = React.useState([]);
+            const [work, setWork] = React.useState([]);
+            const [reward, setReward] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
@@ -697,6 +701,7 @@ const AdminTeacherPage = (props) => {
 
         const View = () => {
             if (id && !edit && !store.loading && Object.keys(store.item).length > 0) {
+                console.log(store.item);
                 return (
                     <>
                         <TitleBlock title={`Сотрудник ID: ${store.item.ID}`} onBack={back}>
@@ -727,9 +732,30 @@ const AdminTeacherPage = (props) => {
                                     </p>
                                 </li>
                                 <li className='admin-view-section__item'>
-                                    <h3 className='admin-view-section__label'>Название</h3>
-                                    <p className='admin-view-section__description'>{store.item.title}</p>
+                                    <h3 className='admin-view-section__label'>ФИО</h3>
+                                    <p className='admin-view-section__description'>{store.item.fio}</p>
                                 </li>
+                                <li className='admin-view-section__item'>
+                                    <h3 className='admin-view-section__label'>Должность</h3>
+                                    <p className='admin-view-section__description'>{store.item.position}</p>
+                                </li>
+                                {
+                                    store.item.page && (
+                                        <li className='admin-view-section__item'>
+                                            <h3 className='admin-view-section__label'>Личная страница</h3>
+                                            <p className='admin-view-section__description'>
+                                                <NavLink
+                                                    className='admin-view-section__link'
+                                                    to={store.item.page}
+                                                    target={"_blank"}
+                                                    rel='noopener nofollow noreferer'
+                                                >
+                                                    На страницу {AdminIcons.open_in_new}
+                                                </NavLink>
+                                            </p>
+                                        </li>
+                                    )
+                                }
                             </ul>
                             <h2 className='admin-view-section__title'>Фотография</h2>
                             <ImageGallery
