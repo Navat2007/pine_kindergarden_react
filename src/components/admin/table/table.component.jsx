@@ -280,12 +280,13 @@ const Table = ({
 
             Object.keys(data).forEach((key) => {
                 newItem[key] = data[key];
-            })
+            });
 
-            reset();
             setNotif(<></>);
             onItemsChange([...items, newItem]);
         };
+
+        reset();
 
         setNotif(<>
             <Popup
@@ -356,18 +357,19 @@ const Table = ({
     };
 
     const onItemEdit = (item) => {
-        const onSubmit = (data) => {
+       const onSubmit = (data) => {
             let newItem = {...item};
 
             Object.keys(data).forEach((key) => {
                 newItem[key] = data[key];
             })
 
-            reset();
             setNotif(<></>);
             items = items.map(value => value.ID !== newItem.ID ? value : newItem);
             onItemsChange(items);
         };
+
+        reset();
 
         setNotif(<>
             <Popup
