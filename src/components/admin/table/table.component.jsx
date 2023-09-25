@@ -26,6 +26,7 @@ const Table = ({
                    loading,
                    withFilter = false,
                    withItemControls = false,
+                   itemControlsOneItem = false,
                    pageSize = 12
                }) => {
     const [order, setOrder] = React.useState("ASC");
@@ -300,13 +301,13 @@ const Table = ({
                     <fieldset className='admin-form__section'>
                         {
                             itemsConfig.map((itemKey) => {
-                                if(itemKey.key !== "ID"){
+                                if (itemKey.key !== "ID") {
                                     switch (itemKey.type) {
                                         case "string":
                                             return <FieldText
                                                 key={itemKey.key}
                                                 label={itemKey.header}
-                                                required={true}
+                                                required={itemKey.required}
                                                 placeholder={"..."}
                                                 {...register(itemKey.key)}
                                             />
@@ -315,7 +316,7 @@ const Table = ({
                                             return <FieldNumber
                                                 key={itemKey.key}
                                                 label={itemKey.header}
-                                                required={true}
+                                                required={itemKey.required}
                                                 placeholder={"..."}
                                                 {...register(itemKey.key)}
                                             />
@@ -324,7 +325,7 @@ const Table = ({
                                             return <FieldDate
                                                 key={itemKey.key}
                                                 label={itemKey.header}
-                                                required={true}
+                                                required={itemKey.required}
                                                 {...register(itemKey.key)}
                                             />
 
@@ -357,7 +358,7 @@ const Table = ({
     };
 
     const onItemEdit = (item) => {
-       const onSubmit = (data) => {
+        const onSubmit = (data) => {
             let newItem = {...item};
 
             Object.keys(data).forEach((key) => {
@@ -383,13 +384,13 @@ const Table = ({
                     <fieldset className='admin-form__section'>
                         {
                             itemsConfig.map((itemKey) => {
-                                if(itemKey.key !== "ID"){
+                                if (itemKey.key !== "ID") {
                                     switch (itemKey.type) {
                                         case "string":
                                             return <FieldText
                                                 key={itemKey.key}
                                                 label={itemKey.header}
-                                                required={true}
+                                                required={itemKey.required}
                                                 placeholder={"..."}
                                                 {...register(itemKey.key, {value: item[itemKey.key]})}
                                             />
@@ -398,7 +399,7 @@ const Table = ({
                                             return <FieldNumber
                                                 key={itemKey.key}
                                                 label={itemKey.header}
-                                                required={true}
+                                                required={itemKey.required}
                                                 placeholder={"..."}
                                                 {...register(itemKey.key, {value: item[itemKey.key]})}
                                             />
@@ -407,7 +408,7 @@ const Table = ({
                                             return <FieldDate
                                                 key={itemKey.key}
                                                 label={itemKey.header}
-                                                required={true}
+                                                required={itemKey.required}
                                                 {...register(itemKey.key, {value: item[itemKey.key]})}
                                             />
 
@@ -474,13 +475,18 @@ const Table = ({
             )}
             {withItemControls && withFilter === false && (
                 <div className='admin-table-panel'>
-                    <Button
-                        type='button'
-                        text='Добавить'
-                        iconName={AdminIcons.plus}
-                        aria-label='Добавить'
-                        onClick={onItemAdd}
-                    />
+                    {
+                        ((itemControlsOneItem && items.length === 0) || itemControlsOneItem === false) && (
+                            <Button
+                                type='button'
+                                text='Добавить'
+                                iconName={AdminIcons.plus}
+                                aria-label='Добавить'
+                                onClick={onItemAdd}
+                            />
+                        )
+                    }
+
                 </div>
             )}
             {filtered && filtered.length === 0 && <p>Нет данных для отображения</p>}

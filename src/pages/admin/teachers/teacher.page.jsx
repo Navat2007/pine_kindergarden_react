@@ -59,6 +59,9 @@ const AdminTeacherPage = (props) => {
         const Create = () => {
             const [photo, setPhoto] = React.useState([]);
             const [educations, setEducations] = React.useState([]);
+            const [qualification, setQualification] = React.useState([]);
+            const [work, setWork] = React.useState([]);
+            const [reward, setReward] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
@@ -77,6 +80,7 @@ const AdminTeacherPage = (props) => {
                     type: "string",
                     filter: "string",
                     sorting: true,
+                    required: true
                 },
                 {
                     header: "Дата окончания",
@@ -84,6 +88,7 @@ const AdminTeacherPage = (props) => {
                     type: "date",
                     filter: "date",
                     sorting: true,
+                    required: true
                 },
                 {
                     header: "Специальность, квалификация по диплому",
@@ -91,6 +96,133 @@ const AdminTeacherPage = (props) => {
                     type: "string",
                     filter: "select",
                     sorting: true,
+                    required: true
+                },
+            ];
+            const itemConfigQualification = [
+                {
+                    header: "ID",
+                    key: "ID",
+                    type: "int",
+                    filter: "number",
+                    sorting: true,
+                    hide: true
+                },
+                {
+                    header: "Наименование",
+                    key: "title",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Место проведения",
+                    key: "place",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Дата прохождения",
+                    key: "date",
+                    type: "date",
+                    filter: "date",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Количество часов",
+                    key: "hours",
+                    type: "int",
+                    filter: "int",
+                    sorting: true,
+                    required: true
+                },
+            ];
+            const itemConfigWork = [
+                {
+                    header: "ID",
+                    key: "ID",
+                    type: "int",
+                    filter: "number",
+                    sorting: true,
+                    hide: true
+                },
+                {
+                    header: "Общий стаж",
+                    key: "summary",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Педагогический стаж",
+                    key: "education",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "В данном учреждении",
+                    key: "work",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Квалификационная категория",
+                    key: "category",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Дата аттестации",
+                    key: "date",
+                    type: "date",
+                    filter: "date",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Приказ",
+                    key: "date_order",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: false
+                },
+            ];
+            const itemConfigReward = [
+                {
+                    header: "ID",
+                    key: "ID",
+                    type: "int",
+                    filter: "number",
+                    sorting: true,
+                    hide: true
+                },
+                {
+                    header: "Наименование",
+                    key: "title",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Дата",
+                    key: "date",
+                    type: "date",
+                    filter: "date",
+                    sorting: true,
+                    required: true
                 },
             ];
 
@@ -265,9 +397,40 @@ const AdminTeacherPage = (props) => {
                                     }}
                                 />
                             </Tab>
-                            <Tab title={"Повышение квалификации"}></Tab>
-                            <Tab title={"Трудовой стаж"}></Tab>
-                            <Tab title={"Награды, благодарности"}></Tab>
+                            <Tab title={"Повышение квалификации"}>
+                                <Table
+                                    title={"Информация о квалификации"}
+                                    items={qualification}
+                                    itemsConfig={itemConfigQualification}
+                                    withItemControls={true}
+                                    onItemsChange={(items) => {
+                                        setQualification(items);
+                                    }}
+                                />
+                            </Tab>
+                            <Tab title={"Трудовой стаж"}>
+                                <Table
+                                    title={"Информация о трудовом стаже"}
+                                    items={work}
+                                    itemsConfig={itemConfigWork}
+                                    withItemControls={true}
+                                    itemControlsOneItem={true}
+                                    onItemsChange={(items) => {
+                                        setWork(items);
+                                    }}
+                                />
+                            </Tab>
+                            <Tab title={"Награды, благодарности"}>
+                                <Table
+                                    title={"Информация о наградах, благодарностях"}
+                                    items={reward}
+                                    itemsConfig={itemConfigReward}
+                                    withItemControls={true}
+                                    onItemsChange={(items) => {
+                                        setReward(items);
+                                    }}
+                                />
+                            </Tab>
                         </Tabs>
                         {popup}
                     </>
