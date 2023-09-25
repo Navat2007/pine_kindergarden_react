@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 
 import useLessonsStore from "../../../store/admin/lessonsStore";
 
+import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
 import Editor from "../../../components/general/reach_editor/editor.component";
@@ -30,24 +31,13 @@ const AdminLessonPage = (props) => {
     };
 
     React.useEffect(() => {
+        reset();
         fetchData();
     }, [id]);
 
     const back = () => navigate("/admin/lessons");
 
     //Private component
-    const Loading = () => {
-        if (store.loading) {
-            return <TitleBlock title={`Загрузка...`} />;
-        }
-    };
-
-    const NotFound = () => {
-        if (id && !store.loading && Object.keys(store.item).length === 0) {
-            return <TitleBlock title={`Занятия не найдены`} onBack={back} />;
-        }
-    };
-
     const Article = () => {
         const Create = () => {
             const [photoPreview, setPhotoPreview] = React.useState([]);
@@ -453,11 +443,9 @@ const AdminLessonPage = (props) => {
     };
 
     return (
-        <>
-            <Loading />
+        <BasicPage id={id} mainStore={store} loadings={[store]} back={back}>
             <Article />
-            <NotFound />
-        </>
+        </BasicPage>
     );
 };
 

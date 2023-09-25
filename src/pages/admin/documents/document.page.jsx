@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import createDOMPurify from "dompurify";
 import { useForm } from "react-hook-form";
 
 import useDocumentsStore from "../../../store/admin/documentsStore";
@@ -13,12 +12,12 @@ import TitleBlock from "../../../components/admin/title.block/title.block.compon
 import FieldText from "../../../components/admin/field/field.text.component";
 import FieldUrl from "../../../components/admin/field/field.url.component";
 import { AdminIcons } from "../../../components/svgs";
+import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 
 const AdminDocumentPage = (props) => {
     let { id } = useParams();
     const navigate = useNavigate();
-    const DOMPurify = createDOMPurify(window);
-    const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
+    const { register, handleSubmit, reset, getValues } = useForm();
 
     const store = useDocumentsStore();
 
@@ -29,24 +28,13 @@ const AdminDocumentPage = (props) => {
     };
 
     React.useEffect(() => {
+        reset();
         fetchData();
     }, [id]);
 
     const back = () => navigate("/admin/documents");
 
     //Private component
-    const Loading = () => {
-        if (store.loading) {
-            return <TitleBlock title={`Загрузка...`} />;
-        }
-    };
-
-    const NotFound = () => {
-        if (id && !store.loading && Object.keys(store.item).length === 0) {
-            return <TitleBlock title={`Документ не найден`} onBack={back} />;
-        }
-    };
-
     const Article = () => {
         const Create = () => {
             const [image, setImage] = React.useState([]);
@@ -528,11 +516,9 @@ const AdminDocumentPage = (props) => {
     };
 
     return (
-        <>
-            <Loading />
+        <BasicPage id={id} mainStore={store} loadings={[store]} back={back}>
             <Article />
-            <NotFound />
-        </>
+        </BasicPage>
     );
 };
 

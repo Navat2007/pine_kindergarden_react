@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 
 import useTeachersCategoriesStore from "../../../store/admin/teacherCategoriesStore";
 
+import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
@@ -14,7 +15,7 @@ import { AdminIcons } from "../../../components/svgs";
 const AdminCategoryTeachersPage = (props) => {
     let { id } = useParams();
     const navigate = useNavigate();
-    const { register, handleSubmit, setValue, getValues } = useForm();
+    const { register, handleSubmit, reset, setValue, getValues } = useForm();
 
     const store = useTeachersCategoriesStore();
 
@@ -25,24 +26,13 @@ const AdminCategoryTeachersPage = (props) => {
     };
 
     React.useEffect(() => {
+        reset();
         fetchData();
     }, [id]);
 
     const back = () => navigate("/admin/teachers");
 
     //Private component
-    const Loading = () => {
-        if (store.loading) {
-            return <TitleBlock title={`Загрузка...`} />;
-        }
-    };
-
-    const NotFound = () => {
-        if (id && !store.loading && Object.keys(store.item).length === 0) {
-            return <TitleBlock title={`Подразделение не найдено`} onBack={back} />;
-        }
-    };
-
     const Article = () => {
         const Create = () => {
             const [popup, setPopup] = React.useState(<></>);
@@ -342,11 +332,9 @@ const AdminCategoryTeachersPage = (props) => {
     };
 
     return (
-        <>
-            <Loading />
+        <BasicPage id={id} mainStore={store} loadings={[store]} back={back}>
             <Article />
-            <NotFound />
-        </>
+        </BasicPage>
     );
 };
 

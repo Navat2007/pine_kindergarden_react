@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 
 import useGroupsStore from "../../../store/admin/groupsStore";
 
+import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
 import Editor from "../../../components/general/reach_editor/editor.component";
@@ -31,24 +32,13 @@ const AdminGroupPage = (props) => {
     };
 
     React.useEffect(() => {
+        reset();
         fetchData();
     }, [id]);
 
     const back = () => navigate("/admin/about");
 
     //Private component
-    const Loading = () => {
-        if (store.loading) {
-            return <TitleBlock title={`Загрузка...`}/>;
-        }
-    };
-
-    const NotFound = () => {
-        if (id && !store.loading && Object.keys(store.item).length === 0) {
-            return <TitleBlock title={`Группа не найдена`} onBack={back}/>;
-        }
-    };
-
     const Article = () => {
         const Create = () => {
             const [image, setImage] = React.useState([]);
@@ -483,11 +473,9 @@ const AdminGroupPage = (props) => {
     };
 
     return (
-        <>
-            <Loading/>
+        <BasicPage id={id} mainStore={store} loadings={[store]} back={back}>
             <Article/>
-            <NotFound/>
-        </>
+        </BasicPage>
     );
 };
 
