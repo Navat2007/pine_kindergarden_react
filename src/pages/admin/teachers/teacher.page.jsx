@@ -319,7 +319,7 @@ const AdminTeacherPage = (props) => {
                 }
             };
 
-            if (!id) {
+            if (!id && !store.loading && !storeCategories.loading) {
                 return (
                     <>
                         <TitleBlock title={"Создание"} onBack={back}/>
@@ -616,7 +616,7 @@ const AdminTeacherPage = (props) => {
                 const result = await store.removeFile(sendObject);
             };
 
-            if (id && edit) {
+            if (id && edit && !store.loading && !storeCategories.loading) {
                 return (
                     <>
                         <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
