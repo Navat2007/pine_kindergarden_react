@@ -1,8 +1,6 @@
 import React from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
-import createDOMPurify from "dompurify";
-import { useForm } from "react-hook-form";
-import moment from "moment";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
+import {useForm} from "react-hook-form";
 
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useTeachersCategoriesStore from "../../../store/admin/teacherCategoriesStore";
@@ -20,14 +18,13 @@ import FieldDate from "../../../components/admin/field/field.date.component";
 import FieldUrl from "../../../components/admin/field/field.url.component";
 import FieldSelect from "../../../components/admin/field/field.select.component";
 
-import { AdminIcons } from "../../../components/svgs";
+import {AdminIcons} from "../../../components/svgs";
 import Table from "../../../components/admin/table/table.component";
 
 const AdminTeacherPage = (props) => {
-    let { id } = useParams();
+    let {id} = useParams();
     const navigate = useNavigate();
-    const DOMPurify = createDOMPurify(window);
-    const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
+    const {register, handleSubmit, reset, control, setValue, getValues} = useForm();
 
     const store = useTeachersStore();
     const storeCategories = useTeachersCategoriesStore();
@@ -36,7 +33,7 @@ const AdminTeacherPage = (props) => {
 
     const fetchData = async () => {
         await storeCategories.loadAll();
-        await store.loadByID({ id });
+        await store.loadByID({id});
     };
 
     React.useEffect(() => {
@@ -48,13 +45,13 @@ const AdminTeacherPage = (props) => {
     //Private component
     const Loading = () => {
         if (store.loading || storeCategories.loading) {
-            return <TitleBlock title={`Загрузка...`} />;
+            return <TitleBlock title={`Загрузка...`}/>;
         }
     };
 
     const NotFound = () => {
         if (id && !store.loading && Object.keys(store.item).length === 0) {
-            return <TitleBlock title={`Педагог не найден`} onBack={back} />;
+            return <TitleBlock title={`Педагог не найден`} onBack={back}/>;
         }
     };
 
@@ -64,6 +61,38 @@ const AdminTeacherPage = (props) => {
             const [educations, setEducations] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
+
+            const itemConfigEducation = [
+                {
+                    header: "ID",
+                    key: "ID",
+                    type: "int",
+                    filter: "number",
+                    sorting: true,
+                    hide: true
+                },
+                {
+                    header: "Наименование учебного учреждения",
+                    key: "orgName",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                },
+                {
+                    header: "Дата окончания",
+                    key: "endDate",
+                    type: "date",
+                    filter: "date",
+                    sorting: true,
+                },
+                {
+                    header: "Специальность, квалификация по диплому",
+                    key: "qualification",
+                    type: "string",
+                    filter: "select",
+                    sorting: true,
+                },
+            ];
 
             const checkForComplete = (sendObject) => {
                 console.log(sendObject);
@@ -100,7 +129,7 @@ const AdminTeacherPage = (props) => {
             };
 
             const onAdd = async () => {
-                let sendObject = { ...getValues() };
+                let sendObject = {...getValues()};
 
                 sendObject["image"] = photo;
 
@@ -158,17 +187,13 @@ const AdminTeacherPage = (props) => {
                 }
             };
 
-            const onEducationAdd = () => {
-                setEducations([...educations, { id: window.global.makeid(12), url: "" }]);
-            };
-
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание"} onBack={back} />
-                        <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
-                            <Tabs>
-                                <Tab title={"Основная информация"}>
+                        <TitleBlock title={"Создание"} onBack={back}/>
+                        <Tabs>
+                            <Tab title={"Основная информация"}>
+                                <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
                                     <div className='admin-form__two-columns'>
                                         <fieldset className='admin-form__section'>
                                             <h3 className='admin-form__title'>Основная информация</h3>
@@ -212,122 +237,38 @@ const AdminTeacherPage = (props) => {
                                             />
                                         </fieldset>
                                     </div>
-                                </Tab>
-                                <Tab title={"Образование"}>
-                                    <h3 className='admin-form__title'>Информация об образовании</h3>
-                                    <table className='admin-table__table'>
-                                        <thead>
-                                            <tr className='admin-table__row'>
-                                                <th className='admin-table__cell-heading'>ID</th>
-                                                <th className='admin-table__cell-heading'>
-                                                    Наименование учебного учреждения
-                                                </th>
-                                                <th className='admin-table__cell-heading'>Дата окончания</th>
-                                                <th className='admin-table__cell-heading'>
-                                                    Специальность, квалификация по диплому
-                                                </th>
-                                                <th className='admin-table__cell-heading'>Действие</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr className='admin-table__row'>
-                                                <td className='admin-table__cell'>1</td>
-                                                <td className='admin-table__cell'>
-                                                    Московский государственный заочный педагогический институт
-                                                </td>
-                                                <td className='admin-table__cell'>1990&nbsp;год</td>
-                                                <td className='admin-table__cell'>
-                                                    Педагогика и психология (дошкольная), преподаватель дошкольной
-                                                    педагогики и психологии, методист по дошкольному воспитанию
-                                                </td>
-                                                <td className='admin-table__cell'>
-                                                    <div className='admin-table__cell-panel'>
-                                                        <Button
-                                                            type='button'
-                                                            theme='text'
-                                                            extraClass={"admin-table__cell-panel-button"}
-                                                            isIconBtn={true}
-                                                            iconName={AdminIcons.edit}
-                                                            aria-label='Редактировать'
-                                                        />
-                                                        <Button
-                                                            type='button'
-                                                            theme='text-error'
-                                                            extraClass={"admin-table__cell-panel-button"}
-                                                            isIconBtn={true}
-                                                            iconName={AdminIcons.delete}
-                                                            aria-label='Удалить'
-                                                        />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    {/* Добавила в таблицу условие если нет фильтра, но есть чилдрены внутри, чтобы кнопка Добавить рендерилась */}
-                                    <Table title={`Таблица`} loading={store.loading} items={store.items}>
+                                    <div className='admin-form__controls'>
+                                        <Button
+                                            text='Сохранить'
+                                            extraClass={"admin-form__button"}
+                                            type='submit'
+                                            spinnerActive={sending}/>
                                         <Button
                                             type='button'
-                                            iconName={AdminIcons.plus}
-                                            aria-label='Добавить'
-                                            onClick={onEducationAdd}
-                                        >
-                                            Добавить
-                                        </Button>
-                                    </Table>
-                                    {/* Здесь можно выводить попап для добавления/редактирования нового поля. */}
-                                    {educations.map((item) => (
-                                        <div key={item.id}>
-                                            <FieldText
-                                                label={"Наименование учебного учреждения*"}
-                                                required={true}
-                                                placeholder={"Введите наименование"}
-                                                {...register("org_name")}
-                                            />
-                                            <FieldDate
-                                                label={"Дата окончания*"}
-                                                required={true}
-                                                {...register("end_date")}
-                                            />
-                                            <FieldText
-                                                label={"Специальность, квалификация по диплому*"}
-                                                required={true}
-                                                placeholder={"Введите специальность"}
-                                                {...register("qualification")}
-                                            />
-                                            <Button
-                                                type='button'
-                                                theme='text'
-                                                size='smaller'
-                                                extraClass='form__icon-btn'
-                                                iconClass={"mdi mdi-close"}
-                                                isIconBtn='true'
-                                                aria-label='Удалить поле'
-                                                onClick={() => {
-                                                    setEducations(educations.filter((link) => link.id !== item.id));
-                                                }}
-                                            />
-                                        </div>
-                                    ))}
-                                </Tab>
-                                <Tab title={"Повышение квалификации"}></Tab>
-                                <Tab title={"Трудовой стаж"}></Tab>
-                                <Tab title={"Награды, благодарности"}></Tab>
-                            </Tabs>
-                            <div className='admin-form__controls'>
-                                <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
-                                    Сохранить
-                                </Button>
-                                <Button
-                                    type='button'
-                                    extraClass={"admin-form__button"}
-                                    theme='text'
-                                    onClick={back}
-                                    spinnerActive={sending}
-                                >
-                                    Отмена
-                                </Button>
-                            </div>
-                        </form>
+                                            extraClass={"admin-form__button"}
+                                            theme='text'
+                                            text='Отмена'
+                                            onClick={back}
+                                            spinnerActive={sending}
+                                        />
+                                    </div>
+                                </form>
+                            </Tab>
+                            <Tab title={"Образование"}>
+                                <Table
+                                    title={"Информация об образовании"}
+                                    items={educations}
+                                    itemsConfig={itemConfigEducation}
+                                    withItemControls={true}
+                                    onItemsChange={(items) => {
+                                        setEducations(items);
+                                    }}
+                                />
+                            </Tab>
+                            <Tab title={"Повышение квалификации"}></Tab>
+                            <Tab title={"Трудовой стаж"}></Tab>
+                            <Tab title={"Награды, благодарности"}></Tab>
+                        </Tabs>
                         {popup}
                     </>
                 );
@@ -338,15 +279,15 @@ const AdminTeacherPage = (props) => {
             const [photo, setPhoto] = React.useState(
                 store.item.photo
                     ? [
-                          {
-                              ID: store.item.ID,
-                              url: store.item.photo,
-                              main: 1,
-                              order: 1,
-                              isFile: 1,
-                              isLoaded: 1,
-                          },
-                      ]
+                        {
+                            ID: store.item.ID,
+                            url: store.item.photo,
+                            main: 1,
+                            order: 1,
+                            isFile: 1,
+                            isLoaded: 1,
+                        },
+                    ]
                     : []
             );
             const [popup, setPopup] = React.useState(<></>);
@@ -357,15 +298,15 @@ const AdminTeacherPage = (props) => {
                     setPhoto(
                         store.item.photo
                             ? [
-                                  {
-                                      ID: store.item.ID,
-                                      url: store.item.photo,
-                                      main: 1,
-                                      order: 1,
-                                      isFile: 1,
-                                      isLoaded: 1,
-                                  },
-                              ]
+                                {
+                                    ID: store.item.ID,
+                                    url: store.item.photo,
+                                    main: 1,
+                                    order: 1,
+                                    isFile: 1,
+                                    isLoaded: 1,
+                                },
+                            ]
                             : []
                     );
                 }
@@ -406,7 +347,7 @@ const AdminTeacherPage = (props) => {
             const onEdit = async (params) => {
                 const data = getValues();
 
-                let sendObject = { ...data };
+                let sendObject = {...data};
 
                 sendObject["id"] = id;
                 sendObject["image"] = photo;
@@ -501,7 +442,7 @@ const AdminTeacherPage = (props) => {
             };
 
             const handleDeletePhoto = async (item) => {
-                let sendObject = { ...item };
+                let sendObject = {...item};
 
                 sendObject["ID"] = id;
 
@@ -511,7 +452,7 @@ const AdminTeacherPage = (props) => {
             if (id && edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
+                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
                         <Tabs>
                             <Tab title={"Основная информация"}>
                                 <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
@@ -644,18 +585,18 @@ const AdminTeacherPage = (props) => {
 
         return (
             <>
-                <Create />
-                <Edit />
-                <View />
+                <Create/>
+                <Edit/>
+                <View/>
             </>
         );
     };
 
     return (
         <>
-            <Loading />
-            <Article />
-            <NotFound />
+            <Loading/>
+            <Article/>
+            <NotFound/>
         </>
     );
 };

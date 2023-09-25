@@ -2,14 +2,32 @@ import React from "react";
 import lodash from "lodash";
 import Cookies from "js-cookie";
 import moment from "moment";
+import {useForm} from "react-hook-form";
 
 import Pagination from "../pagination/pagination.component";
 import SearchFilter from "../search.filter/search.filter.component";
+import Button from "../button/button.component";
+import Popup from "../../general/popup/popup.component";
 
 import "./table.scss";
-import { AdminIcons } from "../../svgs.js";
+import {AdminIcons} from "../../svgs.js";
+import FieldText from "../field/field.text.component";
+import FieldNumber from "../field/field.number.component";
+import FieldDate from "../field/field.date.component";
+import AlertPopup from "../../general/alert.popup/alert.popup";
 
-const Table = ({ children, title, itemsConfig, items, onItemClick, loading, withFilter = false, pageSize = 12 }) => {
+const Table = ({
+                   children,
+                   title,
+                   itemsConfig,
+                   items,
+                   onItemClick,
+                   onItemsChange,
+                   loading,
+                   withFilter = false,
+                   withItemControls = false,
+                   pageSize = 12
+               }) => {
     const [order, setOrder] = React.useState("ASC");
     const [sorted, setSorted] = React.useState([]);
     const [filtered, setFiltered] = React.useState([]);
@@ -18,6 +36,9 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
     const [pageIndex, setPageIndex] = React.useState(0);
     const [paginatedItems, setPaginatedItems] = React.useState([]);
     const [pageCount, setPageCount] = React.useState(items ? Math.ceil(items.length / pageSize) : 0);
+    const [notif, setNotif] = React.useState(<></>);
+
+    const {register, handleSubmit, reset, control, setValue, getValues} = useForm();
 
     React.useEffect(() => {
         setFiltered(items);
@@ -47,6 +68,10 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
 
     if (items.length > 0 && !("ID" in items[0])) {
         console.log(title, "ВНИМАНИЕ! В таблице нет ключа ID.");
+    }
+
+    if (withFilter && withItemControls) {
+        console.log(title, "ВНИМАНИЕ! Выбраны и withFilter и withItemControls.");
     }
 
     const handleChangePage = (index) => {
@@ -101,7 +126,7 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
     const getElementByType = (configItem, value) => {
         switch (configItem.type) {
             case "image":
-                return value ? <img className='cell-image-logo' src={window.global.baseUrl + value} alt={""} /> : <></>;
+                return value ? <img className='cell-image-logo' src={window.global.baseUrl + value} alt={""}/> : <></>;
 
             case "string":
                 if (configItem.key === "status") {
@@ -249,77 +274,306 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
         handleChangePage(1);
     };
 
+    const onItemAdd = () => {
+        const onSubmit = (data) => {
+            let newItem = {ID: window.global.makeid(12)};
+
+            Object.keys(data).forEach((key) => {
+                newItem[key] = data[key];
+            })
+
+            reset();
+            setNotif(<></>);
+            onItemsChange([...items, newItem]);
+        };
+
+        setNotif(<>
+            <Popup
+                title={title}
+                opened={true}
+                onClose={() => {
+                    setNotif(<></>);
+                }}
+            >
+                <form onSubmit={handleSubmit(onSubmit)} className='admin-form'>
+                    <fieldset className='admin-form__section'>
+                        {
+                            itemsConfig.map((itemKey) => {
+                                if(itemKey.key !== "ID"){
+                                    switch (itemKey.type) {
+                                        case "string":
+                                            return <FieldText
+                                                key={itemKey.key}
+                                                label={itemKey.header}
+                                                required={true}
+                                                placeholder={"..."}
+                                                {...register(itemKey.key)}
+                                            />
+
+                                        case "int":
+                                            return <FieldNumber
+                                                key={itemKey.key}
+                                                label={itemKey.header}
+                                                required={true}
+                                                placeholder={"..."}
+                                                {...register(itemKey.key)}
+                                            />
+
+                                        case "date":
+                                            return <FieldDate
+                                                key={itemKey.key}
+                                                label={itemKey.header}
+                                                required={true}
+                                                {...register(itemKey.key)}
+                                            />
+
+                                        default:
+                                            return null;
+                                    }
+                                }
+                            })
+                        }
+                    </fieldset>
+                    <div className='admin-form__controls'>
+                        <Button
+                            text='Сохранить'
+                            extraClass={"admin-form__button"}
+                            type='submit'
+                        />
+                        <Button
+                            type='button'
+                            extraClass={"admin-form__button"}
+                            theme='text'
+                            text='Отмена'
+                            onClick={() => {
+                                setNotif(<></>);
+                            }}
+                        />
+                    </div>
+                </form>
+            </Popup>
+        </>);
+    };
+
+    const onItemEdit = (item) => {
+        const onSubmit = (data) => {
+            let newItem = {...item};
+
+            Object.keys(data).forEach((key) => {
+                newItem[key] = data[key];
+            })
+
+            reset();
+            setNotif(<></>);
+            items = items.map(value => value.ID !== newItem.ID ? value : newItem);
+            onItemsChange(items);
+        };
+
+        setNotif(<>
+            <Popup
+                title={title}
+                opened={true}
+                onClose={() => {
+                    setNotif(<></>);
+                }}
+            >
+                <form onSubmit={handleSubmit(onSubmit)} className='admin-form'>
+                    <fieldset className='admin-form__section'>
+                        {
+                            itemsConfig.map((itemKey) => {
+                                if(itemKey.key !== "ID"){
+                                    switch (itemKey.type) {
+                                        case "string":
+                                            return <FieldText
+                                                key={itemKey.key}
+                                                label={itemKey.header}
+                                                required={true}
+                                                placeholder={"..."}
+                                                {...register(itemKey.key, {value: item[itemKey.key]})}
+                                            />
+
+                                        case "int":
+                                            return <FieldNumber
+                                                key={itemKey.key}
+                                                label={itemKey.header}
+                                                required={true}
+                                                placeholder={"..."}
+                                                {...register(itemKey.key, {value: item[itemKey.key]})}
+                                            />
+
+                                        case "date":
+                                            return <FieldDate
+                                                key={itemKey.key}
+                                                label={itemKey.header}
+                                                required={true}
+                                                {...register(itemKey.key, {value: item[itemKey.key]})}
+                                            />
+
+                                        default:
+                                            return null;
+                                    }
+                                }
+                            })
+                        }
+                    </fieldset>
+                    <div className='admin-form__controls'>
+                        <Button
+                            text='Сохранить'
+                            extraClass={"admin-form__button"}
+                            type='submit'
+                        />
+                        <Button
+                            type='button'
+                            extraClass={"admin-form__button"}
+                            theme='text'
+                            text='Отмена'
+                            onClick={() => {
+                                setNotif(<></>);
+                            }}
+                        />
+                    </div>
+                </form>
+            </Popup>
+        </>);
+    };
+
+    const onItemRemove = (item) => {
+        setNotif(
+            <AlertPopup
+                text={"Вы уверены что хотите удалить?"}
+                opened={true}
+                onClose={() => setNotif(<></>)}
+                buttons={
+                    <>
+                        <Button type='button' theme='text' onClick={() => setNotif(<></>)}>
+                            Нет
+                        </Button>
+                        <Button
+                            type='button'
+                            onClick={async () => {
+                                await onItemsChange(items.filter((value) => value.ID !== item.ID));
+                                setNotif(<></>);
+                            }}
+                        >
+                            Да
+                        </Button>
+                    </>
+                }
+            />
+        );
+    };
+
     return (
         <>
-            {withFilter && (
+            {withFilter && withItemControls === false && (
                 <SearchFilter config={itemsConfig} onSubmit={filterCallback} items={items}>
                     {children}
                 </SearchFilter>
             )}
-            {children && !withFilter && <div className='admin-table-panel'>{children}</div>}
+            {withItemControls && withFilter === false && (
+                <div className='admin-table-panel'>
+                    <Button
+                        type='button'
+                        text='Добавить'
+                        iconName={AdminIcons.plus}
+                        aria-label='Добавить'
+                        onClick={onItemAdd}
+                    />
+                </div>
+            )}
             {filtered && filtered.length === 0 && <p>Нет данных для отображения</p>}
             {filtered && filtered.length > 0 && (
                 <>
-                    <Pagination pageCount={pageCount} pageIndex={pageIndex} setPageChangeCallback={handleChangePage} />
+                    <Pagination pageCount={pageCount} pageIndex={pageIndex} setPageChangeCallback={handleChangePage}/>
                     <div className='admin-table'>
                         <div className='admin-table__container'>
                             <table className='admin-table__table'>
                                 <thead className='admin-table__thead'>
-                                    <tr className='admin-table__row admin-table__row'>
-                                        {itemsConfig.map(
-                                            (item) =>
-                                                !item.hide && (
-                                                    <th className='admin-table__cell-heading' key={item.header}>
-                                                        <p
-                                                            className={`${`sorting` in item ? `cell-sorting` : ``}${
-                                                                sortKey === item.key ? ` cell-sorting_active` : ``
-                                                            }`}
-                                                            aria-label='Сортировать по возрастанию'
-                                                            onClick={() => {
-                                                                if ("sorting" in item) {
-                                                                    setSortKey(item.key);
-                                                                    sorting(item.key, item.type);
-                                                                }
-                                                            }}
-                                                        >
-                                                            {item.sorting && (
-                                                                <>
-                                                                    {sortKey === item.key && order === "ASC"
-                                                                        ? AdminIcons.ascending
-                                                                        : AdminIcons.descending}
-                                                                </>
-                                                            )}
+                                <tr className='admin-table__row admin-table__row'>
+                                    {itemsConfig.map(
+                                        (item) =>
+                                            !item.hide && (
+                                                <th className='admin-table__cell-heading' key={item.header}>
+                                                    <p
+                                                        className={`${`sorting` in item ? `cell-sorting` : ``}${
+                                                            sortKey === item.key ? ` cell-sorting_active` : ``
+                                                        }`}
+                                                        aria-label='Сортировать по возрастанию'
+                                                        onClick={() => {
+                                                            if ("sorting" in item) {
+                                                                setSortKey(item.key);
+                                                                sorting(item.key, item.type);
+                                                            }
+                                                        }}
+                                                    >
+                                                        {item.sorting && (
+                                                            <>
+                                                                {sortKey === item.key && order === "ASC"
+                                                                    ? AdminIcons.ascending
+                                                                    : AdminIcons.descending}
+                                                            </>
+                                                        )}
 
-                                                            {item.header}
-                                                        </p>
-                                                    </th>
-                                                )
-                                        )}
-                                    </tr>
+                                                        {item.header}
+                                                    </p>
+                                                </th>
+                                            )
+                                    )}
+                                    {withItemControls && <th className='admin-table__cell-heading'>Действие</th>}
+                                </tr>
                                 </thead>
                                 <tbody className='admin-table__tbody'>
-                                    {paginatedItems.map((item) => (
-                                        <tr
-                                            className={`admin-table__row admin-table__row_hover`}
-                                            key={item.ID}
-                                            onClick={() => onItemClick && onItemClick(item.ID)}
-                                        >
-                                            {itemsConfig.map(
-                                                (itemKey) =>
-                                                    !itemKey.hide && (
-                                                        <td className={"admin-table__cell"} key={itemKey.key}>
-                                                            {getElementByType(itemKey, item[itemKey.key])}
-                                                        </td>
-                                                    )
-                                            )}
-                                        </tr>
-                                    ))}
+                                {paginatedItems.map((item) => (
+                                    <tr
+                                        className={`admin-table__row admin-table__row_hover`}
+                                        key={item.ID}
+                                        onClick={() => onItemClick && onItemClick(item.ID)}
+                                    >
+                                        {itemsConfig.map(
+                                            (itemKey) =>
+                                                !itemKey.hide && (
+                                                    <td className={"admin-table__cell"} key={itemKey.key}>
+                                                        {getElementByType(itemKey, item[itemKey.key])}
+                                                    </td>
+                                                )
+                                        )}
+                                        {withItemControls && (
+                                            <td className='admin-table__cell'>
+                                                <div className='admin-table__cell-panel'>
+                                                    <Button
+                                                        type='button'
+                                                        theme='text'
+                                                        extraClass={"admin-table__cell-panel-button"}
+                                                        isIconBtn={true}
+                                                        iconName={AdminIcons.edit}
+                                                        aria-label='Редактировать'
+                                                        onClick={() => {
+                                                            onItemEdit(item)
+                                                        }}
+                                                    />
+                                                    <Button
+                                                        type='button'
+                                                        theme='text-error'
+                                                        extraClass={"admin-table__cell-panel-button"}
+                                                        isIconBtn={true}
+                                                        iconName={AdminIcons.delete}
+                                                        aria-label='Удалить'
+                                                        onClick={() => {
+                                                            onItemRemove(item)
+                                                        }}
+                                                    />
+                                                </div>
+                                            </td>
+                                        )}
+                                    </tr>
+                                ))}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </>
             )}
+            {notif}
         </>
     );
 };

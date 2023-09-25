@@ -26,7 +26,7 @@ const AdminLayout = () => {
             link: "/admin/lessons",
         },
         {
-            title: "Работники",
+            title: "Сотрудники",
             icon: MenuIcons.employers,
             link: "/admin/teachers",
         },
