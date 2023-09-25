@@ -65,6 +65,8 @@ const AdminTeacherPage = (props) => {
             const [sending, setSending] = React.useState(false);
 
             const checkForComplete = (sendObject) => {
+                console.log(sendObject);
+
                 if (!sendObject.fio) {
                     setPopup(
                         <AlertPopup
@@ -96,12 +98,31 @@ const AdminTeacherPage = (props) => {
                 return true;
             };
 
-            const onAdd = async (params) => {
-                const data = getValues();
-
-                let sendObject = {...data};
+            const onAdd = async () => {
+                let sendObject = {...getValues()};
 
                 sendObject["image"] = photo;
+
+                if (educations.length > 0) {
+                    let tmpArray = Array.from(
+                        educations
+                            .filter(
+                                (education) =>
+                                    getValues("orgName_" + education.id) !== "" &&
+                                    getValues("endDate_" + education.id) !== "" &&
+                                    getValues("qualification_" + education.id) !== ""
+                            )
+                            .map((education) => {
+                                return {
+                                    orgName: getValues("orgName_" + education.id),
+                                    endDate: getValues("endDate_" + education.id),
+                                    qualification: getValues("qualification_" + education.id),
+                                };
+                            })
+                    );
+
+                    sendObject["educations"] = tmpArray.length > 0 ? tmpArray : [];
+                }
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -137,7 +158,12 @@ const AdminTeacherPage = (props) => {
             };
 
             const onEducationAdd = () => {
-                setEducations([...educations, {id: window.global.makeid(12), url: ""}]);
+                setEducations([...educations, {
+                    id: window.global.makeid(12),
+                    orgName: "",
+                    endDate: "",
+                    qualification: ""
+                }]);
             };
 
             if (!id) {
@@ -194,25 +220,23 @@ const AdminTeacherPage = (props) => {
                                             onClick={onEducationAdd}
                                         />
                                         {educations.map((item) => (
-                                            <div
-                                                key={item.id}
-                                            >
+                                            <div key={item.id}>
                                                 <FieldText
                                                     label={"Наименование учебного учреждения*"}
                                                     required={true}
                                                     placeholder={"Введите наименование"}
-                                                    {...register("org_name")}
+                                                    {...register("orgName_" + item.id)}
                                                 />
                                                 <FieldDate
                                                     label={"Дата окончания*"}
                                                     required={true}
-                                                    {...register("end_date")}
+                                                    {...register("endDate_" + item.id)}
                                                 />
                                                 <FieldText
                                                     label={"Специальность, квалификация по диплому*"}
                                                     required={true}
                                                     placeholder={"Введите специальность"}
-                                                    {...register("qualification")}
+                                                    {...register("qualification_" + item.id)}
                                                 />
                                                 <Button
                                                     type="button"
@@ -221,12 +245,13 @@ const AdminTeacherPage = (props) => {
                                                     extraClass="form__icon-btn"
                                                     iconClass={"mdi mdi-close"}
                                                     isIconBtn="true"
+                                                    text={"Удалить"}
                                                     aria-label="Удалить поле"
                                                     onClick={() => {
                                                         setEducations(
                                                             educations.filter(
-                                                                (link) =>
-                                                                    link.id !== item.id
+                                                                (education) =>
+                                                                    education.id !== item.id
                                                             )
                                                         );
                                                     }}
