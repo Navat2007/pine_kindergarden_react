@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import createDOMPurify from "dompurify";
 
@@ -20,7 +20,7 @@ import { AdminIcons } from "../../../components/svgs";
 const AdminAboutPage = () => {
     const { user } = useAuthStore();
     const navigate = useNavigate();
-    const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
+    const { handleSubmit, reset, control, setValue, getValues } = useForm();
     const DOMPurify = createDOMPurify(window);
 
     // Private component
@@ -33,6 +33,7 @@ const AdminAboutPage = () => {
         };
 
         React.useEffect(() => {
+            reset();
             fetchData();
         }, [edit]);
 
