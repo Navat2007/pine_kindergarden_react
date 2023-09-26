@@ -15,22 +15,25 @@ const Tabs = ({ children, place, extraClass, theme }) => {
     return (
         <div className={`admin-tabs${theme ? ` admin-tabs_theme_${theme}` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
             <ul className={`admin-tabs__list${extraClass ? ` ${extraClass}-list` : ``}`}>
-                {children.map((child, index) => (
-                    <li
-                        key={child.props.title}
-                        onClick={() => {
-                            if(place)
-                                window.localStorage.setItem(`${place}_tab`, index);
+                {children.map((child, index) => {
+                    if(child)
+                        return (
+                            <li
+                                key={child?.props?.title}
+                                onClick={() => {
+                                    if(place)
+                                        window.localStorage.setItem(`${place}_tab`, index);
 
-                            setActiveTab(index)
-                        }}
-                        className={`admin-tabs__item${index === activeTab ? ` admin-tabs__item_active` : ``}${
-                            child.props.hidden ? ` --hide` : ``
-                        }`}
-                    >
-                        {child.props.title}
-                    </li>
-                ))}
+                                    setActiveTab(index)
+                                }}
+                                className={`admin-tabs__item${index === activeTab ? ` admin-tabs__item_active` : ``}${
+                                    child?.props?.hidden ? ` --hide` : ``
+                                }`}
+                            >
+                                {child?.props?.title}
+                            </li>
+                        )
+                })}
             </ul>
             <AnimatePresence mode={"wait"}>
                 <motion.div
