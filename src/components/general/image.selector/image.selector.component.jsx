@@ -6,20 +6,23 @@ import FieldInput from "../../admin/field/field.text.component";
 import AlertPopup from "../alert.popup/alert.popup";
 import Popup from "../popup/popup.component";
 import "./image.selector.scss";
-import { AdminIcons } from "../../svgs.js";
+import {AdminIcons, FileIcons} from "../../svgs.js";
+import FieldTextarea from "../../admin/field/field.textarea.component";
 
 const ImageSelector = ({
-    items,
-    extraClass,
-    orientation = "landscape",
-    multiFiles,
-    onlyOneImage,
-    withLinks,
-    maxFileSize = 5,
-    onChange,
-    onDelete,
-    onError,
-}) => {
+                           items,
+                           extraClass,
+                           orientation = "landscape",
+                           multiFiles,
+                           onlyOneFile,
+                           accept = "image/*",
+                           withLinks,
+                           withDescription,
+                           maxFileSize = 5,
+                           onChange,
+                           onDelete,
+                           onError,
+                       }) => {
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
     const [photoFileAddBtnDisabled, setPhotoFileAddBtnDisabled] = React.useState(false);
@@ -130,9 +133,10 @@ const ImageSelector = ({
         }
 
         let tmp_array = [];
+        let match = accept.split(",").join("|");
 
         for (const file of e.target.files) {
-            if (file.type.match("image.*")) {
+            if (accept === "*.*" || file.type.match(match)) {
                 if (file.size <= maxFileSize * 1000000) {
                 } else {
                     errorFiles.push({
@@ -152,19 +156,21 @@ const ImageSelector = ({
             const result = await readFileAsDataURL(file);
 
             tmp_array.push({
-                main: (photo.length === 0 && tmp_array.length === 0) || onlyOneImage ? 1 : 0,
+                main: (photo.length === 0 && tmp_array.length === 0) || onlyOneFile ? 1 : 0,
                 url: result,
                 file: file,
                 isFile: 1,
                 isLoaded: 0,
-                order: onlyOneImage ? 1 : getOrderIndex(photo, tmp_array),
+                order: onlyOneFile ? 1 : getOrderIndex(photo, tmp_array),
             });
 
-            if (onlyOneImage) break;
+            if (onlyOneFile) break;
         }
 
-        if (onlyOneImage) setPhoto(tmp_array);
-        else setPhoto([...photo, ...tmp_array]);
+        if (onlyOneFile)
+            setPhoto(tmp_array);
+        else
+            setPhoto([...photo, ...tmp_array]);
 
         setPhotoInputKey(window.global.makeid(30));
 
@@ -244,6 +250,55 @@ const ImageSelector = ({
         }
     };
 
+    const getThumbsForGallery = (item) => {
+        if ((item.file && item.file.type.match("application/")) || (item.type && item.type !== "image")) {
+            let iconsType = "default";
+
+            if (item.title.includes(".doc")) {
+                iconsType = "doc";
+            }
+
+            if (item.title.includes(".xls")) {
+                iconsType = "xls";
+            }
+
+            if (item.title.includes(".pdf")) {
+                iconsType = "pdf";
+            }
+
+            return (
+                <div className={`admin-file-block`}>
+                    {FileIcons[iconsType]}
+                    {withDescription ? (
+                        <FieldTextarea
+                            label='Название'
+                            type='textarea'
+                            extraClass={"admin-file-block__field"}
+                            placeholder='Введите описание файла..'
+                            rows={3}
+                            defaultValue={item.description ? item.description : item.file ? item.file.name : item.title}
+                            onChange={(e) => {
+                                item.description = e.target.value;
+                            }}
+                        />
+                    ) : (
+                        <p className={"admin-file-block__title"}>
+                            {item.description ? item.description : item.file ? item.file.name : item.title}
+                        </p>
+                    )}
+                </div>
+            );
+        }
+
+        return (
+            <img
+                className={"admin-file-selector__image"}
+                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
+                alt={"Изображение " + (item.file ? item.file.name : item.title)}
+            />
+        );
+    };
+
     return (
         <>
             <ul className={`admin-image-selector${extraClass ? ` ${extraClass}` : ``}`}>
@@ -255,15 +310,7 @@ const ImageSelector = ({
                                 orientation === "portrait" ? ` admin-image-selector__item_portrait` : ``
                             }${extraClass ? ` ${extraClass}-item` : ``}`}
                         >
-                            <img
-                                className={`admin-image-selector__img${extraClass ? ` ${extraClass}-img` : ``}`}
-                                src={
-                                    item.isFile === 1 && item.isLoaded === 1
-                                        ? process.env.REACT_APP_BASE_URL + item.url
-                                        : item.url
-                                }
-                                alt={"Изображение " + item.url}
-                            />
+                            {getThumbsForGallery(item)}
                             <div
                                 className={`admin-image-selector__item-panel${
                                     extraClass ? ` ${extraClass}-item-panel` : ``
@@ -292,15 +339,7 @@ const ImageSelector = ({
                                 orientation === "portrait" ? ` admin-image-selector__item_portrait` : ``
                             }${extraClass ? ` ${extraClass}-item` : ``}`}
                         >
-                            <img
-                                className={`admin-image-selector__img${extraClass ? ` ${extraClass}-img` : ``}`}
-                                src={
-                                    item.isFile === 1 && item.isLoaded === 1
-                                        ? process.env.REACT_APP_BASE_URL + item.url
-                                        : item.url
-                                }
-                                alt={"Изображение " + item.url}
-                            />
+                            {getThumbsForGallery(item)}
                             <span
                                 className={`admin-image-selector__current-position${
                                     extraClass ? ` ${extraClass}-current-position` : ``
@@ -357,7 +396,7 @@ const ImageSelector = ({
                         </li>
                     )
                 )}
-                {photo.length === 0 && (
+                {(photo.length === 0 || !onlyOneFile) && (
                     <li
                         className={`admin-image-selector__download-block${
                             extraClass ? ` ${extraClass}-download-block` : ``
@@ -379,11 +418,11 @@ const ImageSelector = ({
                                 extraClass ? ` ${extraClass}-download-text` : ``
                             }`}
                         >
-                            {onlyOneImage && "Ограничение на кол-во файлов: 1 файл"}
-                            <br />
-                            <span>Ограничение на размер изображения: 5 MB.</span>
-                            <br />
-                            <br />
+                            {onlyOneFile && "Ограничение на кол-во файлов: 1 файл"}
+                            <br/>
+                            <span>Ограничение на размер изображения: {maxFileSize} MB.</span>
+                            <br/>
+                            <br/>
                             Начните загружать изображения простым перетаскиванием в любое место этого окна.
                             <span
                                 className={`admin-image-selector__download-span${
@@ -398,7 +437,7 @@ const ImageSelector = ({
                             disabled={photoFileAddBtnDisabled}
                             onClick={() => inputFileRef.current.click()}
                         >
-                            {onlyOneImage ? "Выбрать файл" : "Выбрать файлы"}
+                            {onlyOneFile ? "Выбрать файл" : "Выбрать файлы"}
                         </Button>
                         <input
                             ref={inputFileRef}
@@ -406,7 +445,7 @@ const ImageSelector = ({
                             onChange={handleAddFilePhoto}
                             hidden={true}
                             type='file'
-                            accept='image/*'
+                            accept={accept}
                             multiple={multiFiles}
                         />
                     </li>

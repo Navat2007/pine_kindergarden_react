@@ -225,14 +225,14 @@ const AdminNewsPage = (props) => {
                                     <ImageSelector
                                         title='Картинка для анонса'
                                         items={photoPreview}
-                                        onlyOneImage={true}
+                                        onlyOneFile={true}
                                         multiFiles={false}
                                         onChange={(items) => setPhotoPreview(items)}
                                     />
                                     <h2 className='admin-form__title'>Детальная картинка</h2>
                                     <ImageSelector
                                         items={photoReview}
-                                        onlyOneImage={true}
+                                        onlyOneFile={true}
                                         multiFiles={false}
                                         onChange={(items) => setPhotoReview(items)}
                                     />
@@ -579,7 +579,7 @@ const AdminNewsPage = (props) => {
                                     <h2 className='admin-form__title'>Картинка для анонса</h2>
                                     <ImageSelector
                                         items={photoPreview}
-                                        onlyOneImage={true}
+                                        onlyOneFile={true}
                                         multiFiles={false}
                                         onChange={(items) => setPhotoPreview(items)}
                                         onDelete={handleDeletePreviewPhoto}
@@ -587,7 +587,7 @@ const AdminNewsPage = (props) => {
                                     <h2 className='admin-form__title'>Детальная картинка</h2>
                                     <ImageSelector
                                         items={photoReview}
-                                        onlyOneImage={true}
+                                        onlyOneFile={true}
                                         multiFiles={false}
                                         onChange={(items) => setPhotoReview(items)}
                                         onDelete={handleDeleteReviewPhoto}

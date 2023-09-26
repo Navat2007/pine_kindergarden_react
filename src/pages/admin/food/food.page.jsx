@@ -160,7 +160,7 @@ const AdminFoodPage = () => {
                                     <h2 className='admin-form__title'>Картинка для превью документа</h2>
                                     <ImageSelector
                                         items={image}
-                                        onlyOneImage={true}
+                                        onlyOneFile={true}
                                         multiFiles={false}
                                         onChange={(items) => setImage(items)}
                                     />
@@ -412,7 +412,7 @@ const AdminFoodPage = () => {
                                     <h2 className='admin-form__title'>Картинка для превью документа</h2>
                                     <ImageSelector
                                         items={image}
-                                        onlyOneImage={true}
+                                        onlyOneFile={true}
                                         multiFiles={false}
                                         orientation={"portrait"}
                                         onChange={(items) => setImage(items)}

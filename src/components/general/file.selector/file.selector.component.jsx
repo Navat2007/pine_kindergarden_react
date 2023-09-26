@@ -7,19 +7,20 @@ import AlertPopup from "../alert.popup/alert.popup";
 import Popup from "../popup/popup.component";
 
 import "./file.selector.scss";
-import { AdminIcons, FileIcons } from "../../svgs.js";
+import {AdminIcons, FileIcons} from "../../svgs.js";
 
 const FileSelector = ({
-    orientation,
-    items,
-    multiFiles,
-    withDescription,
-    maxFileSize = 5,
-    accept = "*.*",
-    onChange,
-    onError,
-    onDelete,
-}) => {
+                          orientation,
+                          items,
+                          multiFiles,
+                          withDescription,
+                          onlyOneFile,
+                          maxFileSize = 5,
+                          accept = "*.*",
+                          onChange,
+                          onError,
+                          onDelete,
+                      }) => {
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
     const [photoFileAddBtnDisabled, setPhotoFileAddBtnDisabled] = React.useState(false);
@@ -161,18 +162,23 @@ const FileSelector = ({
             const result = await readFileAsDataURL(file);
 
             tmp_array.push({
-                main: photo.length === 0 && tmp_array.length === 0 ? 1 : 0,
+                main: (photo.length === 0 && tmp_array.length === 0) || onlyOneFile ? 1 : 0,
                 url: result,
                 file: file,
                 isFile: 1,
                 isLoaded: 0,
                 title: file.name,
                 type: getFileType(file),
-                order: getOrderIndex(photo, tmp_array),
+                order: onlyOneFile ? 1 : getOrderIndex(photo, tmp_array),
             });
+
+            if (onlyOneFile) break;
         }
 
-        setPhoto([...photo, ...tmp_array]);
+        if (onlyOneFile)
+            setPhoto(tmp_array);
+        else
+            setPhoto([...photo, ...tmp_array]);
 
         setPhotoInputKey(window.global.makeid(30));
 
@@ -322,7 +328,11 @@ const FileSelector = ({
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <p className={"admin-file-selector__title"}>1. Главная</p>
+                            {photo.length > 1 && (
+                                <p className={`admin-file-selector__title`}>
+                                    1. Главная
+                                </p>
+                            )}
                         </li>
                     ) : (
                         <li
@@ -374,44 +384,50 @@ const FileSelector = ({
                         </li>
                     )
                 )}
-                <li
-                    className={`admin-file-selector__item admin-file-download-block${
-                        orientation === "portrait" ? ` admin-file-selector__item_portrait` : ``
-                    }`}
-                    onDrop={(e) => {
-                        e.preventDefault();
-                        handleAddFile({
-                            target: {
-                                files: e.dataTransfer.files,
-                            },
-                        });
-                    }}
-                    onDragOver={(e) => {
-                        e.preventDefault();
-                    }}
-                >
-                    <p className={"admin-file-download-block__text"}>
-                        Начните загружать файлы простым перетаскиванием в&nbsp;любое место этого окна. Ограничение
-                        на&nbsp;размер файла 5&nbsp;MB.
-                        <span className={"admin-file-download-block__span"}>или</span>
-                    </p>
-                    <Button
-                        type='button'
-                        text='Выбрать файлы'
-                        disabled={photoFileAddBtnDisabled}
-                        onClick={() => inputFileRef.current.click()}
-                    />
-                    <input
-                        ref={inputFileRef}
-                        key={photoInputKey}
-                        onChange={handleAddFile}
-                        hidden={true}
-                        type='file'
-                        accept={accept}
-                        multiple={multiFiles}
-                    />
-                </li>
-            </ul>
+                {(photo.length === 0 || !onlyOneFile) && (
+                    <li
+                        className={`admin-file-selector__item admin-file-download-block${
+                            orientation === "portrait" ? ` admin-file-selector__item_portrait` : ``
+                        }`}
+                        onDrop={(e) => {
+                            e.preventDefault();
+                            handleAddFile({
+                                target: {
+                                    files: e.dataTransfer.files,
+                                },
+                            });
+                        }}
+                        onDragOver={(e) => {
+                            e.preventDefault();
+                        }}
+                    >
+                        <p className={"admin-file-download-block__text"}>
+                            {onlyOneFile && "Ограничение на кол-во файлов: 1 файл"}
+                            <br/>
+                            <span>Ограничение на размер файлов: {maxFileSize} MB.</span>
+                            <br/>
+                            <br/>
+                            Начните загружать изображения простым перетаскиванием в любое место этого окна.
+                            <span className={"admin-file-download-block__span"}>или</span>
+                        </p>
+                        <Button
+                            type='button'
+                            text={onlyOneFile ? "Выбрать файл" : "Выбрать файлы"}
+                            disabled={photoFileAddBtnDisabled}
+                            onClick={() => inputFileRef.current.click()}
+                        />
+                        <input
+                            ref={inputFileRef}
+                            key={photoInputKey}
+                            onChange={handleAddFile}
+                            hidden={true}
+                            type='file'
+                            accept={accept}
+                            multiple={multiFiles}
+                        />
+                    </li>
+                )}
+            < /ul>
             {notif}
         </>
     );

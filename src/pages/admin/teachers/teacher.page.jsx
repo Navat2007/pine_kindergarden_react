@@ -335,7 +335,7 @@ const AdminTeacherPage = (props) => {
                                             <h3 className='admin-form__title'>Фотография</h3>
                                             <ImageSelector
                                                 items={photo}
-                                                onlyOneImage={true}
+                                                onlyOneFile={true}
                                                 multiFiles={false}
                                                 orientation='portrait'
                                                 extraClass={"admin-form__photo"}
@@ -654,7 +654,7 @@ const AdminTeacherPage = (props) => {
                                                 items={photo}
                                                 orientation='portrait'
                                                 extraClass='admin-form__photo'
-                                                onlyOneImage={true}
+                                                onlyOneFile={true}
                                                 multiFiles={false}
                                                 onChange={(items) => setPhoto(items)}
                                                 onDelete={handleDeletePhoto}

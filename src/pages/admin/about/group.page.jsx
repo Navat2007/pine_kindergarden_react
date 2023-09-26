@@ -138,7 +138,7 @@ const AdminGroupPage = (props) => {
                                 <p className='admin-form__subtitle'>Фотография</p>
                                 <ImageSelector
                                     items={image}
-                                    onlyOneImage={true}
+                                    onlyOneFile={true}
                                     multiFiles={false}
                                     onChange={(items) => setImage(items)}
                                 />
@@ -365,7 +365,7 @@ const AdminGroupPage = (props) => {
                                 <p className='admin-form__subtitle'>Фотография</p>
                                 <ImageSelector
                                     items={image}
-                                    onlyOneImage={true}
+                                    onlyOneFile={true}
                                     multiFiles={false}
                                     onChange={(items) => setImage(items)}
                                     onDelete={handleDeletePreviewPhoto}

@@ -27,8 +27,8 @@ import AdminLessonPage from "../pages/admin/lessons/lesson.page";
 import AdminAboutPage from "../pages/admin/about/about.page";
 import AdminGroupPage from "../pages/admin/about/group.page";
 import AdminCategoryTeachersPage from "../pages/admin/teachers/category.teachers.page";
-import AdminMediaFilesPage from "../pages/admin/mediaFiles/media.files.page";
-import AdminMediaFilePage from "../pages/admin/mediaFiles/media.file.page";
+import AdminMediaFilesPage from "../pages/admin/media.files/media.files.page";
+import AdminMediaFilePage from "../pages/admin/media.files/media.file.page";
 
 // PUBLIC PAGES
 import MainPage from "../pages/public/index.page";

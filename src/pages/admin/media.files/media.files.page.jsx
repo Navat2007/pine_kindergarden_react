@@ -38,9 +38,16 @@ const AdminMediaFilesPage = () => {
         },
         {
             header: "Название",
-            key: "titleShort",
+            key: "title",
             type: "string",
             filter: "string",
+            sorting: true,
+        },
+        {
+            header: "Тип файла",
+            key: "type",
+            type: "string",
+            filter: "select",
             sorting: true,
         },
         {

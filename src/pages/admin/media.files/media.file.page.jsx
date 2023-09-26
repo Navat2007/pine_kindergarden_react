@@ -1,6 +1,6 @@
 import React from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
+import {useForm} from "react-hook-form";
 
 import useMediaFilesStore from "../../../store/admin/mediaFilesStore";
 
@@ -8,25 +8,24 @@ import BasicPage from "../../../components/admin/basic.page/basic.page.component
 import FileSelector from "../../../components/general/file.selector/file.selector.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
-import ImageSelector from "../../../components/general/image.selector/image.selector.component";
 import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldText from "../../../components/admin/field/field.text.component";
-import FieldUrl from "../../../components/admin/field/field.url.component";
 
-import { AdminIcons } from "../../../components/svgs";
+import {AdminIcons} from "../../../components/svgs";
+import FileGallery from "../../../components/general/file.gallery/file.gallery.component";
 
 const AdminMediaFilePage = (props) => {
-    let { id } = useParams();
+    let {id} = useParams();
     const navigate = useNavigate();
-    const { register, handleSubmit, reset, getValues } = useForm();
+    const {register, handleSubmit, reset, getValues} = useForm();
 
     const store = useMediaFilesStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-        await store.loadByID({ id });
+        await store.loadByID({id});
     };
 
     React.useEffect(() => {
@@ -38,6 +37,43 @@ const AdminMediaFilePage = (props) => {
 
     //Private component
     const Article = () => {
+        const getFileType = (data) => {
+            console.log(data);
+            switch (data.type) {
+                case "image/jpeg":
+                case "image/png":
+                case "image/gif":
+                    return "image";
+
+                case "application/pdf":
+                    return "pdf";
+
+                case "application/msword":
+                case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+                    return "doc";
+
+                case "application/vnd.ms-excel":
+                case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                    return "xls";
+
+                case "application/vnd.ms-powerpoint":
+                case "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+                    return "ppt";
+
+                case "application/vnd.oasis.opendocument.text":
+                    return "odt";
+
+                case "application/vnd.oasis.opendocument.spreadsheet":
+                    return "ods";
+
+                case "application/vnd.oasis.opendocument.presentation":
+                    return "odp";
+
+                default:
+                    return "other";
+            }
+        };
+
         const Create = () => {
             const [file, setFile] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
@@ -58,17 +94,32 @@ const AdminMediaFilePage = (props) => {
                     return false;
                 }
 
+                if (file.length === 0) {
+                    setPopup(
+                        <AlertPopup
+                            title='Ошибка'
+                            text={"Выберите файл."}
+                            opened={true}
+                            onClose={() => {
+                                setPopup(<></>);
+                            }}
+                        />
+                    );
+                    return false;
+                }
+
                 return true;
             };
 
-            const onAdd = async (params) => {
+            const onAdd = async () => {
                 const data = getValues();
 
-                let sendObject = { ...data };
-
-                sendObject["file"] = file;
+                let sendObject = {...data};
 
                 if (!checkForComplete(sendObject)) return;
+
+                sendObject["file"] = file;
+                sendObject["type"] = getFileType(file[0].file);
 
                 setSending(true);
 
@@ -80,7 +131,7 @@ const AdminMediaFilePage = (props) => {
                     setPopup(
                         <AlertPopup
                             title=''
-                            text={"Документ успешно добавлен"}
+                            text={"Файл успешно добавлен"}
                             opened={true}
                             onClose={() => {
                                 back();
@@ -104,7 +155,7 @@ const AdminMediaFilePage = (props) => {
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание"} onBack={back} />
+                        <TitleBlock title={"Создание"} onBack={back}/>
                         <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
                             <div className='admin-form__two-columns'>
                                 <fieldset className='admin-form__section'>
@@ -116,8 +167,8 @@ const AdminMediaFilePage = (props) => {
                                         {...register("title")}
                                     />
                                     <FieldText
-                                        label={"Описание*"}
-                                        required={true}
+                                        label={"Описание"}
+                                        required={false}
                                         placeholder={"Введите описание"}
                                         {...register("text")}
                                     />
@@ -126,8 +177,8 @@ const AdminMediaFilePage = (props) => {
                                     <h2 className='admin-form__title'>Файл</h2>
                                     <FileSelector
                                         items={file}
-                                        multiFiles={true}
-                                        withDescription={true}
+                                        multiFiles={false}
+                                        onlyOneFile={true}
                                         orientation={"portrait"}
                                         onChange={(items) => setFile(items)}
                                     />
@@ -155,18 +206,18 @@ const AdminMediaFilePage = (props) => {
         };
 
         const Edit = () => {
-            const [image, setImage] = React.useState(
-                store.item.image
+            const [file, setFile] = React.useState(
+                store.item.url
                     ? [
-                          {
-                              ID: store.item.ID,
-                              url: store.item.image,
-                              main: 1,
-                              order: 1,
-                              isFile: 1,
-                              isLoaded: 1,
-                          },
-                      ]
+                        {
+                            ID: store.item.ID,
+                            url: store.item.url,
+                            main: 1,
+                            order: 1,
+                            isFile: 1,
+                            isLoaded: 1,
+                        },
+                    ]
                     : []
             );
             const [popup, setPopup] = React.useState(<></>);
@@ -174,38 +225,24 @@ const AdminMediaFilePage = (props) => {
 
             React.useEffect(() => {
                 if (edit) {
-                    setImage(
+                    setFile(
                         store.item.image
                             ? [
-                                  {
-                                      ID: store.item.ID,
-                                      url: store.item.image,
-                                      main: 1,
-                                      order: 1,
-                                      isFile: 1,
-                                      isLoaded: 1,
-                                  },
-                              ]
+                                {
+                                    ID: store.item.ID,
+                                    url: store.item.image,
+                                    main: 1,
+                                    order: 1,
+                                    isFile: 1,
+                                    isLoaded: 1,
+                                },
+                            ]
                             : []
                     );
                 }
             }, [edit]);
 
             const checkForComplete = (sendObject) => {
-                if (!sendObject.titleShort) {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Краткое название должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
                 if (!sendObject.title) {
                     setPopup(
                         <AlertPopup
@@ -220,11 +257,11 @@ const AdminMediaFilePage = (props) => {
                     return false;
                 }
 
-                if (!sendObject.url) {
+                if (file.length === 0) {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Ссылка на документ должна быть заполнена."}
+                            text={"Выберите файл."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -237,15 +274,16 @@ const AdminMediaFilePage = (props) => {
                 return true;
             };
 
-            const onEdit = async (params) => {
+            const onEdit = async () => {
                 const data = getValues();
 
-                let sendObject = { ...data };
-
-                sendObject["id"] = id;
-                sendObject["image"] = image;
+                let sendObject = {...data};
 
                 if (!checkForComplete(sendObject)) return;
+
+                sendObject["id"] = id;
+                sendObject["file"] = file;
+                sendObject["type"] = getFileType(file[0].file);
 
                 setSending(true);
 
@@ -259,7 +297,7 @@ const AdminMediaFilePage = (props) => {
                     setPopup(
                         <AlertPopup
                             title=''
-                            text={"Документ успешно отредактирован"}
+                            text={"Файл успешно отредактирован"}
                             opened={true}
                             onClose={() => {
                                 back();
@@ -335,7 +373,7 @@ const AdminMediaFilePage = (props) => {
             };
 
             const handleDeletePreviewPhoto = async (item) => {
-                let sendObject = { ...item };
+                let sendObject = {...item};
 
                 sendObject["ID"] = id;
 
@@ -345,50 +383,41 @@ const AdminMediaFilePage = (props) => {
             if (id && edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
+                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
                         <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
                             <div className='admin-form__two-columns'>
                                 <fieldset className='admin-form__section'>
                                     <h2 className='admin-form__title'>Основная информация</h2>
                                     <FieldText
-                                        label={"Название документа (кратко)*"}
-                                        required={true}
-                                        placeholder={"Введите название"}
-                                        {...register("titleShort", {
-                                            value: store.item.titleShort,
-                                        })}
-                                    />
-                                    <FieldText
-                                        label={"Название документа (полностью)*"}
+                                        label={"Название*"}
                                         required={true}
                                         placeholder={"Введите название"}
                                         {...register("title", {
                                             value: store.item.title,
                                         })}
                                     />
-                                    <FieldUrl
-                                        label={"Ссылка на документ*"}
-                                        required={true}
-                                        placeholder={"https://..."}
-                                        {...register("url", {
-                                            value: store.item.url,
+                                    <FieldText
+                                        label={"Описание"}
+                                        required={false}
+                                        placeholder={"Введите описание"}
+                                        {...register("text", {
+                                            value: store.item.text,
                                         })}
                                     />
                                 </fieldset>
                                 <fieldset className='admin-form__section'>
-                                    <h2 className='admin-form__title'>Картинка для превью документа</h2>
-                                    <ImageSelector
-                                        items={image}
-                                        onlyOneImage={true}
+                                    <h2 className='admin-form__title'>Файл</h2>
+                                    <FileSelector
+                                        items={file}
                                         multiFiles={false}
+                                        onlyOneFile={true}
                                         orientation={"portrait"}
-                                        onChange={(items) => setImage(items)}
-                                        onDelete={handleDeletePreviewPhoto}
+                                        onChange={(items) => setFile(items)}
                                     />
                                 </fieldset>
                             </div>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
+                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending}/>
                                 <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
                                     Удалить
                                 </Button>
@@ -414,7 +443,7 @@ const AdminMediaFilePage = (props) => {
             if (id && !edit && !store.loading && Object.keys(store.item).length > 0) {
                 return (
                     <>
-                        <TitleBlock title={`Документ ID: ${store.item.ID}`} onBack={back}>
+                        <TitleBlock title={`Файл ID: ${store.item.ID}`} onBack={back}>
                             <Button
                                 type='submit'
                                 isIconBtn='true'
@@ -432,21 +461,21 @@ const AdminMediaFilePage = (props) => {
                                     <h2 className='admin-view-section__title'>Основная информация</h2>
                                     <ul className='admin-view-section__list'>
                                         <li className='admin-view-section__item'>
-                                            <h3 className='admin-view-section__label'>Название документа (кратко)</h3>
-                                            <p className='admin-view-section__description'>{store.item.titleShort}</p>
+                                            <h3 className='admin-view-section__label'>Название</h3>
+                                            <p className='admin-view-section__description'>{store.item.title}</p>
                                         </li>
                                         <li className='admin-view-section__item'>
-                                            <h3 className='admin-view-section__label'>
-                                                Название документа (полностью)
-                                            </h3>
-                                            <p className='admin-view-section__description'>{store.item.title}</p>
+                                            <h3 className='admin-view-section__label'>Описание</h3>
+                                            <p className='admin-view-section__description'>{store.item.text}</p>
                                         </li>
                                         <li className='admin-view-section__item'>
                                             <h3 className='admin-view-section__label'>Ссылка на документ</h3>
                                             <p className='admin-view-section__description'>
                                                 <NavLink
                                                     className='admin-view-section__link'
-                                                    to={store.item.url}
+                                                    to={store.item.url.includes("http")
+                                                        ? store.item.url
+                                                        : process.env.REACT_APP_BASE_URL + store.item.url}
                                                     target={"_blank"}
                                                     rel='noopener nofollow noreferer'
                                                 >
@@ -457,11 +486,16 @@ const AdminMediaFilePage = (props) => {
                                     </ul>
                                 </div>
                                 <div className='admin-view-section__column'>
-                                    <h2 className='admin-view-section__title'>Картинка для превью документа</h2>
-                                    <ImageGallery
+                                    <h2 className='admin-view-section__title'>Файл</h2>
+                                    <FileGallery
                                         items={[
                                             {
-                                                url: store.item.image,
+                                                title: store.item.url,
+                                                url: store.item.url,
+                                                type: store.item.type,
+                                                isFile: 1,
+                                                isLoaded: 1,
+                                                order: 1,
                                             },
                                         ]}
                                         orientation={"portrait"}
@@ -477,16 +511,16 @@ const AdminMediaFilePage = (props) => {
 
         return (
             <>
-                <Create />
-                <Edit />
-                <View />
+                <Create/>
+                <Edit/>
+                <View/>
             </>
         );
     };
 
     return (
         <BasicPage id={id} mainStore={store} loadings={[store]} back={back}>
-            <Article />
+            <Article/>
         </BasicPage>
     );
 };

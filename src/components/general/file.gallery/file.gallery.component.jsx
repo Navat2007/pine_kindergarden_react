@@ -1,7 +1,6 @@
 import React from "react";
 
 import ImagePreview from "../image.preview/image.preview.component";
-import styles from "./file.selector.module.scss";
 import {FileIcons} from "../../svgs";
 
 const FileGallery = ({title, items, withDescription}) => {
@@ -16,7 +15,7 @@ const FileGallery = ({title, items, withDescription}) => {
 
             setPreview(<ImagePreview
                 open={true}
-                index={0}
+                index={slideIndex}
                 items={imageItems}
                 onClose={() => setPreview(<></>)}
             />)
@@ -46,9 +45,9 @@ const FileGallery = ({title, items, withDescription}) => {
         if(item.title.includes(".doc"))
         {
             return (
-                <div className={styles.file}>
+                <div className={`admin-file-block`}>
                     {FileIcons.doc}
-                    <p className={styles.fileName}>{item.description ? item.description : (item.file ? item.file.name : item.title)}</p>
+                    <p className={"admin-file-block__title"}>{item.description ? item.description : (item.file ? item.file.name : item.title)}</p>
                 </div>
             );
         }
@@ -56,9 +55,9 @@ const FileGallery = ({title, items, withDescription}) => {
         if(item.title.includes(".xls"))
         {
             return (
-                <div className={styles.file}>
+                <div className={`admin-file-block`}>
                     {FileIcons.xls}
-                    <p className={styles.fileName}>{item.description ? item.description : (item.file ? item.file.name : item.title)}</p>
+                    <p className={"admin-file-block__title"}>{item.description ? item.description : (item.file ? item.file.name : item.title)}</p>
                 </div>
             );
         }
@@ -66,18 +65,18 @@ const FileGallery = ({title, items, withDescription}) => {
         if(item.title.includes(".pdf"))
         {
             return (
-                <div className={styles.file}>
+                <div className={`admin-file-block`}>
                     {FileIcons.pdf}
-                    <p className={styles.fileName}>{item.description ? item.description : (item.file ? item.file.name : item.title)}</p>
+                    <p className={"admin-file-block__title"}>{item.description ? item.description : (item.file ? item.file.name : item.title)}</p>
                 </div>
             );
         }
 
         if (item.type === "file") {
             return (
-                <div className={styles.file}>
+                <div className={`admin-file-block`}>
                     {FileIcons.default}
-                    <p className={styles.fileName}>{item.description ? item.description : item.title}</p>
+                    <p className={"admin-file-block__title"}>{item.description ? item.description : item.title}</p>
                 </div>
 
             );
@@ -85,7 +84,7 @@ const FileGallery = ({title, items, withDescription}) => {
 
         return (
             <img
-                className={styles.image}
+                className={"admin-file-selector__image"}
                 src={
                     item.isFile === 1 && item.isLoaded === 1
                         ? process.env.REACT_APP_BASE_URL + item.url
@@ -101,7 +100,7 @@ const FileGallery = ({title, items, withDescription}) => {
             {
                 title
                 &&
-                <h2 className={styles.title}>{title}</h2>
+                <h2>{title}</h2>
             }
             {items && items.length > 0 ? (
                 <ul className="gallery-form">
