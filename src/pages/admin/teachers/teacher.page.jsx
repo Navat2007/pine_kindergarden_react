@@ -738,7 +738,6 @@ const AdminTeacherPage = (props) => {
 
         const View = () => {
             if (id && !edit && !store.loading && Object.keys(store.item).length > 0) {
-                console.log(store.item);
                 return (
                     <>
                         <TitleBlock title={`Сотрудник ID: ${store.item.ID}`} onBack={back}>
