@@ -9,16 +9,16 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 $id = htmlspecialchars($_POST["id"]);
 $userID = $authorization[1];
 $title = mysqli_real_escape_string($conn, htmlspecialchars($_POST["title"]));
-$titleShort = mysqli_real_escape_string($conn, htmlspecialchars($_POST["titleShort"]));
-$url = mysqli_real_escape_string($conn, htmlspecialchars($_POST["url"]));
-$image = $_POST["image"];
+$text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
+$type = mysqli_real_escape_string($conn, htmlspecialchars($_POST["type"]));
+$file = $_POST["file"];
 
 $sql = "UPDATE 
-                documents
+                media_files
             SET
                 title = '$title', 
-                title_short = '$titleShort', 
-                url = '$url', 
+                text = '$text', 
+                type = '$type', 
                 last_userID = '$userID'
             WHERE 
                 ID = '$id'";
@@ -40,7 +40,7 @@ else {
 
         if($isFile === 1 && $isLoaded === 0){
 
-            $dir_name = 'documents';
+            $dir_name = 'mediaFiles';
             $url = "";
 
             $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $id;
@@ -67,9 +67,9 @@ else {
 
                 $sql = "
                     UPDATE 
-                        documents
+                        media_files
                     SET
-                        image = '$url'
+                        url = '$url'
                     WHERE 
                         ID = '$id'";
                 $sqls[] = $sql;
@@ -78,7 +78,7 @@ else {
         }
     }
 
-    $log->add($conn, $authorization[1], 'Занятие ID: ' . $id . ' отредактировано');
+    $log->add($conn, $authorization[1], 'Файл ID: ' . $id . ' отредактирован');
 }
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

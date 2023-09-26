@@ -2,9 +2,10 @@ import React from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import useFoodMenuStore from "../../../store/admin/foodMenuStore";
+import useMediaFilesStore from "../../../store/admin/mediaFilesStore";
 
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
+import FileSelector from "../../../components/general/file_selector/file.selector.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
 import ImageSelector from "../../../components/general/image.selector/image.selector.component";
@@ -14,19 +15,18 @@ import FieldText from "../../../components/admin/field/field.text.component";
 import FieldUrl from "../../../components/admin/field/field.url.component";
 
 import { AdminIcons } from "../../../components/svgs";
-import FieldTextArea from "../../../components/admin/field/field.textarea.component";
 
-const AdminFoodPage = () => {
-    let {id} = useParams();
+const AdminMediaFilePage = (props) => {
+    let { id } = useParams();
     const navigate = useNavigate();
-    const {register, handleSubmit, reset, getValues} = useForm();
+    const { register, handleSubmit, reset, getValues } = useForm();
 
-    const store = useFoodMenuStore();
+    const store = useMediaFilesStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-        await store.loadByID({id});
+        await store.loadByID({ id });
     };
 
     React.useEffect(() => {
@@ -34,12 +34,12 @@ const AdminFoodPage = () => {
         fetchData();
     }, [id]);
 
-    const back = () => navigate("/admin/food");
+    const back = () => navigate("/admin/mediaFiles");
 
     //Private component
     const Article = () => {
         const Create = () => {
-            const [image, setImage] = React.useState([]);
+            const [file, setFile] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
@@ -58,34 +58,6 @@ const AdminFoodPage = () => {
                     return false;
                 }
 
-                if (!sendObject.text) {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Описание должно быть заполнено."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
-                if (!sendObject.url) {
-                    setPopup(
-                        <AlertPopup
-                            title='Ошибка'
-                            text={"Ссылка на документ должна быть заполнена."}
-                            opened={true}
-                            onClose={() => {
-                                setPopup(<></>);
-                            }}
-                        />
-                    );
-                    return false;
-                }
-
                 return true;
             };
 
@@ -94,7 +66,7 @@ const AdminFoodPage = () => {
 
                 let sendObject = { ...data };
 
-                sendObject["image"] = image;
+                sendObject["file"] = file;
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -108,7 +80,7 @@ const AdminFoodPage = () => {
                     setPopup(
                         <AlertPopup
                             title=''
-                            text={"Меню успешно добавлено"}
+                            text={"Документ успешно добавлен"}
                             opened={true}
                             onClose={() => {
                                 back();
@@ -143,26 +115,19 @@ const AdminFoodPage = () => {
                                         placeholder={"Введите название"}
                                         {...register("title")}
                                     />
-                                    <FieldTextArea
+                                    <FieldText
                                         label={"Описание*"}
                                         required={true}
                                         placeholder={"Введите описание"}
                                         {...register("text")}
                                     />
-                                    <FieldUrl
-                                        label={"Ссылка на документ*"}
-                                        required={true}
-                                        placeholder={"https://..."}
-                                        {...register("url")}
-                                    />
                                 </fieldset>
                                 <fieldset className='admin-form__section'>
-                                    <h2 className='admin-form__title'>Картинка для превью документа</h2>
-                                    <ImageSelector
-                                        items={image}
-                                        onlyOneImage={true}
+                                    <h2 className='admin-form__title'>Файл</h2>
+                                    <FileSelector
+                                        items={file}
                                         multiFiles={false}
-                                        onChange={(items) => setImage(items)}
+                                        onChange={(items) => setFile(items)}
                                     />
                                 </fieldset>
                             </div>
@@ -191,15 +156,15 @@ const AdminFoodPage = () => {
             const [image, setImage] = React.useState(
                 store.item.image
                     ? [
-                        {
-                            ID: store.item.ID,
-                            url: store.item.image,
-                            main: 1,
-                            order: 1,
-                            isFile: 1,
-                            isLoaded: 1,
-                        },
-                    ]
+                          {
+                              ID: store.item.ID,
+                              url: store.item.image,
+                              main: 1,
+                              order: 1,
+                              isFile: 1,
+                              isLoaded: 1,
+                          },
+                      ]
                     : []
             );
             const [popup, setPopup] = React.useState(<></>);
@@ -210,26 +175,26 @@ const AdminFoodPage = () => {
                     setImage(
                         store.item.image
                             ? [
-                                {
-                                    ID: store.item.ID,
-                                    url: store.item.image,
-                                    main: 1,
-                                    order: 1,
-                                    isFile: 1,
-                                    isLoaded: 1,
-                                },
-                            ]
+                                  {
+                                      ID: store.item.ID,
+                                      url: store.item.image,
+                                      main: 1,
+                                      order: 1,
+                                      isFile: 1,
+                                      isLoaded: 1,
+                                  },
+                              ]
                             : []
                     );
                 }
             }, [edit]);
 
             const checkForComplete = (sendObject) => {
-                if (!sendObject.title) {
+                if (!sendObject.titleShort) {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Название должно быть заполнено."}
+                            text={"Краткое название должно быть заполнено."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -239,11 +204,11 @@ const AdminFoodPage = () => {
                     return false;
                 }
 
-                if (!sendObject.text) {
+                if (!sendObject.title) {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={"Описание должно быть заполнено."}
+                            text={"Название должно быть заполнено."}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -292,7 +257,7 @@ const AdminFoodPage = () => {
                     setPopup(
                         <AlertPopup
                             title=''
-                            text={"Меню успешно отредактировано"}
+                            text={"Документ успешно отредактирован"}
                             opened={true}
                             onClose={() => {
                                 back();
@@ -337,7 +302,7 @@ const AdminFoodPage = () => {
                                             setPopup(
                                                 <AlertPopup
                                                     title=''
-                                                    text={"Меню удалено"}
+                                                    text={"Документ удален"}
                                                     opened={true}
                                                     onClose={() => {
                                                         setPopup(<></>);
@@ -384,19 +349,19 @@ const AdminFoodPage = () => {
                                 <fieldset className='admin-form__section'>
                                     <h2 className='admin-form__title'>Основная информация</h2>
                                     <FieldText
-                                        label={"Название*"}
+                                        label={"Название документа (кратко)*"}
+                                        required={true}
+                                        placeholder={"Введите название"}
+                                        {...register("titleShort", {
+                                            value: store.item.titleShort,
+                                        })}
+                                    />
+                                    <FieldText
+                                        label={"Название документа (полностью)*"}
                                         required={true}
                                         placeholder={"Введите название"}
                                         {...register("title", {
                                             value: store.item.title,
-                                        })}
-                                    />
-                                    <FieldTextArea
-                                        label={"Описание*"}
-                                        required={true}
-                                        placeholder={"Введите описание"}
-                                        {...register("text", {
-                                            value: store.item.text,
                                         })}
                                     />
                                     <FieldUrl
@@ -465,14 +430,14 @@ const AdminFoodPage = () => {
                                     <h2 className='admin-view-section__title'>Основная информация</h2>
                                     <ul className='admin-view-section__list'>
                                         <li className='admin-view-section__item'>
-                                            <h3 className='admin-view-section__label'>Название</h3>
-                                            <p className='admin-view-section__description'>{store.item.title}</p>
+                                            <h3 className='admin-view-section__label'>Название документа (кратко)</h3>
+                                            <p className='admin-view-section__description'>{store.item.titleShort}</p>
                                         </li>
                                         <li className='admin-view-section__item'>
                                             <h3 className='admin-view-section__label'>
-                                                Описание
+                                                Название документа (полностью)
                                             </h3>
-                                            <p className='admin-view-section__description'>{store.item.text}</p>
+                                            <p className='admin-view-section__description'>{store.item.title}</p>
                                         </li>
                                         <li className='admin-view-section__item'>
                                             <h3 className='admin-view-section__label'>Ссылка на документ</h3>
@@ -519,9 +484,9 @@ const AdminFoodPage = () => {
 
     return (
         <BasicPage id={id} mainStore={store} loadings={[store]} back={back}>
-            <Article/>
+            <Article />
         </BasicPage>
     );
 };
 
-export default AdminFoodPage;
+export default AdminMediaFilePage;

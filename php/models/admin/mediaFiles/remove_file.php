@@ -15,7 +15,7 @@ if(!empty($url))
     @unlink($photo_path);
 }
 
-$sql = "UPDATE documents SET image = '' WHERE ID = '$ID'";
+$sql = "UPDATE media_files SET url = '' WHERE ID = '$ID'";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 

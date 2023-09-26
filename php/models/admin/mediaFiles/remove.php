@@ -8,14 +8,14 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $id = htmlspecialchars($_POST["id"]);
 
-$sql = "DELETE FROM documents WHERE ID = '$id'";
+$sql = "DELETE FROM media_files WHERE ID = '$id'";
 $sqls[] = $sql;
 mysqli_query($conn, $sql);
 
-$path = $_SERVER['DOCUMENT_ROOT'] . "/files/documents/" . $id;
+$path = $_SERVER['DOCUMENT_ROOT'] . "/files/mediaFiles/" . $id;
 array_map('unlink', glob("$path/*.*"));
 rmdir($path);
 
-$log->add($conn, $authorization[1], 'Документ ID: ' . $id . ' удален');
+$log->add($conn, $authorization[1], 'Файл ID: ' . $id . ' удален');
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

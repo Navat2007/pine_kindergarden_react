@@ -8,34 +8,34 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $userID = $authorization[1];
 $title = mysqli_real_escape_string($conn, htmlspecialchars($_POST["title"]));
-$titleShort = mysqli_real_escape_string($conn, htmlspecialchars($_POST["titleShort"]));
-$url = mysqli_real_escape_string($conn, htmlspecialchars($_POST["url"]));
-$image = $_POST["image"];
+$text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
+$type = mysqli_real_escape_string($conn, htmlspecialchars($_POST["type"]));
+$file = $_POST["file"];
 
 $sql = "
-        INSERT INTO documents (title, title_short, url, userID, last_userID) 
-        VALUES ('$title', '$titleShort', '$url', '$userID', '$userID')
+        INSERT INTO media_files (title, text, type, userID, last_userID) 
+        VALUES ('$title', '$text', '$type', '$userID', '$userID')
     ";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 $lastID = mysqli_insert_id($conn);
 
 if($lastID > 0){
-    for ($i = 0; $i < count($image); $i++) {
-        $main = $image[$i]['main'];
-        $order = $image[$i]['order'];
-        $isFile = (int)$image[$i]['isFile'];
-        $isLoaded = (int)$image[$i]['isLoaded'];
+    for ($i = 0; $i < count($file); $i++) {
+        $main = $file[$i]['main'];
+        $order = $file[$i]['order'];
+        $isFile = (int)$file[$i]['isFile'];
+        $isLoaded = (int)$file[$i]['isLoaded'];
 
         if($isFile === 1 && $isLoaded === 0){
 
-            $dir_name = 'documents';
+            $dir_name = 'mediaFiles';
             $url = "";
 
             $helper->createDir("/files/" . $dir_name . "/" . $lastID);
 
-            $temp_name = $_FILES['image']['tmp_name'][$i]['file'];
-            $name = $_FILES['image']['name'][$i]['file'];
+            $temp_name = $_FILES['file']['tmp_name'][$i]['file'];
+            $name = $_FILES['file']['name'][$i]['file'];
 
             $sqls[] = $temp_name;
             $sqls[] = $name;
@@ -52,9 +52,9 @@ if($lastID > 0){
 
                 $sql = "
                     UPDATE 
-                        documents
+                        media_files
                     SET
-                        image = '$url'
+                        url = '$url'
                     WHERE 
                         ID = '$lastID'";
                 $sqls[] = $sql;
@@ -68,7 +68,7 @@ if (!$result  || (int)$lastID === 0) {
     $error = 1;
     $error_text = "Ошибка добавления документа: " .  mysqli_error($conn);
 } else {
-    $log->add($conn, $userID, 'Добавлен документ ID: ' . $lastID);
+    $log->add($conn, $userID, 'Добавлен файл ID: ' . $lastID);
 }
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

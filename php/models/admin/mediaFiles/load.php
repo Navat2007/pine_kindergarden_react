@@ -7,9 +7,9 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $sql = "SELECT 
-        ID, title_short, create_time
+        ID, title, type, create_time
     FROM 
-        documents
+        media_files
     ORDER BY create_time DESC";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
@@ -19,7 +19,8 @@ if (mysqli_num_rows($result) > 0) {
 
         $params[] = (object)[
             'ID' => (int)$row->ID,
-            'titleShort' => htmlspecialchars_decode($row->title_short),
+            'title' => htmlspecialchars_decode($row->title),
+            'type' => htmlspecialchars_decode($row->type),
             'create_time' => $row->create_time,
         ];
 

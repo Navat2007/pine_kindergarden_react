@@ -26,6 +26,9 @@ import AdminLessonsPage from "../pages/admin/lessons/lessons.page";
 import AdminLessonPage from "../pages/admin/lessons/lesson.page";
 import AdminAboutPage from "../pages/admin/about/about.page";
 import AdminGroupPage from "../pages/admin/about/group.page";
+import AdminCategoryTeachersPage from "../pages/admin/teachers/category.teachers.page";
+import AdminMediaFilesPage from "../pages/admin/mediaFiles/media.files.page";
+import AdminMediaFilePage from "../pages/admin/mediaFiles/media.file.page";
 
 // PUBLIC PAGES
 import MainPage from "../pages/public/index.page";
@@ -36,7 +39,6 @@ import FoodPage from "../pages/public/food.page";
 import AboutPage from "../pages/public/about.page";
 import ModePage from "../pages/public/mode.page";
 import GroupPage from "../pages/public/group.page";
-import AdminCategoryTeachersPage from "../pages/admin/teachers/category.teachers.page";
 
 const RoutesList = () => {
     const { user } = useAuthStore();
@@ -61,6 +63,11 @@ const RoutesList = () => {
                     <Route index element={<UsersPage />} />
                     <Route path='admin/:id' element={<AdminUsersPage />} />
                     <Route path='admin/new' element={<AdminUsersPage />} />
+                </Route>
+                <Route path='mediaFiles'>
+                    <Route index element={<AdminMediaFilesPage />} />
+                    <Route path=':id' element={<AdminMediaFilePage />} />
+                    <Route path='new' element={<AdminMediaFilePage />} />
                 </Route>
                 <Route path='news'>
                     <Route index element={<AdminAllNewsPage />} />

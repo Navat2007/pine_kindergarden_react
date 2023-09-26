@@ -11,7 +11,7 @@ $id = htmlspecialchars($_POST["id"]);
 $sql = "SELECT 
         *
     FROM 
-        documents
+        media_files
     WHERE 
         ID = '$id'";
 $sqls[] = $sql;
@@ -23,9 +23,9 @@ if (mysqli_num_rows($result) > 0) {
         $params = (object)[
             'ID' => (int)$row->ID,
             'title' => htmlspecialchars_decode($row->title),
-            'titleShort' => htmlspecialchars_decode($row->title_short),
+            'text' => htmlspecialchars_decode($row->text),
             'url' => htmlspecialchars_decode($row->url),
-            'image' => $row->image,
+            'type' => htmlspecialchars_decode($row->type),
             'create_time' => $row->create_time,
         ];
 

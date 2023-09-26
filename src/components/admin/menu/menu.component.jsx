@@ -59,39 +59,29 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                 <nav className='admin-menu__nav'>
                     <Logo place={"admin-menu"} />
                     <ul className='admin-menu__list'>
-                        {menu.map((item) => {
-                            if (item.link === "") {
-                                return (
-                                    <li className='admin-menu__item' key={window.global.makeid(6)}>
-                                        <span className='admin-menu__link-icon'>{item.icon}</span>
-                                    </li>
-                                );
-                            } else {
-                                return (
-                                    <li
-                                        className={`admin-menu__item${
-                                            item.separator ? ` admin-menu__item_separator` : ``
-                                        }`}
-                                        key={item.title}
+                        {menu.map((item) => (
+                            <li
+                                className={`admin-menu__item${
+                                    item.separator ? ` admin-menu__item_separator` : ``
+                                }`}
+                                key={item.title}
+                            >
+                                {!item.separator && (
+                                    <NavLink
+                                        to={item.link}
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? `admin-menu__link admin-menu__link_active`
+                                                : `admin-menu__link`
+                                        }
+                                        aria-label={item.title}
                                     >
-                                        {!item.separator && (
-                                            <NavLink
-                                                to={item.link}
-                                                className={({ isActive }) =>
-                                                    isActive
-                                                        ? `admin-menu__link admin-menu__link_active`
-                                                        : `admin-menu__link`
-                                                }
-                                                aria-label={item.title}
-                                            >
-                                                <span className='admin-menu__link-icon'>{item.icon}</span>
-                                                <p className='admin-menu__link-text'>{item.title}</p>
-                                            </NavLink>
-                                        )}
-                                    </li>
-                                );
-                            }
-                        })}
+                                        <span className='admin-menu__link-icon'>{item.icon}</span>
+                                        <p className='admin-menu__link-text'>{item.title}</p>
+                                    </NavLink>
+                                )}
+                            </li>
+                        ))}
                     </ul>
                     <Button
                         type='button'
