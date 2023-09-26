@@ -41,14 +41,17 @@
         flex-wrap: wrap;
     }
 
-    &__multy-block {
-    }
+    // &__multy-block {}
 
     &__label {
         margin: 0;
         display: inline-block;
         box-sizing: border-box;
         line-height: 150%;
+    }
+
+    &__photo {
+        width: min(17em, 100%);
     }
 
     &__button {

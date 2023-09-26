@@ -1,6 +1,6 @@
 import React from "react";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
-import {useForm} from "react-hook-form";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useTeachersCategoriesStore from "../../../store/admin/teacherCategoriesStore";
@@ -16,14 +16,14 @@ import FieldText from "../../../components/admin/field/field.text.component";
 import FieldUrl from "../../../components/admin/field/field.url.component";
 import FieldSelect from "../../../components/admin/field/field.select.component";
 
-import {AdminIcons} from "../../../components/svgs";
+import { AdminIcons } from "../../../components/svgs";
 import Table from "../../../components/admin/table/table.component";
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 
 const AdminTeacherPage = (props) => {
-    let {id} = useParams();
+    let { id } = useParams();
     const navigate = useNavigate();
-    const {register, handleSubmit, reset, getValues} = useForm();
+    const { register, handleSubmit, reset, getValues } = useForm();
 
     const store = useTeachersStore();
     const storeCategories = useTeachersCategoriesStore();
@@ -32,7 +32,7 @@ const AdminTeacherPage = (props) => {
 
     const fetchData = async () => {
         await storeCategories.loadAll();
-        await store.loadByID({id});
+        await store.loadByID({ id });
     };
 
     React.useEffect(() => {
@@ -51,7 +51,7 @@ const AdminTeacherPage = (props) => {
                 type: "int",
                 filter: "number",
                 sorting: true,
-                hide: true
+                hide: true,
             },
             {
                 header: "Наименование учебного учреждения",
@@ -59,7 +59,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true
+                required: true,
             },
             {
                 header: "Дата окончания",
@@ -67,7 +67,7 @@ const AdminTeacherPage = (props) => {
                 type: "date",
                 filter: "date",
                 sorting: true,
-                required: true
+                required: true,
             },
             {
                 header: "Специальность, квалификация по диплому",
@@ -75,7 +75,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "select",
                 sorting: true,
-                required: true
+                required: true,
             },
         ];
         const itemConfigQualification = [
@@ -85,7 +85,7 @@ const AdminTeacherPage = (props) => {
                 type: "int",
                 filter: "number",
                 sorting: true,
-                hide: true
+                hide: true,
             },
             {
                 header: "Наименование",
@@ -93,7 +93,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true
+                required: true,
             },
             {
                 header: "Место проведения",
@@ -101,7 +101,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true
+                required: true,
             },
             {
                 header: "Дата прохождения",
@@ -109,7 +109,7 @@ const AdminTeacherPage = (props) => {
                 type: "date",
                 filter: "date",
                 sorting: true,
-                required: true
+                required: true,
             },
             {
                 header: "Количество часов",
@@ -117,7 +117,7 @@ const AdminTeacherPage = (props) => {
                 type: "int",
                 filter: "int",
                 sorting: true,
-                required: true
+                required: true,
             },
         ];
         const itemConfigWork = [
@@ -127,7 +127,7 @@ const AdminTeacherPage = (props) => {
                 type: "int",
                 filter: "number",
                 sorting: true,
-                hide: true
+                hide: true,
             },
             {
                 header: "Общий стаж",
@@ -135,7 +135,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true
+                required: true,
             },
             {
                 header: "Педагогический стаж",
@@ -143,7 +143,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true
+                required: true,
             },
             {
                 header: "В данном учреждении",
@@ -151,7 +151,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true
+                required: true,
             },
             {
                 header: "Квалификационная категория",
@@ -159,7 +159,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true
+                required: true,
             },
             {
                 header: "Дата аттестации",
@@ -167,7 +167,7 @@ const AdminTeacherPage = (props) => {
                 type: "date",
                 filter: "date",
                 sorting: true,
-                required: true
+                required: true,
             },
             {
                 header: "Приказ",
@@ -175,7 +175,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: false
+                required: false,
             },
         ];
         const itemConfigReward = [
@@ -185,7 +185,7 @@ const AdminTeacherPage = (props) => {
                 type: "int",
                 filter: "number",
                 sorting: true,
-                hide: true
+                hide: true,
             },
             {
                 header: "Наименование",
@@ -193,7 +193,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true
+                required: true,
             },
             {
                 header: "Дата",
@@ -201,7 +201,7 @@ const AdminTeacherPage = (props) => {
                 type: "date",
                 filter: "date",
                 sorting: true,
-                required: true
+                required: true,
             },
         ];
 
@@ -247,21 +247,17 @@ const AdminTeacherPage = (props) => {
             };
 
             const onAdd = async () => {
-                let sendObject = {...getValues()};
+                let sendObject = { ...getValues() };
 
                 sendObject["image"] = photo;
 
-                if (educations.length > 0)
-                    sendObject["educations"] = educations;
+                if (educations.length > 0) sendObject["educations"] = educations;
 
-                if (qualification.length > 0)
-                    sendObject["qualification"] = qualification;
+                if (qualification.length > 0) sendObject["qualification"] = qualification;
 
-                if (work.length > 0)
-                    sendObject["work"] = work;
+                if (work.length > 0) sendObject["work"] = work;
 
-                if (reward.length > 0)
-                    sendObject["reward"] = reward;
+                if (reward.length > 0) sendObject["reward"] = reward;
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -299,7 +295,7 @@ const AdminTeacherPage = (props) => {
             if (!id && !store.loading && !storeCategories.loading) {
                 return (
                     <>
-                        <TitleBlock title={"Создание"} onBack={back}/>
+                        <TitleBlock title={"Создание"} onBack={back} />
                         <Tabs>
                             <Tab title={"Основная информация"}>
                                 <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
@@ -351,7 +347,8 @@ const AdminTeacherPage = (props) => {
                                             text='Сохранить'
                                             extraClass={"admin-form__button"}
                                             type='submit'
-                                            spinnerActive={sending}/>
+                                            spinnerActive={sending}
+                                        />
                                         <Button
                                             type='button'
                                             extraClass={"admin-form__button"}
@@ -419,15 +416,15 @@ const AdminTeacherPage = (props) => {
             const [photo, setPhoto] = React.useState(
                 store.item.photo
                     ? [
-                        {
-                            ID: store.item.ID,
-                            url: store.item.photo,
-                            main: 1,
-                            order: 1,
-                            isFile: 1,
-                            isLoaded: 1,
-                        },
-                    ]
+                          {
+                              ID: store.item.ID,
+                              url: store.item.photo,
+                              main: 1,
+                              order: 1,
+                              isFile: 1,
+                              isLoaded: 1,
+                          },
+                      ]
                     : []
             );
             const [educations, setEducations] = React.useState([]);
@@ -441,15 +438,15 @@ const AdminTeacherPage = (props) => {
                 setPhoto(
                     store.item.photo
                         ? [
-                            {
-                                ID: store.item.ID,
-                                url: store.item.photo,
-                                main: 1,
-                                order: 1,
-                                isFile: 1,
-                                isLoaded: 1,
-                            },
-                        ]
+                              {
+                                  ID: store.item.ID,
+                                  url: store.item.photo,
+                                  main: 1,
+                                  order: 1,
+                                  isFile: 1,
+                                  isLoaded: 1,
+                              },
+                          ]
                         : []
                 );
                 setEducations(store.item.educations);
@@ -493,22 +490,18 @@ const AdminTeacherPage = (props) => {
             const onEdit = async (params) => {
                 const data = getValues();
 
-                let sendObject = {...data};
+                let sendObject = { ...data };
 
                 sendObject["id"] = id;
                 sendObject["image"] = photo;
 
-                if (educations.length > 0)
-                    sendObject["educations"] = educations;
+                if (educations.length > 0) sendObject["educations"] = educations;
 
-                if (qualification.length > 0)
-                    sendObject["qualification"] = qualification;
+                if (qualification.length > 0) sendObject["qualification"] = qualification;
 
-                if (work.length > 0)
-                    sendObject["work"] = work;
+                if (work.length > 0) sendObject["work"] = work;
 
-                if (reward.length > 0)
-                    sendObject["reward"] = reward;
+                if (reward.length > 0) sendObject["reward"] = reward;
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -600,7 +593,7 @@ const AdminTeacherPage = (props) => {
             };
 
             const handleDeletePhoto = async (item) => {
-                let sendObject = {...item};
+                let sendObject = { ...item };
 
                 sendObject["ID"] = id;
 
@@ -610,7 +603,7 @@ const AdminTeacherPage = (props) => {
             if (id && edit && !store.loading && !storeCategories.loading) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
+                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
                         <Tabs>
                             <Tab title={"Основная информация"}>
                                 <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
@@ -658,6 +651,8 @@ const AdminTeacherPage = (props) => {
                                             <h3 className='admin-form__title'>Фотография</h3>
                                             <ImageSelector
                                                 items={photo}
+                                                orientation='portrait'
+                                                extraClass='admin-form__photo'
                                                 onlyOneImage={true}
                                                 multiFiles={false}
                                                 onChange={(items) => setPhoto(items)}
@@ -752,105 +747,116 @@ const AdminTeacherPage = (props) => {
                                 }}
                             />
                         </TitleBlock>
-                        <section className='admin-view-section'>
-                            <ul className='admin-view-section__list'>
-                                <li className='admin-view-section__item'>
-                                    <h3 className='admin-view-section__label'>Публичная страница</h3>
-                                    <p className='admin-view-section__description'>
-                                        <NavLink
-                                            className='admin-view-section__link'
-                                            to={"/teacher/" + id}
-                                            target={"_blank"}
-                                            rel='noopener nofollow noreferer'
-                                        >
-                                            На страницу {AdminIcons.open_in_new}
-                                        </NavLink>
-                                    </p>
-                                </li>
-                                <li className='admin-view-section__item'>
-                                    <h3 className='admin-view-section__label'>ФИО</h3>
-                                    <p className='admin-view-section__description'>{store.item.fio}</p>
-                                </li>
-                                <li className='admin-view-section__item'>
-                                    <h3 className='admin-view-section__label'>Должность</h3>
-                                    <p className='admin-view-section__description'>{store.item.position}</p>
-                                </li>
-                                {
-                                    store.item.page && (
-                                        <li className='admin-view-section__item'>
-                                            <h3 className='admin-view-section__label'>Личная страница</h3>
-                                            <p className='admin-view-section__description'>
-                                                <NavLink
-                                                    className='admin-view-section__link'
-                                                    to={store.item.page}
-                                                    target={"_blank"}
-                                                    rel='noopener nofollow noreferer'
-                                                >
-                                                    На страницу {AdminIcons.open_in_new}
-                                                </NavLink>
-                                            </p>
-                                        </li>
-                                    )
-                                }
-                            </ul>
-                            <h2 className='admin-view-section__title'>Фотография</h2>
-                            <ImageGallery
-                                items={[
-                                    {
-                                        url: store.item.photo,
-                                    },
-                                ]}
-                                front={false}
-                            />
-                        </section>
-                        {
-                            store.item.educations.length > 0 && (
+                        <Tabs>
+                            <Tab title={"Основная информация"}>
                                 <section className='admin-view-section'>
-                                    <h2 className='admin-view-section__title'>Образование</h2>
-                                    <Table
-                                        title={"Информация об образовании"}
-                                        items={store.item.educations}
-                                        itemsConfig={itemConfigEducation}
-                                    />
+                                    <div className='admin-view-section__two-columns'>
+                                        <div className='admin-view-section__column'>
+                                            <h2 className='admin-view-section__title'>Основная информация</h2>
+                                            <ul className='admin-view-section__list'>
+                                                <li className='admin-view-section__item'>
+                                                    <h3 className='admin-view-section__label'>ФИО</h3>
+                                                    <p className='admin-view-section__description'>{store.item.fio}</p>
+                                                </li>
+                                                <li className='admin-view-section__item'>
+                                                    <h3 className='admin-view-section__label'>Должность</h3>
+                                                    <p className='admin-view-section__description'>
+                                                        {store.item.position}
+                                                    </p>
+                                                </li>
+                                                <li className='admin-view-section__item'>
+                                                    <h3 className='admin-view-section__label'>Публичная страница</h3>
+                                                    <p className='admin-view-section__description'>
+                                                        <NavLink
+                                                            className='admin-view-section__link'
+                                                            to={"/teacher/" + id}
+                                                            target={"_blank"}
+                                                            rel='noopener nofollow noreferer'
+                                                        >
+                                                            На страницу {AdminIcons.open_in_new}
+                                                        </NavLink>
+                                                    </p>
+                                                </li>
+                                                {store.item.page && (
+                                                    <li className='admin-view-section__item'>
+                                                        <h3 className='admin-view-section__label'>Личная страница</h3>
+                                                        <p className='admin-view-section__description'>
+                                                            <NavLink
+                                                                className='admin-view-section__link'
+                                                                to={store.item.page}
+                                                                target={"_blank"}
+                                                                rel='noopener nofollow noreferer'
+                                                            >
+                                                                {store.item.page}
+                                                            </NavLink>
+                                                        </p>
+                                                    </li>
+                                                )}
+                                            </ul>
+                                        </div>
+                                        <div className='admin-view-section__column'>
+                                            <h2 className='admin-view-section__title'>Фотография</h2>
+                                            <ImageGallery
+                                                orientation='portrait'
+                                                extraClass={"admin-view-section__photo"}
+                                                items={[
+                                                    {
+                                                        url: store.item.photo,
+                                                    },
+                                                ]}
+                                                front={false}
+                                            />
+                                        </div>
+                                    </div>
                                 </section>
-                            )
-                        }
-                        {
-                            store.item.qualifications.length > 0 && (
-                                <section className='admin-view-section'>
-                                    <h2 className='admin-view-section__title'>Квалификация</h2>
-                                    <Table
-                                        title={"Информация об квалификации"}
-                                        items={store.item.qualifications}
-                                        itemsConfig={itemConfigQualification}
-                                    />
-                                </section>
-                            )
-                        }
-                        {
-                            store.item.works.length > 0 && (
-                                <section className='admin-view-section'>
+                            </Tab>
+                            {store.item.educations.length > 0 && (
+                                <Tab title={"Образование"}>
+                                    <section className='admin-view-section'>
+                                        <h2 className='admin-view-section__title'>Образование</h2>
+                                        <Table
+                                            title={"Информация об образовании"}
+                                            items={store.item.educations}
+                                            itemsConfig={itemConfigEducation}
+                                        />
+                                    </section>
+                                </Tab>
+                            )}
+                            {store.item.qualifications.length > 0 && (
+                                <Tab title={"Квалификация"}>
+                                    <section className='admin-view-section'>
+                                        <h2 className='admin-view-section__title'>Квалификация</h2>
+                                        <Table
+                                            title={"Информация об квалификации"}
+                                            items={store.item.qualifications}
+                                            itemsConfig={itemConfigQualification}
+                                        />
+                                    </section>
+                                </Tab>
+                            )}
+                            {store.item.works.length > 0 && (
+                                <Tab title={"Трудовой стаж"}>
                                     <h2 className='admin-view-section__title'>Трудовой стаж</h2>
                                     <Table
                                         title={"Информация о трудовом стаже"}
                                         items={store.item.works}
                                         itemsConfig={itemConfigWork}
                                     />
-                                </section>
-                            )
-                        }
-                        {
-                            store.item.rewards.length > 0 && (
-                                <section className='admin-view-section'>
-                                    <h2 className='admin-view-section__title'>Награды, благодарности</h2>
-                                    <Table
-                                        title={"Информация о наградах, благодарностях"}
-                                        items={store.item.rewards}
-                                        itemsConfig={itemConfigReward}
-                                    />
-                                </section>
-                            )
-                        }
+                                </Tab>
+                            )}
+                            {store.item.rewards.length > 0 && (
+                                <Tab title={"Награды, благодарности"}>
+                                    <section className='admin-view-section'>
+                                        <h2 className='admin-view-section__title'>Награды, благодарности</h2>
+                                        <Table
+                                            title={"Информация о наградах, благодарностях"}
+                                            items={store.item.rewards}
+                                            itemsConfig={itemConfigReward}
+                                        />
+                                    </section>
+                                </Tab>
+                            )}
+                        </Tabs>
                     </>
                 );
             }
@@ -858,16 +864,16 @@ const AdminTeacherPage = (props) => {
 
         return (
             <>
-                <Create/>
-                <Edit/>
-                <View/>
+                <Create />
+                <Edit />
+                <View />
             </>
         );
     };
 
     return (
         <BasicPage id={id} mainStore={store} loadings={[store, storeCategories]} back={back}>
-            <Article/>
+            <Article />
         </BasicPage>
     );
 };

@@ -10,6 +10,7 @@ import { AdminIcons } from "../../svgs.js";
 
 const ImageSelector = ({
     items,
+    extraClass,
     orientation = "landscape",
     multiFiles,
     onlyOneImage,
@@ -245,17 +246,17 @@ const ImageSelector = ({
 
     return (
         <>
-            <ul className='admin-image-selector'>
+            <ul className={`admin-image-selector${extraClass ? ` ${extraClass}` : ``}`}>
                 {photo.map((item, index) =>
                     item.main ? (
                         <li
                             key={index}
                             className={`admin-image-selector__item${
                                 orientation === "portrait" ? ` admin-image-selector__item_portrait` : ``
-                            }`}
+                            }${extraClass ? ` ${extraClass}-item` : ``}`}
                         >
                             <img
-                                className='admin-image-selector__img'
+                                className={`admin-image-selector__img${extraClass ? ` ${extraClass}-img` : ``}`}
                                 src={
                                     item.isFile === 1 && item.isLoaded === 1
                                         ? process.env.REACT_APP_BASE_URL + item.url
@@ -263,7 +264,11 @@ const ImageSelector = ({
                                 }
                                 alt={"Изображение " + item.url}
                             />
-                            <div className='admin-image-selector__item-panel'>
+                            <div
+                                className={`admin-image-selector__item-panel${
+                                    extraClass ? ` ${extraClass}-item-panel` : ``
+                                }`}
+                            >
                                 <Button
                                     type='button'
                                     isIconBtn='true'
@@ -274,17 +279,21 @@ const ImageSelector = ({
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            {photo.length > 1 && <p className='admin-image-selector__title'>1. Главная</p>}
+                            {photo.length > 1 && (
+                                <p className={`admin-image-selector__title${extraClass ? ` ${extraClass}-title` : ``}`}>
+                                    1. Главная
+                                </p>
+                            )}
                         </li>
                     ) : (
                         <li
                             key={index}
                             className={`admin-image-selector__item${
                                 orientation === "portrait" ? ` admin-image-selector__item_portrait` : ``
-                            }`}
+                            }${extraClass ? ` ${extraClass}-item` : ``}`}
                         >
                             <img
-                                className='admin-image-selector__img'
+                                className={`admin-image-selector__img${extraClass ? ` ${extraClass}-img` : ``}`}
                                 src={
                                     item.isFile === 1 && item.isLoaded === 1
                                         ? process.env.REACT_APP_BASE_URL + item.url
@@ -292,8 +301,18 @@ const ImageSelector = ({
                                 }
                                 alt={"Изображение " + item.url}
                             />
-                            <span className='admin-image-selector__current-position'>{item.order}</span>
-                            <div className='admin-image-selector__item-panel'>
+                            <span
+                                className={`admin-image-selector__current-position${
+                                    extraClass ? ` ${extraClass}-current-position` : ``
+                                }`}
+                            >
+                                {item.order}
+                            </span>
+                            <div
+                                className={`admin-image-selector__item-panel${
+                                    extraClass ? ` ${extraClass}-item-panel` : ``
+                                }`}
+                            >
                                 <Button
                                     type='button'
                                     theme='white'
@@ -313,7 +332,7 @@ const ImageSelector = ({
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <div className='admin-image-selector__thumbs'>
+                            <div className={`admin-image-selector__thumbs${extraClass ? ` ${extraClass}-thumbs` : ``}`}>
                                 <Button
                                     type='button'
                                     isIconBtn='true'
@@ -340,7 +359,9 @@ const ImageSelector = ({
                 )}
                 {photo.length === 0 && (
                     <li
-                        className='admin-image-selector__download-block'
+                        className={`admin-image-selector__download-block${
+                            extraClass ? ` ${extraClass}-download-block` : ``
+                        }`}
                         onDrop={(e) => {
                             e.preventDefault();
                             handleAddFilePhoto({
@@ -353,14 +374,24 @@ const ImageSelector = ({
                             e.preventDefault();
                         }}
                     >
-                        <p className='admin-image-selector__download-text'>
+                        <p
+                            className={`admin-image-selector__download-text${
+                                extraClass ? ` ${extraClass}-download-text` : ``
+                            }`}
+                        >
                             {onlyOneImage && "Ограничение на кол-во файлов: 1 файл"}
                             <br />
                             <span>Ограничение на размер изображения: 5 MB.</span>
                             <br />
                             <br />
                             Начните загружать изображения простым перетаскиванием в любое место этого окна.
-                            <span className='admin-image-selector__download-span'>или</span>
+                            <span
+                                className={`admin-image-selector__download-span${
+                                    extraClass ? ` ${extraClass}-download-span` : ``
+                                }`}
+                            >
+                                или
+                            </span>
                         </p>
                         <Button
                             type='button'
@@ -382,7 +413,7 @@ const ImageSelector = ({
                 )}
             </ul>
             {withLinks && (
-                <div className='admin-image-selector__group-block'>
+                <div className={`admin-image-selector__group-block${extraClass ? ` ${extraClass}-group-block` : ``}`}>
                     <FieldInput
                         ref={inputRef}
                         label={"Ссылка на фото"}

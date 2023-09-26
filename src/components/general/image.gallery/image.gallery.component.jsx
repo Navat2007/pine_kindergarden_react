@@ -47,42 +47,52 @@ const ImageGallery = ({ extraClass, title, orientation = "landsape", items, fron
     return (
         <>
             {items && items.length > 0 ? (
-                <ul className='admin-image-gallery'>
+                <ul className={`admin-image-gallery${extraClass ? ` ${extraClass}` : ``}`}>
                     {items.map((item) =>
                         item.order === 1 ? (
                             <li
                                 key={item.url}
                                 className={`admin-image-gallery__item${
                                     orientation === "portrait" ? ` admin-image-gallery__item_portrait` : ``
-                                }`}
+                                }${extraClass ? ` ${extraClass}-item` : ``}`}
                                 onClick={() => handleOpenPreview(item.order - 1, items)}
                             >
                                 <img
-                                    className='admin-image-gallery__img'
+                                    className={`admin-image-gallery__img${extraClass ? ` ${extraClass}-img` : ``}`}
                                     src={
                                         item.url.includes("http") ? item.url : process.env.REACT_APP_BASE_URL + item.url
                                     }
                                     alt='Изображение '
                                 />
-                                <div className='admin-image-gallery__title'>1. Главная</div>
+                                <div
+                                    className={`admin-image-gallery__title${extraClass ? ` ${extraClass}-title` : ``}`}
+                                >
+                                    1. Главная
+                                </div>
                             </li>
                         ) : (
                             <li
                                 key={item.url}
                                 className={`admin-image-gallery__item${
                                     orientation === "portrait" ? ` admin-image-gallery__item_portrait` : ``
-                                }`}
+                                }${extraClass ? ` ${extraClass}-item` : ``}`}
                                 onClick={() => handleOpenPreview(item.order - 1, items)}
                             >
                                 <img
-                                    className='admin-image-gallery__img'
+                                    className={`admin-image-gallery__img${extraClass ? ` ${extraClass}-img` : ``}`}
                                     src={
                                         item.url.includes("http") ? item.url : process.env.REACT_APP_BASE_URL + item.url
                                     }
                                     alt='Изображение '
                                 />
                                 {item.order && (
-                                    <span className='admin-image-gallery__current-position'>{item.order}</span>
+                                    <span
+                                        className={`admin-image-gallery__current-position${
+                                            extraClass ? ` ${extraClass}-current-position` : ``
+                                        }`}
+                                    >
+                                        {item.order}
+                                    </span>
                                 )}
                             </li>
                         )

@@ -43,6 +43,10 @@
         font-weight: 500;
     }
 
+    &__photo {
+        width: min(17em, 100%);
+    }
+
     &__link {
         color: rgba(var(--admin-primary-opacity-color), 0.75);
         text-underline-offset: 3px;
