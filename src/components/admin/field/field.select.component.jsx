@@ -9,7 +9,11 @@ const FieldSelect = (
         label = "",
         placeholder = "",
         required = false,
-        defaultSelectItem,
+        defaultSelectItem = {
+            title: "Все",
+            value: "Все",
+            disabled: false,
+        },
         selectItems = [],
         disabled,
         ...rest
@@ -36,23 +40,11 @@ const FieldSelect = (
                             {defaultSelectItem.title}
                         </option>
                     )}
-                    {selectItems.map((item, index) => {
-                        if(defaultSelectItem === undefined && index === 0)
-                        {
-                            return (
-                                <option key={item.value + "_" + index} value={item.value} defaultValue>
-                                    {item.title}
-                                </option>
-                            )
-                        }
-                        else {
-                            return (
-                                <option key={item.value + "_" + index} value={item.value}>
-                                    {item.title}
-                                </option>
-                            )
-                        }
-                    })}
+                    {selectItems.map((item, index) => (
+                        <option key={item.value + "_" + index} value={item.value}>
+                            {item.title}
+                        </option>
+                    ))}
                 </select>
                 <span className={`field__info-text${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
             </div>
