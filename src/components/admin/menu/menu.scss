@@ -147,6 +147,13 @@
         }
     }
 
+    &__item {
+        &_separator {
+            inline-size: 100%;
+            border-bottom: 1px solid #ebeff2;
+            margin-block: 2em;
+        }
+    }
     &__link {
         text-decoration: none;
 

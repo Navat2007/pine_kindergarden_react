@@ -16,9 +16,7 @@ const AdminLayout = () => {
             link: "/admin/users",
         },
         {
-            title: "",
-            icon: MenuIcons.separator,
-            link: "",
+            separator: true,
         },
         {
             title: "Документы",
@@ -65,7 +63,7 @@ const AdminLayout = () => {
         <div className='app'>
             <Menu menu={menu} burgerOpened={burgerOpened} setBurgerOpened={handleBurgerMenu} />
             <main className='app__main'>
-                <Header extraClass={'app__header'} handleBurger={handleBurgerMenu} />
+                <Header extraClass={"app__header"} handleBurger={handleBurgerMenu} />
                 <div className='app__content'>
                     <Outlet />
                 </div>
