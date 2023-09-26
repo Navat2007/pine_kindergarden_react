@@ -1,12 +1,12 @@
 import React from "react";
 import axios from "axios";
 
-import Button from "../button/button.component";
+import Button from "../../admin/button/button.component";
 import FieldInput from "../field/field.input.component";
 import AlertPopup from "../alert.popup/alert.popup";
 import Popup from "../popup/popup.component";
 
-import styles from "./file.selector.module.scss";
+import "./file.selector.scss";
 import { AdminIcons, FileIcons } from "../../svgs.js";
 
 const FileSelector = ({
@@ -181,12 +181,12 @@ const FileSelector = ({
         if (errorFiles.length > 0) {
             setNotif(
                 <Popup opened={true} onClose={() => setNotif(<></>)} title={"Ошибка загрузки файлов"}>
-                    <h3 className={styles.errorCaption}>{AdminIcons.error} Не удалось добавить следующие файлы:</h3>
-                    <ol className={styles.errorList}>
+                    <h3 className={"styles.errorCaption"}>{AdminIcons.error} Не удалось добавить следующие файлы:</h3>
+                    <ol className={"styles.errorList"}>
                         {errorFiles.map((error) => (
                             <li key={error.title}>
-                                <p className={styles.errorText}>
-                                    {error.title} <span className={styles.errorSpan}>{error.text}</span>
+                                <p className={"styles.errorText"}>
+                                    {error.title} <span className={"styles.errorSpan"}>{error.text}</span>
                                 </p>
                             </li>
                         ))}
@@ -270,12 +270,12 @@ const FileSelector = ({
             }
 
             return (
-                <div className={`${styles.file}`}>
+                <div className={`${"styles.file"}`}>
                     {FileIcons[iconsType]}
                     {withDescription ? (
                         <FieldInput
                             type='textarea'
-                            extraClass={styles.fileField}
+                            extraClass={"styles.fileField"}
                             placeholder='Введите описание файла..'
                             rows={3}
                             defaultValue={item.description ? item.description : item.file ? item.file.name : item.title}
@@ -284,7 +284,7 @@ const FileSelector = ({
                             }}
                         />
                     ) : (
-                        <p className={styles.fileName}>
+                        <p className={"styles.fileName"}>
                             {item.description ? item.description : item.file ? item.file.name : item.title}
                         </p>
                     )}
@@ -294,7 +294,7 @@ const FileSelector = ({
 
         return (
             <img
-                className={styles.image}
+                className={"styles.image"}
                 src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
                 alt={"Изображение " + (item.file ? item.file.name : item.title)}
             />
@@ -303,13 +303,13 @@ const FileSelector = ({
 
     return (
         <>
-            {title && <h2 className={styles.title}>{title}</h2>}
-            <ul className={[styles.list, portrait ? styles.list_portrait : ""].join(" ")}>
+            {title && <h2 className={"styles.title"}>{title}</h2>}
+            <ul className={["styles.list", portrait ? "styles.list_portrait" : ""].join(" ")}>
                 {photo.map((item, index) =>
                     item.main ? (
-                        <li key={index} className={styles.item}>
+                        <li key={index} className={"styles.item"}>
                             {getThumbsForGallery(item)}
-                            <div className={styles.panel}>
+                            <div className={"styles.panel"}>
                                 <Button
                                     type='button'
                                     theme='white'
@@ -321,13 +321,13 @@ const FileSelector = ({
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <div className={styles.itemTitle}>1. Главная</div>
+                            <div className={"styles.itemTitle"}>1. Главная</div>
                         </li>
                     ) : (
-                        <li key={index} className={styles.item}>
+                        <li key={index} className={"styles.item"}>
                             {getThumbsForGallery(item)}
-                            <span className={styles.currentPosition}>{item.order}</span>
-                            <div className={styles.panel}>
+                            <span className={"styles.currentPosition"}>{item.order}</span>
+                            <div className={"styles.panel"}>
                                 <Button
                                     type='button'
                                     theme='white'
@@ -348,7 +348,7 @@ const FileSelector = ({
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <div className={styles.thumbs}>
+                            <div className={"styles.thumbs"}>
                                 <Button
                                     type='button'
                                     theme='white'
@@ -376,7 +376,7 @@ const FileSelector = ({
                     )
                 )}
                 <li
-                    className={[styles.item, styles.item_empty].join(" ")}
+                    className={["styles.item", "styles.item_empty"].join(" ")}
                     onDrop={(e) => {
                         e.preventDefault();
                         handleAddFile({
@@ -389,10 +389,10 @@ const FileSelector = ({
                         e.preventDefault();
                     }}
                 >
-                    <p className={styles.text}>
+                    <p className={"styles.text"}>
                         Начните загружать файлы простым перетаскиванием в любое место этого окна. Ограничение на размер
                         файла 5 MB.
-                        <span className={styles.span}>или</span>
+                        <span className={"styles.span"}>или</span>
                     </p>
                     <Button
                         type='button'
@@ -412,12 +412,12 @@ const FileSelector = ({
                 </li>
             </ul>
             {withLinks && (
-                <div className={styles.fieldBlock}>
+                <div className={"styles.fieldBlock"}>
                     <FieldInput
                         ref={inputRef}
                         label={"Ссылка на фото"}
                         type='url'
-                        extraClass={styles.field}
+                        extraClass={"styles.field"}
                         placeholder='Введите url-адрес...'
                         layout='flex'
                     />
@@ -435,7 +435,7 @@ const FileSelector = ({
                         type='button'
                         theme='text'
                         size='small'
-                        extraClass={styles.fieldBtn}
+                        extraClass={"styles.fieldBtn"}
                         iconClass={"mdi mdi-plus"}
                         isIconBtn='true'
                         aria-label='Добавить поле'
