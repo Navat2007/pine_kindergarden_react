@@ -17,8 +17,8 @@ const Editor = ({control, name, readonly, placeholder = "", required, value, but
         showWordsCounter: false,
         showXPathInStatusbar: false,
         minHeight: minHeight + 'px',
-        askBeforePasteHTML: false,
-        askBeforePasteFromWord: false,
+        askBeforePasteHTML: true,
+        askBeforePasteFromWord: true,
         defaultActionOnPaste: "insert_only_text",
         buttons: "bold,italic,underline,ul,align,font,fontsize,superscript,subscript,|,undo,redo,|,fullsize,preview,print,|", //fontsize
         //preset: 'inline',

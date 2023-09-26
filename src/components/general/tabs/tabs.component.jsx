@@ -17,12 +17,15 @@ const Tabs = ({ children, place, extraClass, theme }) => {
             <ul className={`admin-tabs__list${extraClass ? ` ${extraClass}-list` : ``}`}>
                 {children.map((child, index) => {
                     if(child)
+                    {
                         return (
                             <li
                                 key={child?.props?.title}
                                 onClick={() => {
                                     if(place)
+                                    {
                                         window.localStorage.setItem(`${place}_tab`, index);
+                                    }
 
                                     setActiveTab(index)
                                 }}
@@ -33,6 +36,9 @@ const Tabs = ({ children, place, extraClass, theme }) => {
                                 {child?.props?.title}
                             </li>
                         )
+                    }
+                    else
+                        return null;
                 })}
             </ul>
             <AnimatePresence mode={"wait"}>

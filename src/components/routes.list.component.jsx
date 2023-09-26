@@ -81,8 +81,8 @@ const RoutesList = () => {
                 </Route>
                 <Route path='food'>
                     <Route index element={<AdminFoodsPage />} />
-                    <Route path=':id' element={<AdminFoodPage />} />
-                    <Route path='new' element={<AdminFoodPage />} />
+                    <Route path='menu/:id' element={<AdminFoodPage />} />
+                    <Route path='menu/new' element={<AdminFoodPage />} />
                 </Route>
                 <Route path='mode'>
                     <Route index element={<AdminModesPage />} />

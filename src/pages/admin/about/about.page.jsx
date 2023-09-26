@@ -7,6 +7,7 @@ import useAboutStore from "../../../store/admin/aboutStore";
 import useGroupsStore from "../../../store/admin/groupsStore";
 import useAuthStore from "../../../store/authStore";
 
+import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
@@ -29,11 +30,11 @@ const AdminAboutPage = () => {
         const [edit, setEdit] = React.useState(false);
 
         const fetchData = async () => {
+            console.log("load about");;
             await store.load();
         };
 
         React.useEffect(() => {
-            reset();
             fetchData();
         }, [edit]);
 
@@ -199,10 +200,10 @@ const AdminAboutPage = () => {
         };
 
         return (
-            <>
+            <BasicPage id={1} mainStore={store} loadings={[store]}>
                 <Edit />
                 <View />
-            </>
+            </BasicPage>
         )
     }
 
