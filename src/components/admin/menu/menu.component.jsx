@@ -62,7 +62,7 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                         {menu.map((item) => {
                             if (item.link === "") {
                                 return (
-                                    <li className='admin-menu__item' key={item.title}>
+                                    <li className='admin-menu__item' key={window.global.makeid(6)}>
                                         <span className='admin-menu__link-icon'>{item.icon}</span>
                                     </li>
                                 );
