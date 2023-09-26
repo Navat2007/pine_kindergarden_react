@@ -338,6 +338,7 @@ const AdminTeacherPage = (props) => {
                                                 onlyOneImage={true}
                                                 multiFiles={false}
                                                 orientation='portrait'
+                                                extraClass={"admin-form__photo"}
                                                 onChange={(items) => setPhoto(items)}
                                             />
                                         </fieldset>
