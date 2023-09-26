@@ -12,10 +12,29 @@ $sql = "DELETE FROM teachers WHERE ID = '$id'";
 $sqls[] = $sql;
 mysqli_query($conn, $sql);
 
-$path = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers/" . $id;
-array_map('unlink', glob("$path/*.*"));
-rmdir($path);
+$sql = "DELETE FROM teacher_education WHERE teacherID = '$id'";
+$sqls[] = $sql;
+mysqli_query($conn, $sql);
 
-$log->add($conn, $authorization[1], 'Занятие ID: ' . $id . ' удалено');
+$sql = "DELETE FROM teacher_qualification WHERE teacherID = '$id'";
+$sqls[] = $sql;
+mysqli_query($conn, $sql);
+
+$sql = "DELETE FROM teacher_work WHERE teacherID = '$id'";
+$sqls[] = $sql;
+mysqli_query($conn, $sql);
+
+$sql = "DELETE FROM teacher_reward WHERE teacherID = '$id'";
+$sqls[] = $sql;
+mysqli_query($conn, $sql);
+
+$path = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers/" . $id;
+
+if(file_exists($path)){
+    array_map('unlink', glob("$path/*.*"));
+    rmdir($path);
+}
+
+$log->add($conn, $authorization[1], 'Сотрудник ID: ' . $id . ' удален');
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

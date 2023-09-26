@@ -215,8 +215,6 @@ const AdminTeacherPage = (props) => {
             ];
 
             const checkForComplete = (sendObject) => {
-                console.log(sendObject);
-
                 if (!sendObject.fio) {
                     setPopup(
                         <AlertPopup
@@ -253,26 +251,17 @@ const AdminTeacherPage = (props) => {
 
                 sendObject["image"] = photo;
 
-                if (educations.length > 0) {
-                    let tmpArray = Array.from(
-                        educations
-                            .filter(
-                                (education) =>
-                                    getValues("orgName_" + education.id) !== "" &&
-                                    getValues("endDate_" + education.id) !== "" &&
-                                    getValues("qualification_" + education.id) !== ""
-                            )
-                            .map((education) => {
-                                return {
-                                    orgName: getValues("orgName_" + education.id),
-                                    endDate: getValues("endDate_" + education.id),
-                                    qualification: getValues("qualification_" + education.id),
-                                };
-                            })
-                    );
+                if(educations.length > 0)
+                    sendObject["educations"] = educations;
 
-                    sendObject["educations"] = tmpArray.length > 0 ? tmpArray : [];
-                }
+                if(qualification.length > 0)
+                    sendObject["qualification"] = qualification;
+
+                if(work.length > 0)
+                    sendObject["work"] = work;
+
+                if(reward.length > 0)
+                    sendObject["reward"] = reward;
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -448,24 +437,187 @@ const AdminTeacherPage = (props) => {
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
+            const itemConfigEducation = [
+                {
+                    header: "ID",
+                    key: "ID",
+                    type: "int",
+                    filter: "number",
+                    sorting: true,
+                    hide: true
+                },
+                {
+                    header: "Наименование учебного учреждения",
+                    key: "orgName",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Дата окончания",
+                    key: "endDate",
+                    type: "date",
+                    filter: "date",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Специальность, квалификация по диплому",
+                    key: "qualification",
+                    type: "string",
+                    filter: "select",
+                    sorting: true,
+                    required: true
+                },
+            ];
+            const itemConfigQualification = [
+                {
+                    header: "ID",
+                    key: "ID",
+                    type: "int",
+                    filter: "number",
+                    sorting: true,
+                    hide: true
+                },
+                {
+                    header: "Наименование",
+                    key: "title",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Место проведения",
+                    key: "place",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Дата прохождения",
+                    key: "date",
+                    type: "date",
+                    filter: "date",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Количество часов",
+                    key: "hours",
+                    type: "int",
+                    filter: "int",
+                    sorting: true,
+                    required: true
+                },
+            ];
+            const itemConfigWork = [
+                {
+                    header: "ID",
+                    key: "ID",
+                    type: "int",
+                    filter: "number",
+                    sorting: true,
+                    hide: true
+                },
+                {
+                    header: "Общий стаж",
+                    key: "summary",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Педагогический стаж",
+                    key: "education",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "В данном учреждении",
+                    key: "work",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Квалификационная категория",
+                    key: "category",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Дата аттестации",
+                    key: "date",
+                    type: "date",
+                    filter: "date",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Приказ",
+                    key: "date_order",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: false
+                },
+            ];
+            const itemConfigReward = [
+                {
+                    header: "ID",
+                    key: "ID",
+                    type: "int",
+                    filter: "number",
+                    sorting: true,
+                    hide: true
+                },
+                {
+                    header: "Наименование",
+                    key: "title",
+                    type: "string",
+                    filter: "string",
+                    sorting: true,
+                    required: true
+                },
+                {
+                    header: "Дата",
+                    key: "date",
+                    type: "date",
+                    filter: "date",
+                    sorting: true,
+                    required: true
+                },
+            ];
+
             React.useEffect(() => {
-                if (edit) {
-                    setPhoto(
-                        store.item.photo
-                            ? [
-                                {
-                                    ID: store.item.ID,
-                                    url: store.item.photo,
-                                    main: 1,
-                                    order: 1,
-                                    isFile: 1,
-                                    isLoaded: 1,
-                                },
-                            ]
-                            : []
-                    );
-                }
-            }, [edit]);
+                setPhoto(
+                    store.item.photo
+                        ? [
+                            {
+                                ID: store.item.ID,
+                                url: store.item.photo,
+                                main: 1,
+                                order: 1,
+                                isFile: 1,
+                                isLoaded: 1,
+                            },
+                        ]
+                        : []
+                );
+                setEducations(store.item.educations);
+                setQualification(store.item.qualifications);
+                setWork(store.item.works);
+                setReward(store.item.rewards);
+            }, []);
 
             const checkForComplete = (sendObject) => {
                 if (!sendObject.fio) {
@@ -506,6 +658,18 @@ const AdminTeacherPage = (props) => {
 
                 sendObject["id"] = id;
                 sendObject["image"] = photo;
+
+                if(educations.length > 0)
+                    sendObject["educations"] = educations;
+
+                if(qualification.length > 0)
+                    sendObject["qualification"] = qualification;
+
+                if(work.length > 0)
+                    sendObject["work"] = work;
+
+                if(reward.length > 0)
+                    sendObject["reward"] = reward;
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -611,52 +775,57 @@ const AdminTeacherPage = (props) => {
                         <Tabs>
                             <Tab title={"Основная информация"}>
                                 <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
-                                    <fieldset className='admin-form__section admin-form__section_width_one-col'>
-                                        <FieldText
-                                            label={"ФИО*"}
-                                            required={true}
-                                            placeholder={"Введите фио"}
-                                            {...register("fio", {
-                                                value: store.item.fio,
-                                            })}
-                                        />
-                                        <FieldText
-                                            label={"Должность*"}
-                                            required={true}
-                                            placeholder={"Введите должность"}
-                                            {...register("position", {
-                                                value: store.item.position,
-                                            })}
-                                        />
-                                        <FieldSelect
-                                            label={"Структурное подразделение*"}
-                                            required={true}
-                                            selectItems={storeCategories.items.map((item) => {
-                                                return {
-                                                    title: item.title,
-                                                    value: item.ID,
-                                                };
-                                            })}
-                                            {...register("category", {
-                                                value: store.item.category,
-                                            })}
-                                        />
-                                        <FieldUrl
-                                            label={"Ссылка на личную страницу"}
-                                            placeholder={"https://..."}
-                                            {...register("page", {
-                                                value: store.item.page,
-                                            })}
-                                        />
-                                        <p className='admin-form__subtitle'>Фотография</p>
-                                        <ImageSelector
-                                            items={photo}
-                                            onlyOneImage={true}
-                                            multiFiles={false}
-                                            onChange={(items) => setPhoto(items)}
-                                            onDelete={handleDeletePhoto}
-                                        />
-                                    </fieldset>
+                                    <div className='admin-form__two-columns'>
+                                        <fieldset className='admin-form__section'>
+                                            <h3 className='admin-form__title'>Основная информация</h3>
+                                            <FieldText
+                                                label={"ФИО*"}
+                                                required={true}
+                                                placeholder={"Введите фио"}
+                                                {...register("fio", {
+                                                    value: store.item.fio,
+                                                })}
+                                            />
+                                            <FieldText
+                                                label={"Должность*"}
+                                                required={true}
+                                                placeholder={"Введите должность"}
+                                                {...register("position", {
+                                                    value: store.item.position,
+                                                })}
+                                            />
+                                            <FieldSelect
+                                                label={"Структурное подразделение*"}
+                                                required={true}
+                                                selectItems={storeCategories.items.map((item) => {
+                                                    return {
+                                                        title: item.title,
+                                                        value: item.ID,
+                                                    };
+                                                })}
+                                                {...register("category", {
+                                                    value: store.item.category,
+                                                })}
+                                            />
+                                            <FieldUrl
+                                                label={"Ссылка на личную страницу"}
+                                                placeholder={"https://..."}
+                                                {...register("page", {
+                                                    value: store.item.page,
+                                                })}
+                                            />
+                                        </fieldset>
+                                        <fieldset className='admin-form__section'>
+                                            <h3 className='admin-form__title'>Фотография</h3>
+                                            <ImageSelector
+                                                items={photo}
+                                                onlyOneImage={true}
+                                                multiFiles={false}
+                                                onChange={(items) => setPhoto(items)}
+                                                onDelete={handleDeletePhoto}
+                                            />
+                                        </fieldset>
+                                    </div>
                                     <div className='admin-form__controls'>
                                         <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
                                             Сохранить
@@ -676,10 +845,51 @@ const AdminTeacherPage = (props) => {
                                     </div>
                                 </form>
                             </Tab>
-                            <Tab title={"Образование"}></Tab>
-                            <Tab title={"Повышение квалификации"}></Tab>
-                            <Tab title={"Трудовой стаж"}></Tab>
-                            <Tab title={"Награды, благодарности"}></Tab>
+                            <Tab title={"Образование"}>
+                                <Table
+                                    title={"Информация об образовании"}
+                                    items={educations}
+                                    itemsConfig={itemConfigEducation}
+                                    withItemControls={true}
+                                    onItemsChange={(items) => {
+                                        setEducations(items);
+                                    }}
+                                />
+                            </Tab>
+                            <Tab title={"Повышение квалификации"}>
+                                <Table
+                                    title={"Информация о квалификации"}
+                                    items={qualification}
+                                    itemsConfig={itemConfigQualification}
+                                    withItemControls={true}
+                                    onItemsChange={(items) => {
+                                        setQualification(items);
+                                    }}
+                                />
+                            </Tab>
+                            <Tab title={"Трудовой стаж"}>
+                                <Table
+                                    title={"Информация о трудовом стаже"}
+                                    items={work}
+                                    itemsConfig={itemConfigWork}
+                                    withItemControls={true}
+                                    itemControlsOneItem={true}
+                                    onItemsChange={(items) => {
+                                        setWork(items);
+                                    }}
+                                />
+                            </Tab>
+                            <Tab title={"Награды, благодарности"}>
+                                <Table
+                                    title={"Информация о наградах, благодарностях"}
+                                    items={reward}
+                                    itemsConfig={itemConfigReward}
+                                    withItemControls={true}
+                                    onItemsChange={(items) => {
+                                        setReward(items);
+                                    }}
+                                />
+                            </Tab>
                         </Tabs>
                         {popup}
                     </>
