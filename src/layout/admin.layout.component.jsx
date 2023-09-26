@@ -16,6 +16,11 @@ const AdminLayout = () => {
             link: "/admin/users",
         },
         {
+            title: "",
+            icon: MenuIcons.separator,
+            link: "",
+        },
+        {
             title: "Документы",
             icon: MenuIcons.documents,
             link: "/admin/documents",
