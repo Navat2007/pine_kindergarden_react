@@ -126,7 +126,9 @@ const AdminMediaFilePage = (props) => {
                                     <h2 className='admin-form__title'>Файл</h2>
                                     <FileSelector
                                         items={file}
-                                        multiFiles={false}
+                                        multiFiles={true}
+                                        withDescription={true}
+                                        orientation={"portrait"}
                                         onChange={(items) => setFile(items)}
                                     />
                                 </fieldset>

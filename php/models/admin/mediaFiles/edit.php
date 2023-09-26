@@ -13,14 +13,14 @@ $text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
 $type = mysqli_real_escape_string($conn, htmlspecialchars($_POST["type"]));
 $file = $_POST["file"];
 
-$sql = "UPDATE 
+$sql = "UPDATE
                 media_files
             SET
-                title = '$title', 
-                text = '$text', 
-                type = '$type', 
+                title = '$title',
+                text = '$text',
+                type = '$type',
                 last_userID = '$userID'
-            WHERE 
+            WHERE
                 ID = '$id'";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
@@ -66,11 +66,11 @@ else {
                 $url = "/files/" . $dir_name . "/" . $id . "/" . $file_token . "_" . $name;
 
                 $sql = "
-                    UPDATE 
+                    UPDATE
                         media_files
                     SET
                         url = '$url'
-                    WHERE 
+                    WHERE
                         ID = '$id'";
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);

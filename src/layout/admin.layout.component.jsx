@@ -17,7 +17,7 @@ const AdminLayout = () => {
         },
         {
             title: "Файлы",
-            icon: MenuIcons.users,
+            icon: MenuIcons.media,
             link: "/admin/mediaFiles",
         },
         {

@@ -2,7 +2,8 @@ import React from "react";
 import axios from "axios";
 
 import Button from "../../admin/button/button.component";
-import FieldInput from "../field/field.input.component";
+import FieldTextarea from "../../admin/field/field.textarea.component";
+import FieldUrl from "../../admin/field/field.url.component";
 import AlertPopup from "../alert.popup/alert.popup";
 import Popup from "../popup/popup.component";
 
@@ -10,14 +11,12 @@ import "./file.selector.scss";
 import { AdminIcons, FileIcons } from "../../svgs.js";
 
 const FileSelector = ({
-    title,
+    orientation,
     items,
     multiFiles,
-    withLinks,
     withDescription,
     maxFileSize = 5,
     accept = "*.*",
-    portrait = false,
     onChange,
     onError,
     onDelete,
@@ -181,16 +180,21 @@ const FileSelector = ({
         if (errorFiles.length > 0) {
             setNotif(
                 <Popup opened={true} onClose={() => setNotif(<></>)} title={"Ошибка загрузки файлов"}>
-                    <h3 className={"styles.errorCaption"}>{AdminIcons.error} Не удалось добавить следующие файлы:</h3>
-                    <ol className={"styles.errorList"}>
-                        {errorFiles.map((error) => (
-                            <li key={error.title}>
-                                <p className={"styles.errorText"}>
-                                    {error.title} <span className={"styles.errorSpan"}>{error.text}</span>
-                                </p>
-                            </li>
-                        ))}
-                    </ol>
+                    <div className='admin-file-alert'>
+                        <h3 className={`admin-file-alert__caption`}>
+                            {AdminIcons.error} Не удалось добавить следующие файлы:
+                        </h3>
+                        <ol className={`admin-file-alert__list`}>
+                            {errorFiles.map((error) => (
+                                <li className='admin-file-alert__item' key={error.title}>
+                                    <p className={`admin-file-alert__text`}>
+                                        {error.title}{" "}
+                                        <span className={`admin-file-alert__error-span`}>{error.text}</span>
+                                    </p>
+                                </li>
+                            ))}
+                        </ol>
+                    </div>
                 </Popup>
             );
         }
@@ -218,18 +222,11 @@ const FileSelector = ({
                     onClose={() => setNotif(<></>)}
                     buttons={
                         <>
+                            <Button type='button' theme='text' onClick={() => setNotif(<></>)}>
+                                Нет
+                            </Button>
                             <Button
                                 type='button'
-                                size={"small"}
-                                text={"Нет"}
-                                theme='text'
-                                onClick={() => setNotif(<></>)}
-                            />
-                            <Button
-                                type='button'
-                                size={"small"}
-                                theme='info'
-                                text={"Да"}
                                 onClick={async () => {
                                     if (itemElement.isFile === 1 && itemElement.isLoaded === 1) {
                                         onDelete(itemElement);
@@ -241,7 +238,9 @@ const FileSelector = ({
 
                                     setNotif(<></>);
                                 }}
-                            />
+                            >
+                                Да
+                            </Button>
                         </>
                     }
                 />
@@ -270,12 +269,13 @@ const FileSelector = ({
             }
 
             return (
-                <div className={`${"styles.file"}`}>
+                <div className={`admin-file-block`}>
                     {FileIcons[iconsType]}
                     {withDescription ? (
-                        <FieldInput
+                        <FieldTextarea
+                            label='Название'
                             type='textarea'
-                            extraClass={"styles.fileField"}
+                            extraClass={"admin-file-block__field"}
                             placeholder='Введите описание файла..'
                             rows={3}
                             defaultValue={item.description ? item.description : item.file ? item.file.name : item.title}
@@ -284,7 +284,7 @@ const FileSelector = ({
                             }}
                         />
                     ) : (
-                        <p className={"styles.fileName"}>
+                        <p className={"admin-file-block__title"}>
                             {item.description ? item.description : item.file ? item.file.name : item.title}
                         </p>
                     )}
@@ -294,7 +294,7 @@ const FileSelector = ({
 
         return (
             <img
-                className={"styles.image"}
+                className={"admin-file-selector__image"}
                 src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
                 alt={"Изображение " + (item.file ? item.file.name : item.title)}
             />
@@ -303,58 +303,60 @@ const FileSelector = ({
 
     return (
         <>
-            {title && <h2 className={"styles.title"}>{title}</h2>}
-            <ul className={["styles.list", portrait ? "styles.list_portrait" : ""].join(" ")}>
+            <ul className={`admin-file-selector`}>
                 {photo.map((item, index) =>
                     item.main ? (
-                        <li key={index} className={"styles.item"}>
+                        <li
+                            key={index}
+                            className={`admin-file-selector__item${
+                                orientation === "portrait" ? ` admin-file-selector__item_portrait` : ``
+                            }`}
+                        >
                             {getThumbsForGallery(item)}
-                            <div className={"styles.panel"}>
+                            <div className={"admin-file-selector__item-panel"}>
                                 <Button
                                     type='button'
-                                    theme='white'
-                                    size='smaller'
                                     isIconBtn='true'
-                                    iconClass={"mdi mdi-close"}
+                                    iconName={AdminIcons.close}
                                     aria-label='Удалить'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <div className={"styles.itemTitle"}>1. Главная</div>
+                            <p className={"admin-file-selector__title"}>1. Главная</p>
                         </li>
                     ) : (
-                        <li key={index} className={"styles.item"}>
+                        <li
+                            key={index}
+                            className={`admin-file-selector__item${
+                                orientation === "portrait" ? ` admin-file-selector__item_portrait` : ``
+                            }`}
+                        >
                             {getThumbsForGallery(item)}
-                            <span className={"styles.currentPosition"}>{item.order}</span>
-                            <div className={"styles.panel"}>
+                            <span className={`admin-file-selector__current-position`}>{item.order}</span>
+                            <div className={"admin-file-selector__item-panel"}>
                                 <Button
                                     type='button'
-                                    theme='white'
-                                    size='smaller'
-                                    text={"Сделать главной"}
-                                    aria-label='Сделать главной'
+                                    extraClass='admin-file-selector__button'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleMovePhoto(item.order, 1)}
-                                />
+                                >
+                                    Сделать главной
+                                </Button>
                                 <Button
                                     type='button'
-                                    theme='white'
-                                    size='smaller'
                                     isIconBtn='true'
-                                    iconClass={"mdi mdi-close"}
+                                    iconName={AdminIcons.close}
                                     aria-label='Удалить'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <div className={"styles.thumbs"}>
+                            <div className={"admin-file-selector__thumbs"}>
                                 <Button
                                     type='button'
-                                    theme='white'
-                                    size='smaller'
                                     isIconBtn='true'
-                                    iconClass={"mdi mdi-chevron-left"}
+                                    iconName={AdminIcons.chevron_left}
                                     aria-label='Назад'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleMovePhoto(item.order, item.order - 1)}
@@ -362,10 +364,8 @@ const FileSelector = ({
                                 {index < photo.length - 1 && (
                                     <Button
                                         type='button'
-                                        theme='white'
-                                        size='smaller'
                                         isIconBtn='true'
-                                        iconClass={"mdi mdi-chevron-right"}
+                                        iconName={AdminIcons.chevron_right}
                                         aria-label='Вперед'
                                         disabled={photoAddBtnDisabled}
                                         onClick={() => handleMovePhoto(item.order, item.order + 1)}
@@ -376,7 +376,9 @@ const FileSelector = ({
                     )
                 )}
                 <li
-                    className={["styles.item", "styles.item_empty"].join(" ")}
+                    className={`admin-file-selector__item admin-file-download-block${
+                        orientation === "portrait" ? ` admin-file-selector__item_portrait` : ``
+                    }`}
                     onDrop={(e) => {
                         e.preventDefault();
                         handleAddFile({
@@ -389,10 +391,10 @@ const FileSelector = ({
                         e.preventDefault();
                     }}
                 >
-                    <p className={"styles.text"}>
-                        Начните загружать файлы простым перетаскиванием в любое место этого окна. Ограничение на размер
-                        файла 5 MB.
-                        <span className={"styles.span"}>или</span>
+                    <p className={"admin-file-download-block__text"}>
+                        Начните загружать файлы простым перетаскиванием в&nbsp;любое место этого окна. Ограничение
+                        на&nbsp;размер файла 5&nbsp;MB.
+                        <span className={"admin-file-download-block__span"}>или</span>
                     </p>
                     <Button
                         type='button'
@@ -411,39 +413,6 @@ const FileSelector = ({
                     />
                 </li>
             </ul>
-            {withLinks && (
-                <div className={"styles.fieldBlock"}>
-                    <FieldInput
-                        ref={inputRef}
-                        label={"Ссылка на фото"}
-                        type='url'
-                        extraClass={"styles.field"}
-                        placeholder='Введите url-адрес...'
-                        layout='flex'
-                    />
-                    <a
-                        className={[styles.socialLink, "--hide"].join(" ")}
-                        href=''
-                        aria-label='Открыть в новой вкладке'
-                        title='Открыть в новой вкладке'
-                        target={"_blank"}
-                        rel='nofollow noreferer noopener'
-                    >
-                        <span className='mdi mdi-open-in-new' />
-                    </a>
-                    <Button
-                        type='button'
-                        theme='text'
-                        size='small'
-                        extraClass={"styles.fieldBtn"}
-                        iconClass={"mdi mdi-plus"}
-                        isIconBtn='true'
-                        aria-label='Добавить поле'
-                        disabled={photoAddBtnDisabled}
-                        onClick={handleAddPhoto}
-                    />
-                </div>
-            )}
             {notif}
         </>
     );

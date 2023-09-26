@@ -13,7 +13,7 @@ $type = mysqli_real_escape_string($conn, htmlspecialchars($_POST["type"]));
 $file = $_POST["file"];
 
 $sql = "
-        INSERT INTO media_files (title, text, type, userID, last_userID) 
+        INSERT INTO media_files (title, text, type, userID, last_userID)
         VALUES ('$title', '$text', '$type', '$userID', '$userID')
     ";
 $sqls[] = $sql;
@@ -51,11 +51,11 @@ if($lastID > 0){
                 $url = "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
 
                 $sql = "
-                    UPDATE 
+                    UPDATE
                         media_files
                     SET
                         url = '$url'
-                    WHERE 
+                    WHERE
                         ID = '$lastID'";
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);

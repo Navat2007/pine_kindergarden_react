@@ -14,7 +14,7 @@ const AdminMediaFilesPage = () => {
     const navigate = useNavigate();
     const store = useMediaFilesStore();
 
-    const url = 'admin/mediaFiles';
+    const url = "admin/mediaFiles";
 
     const onItemClick = (props) => {
         navigate(`/${url}/${props}`);
