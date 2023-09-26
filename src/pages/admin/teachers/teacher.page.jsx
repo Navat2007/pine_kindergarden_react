@@ -44,6 +44,167 @@ const AdminTeacherPage = (props) => {
 
     //Private component
     const Article = () => {
+        const itemConfigEducation = [
+            {
+                header: "ID",
+                key: "ID",
+                type: "int",
+                filter: "number",
+                sorting: true,
+                hide: true
+            },
+            {
+                header: "Наименование учебного учреждения",
+                key: "orgName",
+                type: "string",
+                filter: "string",
+                sorting: true,
+                required: true
+            },
+            {
+                header: "Дата окончания",
+                key: "endDate",
+                type: "date",
+                filter: "date",
+                sorting: true,
+                required: true
+            },
+            {
+                header: "Специальность, квалификация по диплому",
+                key: "qualification",
+                type: "string",
+                filter: "select",
+                sorting: true,
+                required: true
+            },
+        ];
+        const itemConfigQualification = [
+            {
+                header: "ID",
+                key: "ID",
+                type: "int",
+                filter: "number",
+                sorting: true,
+                hide: true
+            },
+            {
+                header: "Наименование",
+                key: "title",
+                type: "string",
+                filter: "string",
+                sorting: true,
+                required: true
+            },
+            {
+                header: "Место проведения",
+                key: "place",
+                type: "string",
+                filter: "string",
+                sorting: true,
+                required: true
+            },
+            {
+                header: "Дата прохождения",
+                key: "date",
+                type: "date",
+                filter: "date",
+                sorting: true,
+                required: true
+            },
+            {
+                header: "Количество часов",
+                key: "hours",
+                type: "int",
+                filter: "int",
+                sorting: true,
+                required: true
+            },
+        ];
+        const itemConfigWork = [
+            {
+                header: "ID",
+                key: "ID",
+                type: "int",
+                filter: "number",
+                sorting: true,
+                hide: true
+            },
+            {
+                header: "Общий стаж",
+                key: "summary",
+                type: "string",
+                filter: "string",
+                sorting: true,
+                required: true
+            },
+            {
+                header: "Педагогический стаж",
+                key: "education",
+                type: "string",
+                filter: "string",
+                sorting: true,
+                required: true
+            },
+            {
+                header: "В данном учреждении",
+                key: "work",
+                type: "string",
+                filter: "string",
+                sorting: true,
+                required: true
+            },
+            {
+                header: "Квалификационная категория",
+                key: "category",
+                type: "string",
+                filter: "string",
+                sorting: true,
+                required: true
+            },
+            {
+                header: "Дата аттестации",
+                key: "date",
+                type: "date",
+                filter: "date",
+                sorting: true,
+                required: true
+            },
+            {
+                header: "Приказ",
+                key: "date_order",
+                type: "string",
+                filter: "string",
+                sorting: true,
+                required: false
+            },
+        ];
+        const itemConfigReward = [
+            {
+                header: "ID",
+                key: "ID",
+                type: "int",
+                filter: "number",
+                sorting: true,
+                hide: true
+            },
+            {
+                header: "Наименование",
+                key: "title",
+                type: "string",
+                filter: "string",
+                sorting: true,
+                required: true
+            },
+            {
+                header: "Дата",
+                key: "date",
+                type: "date",
+                filter: "date",
+                sorting: true,
+                required: true
+            },
+        ];
+
         const Create = () => {
             const [photo, setPhoto] = React.useState([]);
             const [educations, setEducations] = React.useState([]);
@@ -52,167 +213,6 @@ const AdminTeacherPage = (props) => {
             const [reward, setReward] = React.useState([]);
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
-
-            const itemConfigEducation = [
-                {
-                    header: "ID",
-                    key: "ID",
-                    type: "int",
-                    filter: "number",
-                    sorting: true,
-                    hide: true
-                },
-                {
-                    header: "Наименование учебного учреждения",
-                    key: "orgName",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Дата окончания",
-                    key: "endDate",
-                    type: "date",
-                    filter: "date",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Специальность, квалификация по диплому",
-                    key: "qualification",
-                    type: "string",
-                    filter: "select",
-                    sorting: true,
-                    required: true
-                },
-            ];
-            const itemConfigQualification = [
-                {
-                    header: "ID",
-                    key: "ID",
-                    type: "int",
-                    filter: "number",
-                    sorting: true,
-                    hide: true
-                },
-                {
-                    header: "Наименование",
-                    key: "title",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Место проведения",
-                    key: "place",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Дата прохождения",
-                    key: "date",
-                    type: "date",
-                    filter: "date",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Количество часов",
-                    key: "hours",
-                    type: "int",
-                    filter: "int",
-                    sorting: true,
-                    required: true
-                },
-            ];
-            const itemConfigWork = [
-                {
-                    header: "ID",
-                    key: "ID",
-                    type: "int",
-                    filter: "number",
-                    sorting: true,
-                    hide: true
-                },
-                {
-                    header: "Общий стаж",
-                    key: "summary",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Педагогический стаж",
-                    key: "education",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "В данном учреждении",
-                    key: "work",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Квалификационная категория",
-                    key: "category",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Дата аттестации",
-                    key: "date",
-                    type: "date",
-                    filter: "date",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Приказ",
-                    key: "date_order",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: false
-                },
-            ];
-            const itemConfigReward = [
-                {
-                    header: "ID",
-                    key: "ID",
-                    type: "int",
-                    filter: "number",
-                    sorting: true,
-                    hide: true
-                },
-                {
-                    header: "Наименование",
-                    key: "title",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Дата",
-                    key: "date",
-                    type: "date",
-                    filter: "date",
-                    sorting: true,
-                    required: true
-                },
-            ];
 
             const checkForComplete = (sendObject) => {
                 if (!sendObject.fio) {
@@ -251,16 +251,16 @@ const AdminTeacherPage = (props) => {
 
                 sendObject["image"] = photo;
 
-                if(educations.length > 0)
+                if (educations.length > 0)
                     sendObject["educations"] = educations;
 
-                if(qualification.length > 0)
+                if (qualification.length > 0)
                     sendObject["qualification"] = qualification;
 
-                if(work.length > 0)
+                if (work.length > 0)
                     sendObject["work"] = work;
 
-                if(reward.length > 0)
+                if (reward.length > 0)
                     sendObject["reward"] = reward;
 
                 if (!checkForComplete(sendObject)) return;
@@ -437,167 +437,6 @@ const AdminTeacherPage = (props) => {
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
-            const itemConfigEducation = [
-                {
-                    header: "ID",
-                    key: "ID",
-                    type: "int",
-                    filter: "number",
-                    sorting: true,
-                    hide: true
-                },
-                {
-                    header: "Наименование учебного учреждения",
-                    key: "orgName",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Дата окончания",
-                    key: "endDate",
-                    type: "date",
-                    filter: "date",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Специальность, квалификация по диплому",
-                    key: "qualification",
-                    type: "string",
-                    filter: "select",
-                    sorting: true,
-                    required: true
-                },
-            ];
-            const itemConfigQualification = [
-                {
-                    header: "ID",
-                    key: "ID",
-                    type: "int",
-                    filter: "number",
-                    sorting: true,
-                    hide: true
-                },
-                {
-                    header: "Наименование",
-                    key: "title",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Место проведения",
-                    key: "place",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Дата прохождения",
-                    key: "date",
-                    type: "date",
-                    filter: "date",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Количество часов",
-                    key: "hours",
-                    type: "int",
-                    filter: "int",
-                    sorting: true,
-                    required: true
-                },
-            ];
-            const itemConfigWork = [
-                {
-                    header: "ID",
-                    key: "ID",
-                    type: "int",
-                    filter: "number",
-                    sorting: true,
-                    hide: true
-                },
-                {
-                    header: "Общий стаж",
-                    key: "summary",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Педагогический стаж",
-                    key: "education",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "В данном учреждении",
-                    key: "work",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Квалификационная категория",
-                    key: "category",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Дата аттестации",
-                    key: "date",
-                    type: "date",
-                    filter: "date",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Приказ",
-                    key: "date_order",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: false
-                },
-            ];
-            const itemConfigReward = [
-                {
-                    header: "ID",
-                    key: "ID",
-                    type: "int",
-                    filter: "number",
-                    sorting: true,
-                    hide: true
-                },
-                {
-                    header: "Наименование",
-                    key: "title",
-                    type: "string",
-                    filter: "string",
-                    sorting: true,
-                    required: true
-                },
-                {
-                    header: "Дата",
-                    key: "date",
-                    type: "date",
-                    filter: "date",
-                    sorting: true,
-                    required: true
-                },
-            ];
-
             React.useEffect(() => {
                 setPhoto(
                     store.item.photo
@@ -659,16 +498,16 @@ const AdminTeacherPage = (props) => {
                 sendObject["id"] = id;
                 sendObject["image"] = photo;
 
-                if(educations.length > 0)
+                if (educations.length > 0)
                     sendObject["educations"] = educations;
 
-                if(qualification.length > 0)
+                if (qualification.length > 0)
                     sendObject["qualification"] = qualification;
 
-                if(work.length > 0)
+                if (work.length > 0)
                     sendObject["work"] = work;
 
-                if(reward.length > 0)
+                if (reward.length > 0)
                     sendObject["reward"] = reward;
 
                 if (!checkForComplete(sendObject)) return;
@@ -965,6 +804,54 @@ const AdminTeacherPage = (props) => {
                                 front={false}
                             />
                         </section>
+                        {
+                            store.item.educations.length > 0 && (
+                                <section className='admin-view-section'>
+                                    <h2 className='admin-view-section__title'>Образование</h2>
+                                    <Table
+                                        title={"Информация об образовании"}
+                                        items={store.item.educations}
+                                        itemsConfig={itemConfigEducation}
+                                    />
+                                </section>
+                            )
+                        }
+                        {
+                            store.item.qualifications.length > 0 && (
+                                <section className='admin-view-section'>
+                                    <h2 className='admin-view-section__title'>Квалификация</h2>
+                                    <Table
+                                        title={"Информация об квалификации"}
+                                        items={store.item.qualifications}
+                                        itemsConfig={itemConfigQualification}
+                                    />
+                                </section>
+                            )
+                        }
+                        {
+                            store.item.works.length > 0 && (
+                                <section className='admin-view-section'>
+                                    <h2 className='admin-view-section__title'>Трудовой стаж</h2>
+                                    <Table
+                                        title={"Информация о трудовом стаже"}
+                                        items={store.item.works}
+                                        itemsConfig={itemConfigWork}
+                                    />
+                                </section>
+                            )
+                        }
+                        {
+                            store.item.rewards.length > 0 && (
+                                <section className='admin-view-section'>
+                                    <h2 className='admin-view-section__title'>Награды, благодарности</h2>
+                                    <Table
+                                        title={"Информация о наградах, благодарностях"}
+                                        items={store.item.rewards}
+                                        itemsConfig={itemConfigReward}
+                                    />
+                                </section>
+                            )
+                        }
                     </>
                 );
             }
@@ -981,7 +868,7 @@ const AdminTeacherPage = (props) => {
 
     return (
         <BasicPage id={id} mainStore={store} loadings={[store, storeCategories]} back={back}>
-            <Article />
+            <Article/>
         </BasicPage>
     );
 };
