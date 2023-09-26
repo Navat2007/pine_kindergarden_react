@@ -257,7 +257,7 @@ const AdminFoodsPage = () => {
             <Button
                 type='button'
                 iconName={AdminIcons.plus}
-                aria-label='Добавить группу'
+                aria-label='Добавить'
                 onClick={() => navigate(`/${url}/new`)}
             >
                 Создать
