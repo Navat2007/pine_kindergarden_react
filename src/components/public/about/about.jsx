@@ -6,7 +6,7 @@ import {motion, Variants} from "framer-motion";
 import useAboutStore from "../../../store/public/aboutStore";
 import useGroupsStore from "../../../store/public/groupsStore";
 
-import TeachersSlider from "../teachers-slider/teachers-slider";
+import TeachersSlider from "../teachers.slider/teachers.slider";
 
 import "./about.scss";
 import about__image from "../../../images/about__image.jpg";

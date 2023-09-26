@@ -4,7 +4,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import useAboutStore from "../../../store/public/aboutStore";
 import useGroupsStore from "../../../store/public/groupsStore";
 
-import "./teachers-slider.scss";
+import "./teachers.slider.scss";
 import person_2 from "../../../images/person_2.jpg";
 import person_3 from "../../../images/person_3.jpg";
 import person_4 from "../../../images/person_4.jpg";
