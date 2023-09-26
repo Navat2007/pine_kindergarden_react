@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import useMediaFilesStore from "../../../store/admin/mediaFilesStore";
 
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
-import FileSelector from "../../../components/general/file_selector/file.selector.component";
+import FileSelector from "../../../components/general/file.selector/file.selector.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
 import ImageSelector from "../../../components/general/image.selector/image.selector.component";

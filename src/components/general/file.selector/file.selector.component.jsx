@@ -3,7 +3,6 @@ import axios from "axios";
 
 import Button from "../../admin/button/button.component";
 import FieldTextarea from "../../admin/field/field.textarea.component";
-import FieldUrl from "../../admin/field/field.url.component";
 import AlertPopup from "../alert.popup/alert.popup";
 import Popup from "../popup/popup.component";
 
