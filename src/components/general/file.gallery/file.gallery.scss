@@ -1,0 +1,63 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.admin-file-gallery {
+    @extend %reset-list;
+
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(auto-fill, minmax(min(15em, 100%), 1fr));
+
+    &__item {
+        @include box(100%);
+        position: relative;
+        border-radius: 5px;
+        overflow: hidden;
+        aspect-ratio: 16/9;
+        background-color: #fff;
+        outline: 2px solid var(--admin-grey-100-color);
+
+        &_portrait {
+            aspect-ratio: 210/297;
+        }
+
+        &:hover .admin-file-selector__item-panel,
+        &:hover .admin-file-selector__thumbs {
+            @extend %visibility-block;
+        }
+    }
+
+    &__img {
+        display: block;
+        @include box(100%);
+        object-fit: contain;
+    }
+}
+
+.admin-file-gallery-block {
+    padding: 1em;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    @include box(100%);
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    svg {
+        flex: none;
+        width: min(25%, 4.5em);
+    }
+
+    &__title {
+        margin: 0;
+        word-break: break-word;
+        @include clamp(3);
+        min-height: 4.5em;
+    }
+}

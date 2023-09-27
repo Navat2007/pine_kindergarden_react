@@ -152,20 +152,21 @@
     display: flex;
     gap: 1em;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
     text-align: center;
     @include box(100%);
 
     svg {
-        margin-block-start: 25%;
         flex: none;
-        width: min(25%, 5em);
+        width: min(25%, 4.5em);
     }
 
     &__title {
         margin: 0;
         word-break: break-word;
         @include clamp(3);
+        min-height: 4.5em;
     }
 
     &__field {

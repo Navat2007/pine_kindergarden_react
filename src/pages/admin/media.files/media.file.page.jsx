@@ -1,31 +1,30 @@
 import React from "react";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
-import {useForm} from "react-hook-form";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import useMediaFilesStore from "../../../store/admin/mediaFilesStore";
 
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 import FileSelector from "../../../components/general/file.selector/file.selector.component";
+import FileGallery from "../../../components/general/file.gallery/file.gallery.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
-import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 
-import {AdminIcons} from "../../../components/svgs";
-import FileGallery from "../../../components/general/file.gallery/file.gallery.component";
+import { AdminIcons } from "../../../components/svgs";
 
 const AdminMediaFilePage = (props) => {
-    let {id} = useParams();
+    let { id } = useParams();
     const navigate = useNavigate();
-    const {register, handleSubmit, reset, getValues} = useForm();
+    const { register, handleSubmit, reset, getValues } = useForm();
 
     const store = useMediaFilesStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-        await store.loadByID({id});
+        await store.loadByID({ id });
     };
 
     React.useEffect(() => {
@@ -114,7 +113,7 @@ const AdminMediaFilePage = (props) => {
             const onAdd = async () => {
                 const data = getValues();
 
-                let sendObject = {...data};
+                let sendObject = { ...data };
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -155,7 +154,7 @@ const AdminMediaFilePage = (props) => {
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание"} onBack={back}/>
+                        <TitleBlock title={"Создание"} onBack={back} />
                         <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
                             <div className='admin-form__two-columns'>
                                 <fieldset className='admin-form__section'>
@@ -209,15 +208,15 @@ const AdminMediaFilePage = (props) => {
             const [file, setFile] = React.useState(
                 store.item.url
                     ? [
-                        {
-                            ID: store.item.ID,
-                            url: store.item.url,
-                            main: 1,
-                            order: 1,
-                            isFile: 1,
-                            isLoaded: 1,
-                        },
-                    ]
+                          {
+                              ID: store.item.ID,
+                              url: store.item.url,
+                              main: 1,
+                              order: 1,
+                              isFile: 1,
+                              isLoaded: 1,
+                          },
+                      ]
                     : []
             );
             const [popup, setPopup] = React.useState(<></>);
@@ -228,15 +227,15 @@ const AdminMediaFilePage = (props) => {
                     setFile(
                         store.item.image
                             ? [
-                                {
-                                    ID: store.item.ID,
-                                    url: store.item.image,
-                                    main: 1,
-                                    order: 1,
-                                    isFile: 1,
-                                    isLoaded: 1,
-                                },
-                            ]
+                                  {
+                                      ID: store.item.ID,
+                                      url: store.item.image,
+                                      main: 1,
+                                      order: 1,
+                                      isFile: 1,
+                                      isLoaded: 1,
+                                  },
+                              ]
                             : []
                     );
                 }
@@ -277,7 +276,7 @@ const AdminMediaFilePage = (props) => {
             const onEdit = async () => {
                 const data = getValues();
 
-                let sendObject = {...data};
+                let sendObject = { ...data };
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -373,7 +372,7 @@ const AdminMediaFilePage = (props) => {
             };
 
             const handleDeletePreviewPhoto = async (item) => {
-                let sendObject = {...item};
+                let sendObject = { ...item };
 
                 sendObject["ID"] = id;
 
@@ -383,7 +382,7 @@ const AdminMediaFilePage = (props) => {
             if (id && edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
+                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
                         <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
                             <div className='admin-form__two-columns'>
                                 <fieldset className='admin-form__section'>
@@ -417,7 +416,7 @@ const AdminMediaFilePage = (props) => {
                                 </fieldset>
                             </div>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending}/>
+                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
                                 <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
                                     Удалить
                                 </Button>
@@ -473,9 +472,11 @@ const AdminMediaFilePage = (props) => {
                                             <p className='admin-view-section__description'>
                                                 <NavLink
                                                     className='admin-view-section__link'
-                                                    to={store.item.url.includes("http")
-                                                        ? store.item.url
-                                                        : process.env.REACT_APP_BASE_URL + store.item.url}
+                                                    to={
+                                                        store.item.url.includes("http")
+                                                            ? store.item.url
+                                                            : process.env.REACT_APP_BASE_URL + store.item.url
+                                                    }
                                                     target={"_blank"}
                                                     rel='noopener nofollow noreferer'
                                                 >
@@ -511,16 +512,16 @@ const AdminMediaFilePage = (props) => {
 
         return (
             <>
-                <Create/>
-                <Edit/>
-                <View/>
+                <Create />
+                <Edit />
+                <View />
             </>
         );
     };
 
     return (
         <BasicPage id={id} mainStore={store} loadings={[store]} back={back}>
-            <Article/>
+            <Article />
         </BasicPage>
     );
 };
