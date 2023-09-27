@@ -167,6 +167,9 @@ const FileSelectorPopup = ({ onFileSelected }) => {
                     Отмена
                 </Button>
                 <Button type='button'>Выбрать</Button>
+                <Button type='button' iconName={AdminIcons.upload} extraClass={"file-selector-popup__upload-button"}>
+                    Загрузить
+                </Button>
             </div>
         </div>
     );
