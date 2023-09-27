@@ -98,7 +98,7 @@ const FileSelectorPopup = ({ onFileSelected }) => {
                     {/* Конец контекстного меню. Когда вынесешь сообщи, я стили также перенесу. */}
                 </SearchFilter>
             </div>
-            <ol class='file-selector-popup__list'>
+            <ol className='file-selector-popup__list'>
                 <li>
                     <article class='file-selector-popup-card file-selector-popup-card_active'>
                         {FileIcons.doc}

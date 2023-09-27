@@ -39,6 +39,7 @@
         border-radius: 50%;
         .button__icon {
             @include box(1.5em);
+            margin-block: auto;
         }
 
         &:active {
