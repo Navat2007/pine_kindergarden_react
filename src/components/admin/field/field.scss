@@ -91,6 +91,17 @@
         padding-inline-start: 1rem;
         font-size: 0.875em;
         color: var(--admin-text-low-color);
+
+        &_hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            border: 0;
+            clip: rect(0 0 0 0);
+            overflow: hidden;
+        }
     }
 
     &__input {
