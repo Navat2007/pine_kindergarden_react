@@ -124,7 +124,8 @@ const About = () => {
                                 </NavLink>
                             </motion.li>
                         );
-                    })}
+                    })
+                    }
                 </ul>
             </motion.section>
             <motion.section className='about about_contain_inner'
