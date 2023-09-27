@@ -500,7 +500,6 @@ const AdminMediaFilePage = (props) => {
                                             },
                                         ]}
                                         orientation={"portrait"}
-                                        front={false}
                                     />
                                 </div>
                             </div>

@@ -1,0 +1,186 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.file-selector-popup {
+    min-inline-size: min(70vi, 60em);
+    min-block-size: min(60vb, 60em);
+
+    &__list {
+        @extend %reset-list;
+        counter-reset: number 0;
+        outline: 1px solid var(--admin-grey-100-color);
+        padding-block-end: 1em;
+        border-radius: 5px;
+
+        &_type_card-deck {
+            outline: none;
+            display: grid;
+            gap: 1em;
+            grid-template-columns: repeat(auto-fill, minmax(min(9em, 100%), 1fr));
+
+            .file-selector-popup-card {
+                padding: 0.5em;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                text-align: center;
+                @include box(100%);
+                background-color: #fff;
+                border: 1px solid var(--admin-grey-100-color);
+                border-radius: 5px;
+
+                &::before {
+                    content: unset;
+                }
+
+                &__title {
+                    word-break: break-word;
+                    @include clamp(3);
+                    min-height: 4.5em;
+                }
+
+                &__image {
+                    flex: unset;
+                    min-inline-size: unset;
+                    max-inline-size: unset;
+                    @include box(100%);
+                }
+
+                &__image-src {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &__theme-button {
+        border-radius: 5px;
+    }
+}
+
+.file-selector-popup-card {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--admin-grey-100-color);
+    padding: 0.5em;
+    gap: 0.5em;
+    cursor: pointer;
+    counter-increment: number 1;
+
+    &::before {
+        content: counter(number) ".";
+    }
+
+    &:hover {
+        background-color: rgba(var(--admin-primary-opacity-color), 0.1);
+    }
+
+    svg {
+        flex: 0 0 2.5em;
+        min-inline-size: 2.5em;
+        max-inline-size: 2.5em;
+    }
+
+    &__title {
+        margin: 0;
+    }
+
+    &__image {
+        flex: 0 0 2.5em;
+        min-inline-size: 2.5em;
+        max-inline-size: 2.5em;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    &__image-src {
+        margin: 0;
+    }
+}
+
+.admin-context-menu {
+    position: relative;
+
+    &__menu-button {
+        height: 100%;
+        border-radius: 5px;
+        &::after {
+            content: "";
+            display: block;
+            background-color: currentColor;
+            mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgogIDxwYXRoIGQ9Im03IDEwIDUgNSA1LTVIN1oiLz4KPC9zdmc+Cg==");
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            @include box(1.5em);
+            align-self: center;
+            justify-self: end;
+
+            pointer-events: none;
+        }
+    }
+    &__menu-button-icon {
+        margin-block: auto;
+    }
+
+    &__wrapper {
+        min-inline-size: 12em;
+        padding-block: 0.5em;
+        position: absolute;
+        inset: 100% 0 auto auto;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    &__title {
+        margin: 0;
+        font-weight: 500;
+        padding: 0.5em 1em;
+        color: var(--admin-text-low-color);
+    }
+
+    &__list {
+        @extend %reset-list;
+    }
+
+    // &__item {}
+}
+
+.admin-context-menu-item {
+    margin: 0;
+    padding: 0.5em 1em;
+    display: flex;
+    gap: 0 1.5em;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(var(--admin-primary-opacity-color), 0.1);
+    }
+
+    &_active {
+        pointer-events: none;
+        .admin-context-menu-item__icon {
+            @extend %visibility-block;
+        }
+    }
+
+    &__label {
+        flex: auto;
+
+        display: flex;
+        gap: 0.5em;
+        align-items: center;
+    }
+
+    &__icon {
+        @extend %hidden-block;
+    }
+
+    svg {
+        flex: 0 0 1.5em;
+        min-inline-size: 1.5em;
+        max-inline-size: 1.5em;
+        @include box(1.5em);
+    }
+}

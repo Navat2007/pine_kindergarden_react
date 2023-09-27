@@ -338,6 +338,21 @@ export const AdminIcons = {
             <path d='M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12ZM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4Z' />
         </svg>
     ),
+    view_module: (
+        <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24'>
+            <path d='M4 11h5V5H4v6Zm0 7h5v-6H4v6Zm6 0h5v-6h-5v6Zm6 0h5v-6h-5v6Zm-6-7h5V5h-5v6Zm6-6v6h5V5h-5Z' />
+        </svg>
+    ),
+    view_list: (
+        <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24'>
+            <path d='M4 14h4v-4H4v4Zm0 5h4v-4H4v4ZM4 9h4V5H4v4Zm5 5h12v-4H9v4Zm0 5h12v-4H9v4ZM9 5v4h12V5H9Z' />
+        </svg>
+    ),
+    check: (
+        <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24'>
+            <path d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z' />
+        </svg>
+    ),
 };
 
 export const FileIcons = {

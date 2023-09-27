@@ -17,7 +17,7 @@
     animation: fadeIn 0.5s ease-in-out;
 
     @include media(sm) {
-        padding: 3em min(1.5vmax, 1.875em);
+        padding: 3em;
     }
 
     &_opened {
