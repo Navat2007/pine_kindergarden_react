@@ -162,6 +162,12 @@ const FileSelectorPopup = ({ onFileSelected }) => {
                     </article>
                 </li>
             </ol>
+            <div className='file-selector-popup__panel'>
+                <Button type='button' theme='text'>
+                    Отмена
+                </Button>
+                <Button type='button'>Выбрать</Button>
+            </div>
         </div>
     );
 };

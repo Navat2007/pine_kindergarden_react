@@ -56,6 +56,12 @@
     &__theme-button {
         border-radius: 5px;
     }
+
+    &__panel {
+        display: flex;
+        gap: 0.5em;
+        justify-content: center;
+    }
 }
 
 .file-selector-popup-card {
