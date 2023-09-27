@@ -49,7 +49,6 @@ const Lessons = () => {
                         return (
                             <motion.li
                                 key={item.ID}
-                                className='lessons__card'
                                 initial="offscreen"
                                 whileInView="onscreen"
                                 viewport={{once: true, amount: 0.05}}
@@ -58,16 +57,17 @@ const Lessons = () => {
                                 <NavLink
                                     className={"card-link"}
                                     to={"/lesson/" + item.ID}
-                                    aria-label={""}
                                 >
-                                    <img
-                                        className='lessons__card-image'
-                                        src={item.image.includes("http") ? item.image : process.env.REACT_APP_BASE_URL + item.image}
-                                        loading='lazy'
-                                        alt='Изображение занятия'
-                                    />
+                                    <article className='lessons__card'>
+                                        <img
+                                            className='lessons__card-image'
+                                            src={item.image.includes("http") ? item.image : process.env.REACT_APP_BASE_URL + item.image}
+                                            loading='lazy'
+                                            alt='Изображение занятия'
+                                        />
+                                        <h2 className='lessons__card-title'>{item.title}</h2>
+                                    </article>
                                 </NavLink>
-                                <h2 className='lessons__card-title'>{item.title}</h2>
                             </motion.li>
                         )
                     })
