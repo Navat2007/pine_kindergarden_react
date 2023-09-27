@@ -21,6 +21,7 @@ const AdminLayout = () => {
             link: "/admin/mediaFiles",
         },
         {
+            title: "separator",
             separator: true,
         },
         {

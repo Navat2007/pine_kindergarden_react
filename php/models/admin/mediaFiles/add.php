@@ -54,7 +54,8 @@ if($lastID > 0){
                     UPDATE
                         media_files
                     SET
-                        url = '$url'
+                        url = '$url',
+                        file_name = '$name'
                     WHERE
                         ID = '$lastID'";
                 $sqls[] = $sql;

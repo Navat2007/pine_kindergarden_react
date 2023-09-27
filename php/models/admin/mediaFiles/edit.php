@@ -69,7 +69,8 @@ else {
                     UPDATE
                         media_files
                     SET
-                        url = '$url'
+                        url = '$url',
+                        file_name = '$name',
                     WHERE
                         ID = '$id'";
                 $sqls[] = $sql;

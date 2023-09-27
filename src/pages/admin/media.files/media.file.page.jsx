@@ -490,7 +490,7 @@ const AdminMediaFilePage = (props) => {
                                     <FileGallery
                                         items={[
                                             {
-                                                title: store.item.url,
+                                                title: store.item.file_name,
                                                 url: store.item.url,
                                                 type: store.item.type,
                                                 isFile: 1,

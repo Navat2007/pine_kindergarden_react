@@ -25,6 +25,7 @@ if (mysqli_num_rows($result) > 0) {
             'title' => htmlspecialchars_decode($row->title),
             'text' => htmlspecialchars_decode($row->text),
             'url' => htmlspecialchars_decode($row->url),
+            'file_name' => htmlspecialchars_decode($row->file_name),
             'type' => htmlspecialchars_decode($row->type),
             'create_time' => $row->create_time,
         ];

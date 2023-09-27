@@ -41,6 +41,7 @@ const FileGallery = ({title, items, withDescription}) => {
     };
 
     const getThumbsForGallery = (item) => {
+        console.log(item);
 
         if(item.title.includes(".doc"))
         {
