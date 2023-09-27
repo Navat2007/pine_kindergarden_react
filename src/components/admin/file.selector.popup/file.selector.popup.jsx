@@ -100,7 +100,7 @@ const FileSelectorPopup = ({ onFileSelected }) => {
             </div>
             <ol class='file-selector-popup__list'>
                 <li>
-                    <article class='file-selector-popup-card'>
+                    <article class='file-selector-popup-card file-selector-popup-card_active'>
                         {FileIcons.doc}
                         <p class='file-selector-popup-card__title'>пояснения.docx</p>
                     </article>

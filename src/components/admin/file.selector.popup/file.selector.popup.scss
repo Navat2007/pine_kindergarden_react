@@ -82,6 +82,10 @@
         background-color: rgba(var(--admin-primary-opacity-color), 0.1);
     }
 
+    &_active {
+        background-color: rgba(var(--admin-primary-opacity-color), 0.1);
+    }
+
     svg {
         flex: 0 0 2.5em;
         min-inline-size: 2.5em;
