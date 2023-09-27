@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FileSelectorPopup = () => {
+const FileSelectorPopup = ({onFileSelected}) => {
     return (
         <div>
             Таблица или плитки
