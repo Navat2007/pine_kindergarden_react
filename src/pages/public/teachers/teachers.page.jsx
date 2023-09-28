@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 
 import useTeachersStore from "../../../store/public/teachersStore";
 
-import SingleImageWithPreview from "../../../components/general/single_image_with_preview/single.image.with.preview";
+import SingleImageWithPreview from "../../../components/general/single.image.with.preview/single.image.with.preview";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 
 import "./teachers.scss";

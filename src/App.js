@@ -8,7 +8,7 @@ import {PopUpContext} from "./context";
 import useAuthStore from "./store/authStore";
 
 import RoutesList from "./components/routes.list.component";
-import ToTopButton from "./components/general/to_top_button/to.top.button.component";
+import ToTopButton from "./components/general/to.top.button/to.top.button.component";
 
 import "./styles/globals.css";
 

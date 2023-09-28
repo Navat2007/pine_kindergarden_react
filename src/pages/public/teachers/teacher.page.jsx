@@ -9,7 +9,7 @@ import Tabs from "../../../components/public/tabs/tabs.component";
 import Tab from "../../../components/public/tabs/tab.component";
 
 import { AdminIcons } from "../../../components/svgs";
-import SingleImageWithPreview from "../../../components/general/single_image_with_preview/single.image.with.preview";
+import SingleImageWithPreview from "../../../components/general/single.image.with.preview/single.image.with.preview";
 import Table from "../../../components/public/table/table.component";
 
 const TeacherPage = () => {

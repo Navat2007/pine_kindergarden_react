@@ -11,7 +11,7 @@ import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
-import Editor from "../../../components/general/reach_editor/editor.component";
+import Editor from "../../../components/general/reach.editor/editor.component";
 import ImageSelector from "../../../components/general/image.selector/image.selector.component";
 import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
