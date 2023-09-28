@@ -8,13 +8,13 @@ import Pagination from "../../admin/pagination/pagination.component";
 import SearchFilter from "../../admin/search.filter/search.filter.component";
 import Button from "../../admin/button/button.component";
 import Popup from "../../general/popup/popup.component";
-
-import "./table.scss";
-import {AdminIcons} from "../../svgs.js";
+import AlertPopup from "../../general/alert.popup/alert.popup";
 import FieldText from "../../admin/field/field.text.component";
 import FieldNumber from "../../admin/field/field.number.component";
 import FieldDate from "../../admin/field/field.date.component";
-import AlertPopup from "../../general/alert.popup/alert.popup";
+
+import "./table.scss";
+import {AdminIcons} from "../../svgs.js";
 
 const Table = ({
                    children,
