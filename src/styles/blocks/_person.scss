@@ -12,12 +12,12 @@
     }
 
     @include media(xl) {
-        grid-template-columns: auto 1fr;
+        grid-template-columns: min(25em, 100%) 1fr;
     }
 
     &__image {
         @extend %alt-text-on-after;
-        width: min(25em, 100%);
+        inline-size: 100%;
         max-height: min(60vb, 37em);
         // aspect-ratio: 288/419;
         justify-self: center;

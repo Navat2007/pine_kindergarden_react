@@ -19,7 +19,7 @@
     --eror-color: #f7685b;
     --alert-color: #ffb946;
     --success-color: #2ed47a;
-    --info-color: #109CF1;
+    --info-color: #109cf1;
 
     --main-width: 100%;
 
@@ -83,7 +83,7 @@
     padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
 }
 .card-link {
-    height: 100%;
+    block-size: 100%;
     display: flex;
     text-decoration: none;
 }

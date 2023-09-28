@@ -1,6 +1,5 @@
 .teachers-card {
-    height: 100%;
-
+    @include box(100%);
     display: grid;
     grid-template-rows: auto 1fr 1fr;
     gap: min(1.75vmax, 1.25em);

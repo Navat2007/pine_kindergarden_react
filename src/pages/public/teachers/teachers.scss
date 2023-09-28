@@ -20,4 +20,6 @@
         gap: min(3.25vmax, 1.875em);
         grid-template-columns: repeat(auto-fill, minmax(min(20em, 100%), 1fr));
     }
+
+    // &__item {}
 }
