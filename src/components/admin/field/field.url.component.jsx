@@ -51,7 +51,9 @@ const FieldUrl = ({ errorText, extraClass, label = "", placeholder = "", require
                                     setPopup(<></>);
                                 }}
                             >
-                                <FileSelectorPopup onFileSelected={onFileSelected} />
+                                <FileSelectorPopup onFileSelected={onFileSelected} onClose={() => {
+                                    setPopup(<></>);
+                                }} />
                             </Popup>
                         )
                     }

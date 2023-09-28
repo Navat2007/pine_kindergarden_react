@@ -77,7 +77,7 @@ const FileSelectorPopup = ({ onFileSelected, onClose }) => {
     return (
         <div className='file-selector-popup'>
             <div className='file-selector-popup__search'>
-                <SearchFilter config={itemConfig}>
+                <SearchFilter config={itemConfig} items={store.items} onSubmit={() => {}}>
                     <ContextMenu items={contextMenu} onItemClick={onContextItemClick}/>
                 </SearchFilter>
             </div>
