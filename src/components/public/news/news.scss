@@ -2,8 +2,12 @@
 @import "../../../styles/extends";
 
 .news {
-    @extend %main-width;
-    padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
+    background-color: var(--dark-background);
+
+    &__wrap {
+        @extend %main-width;
+        padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
+    }
 
     &__title {
         margin: 1em 0;
@@ -23,19 +27,18 @@
 }
 
 .article-card {
-    height: 100%;
-
+    @include box(100%);
     display: grid;
     gap: 0.5em;
     grid-template-rows: auto auto 1fr 1fr auto;
     padding: min(1.75vmax, 1.25em);
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    border-radius: 5px;
+    // outline: 2px solid var(--dark-background);
+    // border-radius: 5px;
     transition: box-shadow 0.35s ease-in;
 
     &:hover {
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.26);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     }
 
     &__image {
