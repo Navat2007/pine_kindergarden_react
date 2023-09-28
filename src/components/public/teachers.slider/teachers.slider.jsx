@@ -3,9 +3,9 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { NavLink } from "react-router-dom";
 
 import "./teachers.slider.scss";
-import person_2 from "../../../images/person_2.jpg";
-import person_3 from "../../../images/person_3.jpg";
-import person_4 from "../../../images/person_4.jpg";
+// import person_2 from "../../../images/person_2.jpg";
+// import person_3 from "../../../images/person_3.jpg";
+// import person_4 from "../../../images/person_4.jpg";
 
 const TeachersSlider = () => {
     return (
@@ -59,7 +59,7 @@ const TeachersSlider = () => {
                         <img
                             className='person-card__image'
                             loding='lazy'
-                            src={person_2}
+                            src={'person_2'}
                             alt='Фотография Инга Марковна Шелест'
                         />
                         <h3 className='person-card__title'>
@@ -75,7 +75,7 @@ const TeachersSlider = () => {
                         <img
                             className='person-card__image'
                             loding='lazy'
-                            src={person_3}
+                            src={'person_3'}
                             alt='Фотография Игорь Петрович Михалев'
                         />
                         <h3 className='person-card__title'>
@@ -91,7 +91,7 @@ const TeachersSlider = () => {
                         <img
                             className='person-card__image'
                             loding='lazy'
-                            src={person_4}
+                            src={'person_4'}
                             alt='Фотография Инна Федоровна Осипова'
                         />
                         <h3 className='person-card__title'>

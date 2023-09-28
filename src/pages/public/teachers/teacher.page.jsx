@@ -1,6 +1,6 @@
-import React from 'react';
-import {motion} from "framer-motion";
-import {useParams} from "react-router-dom";
+import React from "react";
+import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
 
 import useTeachersStore from "../../../store/public/teachersStore";
 
@@ -8,9 +8,9 @@ import BasicPage from "../../../components/public/basic.page/basic.page.componen
 import Tabs from "../../../components/public/tabs/tabs.component";
 import Tab from "../../../components/public/tabs/tab.component";
 
-import {AdminIcons} from "../../../components/svgs";
+import { AdminIcons } from "../../../components/svgs";
 import SingleImageWithPreview from "../../../components/general/single_image_with_preview/single.image.with.preview";
-import Table from "../../../components/admin/table/table.component";
+import Table from "../../../components/public/table/table.component";
 
 const TeacherPage = () => {
     let { id } = useParams();
@@ -18,7 +18,7 @@ const TeacherPage = () => {
     const store = useTeachersStore();
 
     const fetchData = async () => {
-        await store.loadByID({id});
+        await store.loadByID({ id });
     };
 
     React.useEffect(() => {
@@ -196,17 +196,21 @@ const TeacherPage = () => {
                 transition={{ delay: 0.2, duration: 1 }}
             >
                 <article className='person'>
-                    <SingleImageWithPreview image={store.item.photo} extraClass={'person__image'} />
+                    <SingleImageWithPreview image={store.item.photo} extraClass={"person__image"} />
                     <div className='person__section'>
                         <div className='person__main-content'>
                             <h1 className='person__title'>{store.item.fio}</h1>
                             <p className='person__subtitle'>{store.item.position}</p>
-                            {
-                                store.item.page &&
-                                <a className='person__link' href={store.item.page} rel='noopener nofollow noreferrer' target='_blank'>
+                            {store.item.page && (
+                                <a
+                                    className='person__link'
+                                    href={store.item.page}
+                                    rel='noopener nofollow noreferrer'
+                                    target='_blank'
+                                >
                                     Личная страница {AdminIcons.open_in_new}
                                 </a>
-                            }
+                            )}
                         </div>
                         <Tabs>
                             <Tab title={"Образование"}>
@@ -228,7 +232,7 @@ const TeacherPage = () => {
                                     title={"Информация о трудовом стаже"}
                                     items={store.item.works}
                                     itemsConfig={itemConfigWork}
-                                    />
+                                />
                             </Tab>
                             <Tab title={"Награды, благодарности"}>
                                 <Table
