@@ -25,6 +25,7 @@
     "react-player": "^2.13.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.4.3",
+    "react-router-hash-link": "^2.4.3",
     "react-scripts": "^5.0.1",
     "react-select": "^5.6.1",
     "react-spring": "^9.6.1",
