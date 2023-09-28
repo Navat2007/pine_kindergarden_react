@@ -8,10 +8,10 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 $sql = "SELECT 
         item.ID, item.preview_title, item.preview_text, item.preview_image, item.date, item.active
     FROM 
-        item as item
+        news as item
     WHERE 
         item.archive = '0' AND item.active = '1' AND item.show_on_main_page = '1' AND item.date <= NOW()
-    ORDER BY item.date DESC LIMIT 1";
+    ORDER BY item.date DESC LIMIT 4";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 

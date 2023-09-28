@@ -22,10 +22,7 @@ const News = ({items, count}) => {
             >
                 <h2 className='news__title'>Новости</h2>
                 <ul className='news__list'>
-                    {items.map((item, index) => {
-                        if(count && index > count)
-                            return null;
-
+                    {items.map((item) => {
                         return (
                             <li key={item.ID}>
                                 <NavLink className={"card-link"} to={"/news/" + item.ID}>

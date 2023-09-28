@@ -1,12 +1,15 @@
 import React from 'react';
 import {useParams} from "react-router-dom";
 import createDOMPurify from "dompurify";
+import {Helmet} from "react-helmet";
+import {motion} from "framer-motion";
 
 import useNewsStore from "../../../store/public/newsStore";
-import {Helmet} from "react-helmet";
+
 import Breadcrumbs from "../../../components/public/breadcrumbs/breadcrumbs";
-import {motion} from "framer-motion";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
+import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
+import SingleImageWithPreview from "../../../components/general/single.image.with.preview/single.image.with.preview";
 
 const NewsPage = () => {
     let { id } = useParams();
@@ -21,8 +24,6 @@ const NewsPage = () => {
     React.useEffect(() => {
         fetchData();
     }, []);
-
-    console.log(store.item);
 
     return (
         <BasicPage loadings={[store]}>
@@ -53,15 +54,7 @@ const NewsPage = () => {
                 transition={{ delay: 0.2, duration: 1 }}
             >
                 <div className='article__two-columns'>
-                    <img
-                        className='article__image'
-                        src={
-                            store?.item?.image?.includes("http")
-                                ? store?.item?.image
-                                : process.env.REACT_APP_BASE_URL + store?.item?.image
-                        }
-                        alt='Изображение занятия'
-                    />
+                    <SingleImageWithPreview image={store?.item?.image} extraClass={"article__image"} />
                     <div>
                         <h1 className='article__title'>{store?.item?.title}</h1>
                         <div
@@ -72,6 +65,9 @@ const NewsPage = () => {
                         />
                     </div>
                 </div>
+                {store?.item?.images?.length > 0 && (
+                    <ImageGallery extraClass={""} items={store.item.images} />
+                )}
             </motion.section>
         </BasicPage>
     );
