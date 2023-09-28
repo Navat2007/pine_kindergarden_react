@@ -2,11 +2,12 @@ import React from "react";
 import createDOMPurify from "dompurify";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import {Helmet} from "react-helmet";
 
 import useGroupsStore from "../../../store/public/groupsStore";
 
-import Feedback from "../../../components/public/feedback/feedback";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
+import Breadcrumbs from "../../../components/public/breadcrumbs/breadcrumbs";
 
 const GroupPage = () => {
     let { id } = useParams();
@@ -26,6 +27,25 @@ const GroupPage = () => {
     const Article = () => {
         return (
             <>
+                <Helmet>
+                    <title>{store.item.title}</title>
+                </Helmet>
+                <Breadcrumbs
+                    items={[
+                        {
+                            title: "Главная",
+                            url: "/",
+                        },
+                        {
+                            title: "Группы",
+                            url: "/about#groups",
+                        },
+                        {
+                            title: store.item.title,
+                            url: "",
+                        },
+                    ]}
+                />
                 <motion.section
                     className='article'
                     initial={{ opacity: 0 }}
@@ -59,7 +79,6 @@ const GroupPage = () => {
                         </>
                     )}
                 </motion.section>
-                <Feedback />
             </>
         );
     };

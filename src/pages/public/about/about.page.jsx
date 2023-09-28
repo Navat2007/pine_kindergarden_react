@@ -64,7 +64,7 @@ const AboutPage = () => {
                 </div>
             </section>
             <section className='about about_contain_inner'>
-                <h2 className='about__title'>Наши группы</h2>
+                <h2 id={"groups"} className='about__title'>Наши группы</h2>
                 <ul className='about__list'>
                     {
                         groupsStore.loading && <h3>Загрузка...</h3>
