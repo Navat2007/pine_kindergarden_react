@@ -10,7 +10,10 @@
 
     // &__column {}
 
-    // &__image {}
+    &__image {
+        max-block-size: min(80vh, 40em);
+        object-fit: contain;
+    }
 
     &__title {
         margin: 0.75rem 0;

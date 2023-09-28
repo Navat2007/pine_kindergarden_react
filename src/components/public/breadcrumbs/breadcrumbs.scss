@@ -1,0 +1,37 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.breadcrumbs {
+    @extend %main-width;
+    padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
+    &__list {
+        @extend %reset-list;
+        list-style: circle;
+        display: flex;
+        gap: min(3.25vmax, 1.875em);
+        flex-wrap: wrap;
+    }
+    &__item {
+        font-size: var(--text-size-lg);
+        font-weight: 500;
+        color: var(--dark-low);
+
+        &:first-child {
+            list-style: none;
+        }
+        &:last-child {
+            color: var(--primary);
+        }
+        &:hover {
+            color: var(--primary);
+        }
+    }
+
+    &__link {
+        color: currentColor;
+        text-decoration: none;
+        &:not([href]) {
+            cursor: default;
+        }
+    }
+}
