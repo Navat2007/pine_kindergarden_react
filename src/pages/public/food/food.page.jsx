@@ -1,6 +1,6 @@
 import React from "react";
-import {Helmet} from "react-helmet";
-import {motion} from "framer-motion";
+import { Helmet } from "react-helmet";
+import { motion } from "framer-motion";
 import createDOMPurify from "dompurify";
 
 import useFoodStore from "../../../store/public/foodsStore";
@@ -38,44 +38,59 @@ const FoodPage = () => {
             </Helmet>
             <motion.section
                 className='food'
-                initial={{opacity: 0}}
-                animate={{opacity: 1}}
-                exit={{opacity: 0}}
-                transition={{delay: 0.2, duration: 1}}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.2, duration: 1 }}
             >
-                <img
-                    className='food__image'
-                    src={Food__image}
-                    loading='lazy'
-                    alt='Изображение супа со слоненком из хлеба, обед в детском садике'
-                />
-                <h1 className='food__title'>Питание</h1>
-                <div className='food__text'
-                     dangerouslySetInnerHTML={{
-                         __html: DOMPurify.sanitize(store.items.preview),
-                     }}
-                />
+                <div className='food__two-columns'>
+                    <div className='food__column'>
+                        <h1 className='food__title'>Питание</h1>
+                        <div
+                            className='food__text'
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(store.items.preview),
+                            }}
+                        />
+                    </div>
+                    <div className='food__column'>
+                        <img
+                            className='food__image'
+                            src={Food__image}
+                            loading='lazy'
+                            alt='Изображение супа со слоненком из хлеба, обед в детском садике'
+                        />
+                    </div>
+                </div>
                 <h2 className='food__title'>Меню</h2>
-                {
-                    menuStore.items.map((item) => {
+                <ul className='food__two-columns'>
+                    {menuStore.items.map((item) => {
                         return (
-                            <li key={item.ID} className="documents__item section section_showed">
-                                <SingleImageWithPreview image={item.image} extraClass={"documents__item-image"} />
-                                <div className="documents__item-section">
-                                    <h3 className="documents__item-title">{item.title}</h3>
-                                    <div className="documents__item-text">
+                            <li key={item.ID} className='food-menu-card'>
+                                <SingleImageWithPreview image={item.image} extraClass={"food-menu-card__image"} />
+                                <div className='food-menu-card__section'>
+                                    <h3 className='food-menu-card__title'>{item.title}</h3>
+                                    <div className='food-menu-card__text'>
                                         <p>{item.text}</p>
                                     </div>
-                                    <a className="documents__item-link" href={item.url} rel="noopener nofollow noreferrer" target={"_blank"}>Открыть</a>
+                                    <a
+                                        className='food-menu-card__link'
+                                        href={item.url}
+                                        rel='noopener nofollow noreferrer'
+                                        target={"_blank"}
+                                    >
+                                        Открыть
+                                    </a>
                                 </div>
                             </li>
-                        )
-                    })
-                }
-                <div className='food__text'
-                     dangerouslySetInnerHTML={{
-                         __html: DOMPurify.sanitize(store.items.text),
-                     }}
+                        );
+                    })}
+                </ul>
+                <div
+                    className='food__text'
+                    dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(store.items.text),
+                    }}
                 />
             </motion.section>
         </BasicPage>

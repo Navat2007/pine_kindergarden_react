@@ -5,22 +5,19 @@
     @extend %main-width;
     padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
 
-    @include media(lg) {
-        &::after {
-            content: "";
-            display: block;
-            clear: both;
-        }
+    &__two-columns {
+        @extend %reset-list;
+        display: grid;
+        gap: min(3.25vmax, 1.875em);
+        margin-block-end: min(2.5vmax, 2.5rem);
+        grid-template-columns: repeat(auto-fit, minmax(min(27em, 100%), 1fr));
     }
 
-    &__image {
-        max-width: min(45vmax, 36.75em);
-        margin-bottom: min(2vmax, 1.25rem);
+    // &__column {}
 
-        @include media(lg) {
-            float: right;
-            margin-left: min(3.25vmax, 1.875em);
-        }
+    &__image {
+        @include box(100%);
+        object-fit: cover;
     }
 
     &__title {
@@ -40,5 +37,63 @@
         margin: min(3.25vmax, 1.875em) 0;
         font-size: var(--text-size-xl);
         line-height: 1.5;
+    }
+}
+
+.food-menu-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(20em, 100%), 1fr));
+    gap: 1.25em;
+
+    &__image {
+        cursor: pointer;
+    }
+
+    &__section {
+        flex: auto;
+        padding: 1.25em 0;
+
+        display: flex;
+        gap: 1.25em;
+        flex-direction: column;
+    }
+
+    &__title {
+        margin: 0;
+        font-family: var(--font-headings);
+        font-size: var(--title-size-sm);
+        font-weight: normal;
+    }
+    &__text {
+        font-size: var(--text-size-lg);
+        line-height: 1.5;
+    }
+    &__link {
+        @extend %reset-btn;
+        text-decoration: unset;
+        font-family: var(--font-headings);
+        border-radius: 10px;
+        background-color: #9dd641;
+        border-color: #9dd641;
+        box-sizing: border-box;
+        width: 100%;
+        text-align: center;
+        max-width: 9.375rem;
+        font-size: var(--text-size-xl);
+        min-height: min(6vmax, 3em);
+        transition: 0.35s ease-out;
+
+        &:disabled {
+            pointer-events: none;
+            background-color: #e1e1e1;
+        }
+
+        &:hover {
+            background-color: var(--primary);
+        }
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
