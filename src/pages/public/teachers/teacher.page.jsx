@@ -1,15 +1,196 @@
 import React from 'react';
 import {motion} from "framer-motion";
+import {useParams} from "react-router-dom";
+import createDOMPurify from "dompurify";
+
+import useTeachersStore from "../../../store/public/teachersStore";
 
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 import Tabs from "../../../components/public/tabs/tabs.component";
 import Tab from "../../../components/public/tabs/tab.component";
 
 import {AdminIcons} from "../../../components/svgs";
+import SingleImageWithPreview from "../../../components/general/single_image_with_preview/single.image.with.preview";
+import Table from "../../../components/admin/table/table.component";
 
 const TeacherPage = () => {
+    let { id } = useParams();
+    const DOMPurify = createDOMPurify(window);
+
+    const store = useTeachersStore();
+
+    const fetchData = async () => {
+        await store.loadByID({id});
+    };
+
+    React.useEffect(() => {
+        fetchData();
+    }, []);
+
+    console.log(store.item);
+    const itemConfigEducation = [
+        {
+            header: "ID",
+            key: "ID",
+            type: "int",
+            filter: "number",
+            sorting: true,
+            hide: true,
+        },
+        {
+            header: "Наименование учебного учреждения",
+            key: "orgName",
+            type: "string",
+            filter: "string",
+            sorting: true,
+            required: true,
+        },
+        {
+            header: "Дата окончания",
+            key: "endDate",
+            type: "date",
+            filter: "date",
+            sorting: true,
+            required: true,
+        },
+        {
+            header: "Специальность, квалификация по диплому",
+            key: "qualification",
+            type: "string",
+            filter: "select",
+            sorting: true,
+            required: true,
+        },
+    ];
+    const itemConfigQualification = [
+        {
+            header: "ID",
+            key: "ID",
+            type: "int",
+            filter: "number",
+            sorting: true,
+            hide: true,
+        },
+        {
+            header: "Наименование",
+            key: "title",
+            type: "string",
+            filter: "string",
+            sorting: true,
+            required: true,
+        },
+        {
+            header: "Место проведения",
+            key: "place",
+            type: "string",
+            filter: "string",
+            sorting: true,
+            required: true,
+        },
+        {
+            header: "Дата прохождения",
+            key: "date",
+            type: "date",
+            filter: "date",
+            sorting: true,
+            required: true,
+        },
+        {
+            header: "Количество часов",
+            key: "hours",
+            type: "int",
+            filter: "int",
+            sorting: true,
+            required: true,
+        },
+    ];
+    const itemConfigWork = [
+        {
+            header: "ID",
+            key: "ID",
+            type: "int",
+            filter: "number",
+            sorting: true,
+            hide: true,
+        },
+        {
+            header: "Общий стаж",
+            key: "summary",
+            type: "string",
+            filter: "string",
+            sorting: true,
+            required: true,
+        },
+        {
+            header: "Педагогический стаж",
+            key: "education",
+            type: "string",
+            filter: "string",
+            sorting: true,
+            required: true,
+        },
+        {
+            header: "В данном учреждении",
+            key: "work",
+            type: "string",
+            filter: "string",
+            sorting: true,
+            required: true,
+        },
+        {
+            header: "Квалификационная категория",
+            key: "category",
+            type: "string",
+            filter: "string",
+            sorting: true,
+            required: true,
+        },
+        {
+            header: "Дата аттестации",
+            key: "date",
+            type: "date",
+            filter: "date",
+            sorting: true,
+            required: true,
+        },
+        {
+            header: "Приказ",
+            key: "date_order",
+            type: "string",
+            filter: "string",
+            sorting: true,
+            required: false,
+        },
+    ];
+    const itemConfigReward = [
+        {
+            header: "ID",
+            key: "ID",
+            type: "int",
+            filter: "number",
+            sorting: true,
+            hide: true,
+        },
+        {
+            header: "Наименование",
+            key: "title",
+            type: "string",
+            filter: "string",
+            sorting: true,
+            required: true,
+        },
+        {
+            header: "Дата",
+            key: "date",
+            type: "date",
+            filter: "date",
+            sorting: true,
+            required: true,
+        },
+    ];
+
     return (
-        <BasicPage>
+        <BasicPage loadings={[store]}>
             <motion.section
                 className='article'
                 initial={{ opacity: 0 }}
@@ -18,196 +199,46 @@ const TeacherPage = () => {
                 transition={{ delay: 0.2, duration: 1 }}
             >
                 <article className='person'>
-                    <img
-                        className='person__image'
-                        src='https://ds1387.ru/images/people/volkova2.jpg'
-                        loading='lazy'
-                        alt='Фотография Инна Федоровна Осипова'
-                    />
+                    <SingleImageWithPreview image={store.item.photo} extraClass={'person__image'} />
                     <div className='person__section'>
                         <div className='person__main-content'>
-                            <h1 className='person__title'>Инна Федоровна Осипова</h1>
-                            <p className='person__subtitle'>Логопед</p>
-                            <a className='person__link' href='' rel='noopener nofollow noreferer' target='_blank'>
-                                Личная страница {AdminIcons.open_in_new}
-                            </a>
+                            <h1 className='person__title'>{store.item.fio}</h1>
+                            <p className='person__subtitle'>{store.item.position}</p>
+                            {
+                                store.item.page &&
+                                <a className='person__link' href={store.item.page} rel='noopener nofollow noreferer' target='_blank'>
+                                    Личная страница {AdminIcons.open_in_new}
+                                </a>
+                            }
                         </div>
                         <Tabs>
                             <Tab title={"Образование"}>
-                                <div className='table'>
-                                    <div className='table__container'>
-                                        <table className='table__table'>
-                                            <thead className='table__thead'>
-                                            <tr className='table__row'>
-                                                <th className='table__cell-heading'>
-                                                    Наименование учебного учреждения
-                                                </th>
-                                                <th className='table__cell-heading'>Дата окончания</th>
-                                                <th className='table__cell-heading'>
-                                                    Специальность, квалификация по диплому
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody className='table__tbody'>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>
-                                                    Московский государственный заочный педагогический институт
-                                                </td>
-                                                <td className='table__cell'>1990 год</td>
-                                                <td className='table__cell'>
-                                                    Педагогика и психология (дошкольная), преподаватель дошкольной
-                                                    педагогики и психологии, методист по дошкольному воспитанию
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                <Table
+                                    title={"Информация об образовании"}
+                                    items={store.item.educations}
+                                    itemsConfig={itemConfigEducation}
+                                />
                             </Tab>
                             <Tab title={"Повышение квалификации"}>
-                                <div className='table'>
-                                    <div className='table__container'>
-                                        <table className='table__table'>
-                                            <thead className='table__thead'>
-                                            <tr className='table__row'>
-                                                <th className='table__cell-heading'>Наименование</th>
-                                                <th className='table__cell-heading'>Место проведения</th>
-                                                <th className='table__cell-heading'>Дата прохождения</th>
-                                                <th className='table__cell-heading'>Количество часов</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody className='table__tbody'>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>
-                                                    Руководство развитием дошкольной образовательной организации
-                                                </td>
-                                                <td className='table__cell'>
-                                                    Негосударственное образовательное частное учреждение организации
-                                                    дополнительного профессионального образования "Актион-МЦФЭР"
-                                                </td>
-                                                <td className='table__cell'>2018 год</td>
-                                                <td className='table__cell'>72 часа</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>
-                                                    Организация и контроль качества образовательной деятельности в
-                                                    ДОО
-                                                </td>
-                                                <td className='table__cell'>
-                                                    Негосударственное образовательное частное учреждение организации
-                                                    дополнительного профессионального образования "Актион-МЦФЭР"
-                                                </td>
-                                                <td className='table__cell'>2018 год</td>
-                                                <td className='table__cell'>72 часа</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>
-                                                    Управление образовательной организацией
-                                                </td>
-                                                <td className='table__cell'>
-                                                    Негосударственное образовательное частное учреждение организации
-                                                    дополнительного профессионального образования "Актион-МЦФЭР"
-                                                </td>
-                                                <td className='table__cell'>2018 год</td>
-                                                <td className='table__cell'>120 часов</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>
-                                                    Менеджмент дошкольного образования (профессиональная
-                                                    переподготовка)
-                                                </td>
-                                                <td className='table__cell'>
-                                                    Негосударственное образовательное частное учреждение организации
-                                                    дополнительного профессионального образования "Актион-МЦФЭР"
-                                                </td>
-                                                <td className='table__cell'>2018 год</td>
-                                                <td className='table__cell'>250 часов</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                <Table
+                                    title={"Информация об квалификации"}
+                                    items={store.item.qualifications}
+                                    itemsConfig={itemConfigQualification}
+                                />
                             </Tab>
                             <Tab title={"Трудовой стаж"}>
-                                <div className='table'>
-                                    <div className='table__container'>
-                                        <table className='table__table'>
-                                            <tbody className='table__tbody'>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>Общий стаж</td>
-                                                <td className='table__cell'>38 лет</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>Педагогический стаж</td>
-                                                <td className='table__cell'>38 лет</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>В данном учреждении</td>
-                                                <td className='table__cell'>35 лет</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>Квалификационная категория:</td>
-                                                <td className='table__cell'>высшая</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>Дата аттестации:</td>
-                                                <td className='table__cell'>
-                                                    19.12.2017 (Приказ Управления делами Президента Российской
-                                                    Федерации от 09.01.2018 г. № 2 лс)
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                <Table
+                                    title={"Информация о трудовом стаже"}
+                                    items={store.item.works}
+                                    itemsConfig={itemConfigWork}
+                                    />
                             </Tab>
                             <Tab title={"Награды, благодарности"}>
-                                <div className='table'>
-                                    <div className='table__container'>
-                                        <table className='table__table'>
-                                            <thead className='table__thead'>
-                                            <tr className='table__row'>
-                                                <th className='table__cell-heading'>Наименование</th>
-                                                <th className='table__cell-heading'>Дата</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody className='table__tbody'>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>Почетная грамота учреждения</td>
-                                                <td className='table__cell'>06.11.1984</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>Медаль «В память 850-летия Москвы»</td>
-                                                <td className='table__cell'>26.02.1997</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>
-                                                    Почетная грамота Управления делами Президента РФ
-                                                </td>
-                                                <td className='table__cell'>15.01.1999</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>
-                                                    Благодарность Управления делами Президента РФ
-                                                </td>
-                                                <td className='table__cell'>02.12.2008</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>
-                                                    Памятный знак «20 лет Управлению делами Президента РФ»
-                                                </td>
-                                                <td className='table__cell'>14.11.2013</td>
-                                            </tr>
-                                            <tr className='table__row'>
-                                                <td className='table__cell'>
-                                                    Благодарность Управления делами Президента РФ
-                                                </td>
-                                                <td className='table__cell'>24.10.2018</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                <Table
+                                    title={"Информация о наградах, благодарностях"}
+                                    items={store.item.rewards}
+                                    itemsConfig={itemConfigReward}
+                                />
                             </Tab>
                         </Tabs>
                     </div>

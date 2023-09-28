@@ -35,7 +35,6 @@ import IndexPage from "../pages/public/index.page";
 import LessonsPage from "../pages/public/lessons/lessons.page";
 import LessonPage from "../pages/public/lessons/lesson.page";
 import DocumentsPage from "../pages/public/documents/documents.page";
-import DocumentPage from "../pages/public/documents/document.page";
 import TeachersPage from "../pages/public/teachers/teachers.page";
 import TeacherPage from "../pages/public/teachers/teacher.page";
 import FoodPage from "../pages/public/food/food.page";
@@ -55,10 +54,6 @@ const RoutesList = () => {
                 <Route path=':id' element={<LessonPage />} />
             </Route>
             <Route path='/documents' exact={true} element={<DocumentsPage />} />
-            <Route path='/documents'>
-                <Route index element={<DocumentsPage />} />
-                <Route path=':id' element={<DocumentPage />} />
-            </Route>
             <Route path='/teachers'>
                 <Route index element={<TeachersPage />} />
                 <Route path=':id' element={<TeacherPage />} />
