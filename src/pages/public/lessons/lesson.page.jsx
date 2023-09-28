@@ -30,7 +30,22 @@ const LessonPage = () => {
             <Helmet>
                 <title>Занятия - {store.item.title}</title>
             </Helmet>
-            <Breadcrumbs />
+            <Breadcrumbs
+                items={[
+                    {
+                        title: "Главная",
+                        url: "/",
+                    },
+                    {
+                        title: "Занятия",
+                        url: "/lessons/",
+                    },
+                    {
+                        title: store.item.title,
+                        url: "",
+                    },
+                ]}
+            />
             <motion.section
                 className='article'
                 initial={{ opacity: 0 }}
