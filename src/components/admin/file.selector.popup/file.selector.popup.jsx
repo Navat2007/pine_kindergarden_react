@@ -1,18 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 import useMediaFilesStore from "../../../store/admin/mediaFilesStore";
 
+import SearchFilter from "../search.filter/search.filter.component";
+import ContextMenu from "../context.menu/context.menu.component";
 import Button from "../button/button.component";
 import Table from "../table/table.component";
 
 import "./file.selector.popup.scss";
 import { AdminIcons, FileIcons } from "../../svgs";
-import SearchFilter from "../search.filter/search.filter.component";
 
 const FileSelectorPopup = ({ onFileSelected }) => {
     const store = useMediaFilesStore();
-    const navigate = useNavigate();
 
     const url = "admin/mediaFiles";
 
@@ -63,39 +62,7 @@ const FileSelectorPopup = ({ onFileSelected }) => {
         <div className='file-selector-popup'>
             <div className='file-selector-popup__search'>
                 <SearchFilter config={itemConfig}>
-                    {/* Здесь просится новый компонент - контекстное меню. Сейчас оно открыто и выпадает справа окна, но в будущем можно будет задавать позицию точнее. Появление можешь сделать через моушен. Класс admin-context-menu__wrapper при нажатии на кнопку будет открываться/скрываться. Также у класса admin-context-menu__item если он выбран появляется модификатор admin-context-menu__item_active */}
-                    <nav className='admin-context-menu'>
-                        <Button
-                            type='button'
-                            isIconBtn={true}
-                            extraClass={"admin-context-menu__menu-button"}
-                            iconName={AdminIcons.view_list}
-                        />
-                        <div className='admin-context-menu__wrapper'>
-                            <p className='admin-context-menu__title'>Вид</p>
-                            <ul className='admin-context-menu__list'>
-                                <li className='admin-context-menu__item admin-context-menu__item_active'>
-                                    <p className='admin-context-menu-item admin-context-menu-item_active'>
-                                        <span className='admin-context-menu-item__label'>
-                                            {AdminIcons.view_list}
-                                            Плитка
-                                        </span>
-                                        <span className='admin-context-menu-item__icon'>{AdminIcons.check}</span>
-                                    </p>
-                                </li>
-                                <li className='admin-context-menu__item admin-context-menu__item_active'>
-                                    <p className='admin-context-menu-item'>
-                                        <span className='admin-context-menu-item__label'>
-                                            {AdminIcons.view_module}
-                                            Список
-                                        </span>
-                                        <span className='admin-context-menu-item__icon'>{AdminIcons.check}</span>
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                    {/* Конец контекстного меню. Когда вынесешь сообщи, я стили также перенесу. */}
+                    <ContextMenu />
                 </SearchFilter>
             </div>
             <ol className='file-selector-popup__list'>

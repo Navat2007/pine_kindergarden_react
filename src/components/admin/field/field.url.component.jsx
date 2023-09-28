@@ -1,16 +1,18 @@
 import React, { forwardRef } from "react";
 
+import {PopUpContext} from "../../../context";
+
 import Button from "../button/button.component";
 import FileSelectorPopup from "../file.selector.popup/file.selector.popup";
+import Popup from "../../general/popup/popup.component";
 
 import "./field.scss";
-import FieldInput from "../../general/field/field.input.component";
-import Popup from "../../general/popup/popup.component";
 import { AdminIcons } from "../../svgs";
 
-const FieldUrl = ({ errorText, extraClass, label = "", placeholder = "", required = false, ...rest }, ref) => {
+const FieldUrl = ({ errorText, extraClass, label = "", placeholder = "", required = false, onFileSelected = () => {}, ...rest }, ref) => {
     const id = window.global.makeid(8);
-    const [popup, setPopup] = React.useState(<></>);
+
+    const {setPopup} = React.useContext(PopUpContext);
 
     return (
         <div className={`field${errorText ? ` field_state_error` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
@@ -49,13 +51,12 @@ const FieldUrl = ({ errorText, extraClass, label = "", placeholder = "", require
                                     setPopup(<></>);
                                 }}
                             >
-                                <FileSelectorPopup />
+                                <FileSelectorPopup onFileSelected={onFileSelected} />
                             </Popup>
                         )
                     }
                 />
             </div>
-            {popup}
         </div>
     );
 };

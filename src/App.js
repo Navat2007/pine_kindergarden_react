@@ -2,7 +2,6 @@ import React from "react";
 import {BrowserRouter, HashRouter, useLocation} from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
-import {AnimatePresence} from "framer-motion";
 import {PopUpContext} from "./context";
 
 import useAuthStore from "./store/authStore";
@@ -16,7 +15,7 @@ const App = () => {
     const {setUser, logout} = useAuthStore();
 
     const [app, setApp] = React.useState(false);
-    const [popUp, setPopUp] = React.useState(<></>);
+    const [popup, setPopup] = React.useState(<></>);
 
     const fetchData = async () => {
         const user = window.localStorage.getItem("user");
@@ -86,14 +85,14 @@ const App = () => {
     }, []);
 
     return (
-        <PopUpContext.Provider value={{popUp, setPopUp}}>
+        <PopUpContext.Provider value={{popup, setPopup}}>
             {app && (
                 <BrowserRouter>
                     <RoutesList/>
                     <ToTopButton/>
                 </BrowserRouter>
             )}
-            {popUp}
+            {popup}
         </PopUpContext.Provider>
     );
 };
