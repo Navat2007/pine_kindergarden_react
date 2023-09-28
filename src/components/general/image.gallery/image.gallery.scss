@@ -68,3 +68,40 @@
         transition: transform 0.35s ease-in;
     }
 }
+
+.image-gallery {
+    @extend %reset-list;
+
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(auto-fit, minmax(min(18em, 100%), 1fr));
+
+    &__item {
+        @include box(100%);
+        position: relative;
+        // border-radius: 5px;
+        overflow: hidden;
+        // aspect-ratio: 1/1;
+        // outline: 2px solid var(--dark-background);
+        aspect-ratio: 22/15;
+        cursor: pointer;
+
+        &:hover {
+            .image-gallery__img {
+                transform: scale(1.05);
+            }
+        }
+
+        &:hover .admin-image-gallery__item-panel,
+        &:hover .admin-image-gallery__thumbs {
+            @extend %visibility-block;
+        }
+    }
+
+    &__img {
+        display: block;
+        @include box(100%);
+        object-fit: cover;
+        transition: transform 0.35s ease-in;
+    }
+}

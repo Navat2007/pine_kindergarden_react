@@ -2,8 +2,17 @@
 @import "../../../styles/extends";
 
 .file-selector-popup {
-    min-inline-size: min(70vi, 60em);
+    display: flex;
+    flex-direction: column;
+
+    inline-size: 100%;
+    block-size: 90vb;
     min-block-size: min(60vb, 60em);
+
+    @include media(sm) {
+        inline-size: min(70vi, 80em);
+        block-size: 80vb;
+    }
 
     &__list {
         @extend %reset-list;
@@ -13,6 +22,10 @@
         padding: 1em;
         padding-block-end: 1em;
         border-radius: 5px;
+
+        flex: auto;
+        overflow-y: auto;
+        // height: calc(100% - 12em);
 
         &_type_card-deck {
             display: grid;
@@ -62,7 +75,6 @@
 
     &__upload-button {
         margin-inline-start: auto;
-
     }
 }
 

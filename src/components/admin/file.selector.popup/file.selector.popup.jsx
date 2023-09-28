@@ -24,11 +24,11 @@ const FileSelectorPopup = ({ onFileSelected, onClose }) => {
     }, []);
 
     const onContextItemClick = (props) => {
-        if(props === 0){
+        if (props === 0) {
             setView("list");
         }
 
-        if(props === 1){
+        if (props === 1) {
             setView("grid");
         }
     };
@@ -66,183 +66,151 @@ const FileSelectorPopup = ({ onFileSelected, onClose }) => {
     const contextMenu = [
         {
             title: "Список",
-            icon: AdminIcons.view_list
+            icon: AdminIcons.view_list,
         },
         {
             title: "Плитка",
-            icon: AdminIcons.view_module
-        }
-    ]
+            icon: AdminIcons.view_module,
+        },
+    ];
 
     return (
         <div className='file-selector-popup'>
             <div className='file-selector-popup__search'>
                 <SearchFilter config={itemConfig} items={store.items} onSubmit={() => {}}>
-                    <ContextMenu items={contextMenu} onItemClick={onContextItemClick}/>
+                    <ContextMenu items={contextMenu} onItemClick={onContextItemClick} />
                 </SearchFilter>
             </div>
-            {
-                view === "list" &&
-                <ol className='file-selector-popup__list'>
-                    <li>
-                        <article className='file-selector-popup-card file-selector-popup-card_active'>
-                            {FileIcons.doc}
-                            <p className='file-selector-popup-card__title'>пояснения.docx</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.pdf}
-                            <p className='file-selector-popup-card__title'>пояснения.docx</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.xls}
-                            <p className='file-selector-popup-card__title'>
-                                Было бы странно обсуждать арии и музыку в разделе про доступность.xls
-                            </p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            <img
-                                className='file-selector-popup-card__image'
-                                src='https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg'
-                            />
-                            <p className='file-selector-popup-card__image-src'>
-                                https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg
-                            </p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.doc}
-                            <p className='file-selector-popup-card__title'>пояснения.docx</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.pdf}
-                            <p className='file-selector-popup-card__title'>пояснения.docx</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.xls}
-                            <p className='file-selector-popup-card__title'>
-                                Было бы странно обсуждать арии и музыку в разделе про доступность.xls
-                            </p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            <img
-                                className='file-selector-popup-card__image'
-                                src='https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg'
-                            />
-                            <p className='file-selector-popup-card__image-src'>
-                                https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg
-                            </p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.doc}
-                            <p className='file-selector-popup-card__title'>пояснения.docx</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.pdf}
-                            <p className='file-selector-popup-card__title'>пояснения.docx</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.xls}
-                            <p className='file-selector-popup-card__title'>
-                                Было бы странно обсуждать арии и музыку в разделе про доступность.xls
-                            </p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            <img
-                                className='file-selector-popup-card__image'
-                                src='https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg'
-                            />
-                            <p className='file-selector-popup-card__image-src'>
-                                https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg
-                            </p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.doc}
-                            <p className='file-selector-popup-card__title'>пояснения.docx</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.pdf}
-                            <p className='file-selector-popup-card__title'>пояснения.docx</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.xls}
-                            <p className='file-selector-popup-card__title'>
-                                Было бы странно обсуждать арии и музыку в разделе про доступность.xls
-                            </p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            <img
-                                className='file-selector-popup-card__image'
-                                src='https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg'
-                            />
-                            <p className='file-selector-popup-card__image-src'>
-                                https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg
-                            </p>
-                        </article>
-                    </li>
-                </ol>
-            }
-            {
-                view === "grid" &&
-                <ol className='file-selector-popup__list file-selector-popup__list_type_card-deck'>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.doc}
-                            <p className='file-selector-popup-card__title'>пояснения.docx</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.pdf}
-                            <p className='file-selector-popup-card__title'>пояснения.docx</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            {FileIcons.xls}
-                            <p className='file-selector-popup-card__title'>
-                                Было бы странно обсуждать арии и музыку в разделе про доступность.xls
-                            </p>
-                        </article>
-                    </li>
-                    <li>
-                        <article className='file-selector-popup-card'>
-                            <img
-                                className='file-selector-popup-card__image'
-                                src='https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg'
-                            />
-                        </article>
-                    </li>
-                </ol>
-            }
+            <ol
+                className={`file-selector-popup__list${
+                    view === "grid" ? ` file-selector-popup__list_type_card-deck` : ``
+                }`}
+            >
+                <li>
+                    <article className='file-selector-popup-card file-selector-popup-card_active'>
+                        {FileIcons.doc}
+                        <p className='file-selector-popup-card__title'>пояснения.docx</p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        {FileIcons.pdf}
+                        <p className='file-selector-popup-card__title'>пояснения.docx</p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        {FileIcons.xls}
+                        <p className='file-selector-popup-card__title'>
+                            Было бы странно обсуждать арии и музыку в разделе про доступность.xls
+                        </p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        <img
+                            className='file-selector-popup-card__image'
+                            src='https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg'
+                        />
+                        <p className='file-selector-popup-card__image-src'>
+                            https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg
+                        </p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        {FileIcons.doc}
+                        <p className='file-selector-popup-card__title'>пояснения.docx</p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        {FileIcons.pdf}
+                        <p className='file-selector-popup-card__title'>пояснения.docx</p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        {FileIcons.xls}
+                        <p className='file-selector-popup-card__title'>
+                            Было бы странно обсуждать арии и музыку в разделе про доступность.xls
+                        </p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        <img
+                            className='file-selector-popup-card__image'
+                            src='https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg'
+                        />
+                        <p className='file-selector-popup-card__image-src'>
+                            https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg
+                        </p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        {FileIcons.doc}
+                        <p className='file-selector-popup-card__title'>пояснения.docx</p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        {FileIcons.pdf}
+                        <p className='file-selector-popup-card__title'>пояснения.docx</p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        {FileIcons.xls}
+                        <p className='file-selector-popup-card__title'>
+                            Было бы странно обсуждать арии и музыку в разделе про доступность.xls
+                        </p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        <img
+                            className='file-selector-popup-card__image'
+                            src='https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg'
+                        />
+                        <p className='file-selector-popup-card__image-src'>
+                            https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg
+                        </p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        {FileIcons.doc}
+                        <p className='file-selector-popup-card__title'>пояснения.docx</p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        {FileIcons.pdf}
+                        <p className='file-selector-popup-card__title'>пояснения.docx</p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        {FileIcons.xls}
+                        <p className='file-selector-popup-card__title'>
+                            Было бы странно обсуждать арии и музыку в разделе про доступность.xls
+                        </p>
+                    </article>
+                </li>
+                <li>
+                    <article className='file-selector-popup-card'>
+                        <img
+                            className='file-selector-popup-card__image'
+                            src='https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg'
+                        />
+                        <p className='file-selector-popup-card__image-src'>
+                            https://demotivation.ru/wp-content/uploads/2020/11/1553308805_fitnes_modeli_nike_ampquot_-_kartochka_polzovatelja_olgajarygina1992.jpg
+                        </p>
+                    </article>
+                </li>
+            </ol>
             <div className='file-selector-popup__panel'>
                 <Button type='button' theme='text' onClick={onClose}>
                     Отмена

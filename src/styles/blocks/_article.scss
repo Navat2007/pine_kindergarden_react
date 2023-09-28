@@ -11,8 +11,7 @@
     // &__column {}
 
     &__image {
-        max-block-size: min(80vh, 40em);
-        object-fit: contain;
+        max-width: min(50em, 100%);
     }
 
     &__title {
@@ -22,8 +21,18 @@
     }
 
     &__subtitle {
+        display: block;
+        width: max-content;
         margin: 0.75em 0;
         font-size: var(--text-size-xl);
         font-weight: 600;
+    }
+
+    & .article__gallery {
+        margin-block: min(3.25vmax, 1.875em);
+    }
+
+    &__gap {
+        margin-block: min(3.25vmax, 1.875em);
     }
 }

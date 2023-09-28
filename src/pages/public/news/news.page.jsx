@@ -1,8 +1,9 @@
-import React from 'react';
-import {useParams} from "react-router-dom";
+import React from "react";
+import { useParams } from "react-router-dom";
 import createDOMPurify from "dompurify";
-import {Helmet} from "react-helmet";
-import {motion} from "framer-motion";
+import { Helmet } from "react-helmet";
+import { motion } from "framer-motion";
+import moment from "moment";
 
 import useNewsStore from "../../../store/public/newsStore";
 
@@ -53,20 +54,19 @@ const NewsPage = () => {
                 exit={{ opacity: 0 }}
                 transition={{ delay: 0.2, duration: 1 }}
             >
-                <div className='article__two-columns'>
-                    <SingleImageWithPreview image={store?.item?.image} extraClass={"article__image"} />
-                    <div>
-                        <h1 className='article__title'>{store?.item?.title}</h1>
-                        <div
-                            className='article__main-content'
-                            dangerouslySetInnerHTML={{
-                                __html: DOMPurify.sanitize(store?.item?.text),
-                            }}
-                        />
-                    </div>
-                </div>
+                <h1 className='article__title'>{store?.item?.title}</h1>
+                <time dateTime={store?.item?.date} className='article__subtitle'>
+                    {moment(store?.item?.date).format("DD.MM.YYYY")}
+                </time>
+                <SingleImageWithPreview image={store?.item?.image} extraClass={"article__image article__gap"} />
+                <div
+                    className='article__main-content'
+                    dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(store?.item?.text),
+                    }}
+                />
                 {store?.item?.images?.length > 0 && (
-                    <ImageGallery extraClass={""} items={store.item.images} />
+                    <ImageGallery extraClass={"article__gallery"} items={store.item.images} />
                 )}
             </motion.section>
         </BasicPage>

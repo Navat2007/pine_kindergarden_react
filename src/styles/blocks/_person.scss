@@ -12,14 +12,14 @@
     }
 
     @include media(xl) {
-        grid-template-columns: min(25em, 100%) 1fr;
+        grid-template-columns: min(20em, 100%) 1fr;
     }
 
     &__image {
         @extend %alt-text-on-after;
         inline-size: 100%;
         max-height: min(60vb, 37em);
-        // aspect-ratio: 288/419;
+        aspect-ratio: 288/419;
         justify-self: center;
         object-fit: cover;
         object-position: center;

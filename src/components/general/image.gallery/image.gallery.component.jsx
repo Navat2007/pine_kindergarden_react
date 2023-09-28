@@ -20,28 +20,26 @@ const ImageGallery = ({ extraClass, title, orientation = "landsape", items, fron
 
     if (front)
         return (
-            <>
+            <ul className={`image-gallery${extraClass ? ` ${extraClass}` : ``}`}>
                 {items.map((item, index) => (
                     <li
                         key={index}
-                        className={["styles.item", extraClass].join(" ")}
+                        className={`image-gallery__item${extraClass ? ` ${extraClass}-item` : ``}`}
                         onClick={() => handleOpenPreview(index)}
                     >
-                        <div className={"styles.imageBlock"}>
-                            <img
-                                src={
-                                    item.isFile === 1 && item.isLoaded === 1
-                                        ? process.env.REACT_APP_BASE_URL + item.url
-                                        : item.url
-                                }
-                                alt={"Не удалось загрузить изображение"}
-                            />
-                        </div>
-                        {title && <p className={"styles.title"}>{title}</p>}
+                        <img
+                            className={`image-gallery__img${extraClass ? ` ${extraClass}-img` : ``}`}
+                            src={
+                                item.isFile === 1 && item.isLoaded === 1
+                                    ? process.env.REACT_APP_BASE_URL + item.url
+                                    : item.url
+                            }
+                            alt={"Не удалось загрузить изображение"}
+                        />
                     </li>
                 ))}
                 {preview}
-            </>
+            </ul>
         );
 
     return (
