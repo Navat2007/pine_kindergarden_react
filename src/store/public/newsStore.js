@@ -5,9 +5,11 @@ const directory = 'news';
 
 const urlLoadAll = process.env.REACT_APP_BASE_URL + `php/models/public/${directory}/load.php`;
 const urlLoadByID = process.env.REACT_APP_BASE_URL + `php/models/public/${directory}/load_by_id.php`;
+const urlLoadAllMain = process.env.REACT_APP_BASE_URL + `php/models/public/${directory}/load_last_for_main_page.php`;
 
 const useNewsStore = create(
     (set, get) => ({
+        itemsMain: [],
         items: [],
         item: {},
 
@@ -37,6 +39,24 @@ const useNewsStore = create(
             if(response.data.params){
 
                 set((state) => ({items: response.data.params}));
+
+            }
+
+        },
+        loadAllMain: async (params) => {
+
+            set({loading: true});
+
+            let form = new FormData();
+            window.global.buildFormData(form, params);
+
+            const response = await axios.postForm(urlLoadAllMain, form);
+
+            set({loading: false});
+
+            if(response.data.params){
+
+                set((state) => ({itemsMain: response.data.params}));
 
             }
 

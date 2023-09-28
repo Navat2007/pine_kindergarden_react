@@ -13,7 +13,7 @@ const IndexPage = () => {
     const store = useNewsStore();
 
     const fetchData = async () => {
-        await store.loadAll();
+        await store.loadAllMain();
     };
 
     React.useEffect(() => {
@@ -27,7 +27,7 @@ const IndexPage = () => {
             </Helmet>
             <Lead />
             <Advantages />
-            <News items={store.items} count={3} />
+            <News items={store.itemsMain} />
             <Contact />
         </BasicPage>
     );

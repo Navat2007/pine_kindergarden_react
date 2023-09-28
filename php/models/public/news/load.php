@@ -18,8 +18,7 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_object($result)) {
 
-        $types = (object)[
-
+        $params[] = (object)[
             'ID' => (int)$row->ID,
             'preview_title' => htmlspecialchars_decode($row->preview_title),
             'preview_text' => htmlspecialchars_decode($row->preview_text),
@@ -27,8 +26,6 @@ if (mysqli_num_rows($result) > 0) {
             'date' => $row->date,
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
         ];
-
-        $params[] = $types;
 
     }
 }
