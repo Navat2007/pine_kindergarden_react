@@ -9,6 +9,8 @@ import {AdminIcons} from "../../svgs";
 
 {/* Конец контекстного меню. Когда вынесешь сообщи, я стили также перенесу. */}
 const ContextMenu = () => {
+    const [opened, setOpened] = React.useState(false);
+
     return (
         <nav className='admin-context-menu'>
             <Button
