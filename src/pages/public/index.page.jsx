@@ -5,11 +5,11 @@ import Lead from "../../components/public/lead/lead";
 import Advantages from "../../components/public/advantages/advantages";
 import Contact from "../../components/public/contact/contact";
 import News from "../../components/public/news/news";
-import Feedback from "../../components/public/feedback/feedback";
+import BasicPage from "../../components/public/basic.page/basic.page.component";
 
 const MainPage = () => {
     return (
-        <>
+        <BasicPage>
             <Helmet>
                 <title>Главная</title>
             </Helmet>
@@ -17,8 +17,7 @@ const MainPage = () => {
             <Advantages />
             <News />
             <Contact />
-            <Feedback />
-        </>
+        </BasicPage>
     );
 };
 

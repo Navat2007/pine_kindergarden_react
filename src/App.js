@@ -1,22 +1,22 @@
 import React from "react";
-import { BrowserRouter, HashRouter, useLocation } from "react-router-dom";
+import {BrowserRouter, HashRouter, useLocation} from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
-import { AnimatePresence } from "framer-motion";
+import {AnimatePresence} from "framer-motion";
+import {PopUpContext} from "./context";
 
 import useAuthStore from "./store/authStore";
 
 import RoutesList from "./components/routes.list.component";
-import Preloader from "./components/general/preloader/preloader.component";
 import ToTopButton from "./components/general/to_top_button/to.top.button.component";
 
 import "./styles/globals.css";
 
 const App = () => {
-    const { setUser, logout } = useAuthStore();
+    const {setUser, logout} = useAuthStore();
 
-    const [timer, setTimer] = React.useState(1500);
     const [app, setApp] = React.useState(false);
+    const [popUp, setPopUp] = React.useState(<></>);
 
     const fetchData = async () => {
         const user = window.localStorage.getItem("user");
@@ -79,8 +79,6 @@ const App = () => {
         }
 
         setApp(true);
-
-        setTimer(0);
     };
 
     React.useEffect(() => {
@@ -88,16 +86,15 @@ const App = () => {
     }, []);
 
     return (
-        <>
+        <PopUpContext.Provider value={{popUp, setPopUp}}>
             {app && (
                 <BrowserRouter>
-                    <Preloader loading={timer > 0}>
-                        <RoutesList />
-                        <ToTopButton />
-                    </Preloader>
+                    <RoutesList/>
+                    <ToTopButton/>
                 </BrowserRouter>
             )}
-        </>
+            {popUp}
+        </PopUpContext.Provider>
     );
 };
 

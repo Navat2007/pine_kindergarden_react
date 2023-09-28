@@ -32,7 +32,8 @@ import AdminMediaFilePage from "../pages/admin/media.files/media.file.page";
 
 // PUBLIC PAGES
 import MainPage from "../pages/public/index.page";
-import LessonsPage from "../pages/public/lessons.page";
+import LessonsPage from "../pages/public/lessons/lessons.page";
+import LessonPage from "../pages/public/lessons/lesson.page";
 import DocumentsPage from "../pages/public/documents.page";
 import TeachersPage from "../pages/public/teachers.page";
 import FoodPage from "../pages/public/food.page";
@@ -46,7 +47,10 @@ const RoutesList = () => {
     const publicRoutes = (
         <Route path='/' element={<PublicLayout />}>
             <Route index element={<MainPage />} />
-            <Route path='/lessons' exact={true} element={<LessonsPage />} />
+            <Route path='/lessons'>
+                <Route index element={<LessonsPage />} />
+                <Route path=':id' element={<LessonPage />} />
+            </Route>
             <Route path='/documents' exact={true} element={<DocumentsPage />} />
             <Route path='/teachers' exact={true} element={<TeachersPage />} />
             <Route path='/food' exact={true} element={<FoodPage />} />
@@ -128,7 +132,6 @@ const RoutesList = () => {
         <Routes>
             {publicRoutes}
             <Route path='/login' exact={true} element={<LoginPage />} />
-            {/*<Route path="*" element={<Navigate to='/'/>}/>*/}
             <Route path='*' element={<Page404 />} />
         </Routes>
     );
