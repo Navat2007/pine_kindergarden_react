@@ -8,7 +8,7 @@ import SingleImageWithPreview from "../../general/single.image.with.preview/sing
 
 import "./news.scss";
 
-const News = ({items, count}) => {
+const News = ({children, items, count}) => {
     const DOMPurify = createDOMPurify(window);
 
     if(items.length > 0){
@@ -47,6 +47,7 @@ const News = ({items, count}) => {
                         )
                     })}
                 </ul>
+                {children}
             </motion.section>
         );
     }

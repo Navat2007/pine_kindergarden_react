@@ -27,7 +27,11 @@ const IndexPage = () => {
             </Helmet>
             <Lead />
             <Advantages />
-            <News items={store.itemsMain} />
+            <News items={store.itemsMain}>
+                <p className='article-card__button' role='button'>
+                    Все новости
+                </p>
+            </News>
             <Contact />
         </BasicPage>
     );
