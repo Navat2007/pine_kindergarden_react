@@ -1,8 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
+import {NavLink} from "react-router-dom";
+
 import "./breadcrumbs.scss";
 
-const Breadcrumbs = () => {
+const Breadcrumbs = ({ items = [] }) => {
     return (
         <motion.nav
             className='breadcrumbs'
@@ -11,21 +13,24 @@ const Breadcrumbs = () => {
             exit={{ opacity: 0 }}
             transition={{ delay: 0.2, duration: 1 }}
         >
-            <ul class='breadcrumbs__list'>
-                <li class='breadcrumbs__item'>
-                    <a class='breadcrumbs__link' href='./'>
-                        Главная
-                    </a>
-                </li>
-                <li class='breadcrumbs__item'>
-                    <a class='breadcrumbs__link' href='/'>
-                        Занятия
-                    </a>
-                </li>
-                <li class='breadcrumbs__item'>
-                    {/* У последней нет атрибута href, т.к. он активный и чтобы не было выделения и нельзя было перезагрузить страницу */}
-                    <a class='breadcrumbs__link'>Шахматы</a>
-                </li>
+            <ul className='breadcrumbs__list'>
+                {items.map((item) => (
+                    <li
+                        key={window.global.makeid(8)}
+                        className='breadcrumbs__item'
+                    >
+                        {item.url === "" ? (
+                            <a className={'breadcrumbs__link'}>{item.title}</a>
+                        ) : (
+                            <NavLink
+                                className={'breadcrumbs__link'}
+                                to={item.url}
+                            >
+                                {item.title}
+                            </NavLink>
+                        )}
+                    </li>
+                ))}
             </ul>
         </motion.nav>
     );

@@ -11,6 +11,8 @@ import Tab from "../../../components/public/tabs/tab.component";
 import { AdminIcons } from "../../../components/svgs";
 import SingleImageWithPreview from "../../../components/general/single.image.with.preview/single.image.with.preview";
 import Table from "../../../components/public/table/table.component";
+import Breadcrumbs from "../../../components/public/breadcrumbs/breadcrumbs";
+import {Helmet} from "react-helmet";
 
 const TeacherPage = () => {
     let { id } = useParams();
@@ -188,6 +190,25 @@ const TeacherPage = () => {
 
     return (
         <BasicPage loadings={[store]}>
+            <Helmet>
+                <title>{store.item.fio}</title>
+            </Helmet>
+            <Breadcrumbs
+                items={[
+                    {
+                        title: "Главная",
+                        url: "/",
+                    },
+                    {
+                        title: "Педагоги",
+                        url: "/teachers/",
+                    },
+                    {
+                        title: store.item.fio,
+                        url: "",
+                    },
+                ]}
+            />
             <motion.section
                 className='article'
                 initial={{ opacity: 0 }}
