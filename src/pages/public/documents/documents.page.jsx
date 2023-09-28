@@ -4,15 +4,10 @@ import {motion} from "framer-motion";
 
 import useDocumentsStore from "../../../store/public/documentsStore";
 
+import SingleImageWithPreview from "../../../components/general/single_image_with_preview/single.image.with.preview";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 
 import "./documents.scss";
-import Image_samo from "../../../images/documents/samo_preview.jpg";
-import Docs_samo from "../../../documents/samo.pdf";
-import Image_d41 from "../../../images/documents/d41_preview.jpg";
-import Docs_d41 from "../../../documents/d41.pdf";
-import ImagePreview from "../../../components/general/image.preview/image.preview.component";
-import SingleImageWithPreview from "../../../components/general/single_image_with_preview/single.image.with.preview";
 
 const DocumentsPage = () => {
     const store = useDocumentsStore();
