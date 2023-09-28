@@ -193,16 +193,16 @@ const AdminNewsPage = (props) => {
                                     </fieldset>
                                     <fieldset className='admin-form__section'>
                                         <FieldText
-                                            label={"Название новости*"}
-                                            required={true}
-                                            placeholder={"Введите название"}
-                                            {...register("title")}
-                                        />
-                                        <FieldText
                                             label={"Название новости для анонса*"}
                                             required={true}
                                             placeholder={"Введите название"}
                                             {...register("previewTitle")}
+                                        />
+                                        <FieldText
+                                            label={"Название новости*"}
+                                            required={true}
+                                            placeholder={"Введите название"}
+                                            {...register("title")}
                                         />
                                         <p className='admin-form__subtitle'>Описание для анонса</p>
                                         <Editor
@@ -544,19 +544,19 @@ const AdminNewsPage = (props) => {
                                     </fieldset>
                                     <fieldset className='admin-form__section'>
                                         <FieldText
-                                            label={"Название новости*"}
-                                            required={true}
-                                            placeholder={"Введите название"}
-                                            {...register("title", {
-                                                value: store.item.title,
-                                            })}
-                                        />
-                                        <FieldText
                                             label={"Название новости для анонса*"}
                                             required={true}
                                             placeholder={"Введите название"}
                                             {...register("previewTitle", {
                                                 value: store.item.preview_title,
+                                            })}
+                                        />
+                                        <FieldText
+                                            label={"Название новости*"}
+                                            required={true}
+                                            placeholder={"Введите название"}
+                                            {...register("title", {
+                                                value: store.item.title,
                                             })}
                                         />
                                         <p className='admin-form__subtitle'>Описание для анонса</p>
