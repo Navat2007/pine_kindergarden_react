@@ -44,7 +44,7 @@ $id = htmlspecialchars($_POST["id"]);
 $sql = "SELECT 
         item.*
     FROM 
-        item as item
+        news as item
     WHERE 
         item.ID = '$id'";
 $sqls[] = $sql;

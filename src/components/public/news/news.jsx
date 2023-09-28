@@ -1,90 +1,62 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import moment from "moment";
+import createDOMPurify from "dompurify";
+
+import SingleImageWithPreview from "../../general/single.image.with.preview/single.image.with.preview";
+
 import "./news.scss";
 
-const News = () => {
-    return (
-        <motion.section
-            className='news'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: 0.2, duration: 1 }}
-        >
-            <h2 className='news__title'>Новости</h2>
-            <ul className='news__list'>
-                <li>
-                    <NavLink className={"card-link"} to={"/news/"}>
-                        <article className='article-card'>
-                            <img
-                                className='article-card__image'
-                                src='https://ds1387.ru/images/news/2021/06/pushkin-sm.jpg'
-                                loading='lazy'
-                                alt='Изображение новости'
-                            />
-                            <time dateTime='2023-06-09' className='article-card__date'>
-                                09 июня 2023
-                            </time>
-                            <h3 className='article-card__title'>Там на неведомых дорожках...</h3>
-                            <p className='article-card__description'>
-                                6 июня в России отмечается день рождения А.С. Пушкина и в нашем детском саду было
-                                уделено много внимания этой замечательной дате.
-                            </p>
-                            <p className='article-card__button' role='button'>
-                                Подробнее
-                            </p>
-                        </article>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink className={"card-link"} to={"/news/"}>
-                        <article className='article-card'>
-                            <img
-                                className='article-card__image'
-                                src='https://ds1387.ru/images/news/2021/05/olimp-07.jpg'
-                                loading='lazy'
-                                alt='Изображение новости'
-                            />
-                            <time dateTime='2023-06-09' className='article-card__date'>
-                                09 июня 2023
-                            </time>
-                            <h3 className='article-card__title'>Быстрее, выше, сильнее! Малые Олимпийские игры</h3>
-                            <p className='article-card__description'>
-                                Трудно представить себе жизнь малышей в детском саду без веселых досугов и развлечений,
-                                шумных игр и соревнований, интересных игр и занимательной деятельности.
-                            </p>
-                            <p className='article-card__button' role='button'>
-                                Подробнее
-                            </p>
-                        </article>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink className={"card-link"} to={"/news/"}>
-                        <article className='article-card'>
-                            <img
-                                className='article-card__image'
-                                src='https://ds1387.ru/images/news/2021/04/snowdrop-07.jpg'
-                                loading='lazy'
-                                alt='Изображение новости'
-                            />
-                            <time dateTime='2023-06-09' className='article-card__date'>
-                                09 июня 2023
-                            </time>
-                            <h3 className='article-card__title'>19 апреля – День подснежника</h3>
-                            <p className='article-card__description'>
-                                Этот день символизирует наступление тепла и солнечных дней.
-                            </p>
-                            <p className='article-card__button' role='button'>
-                                Подробнее
-                            </p>
-                        </article>
-                    </NavLink>
-                </li>
-            </ul>
-        </motion.section>
-    );
+const News = ({items, count}) => {
+    const DOMPurify = createDOMPurify(window);
+
+    if(items.length > 0){
+        return (
+            <motion.section
+                className='news'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.2, duration: 1 }}
+            >
+                <h2 className='news__title'>Новости</h2>
+                <ul className='news__list'>
+                    {items.map((item, index) => {
+                        if(count && index > count)
+                            return null;
+
+                        return (
+                            <li key={item.ID}>
+                                <NavLink className={"card-link"} to={"/news/" + item.ID}>
+                                    <article className='article-card'>
+                                        <SingleImageWithPreview image={item.preview_image} extraClass={'article-card__image'}/>
+                                        <time dateTime={item.date} className='article-card__date'>
+                                            {moment(item.date).format('DD.MM.YYYY')}
+                                        </time>
+                                        <h3 className='article-card__title'>{item.preview_title}</h3>
+                                        <p
+                                            className='article-card__description'
+                                            dangerouslySetInnerHTML={{
+                                                __html: DOMPurify.sanitize(item.preview_text),
+                                            }}
+                                        />
+                                        <p className='article-card__button' role='button'>
+                                            Подробнее
+                                        </p>
+                                    </article>
+                                </NavLink>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </motion.section>
+        );
+    }
+    else {
+        return null;
+    }
+
 };
 
 export default News;

@@ -41,6 +41,7 @@ import FoodPage from "../pages/public/food/food.page";
 import AboutPage from "../pages/public/about/about.page";
 import ModePage from "../pages/public/mode/mode.page";
 import GroupPage from "../pages/public/about/group.page";
+import AllNewsPage from "../pages/public/news/all.news.page";
 import NewsPage from "../pages/public/news/news.page";
 
 const RoutesList = () => {
@@ -63,7 +64,10 @@ const RoutesList = () => {
             <Route path='/mode' exact={true} element={<ModePage />} />
             <Route path='/about' exact={true} element={<AboutPage />} />
             <Route path='/group/:id' exact={true} element={<GroupPage />} />
-            <Route path='/news/:id' exact={true} element={<NewsPage />} />
+            <Route path='/news'>
+                <Route index element={<AllNewsPage />} />
+                <Route path=':id' element={<NewsPage />} />
+            </Route>
         </Route>
     );
 

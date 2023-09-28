@@ -8,7 +8,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 $sql = "SELECT 
         item.ID, item.preview_title, item.preview_text, item.preview_image, item.date, item.active
     FROM 
-        item as item
+        news as item
     WHERE 
         item.archive = '0' AND item.active = '1' AND item.date <= NOW()
     ORDER BY date DESC";
