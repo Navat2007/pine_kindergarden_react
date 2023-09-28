@@ -6,11 +6,11 @@ import createDOMPurify from "dompurify";
 import useFoodStore from "../../../store/public/foodsStore";
 import useFoodMenuStore from "../../../store/public/foodMenuStore";
 
+import SingleImageWithPreview from "../../../components/general/single_image_with_preview/single.image.with.preview";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 
 import "./food.scss";
 import Food__image from "../../../images/food__image.jpg";
-import SingleImageWithPreview from "../../../components/general/single_image_with_preview/single.image.with.preview";
 
 const FoodPage = () => {
     const DOMPurify = createDOMPurify(window);
