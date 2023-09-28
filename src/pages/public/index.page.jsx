@@ -34,7 +34,6 @@ const IndexPage = () => {
                         Все новости
                     </p>
                 </NavLink>
-
             </News>
             <Contact/>
         </BasicPage>
