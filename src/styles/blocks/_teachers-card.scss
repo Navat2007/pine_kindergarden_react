@@ -5,13 +5,13 @@
     gap: min(1.75vmax, 1.25em);
     padding: min(1.75vmax, 1.25em);
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    outline: 2px solid var(--dark-background);
     border-radius: 5px;
     transition: box-shadow 0.35s ease-in;
     text-align: center;
 
     &:hover {
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.26);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
     }
 
     &__image {

@@ -78,10 +78,23 @@
     }
 }
 
+.more-button-link {
+    display: block;
+    width: max-content;
+    margin: 1em auto;
+    text-decoration: none;
+    font-family: var(--font-headings);
+    font-size: var(--text-size-xl);
+    &:hover {
+        color: var(--primary);
+    }
+}
+
 .main-wrapper {
     @extend %main-width;
     padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
 }
+
 .card-link {
     block-size: 100%;
     display: flex;
