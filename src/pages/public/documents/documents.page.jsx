@@ -2,6 +2,8 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import {motion} from "framer-motion";
 
+import useDocumentsStore from "../../../store/public/documentsStore";
+
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 
 import "./documents.scss";
@@ -9,10 +11,22 @@ import Image_samo from "../../../images/documents/samo_preview.jpg";
 import Docs_samo from "../../../documents/samo.pdf";
 import Image_d41 from "../../../images/documents/d41_preview.jpg";
 import Docs_d41 from "../../../documents/d41.pdf";
+import ImagePreview from "../../../components/general/image.preview/image.preview.component";
+import SingleImageWithPreview from "../../../components/general/single_image_with_preview/single.image.with.preview";
 
 const DocumentsPage = () => {
+    const store = useDocumentsStore();
+
+    const fetchData = async () => {
+        await store.loadAll();
+    };
+
+    React.useEffect(() => {
+        fetchData();
+    }, []);
+
     return (
-        <BasicPage>
+        <BasicPage loadings={[store]}>
             <Helmet>
                 <title>Документы</title>
             </Helmet>
@@ -25,46 +39,24 @@ const DocumentsPage = () => {
             >
                 <h2 className='documents__title'>Документы</h2>
                 <ul className='documents__list'>
-                    <li className='documents__item'>
-                        <img
-                            className='documents__item-image'
-                            src={Image_samo}
-                            loading='lazy'
-                            alt='Изображение документа Результаты самообследования'
-                        />
-                        <div className='documents__item-section'>
-                            <h3 className='documents__item-title'>Результаты само&shy;обсле&shy;дования</h3>
-                            <div className='documents__item-text'>
-                                <p>
-                                    Отчет о результатах самообследования ФГБДОУ "Центр развития ребенка - детский сад
-                                    "Сосны" за 2022 год
-                                </p>
-                            </div>
-                            <a className='documents__item-link' href={Docs_samo} rel='noopener nofollow noreferer'>
-                                Скачать
-                            </a>
-                        </div>
-                    </li>
-                    <li className='documents__item'>
-                        <img
-                            className='documents__item-image'
-                            src={Image_d41}
-                            loading='lazy'
-                            alt='Изображение документа Приказ'
-                        />
-                        <div className='documents__item-section'>
-                            <h3 className='documents__item-title'>Приказ</h3>
-                            <div className='documents__item-text'>
-                                <p>
-                                    Приказ о назначение на должность заведующей ФГБДОУ «Центр развития ребенка -детский сад
-                                    «Сосны»
-                                </p>
-                            </div>
-                            <a className='documents__item-link' href={Docs_d41} rel='noopener nofollow noreferer'>
-                                Скачать
-                            </a>
-                        </div>
-                    </li>
+                    {
+                        store.items.map((item) => {
+                            return (
+                                <li key={item.ID} className='documents__item'>
+                                    <SingleImageWithPreview image={item.image} extraClass={'documents__item-image'} />
+                                    <div className='documents__item-section'>
+                                        <h3 className='documents__item-title'>{item.titleShort}</h3>
+                                        <div className='documents__item-text'>
+                                            <p>{item.title}</p>
+                                        </div>
+                                        <a className='documents__item-link' href={item.url.includes("http") ? item.url : process.env.REACT_APP_BASE_URL + item.url} target={"_blank"} rel='noopener nofollow noreferer'>
+                                            Скачать
+                                        </a>
+                                    </div>
+                                </li>
+                            );
+                        })
+                    }
                 </ul>
             </motion.section>
         </BasicPage>

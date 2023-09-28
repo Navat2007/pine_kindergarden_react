@@ -35,12 +35,14 @@ import IndexPage from "../pages/public/index.page";
 import LessonsPage from "../pages/public/lessons/lessons.page";
 import LessonPage from "../pages/public/lessons/lesson.page";
 import DocumentsPage from "../pages/public/documents/documents.page";
+import DocumentPage from "../pages/public/documents/document.page";
 import TeachersPage from "../pages/public/teachers/teachers.page";
 import TeacherPage from "../pages/public/teachers/teacher.page";
 import FoodPage from "../pages/public/food/food.page";
 import AboutPage from "../pages/public/about/about.page";
 import ModePage from "../pages/public/mode/mode.page";
 import GroupPage from "../pages/public/about/group.page";
+import NewsPage from "../pages/public/news/news.page";
 
 const RoutesList = () => {
     const { user } = useAuthStore();
@@ -53,6 +55,10 @@ const RoutesList = () => {
                 <Route path=':id' element={<LessonPage />} />
             </Route>
             <Route path='/documents' exact={true} element={<DocumentsPage />} />
+            <Route path='/documents'>
+                <Route index element={<DocumentsPage />} />
+                <Route path=':id' element={<DocumentPage />} />
+            </Route>
             <Route path='/teachers'>
                 <Route index element={<TeachersPage />} />
                 <Route path=':id' element={<TeacherPage />} />
@@ -62,6 +68,7 @@ const RoutesList = () => {
             <Route path='/mode' exact={true} element={<ModePage />} />
             <Route path='/about' exact={true} element={<AboutPage />} />
             <Route path='/group/:id' exact={true} element={<GroupPage />} />
+            <Route path='/news/:id' exact={true} element={<NewsPage />} />
         </Route>
     );
 
