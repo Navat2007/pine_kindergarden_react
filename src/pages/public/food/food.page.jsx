@@ -79,7 +79,7 @@ const FoodPage = () => {
                                         rel='noopener nofollow noreferrer'
                                         target={"_blank"}
                                     >
-                                        Открыть
+                                        Скачать
                                     </a>
                                 </div>
                             </li>
