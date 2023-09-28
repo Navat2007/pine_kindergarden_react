@@ -5,12 +5,8 @@ import { NavLink } from "react-router-dom";
 import SingleImageWithPreview from "../../general/single.image.with.preview/single.image.with.preview";
 
 import "./teachers.slider.scss";
-import noImage from "../../../images/no_photo_man.png";
 
 const TeachersSlider = ({categories = []}) => {
-
-    console.log(categories);
-
     if(categories.length > 0)
         return (
             <Splide
@@ -48,10 +44,8 @@ const TeachersSlider = ({categories = []}) => {
                                 <NavLink className={"card-link"} to={"/teachers/" + person.ID}>
                                     <article className='person-card'>
                                         <SingleImageWithPreview image={person.photo} extraClass={'person-card__image'} noPhoto={""} />
-                                        <h3 className='person-card__title'>
-                                            {person.fio} <br />
-                                            <p className='teachers-card__subtitle'>{person.position}</p>
-                                        </h3>
+                                        <h3 className='person-card__title'>{person.fio}</h3>
+                                        <p className='teachers-card__subtitle'>{person.position}</p>
                                     </article>
                                 </NavLink>
                             </SplideSlide>
