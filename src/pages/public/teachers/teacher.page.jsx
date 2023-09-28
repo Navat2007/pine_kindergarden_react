@@ -1,7 +1,6 @@
 import React from 'react';
 import {motion} from "framer-motion";
 import {useParams} from "react-router-dom";
-import createDOMPurify from "dompurify";
 
 import useTeachersStore from "../../../store/public/teachersStore";
 
@@ -15,7 +14,6 @@ import Table from "../../../components/admin/table/table.component";
 
 const TeacherPage = () => {
     let { id } = useParams();
-    const DOMPurify = createDOMPurify(window);
 
     const store = useTeachersStore();
 
@@ -27,7 +25,6 @@ const TeacherPage = () => {
         fetchData();
     }, []);
 
-    console.log(store.item);
     const itemConfigEducation = [
         {
             header: "ID",
@@ -206,7 +203,7 @@ const TeacherPage = () => {
                             <p className='person__subtitle'>{store.item.position}</p>
                             {
                                 store.item.page &&
-                                <a className='person__link' href={store.item.page} rel='noopener nofollow noreferer' target='_blank'>
+                                <a className='person__link' href={store.item.page} rel='noopener nofollow noreferrer' target='_blank'>
                                     Личная страница {AdminIcons.open_in_new}
                                 </a>
                             }
