@@ -1,7 +1,7 @@
-import React from 'react';
-import {NavLink, useParams} from "react-router-dom";
-import {Helmet} from "react-helmet";
-import {motion, Variants} from "framer-motion";
+import React from "react";
+import { NavLink, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { motion, Variants } from "framer-motion";
 import createDOMPurify from "dompurify";
 
 import useLessonsStore from "../../../store/public/lessonsStore";
@@ -9,6 +9,7 @@ import useLessonsStore from "../../../store/public/lessonsStore";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 
 import "./lessons.scss";
+import Breadcrumbs from "../../../components/public/breadcrumbs/breadcrumbs";
 
 const LessonPage = () => {
     let { id } = useParams();
@@ -29,12 +30,13 @@ const LessonPage = () => {
             <Helmet>
                 <title>Занятия - {store.item.title}</title>
             </Helmet>
+            <Breadcrumbs />
             <motion.section
-                className='lessons'
-                initial={{opacity: 0}}
-                animate={{opacity: 1}}
-                exit={{opacity: 0}}
-                transition={{delay: 0.2, duration: 1}}
+                className='article'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.2, duration: 1 }}
             >
                 <div className='article__two-columns'>
                     <img
