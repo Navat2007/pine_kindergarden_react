@@ -9,10 +9,11 @@ import Button from "../button/button.component";
 import "./file.selector.popup.scss";
 import { AdminIcons, FileIcons } from "../../svgs";
 
-const FileSelectorPopup = ({ onFileSelected }) => {
+const FileSelectorPopup = ({ onFileSelected, onClose }) => {
     const store = useMediaFilesStore();
 
     const [view, setView] = React.useState("list");
+    const [selectedFile, setSelectedFile] = React.useState(null);
 
     const fetchData = async () => {
         await store.loadAll();
@@ -243,11 +244,18 @@ const FileSelectorPopup = ({ onFileSelected }) => {
                 </ol>
             }
             <div className='file-selector-popup__panel'>
-                <Button type='button' theme='text'>
+                <Button type='button' theme='text' onClick={onClose}>
                     Отмена
                 </Button>
                 <Button type='button'>Выбрать</Button>
-                <Button type='button' iconName={AdminIcons.upload} extraClass={"file-selector-popup__upload-button"}>
+                <Button
+                    type='button'
+                    iconName={AdminIcons.upload}
+                    extraClass={"file-selector-popup__upload-button"}
+                    onClick={() => {
+                        onFileSelected(selectedFile);
+                    }}
+                >
                     Загрузить
                 </Button>
             </div>
