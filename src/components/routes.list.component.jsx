@@ -31,7 +31,7 @@ import AdminMediaFilesPage from "../pages/admin/media.files/media.files.page";
 import AdminMediaFilePage from "../pages/admin/media.files/media.file.page";
 
 // PUBLIC PAGES
-import MainPage from "../pages/public/index.page";
+import IndexPage from "../pages/public/index.page";
 import LessonsPage from "../pages/public/lessons/lessons.page";
 import LessonPage from "../pages/public/lessons/lesson.page";
 import DocumentsPage from "../pages/public/documents/documents.page";
@@ -47,7 +47,7 @@ const RoutesList = () => {
 
     const publicRoutes = (
         <Route path='/' element={<PublicLayout />}>
-            <Route index element={<MainPage />} />
+            <Route index element={<IndexPage />} />
             <Route path='/lessons'>
                 <Route index element={<LessonsPage />} />
                 <Route path=':id' element={<LessonPage />} />

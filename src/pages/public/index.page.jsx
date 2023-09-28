@@ -7,11 +7,11 @@ import Contact from "../../components/public/contact/contact";
 import News from "../../components/public/news/news";
 import BasicPage from "../../components/public/basic.page/basic.page.component";
 
-const MainPage = () => {
+const IndexPage = () => {
     return (
         <BasicPage>
             <Helmet>
-                <title>Главная</title>
+                <title>Центр развития ребенка — детский сад «Сосны»</title>
             </Helmet>
             <Lead />
             <Advantages />
@@ -21,4 +21,4 @@ const MainPage = () => {
     );
 };
 
-export default MainPage;
+export default IndexPage;
