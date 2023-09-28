@@ -19,6 +19,8 @@
         inset-inline-end: min(1.6vh, 1em);
         color: #fff;
         z-index: 1;
+        background-color: rgba(0, 0, 0, 0.54);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.54);
 
         &:hover:not(:disabled) {
             background-color: transparent;
