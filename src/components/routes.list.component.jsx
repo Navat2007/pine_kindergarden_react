@@ -34,11 +34,12 @@ import AdminMediaFilePage from "../pages/admin/media.files/media.file.page";
 import MainPage from "../pages/public/index.page";
 import LessonsPage from "../pages/public/lessons/lessons.page";
 import LessonPage from "../pages/public/lessons/lesson.page";
-import DocumentsPage from "../pages/public/documents.page";
-import TeachersPage from "../pages/public/teachers.page";
-import FoodPage from "../pages/public/food.page";
+import DocumentsPage from "../pages/public/documents/documents.page";
+import TeachersPage from "../pages/public/teachers/teachers.page";
+import TeacherPage from "../pages/public/teachers/teacher.page";
+import FoodPage from "../pages/public/food/food.page";
 import AboutPage from "../pages/public/about/about.page";
-import ModePage from "../pages/public/mode.page";
+import ModePage from "../pages/public/mode/mode.page";
 import GroupPage from "../pages/public/about/group.page";
 
 const RoutesList = () => {
@@ -52,6 +53,10 @@ const RoutesList = () => {
                 <Route path=':id' element={<LessonPage />} />
             </Route>
             <Route path='/documents' exact={true} element={<DocumentsPage />} />
+            <Route path='/teachers'>
+                <Route index element={<TeachersPage />} />
+                <Route path=':id' element={<TeacherPage />} />
+            </Route>
             <Route path='/teachers' exact={true} element={<TeachersPage />} />
             <Route path='/food' exact={true} element={<FoodPage />} />
             <Route path='/mode' exact={true} element={<ModePage />} />
