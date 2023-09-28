@@ -37,9 +37,9 @@ import LessonPage from "../pages/public/lessons/lesson.page";
 import DocumentsPage from "../pages/public/documents.page";
 import TeachersPage from "../pages/public/teachers.page";
 import FoodPage from "../pages/public/food.page";
-import AboutPage from "../pages/public/about.page";
+import AboutPage from "../pages/public/about/about.page";
 import ModePage from "../pages/public/mode.page";
-import GroupPage from "../pages/public/group.page";
+import GroupPage from "../pages/public/about/group.page";
 
 const RoutesList = () => {
     const { user } = useAuthStore();

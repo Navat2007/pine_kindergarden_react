@@ -3,7 +3,7 @@ import create from 'zustand'
 
 const directory = 'about';
 
-const urlLoad = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load.php`;
+const urlLoad = process.env.REACT_APP_BASE_URL + `php/models/public/${directory}/load.php`;
 
 const useAboutStore = create(
     (set, get) => ({

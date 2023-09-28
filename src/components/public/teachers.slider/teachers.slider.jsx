@@ -1,28 +1,13 @@
 import React from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-
-import useAboutStore from "../../../store/public/aboutStore";
-import useGroupsStore from "../../../store/public/groupsStore";
+import { NavLink } from "react-router-dom";
 
 import "./teachers.slider.scss";
 import person_2 from "../../../images/person_2.jpg";
 import person_3 from "../../../images/person_3.jpg";
 import person_4 from "../../../images/person_4.jpg";
-import { NavLink } from "react-router-dom";
 
 const TeachersSlider = () => {
-    const aboutStore = useAboutStore();
-    const groupsStore = useGroupsStore();
-
-    const fetchData = async () => {
-        await aboutStore.load();
-        await groupsStore.loadAll();
-    };
-
-    React.useEffect(() => {
-        fetchData();
-    }, []);
-
     return (
         <Splide
             className='splide teachers-slider'

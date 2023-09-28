@@ -8,7 +8,6 @@ import useLessonsStore from "../../../store/public/lessonsStore";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 
 import "./lessons.scss";
-import Feedback from "../../../components/public/feedback/feedback";
 
 const LessonsPage = () => {
     const store = useLessonsStore();

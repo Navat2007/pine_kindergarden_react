@@ -3,9 +3,10 @@ import createDOMPurify from "dompurify";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import useGroupsStore from "../../store/public/groupsStore";
+import useGroupsStore from "../../../store/public/groupsStore";
 
-import Feedback from "../../components/public/feedback/feedback";
+import Feedback from "../../../components/public/feedback/feedback";
+import BasicPage from "../../../components/public/basic.page/basic.page.component";
 
 const GroupPage = () => {
     let { id } = useParams();
@@ -22,31 +23,7 @@ const GroupPage = () => {
     }, []);
 
     //Private component
-    const Loading = () => {
-        return (
-            <>
-                {store.loading && (
-                    <section className='article'>
-                        <h2 className='main-title'>Загрузка...</h2>
-                    </section>
-                )}
-            </>
-        );
-    };
-
-    const NotFound = () => {
-        return (
-            <>
-                {!store.loading && Object.keys(store.item).length === 0 && (
-                    <section className='article'>
-                        <h2 className='main-title'>Группа не найдена...</h2>
-                    </section>
-                )}
-            </>
-        );
-    };
-
-    const MainBlock = () => {
+    const Article = () => {
         return (
             <>
                 <motion.section
@@ -88,11 +65,9 @@ const GroupPage = () => {
     };
 
     return (
-        <>
-            <Loading />
-            <MainBlock />
-            <NotFound />
-        </>
+        <BasicPage loadings={[store]}>
+            <Article />
+        </BasicPage>
     );
 };
 
