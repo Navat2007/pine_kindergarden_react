@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import {Helmet} from "react-helmet";
 
 import useNewsStore from "../../store/public/newsStore";
 
@@ -8,6 +8,7 @@ import Advantages from "../../components/public/advantages/advantages";
 import Contact from "../../components/public/contact/contact";
 import News from "../../components/public/news/news";
 import BasicPage from "../../components/public/basic.page/basic.page.component";
+import {NavLink} from "react-router-dom";
 
 const IndexPage = () => {
     const store = useNewsStore();
@@ -25,14 +26,17 @@ const IndexPage = () => {
             <Helmet>
                 <title>Центр развития ребенка — детский сад «Сосны»</title>
             </Helmet>
-            <Lead />
-            <Advantages />
+            <Lead/>
+            <Advantages/>
             <News items={store.itemsMain}>
-                <p className='article-card__button' role='button'>
-                    Все новости
-                </p>
+                <NavLink to="/news">
+                    <p className='article-card__button' role='button'>
+                        Все новости
+                    </p>
+                </NavLink>
+
             </News>
-            <Contact />
+            <Contact/>
         </BasicPage>
     );
 };
