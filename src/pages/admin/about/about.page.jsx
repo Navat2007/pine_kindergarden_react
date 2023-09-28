@@ -12,7 +12,7 @@ import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
-import Editor from "../../../components/general/reach_editor/editor.component";
+import Editor from "../../../components/general/reach.editor/editor.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 
