@@ -6,6 +6,7 @@ import createDOMPurify from "dompurify";
 
 import useAboutStore from "../../../store/public/aboutStore";
 import useGroupsStore from "../../../store/public/groupsStore";
+import useTeachersStore from "../../../store/public/teachersStore";
 
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 import TeachersSlider from "../../../components/public/teachers.slider/teachers.slider";
@@ -17,10 +18,12 @@ const AboutPage = () => {
     const DOMPurify = createDOMPurify(window);
     const aboutStore = useAboutStore();
     const groupsStore = useGroupsStore();
+    const teachersStore = useTeachersStore();
 
     const fetchData = async () => {
         await aboutStore.load();
         await groupsStore.loadAll();
+        await teachersStore.loadAll();
     };
 
     React.useEffect(() => {
@@ -28,7 +31,7 @@ const AboutPage = () => {
     }, []);
 
     return (
-        <BasicPage loadings={[aboutStore, groupsStore]}>
+        <BasicPage loadings={[aboutStore, groupsStore, teachersStore]}>
             <Helmet>
                 <title>О нас</title>
             </Helmet>
@@ -123,7 +126,7 @@ const AboutPage = () => {
             </section>
             <section className='about about_contain_inner'>
                 <h2 className='about__title'>Наша команда</h2>
-                <TeachersSlider />
+                <TeachersSlider categories={teachersStore.items} />
             </section>
         </BasicPage>
     );

@@ -4,7 +4,7 @@ import ImagePreview from "../image.preview/image.preview.component";
 
 import noImage from "../../../images/no_image.png";
 
-const SingleImageWithPreview = ({image, inner = false, extraClass = ""}) => {
+const SingleImageWithPreview = ({image, noPhoto = noImage, inner = false, extraClass = ""}) => {
 
     const [preview, setPreview] = React.useState(<></>);
 
@@ -20,7 +20,7 @@ const SingleImageWithPreview = ({image, inner = false, extraClass = ""}) => {
     };
 
     if (!inner && (!image || image === ""))
-        return <img src={noImage} alt={image} loading='lazy' />;
+        return <img className={extraClass} src={noPhoto} alt={image} loading='lazy' />;
 
     return (
         <>
