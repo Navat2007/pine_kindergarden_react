@@ -152,6 +152,7 @@ const AdminFoodPage = () => {
                                     <FieldUrl
                                         label={"Ссылка на документ*"}
                                         required={true}
+                                        withFileSelect={true}
                                         placeholder={"https://..."}
                                         {...register("url")}
                                         onFileSelected={(file) => {
@@ -405,6 +406,7 @@ const AdminFoodPage = () => {
                                     <FieldUrl
                                         label={"Ссылка на документ*"}
                                         required={true}
+                                        withFileSelect={true}
                                         placeholder={"https://..."}
                                         {...register("url", {
                                             value: store.item.url,

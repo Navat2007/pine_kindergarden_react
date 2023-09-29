@@ -9,7 +9,7 @@ import Popup from "../../general/popup/popup.component";
 import "./field.scss";
 import { AdminIcons } from "../../svgs";
 
-const FieldUrl = ({ errorText, extraClass, label = "", placeholder = "", required = false, onFileSelected = () => {}, ...rest }, ref) => {
+const FieldUrl = ({ errorText, extraClass, label = "", placeholder = "", required = false, withFileSelect, onFileSelected = () => {}, ...rest }, ref) => {
     const id = window.global.makeid(8);
 
     const {setPopup} = React.useContext(PopUpContext);
@@ -35,29 +35,33 @@ const FieldUrl = ({ errorText, extraClass, label = "", placeholder = "", require
                     {...rest}
                 />
                 <span className={`field__info-text${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
-                <Button
-                    type='button'
-                    extraClass={"field__icon-image-search"}
-                    title='Выбрать из структуры'
-                    aria-label='Выбрать из структуры'
-                    iconName={AdminIcons.image_search}
-                    isIconBtn={true}
-                    onClick={() =>
-                        setPopup(
-                            <Popup
-                                title={"Выбор файла"}
-                                opened={true}
-                                onClose={() => {
-                                    setPopup(<></>);
-                                }}
-                            >
-                                <FileSelectorPopup onFileSelected={onFileSelected} onClose={() => {
-                                    setPopup(<></>);
-                                }} />
-                            </Popup>
-                        )
-                    }
-                />
+                {
+                    withFileSelect
+                    &&
+                    <Button
+                        type='button'
+                        extraClass={"field__icon-image-search"}
+                        title='Выбрать из структуры'
+                        aria-label='Выбрать из структуры'
+                        iconName={AdminIcons.image_search}
+                        isIconBtn={true}
+                        onClick={() =>
+                            setPopup(
+                                <Popup
+                                    title={"Выбор файла"}
+                                    opened={true}
+                                    onClose={() => {
+                                        setPopup(<></>);
+                                    }}
+                                >
+                                    <FileSelectorPopup onFileSelected={onFileSelected} onClose={() => {
+                                        setPopup(<></>);
+                                    }} />
+                                </Popup>
+                            )
+                        }
+                    />
+                }
             </div>
         </div>
     );
