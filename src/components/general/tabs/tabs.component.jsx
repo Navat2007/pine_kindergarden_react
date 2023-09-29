@@ -1,5 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 import "./tabs.scss";
 
 const Tabs = ({ children, place, extraClass, theme }) => {

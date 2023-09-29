@@ -59,7 +59,6 @@ const RoutesList = () => {
                 <Route index element={<TeachersPage />} />
                 <Route path=':id' element={<TeacherPage />} />
             </Route>
-            <Route path='/teachers' exact={true} element={<TeachersPage />} />
             <Route path='/food' exact={true} element={<FoodPage />} />
             <Route path='/mode' exact={true} element={<ModePage />} />
             <Route path='/about' exact={true} element={<AboutPage />} />
