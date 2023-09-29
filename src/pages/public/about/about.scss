@@ -106,6 +106,8 @@
     &__list {
         @extend %reset-list;
 
+        overflow: hidden;
+
         padding: 1.875em 0;
         box-sizing: border-box;
 
