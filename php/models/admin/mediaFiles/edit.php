@@ -43,11 +43,8 @@ else {
             $dir_name = 'mediaFiles';
             $url = "";
 
-            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $id;
-            array_map('unlink', glob("$path/*.*"));
-            rmdir($path);
-
-            $helper->createDir("/files/" . $dir_name . "/" . $id);
+            $file_token = $helper->gen_token();
+            $helper->createDir("/files/" . $dir_name . "/" . $id . "/" . $file_token);
 
             $temp_name = $_FILES['file']['tmp_name'][$i]['file'];
             $name = $_FILES['file']['name'][$i]['file'];
@@ -55,15 +52,13 @@ else {
             $sqls[] = $temp_name;
             $sqls[] = $name;
 
-            $file_token = $helper->gen_token();
-
-            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $id . "/" . $file_token . "_" . $name;
+            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $id . "/" . $file_token . "/" . $name;
 
             @unlink($path);
 
             if(copy($temp_name, $path))
             {
-                $url = "/files/" . $dir_name . "/" . $id . "/" . $file_token . "_" . $name;
+                $url = "/files/" . $dir_name . "/" . $id . "/" . $file_token . "/" . $name;
 
                 $sql = "
                     UPDATE
