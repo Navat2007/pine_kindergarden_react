@@ -2,16 +2,12 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./tabs.scss";
 
-const Tabs = ({ extraClass, theme, children }) => {
-    const [activeTab, setActiveTab] = React.useState(
-        window.localStorage.getItem(`${children?.props?.title}_tab`)
-            ? parseInt(window.localStorage.getItem(`${children?.props?.title}_tab`))
-            : 0
-    );
+const Tabs = ({ children, extraClass, theme, place = window.global.makeid(6) }) => {
+    const [activeTab, setActiveTab] = React.useState(place && window.localStorage.getItem(`${place}_tab`) ? parseInt(window.localStorage.getItem(`${place}_tab`)) : 0);
 
     if (!children.length)
         return (
-            <div key={children.props.title} className={children.props.extraClass}>
+            <div key={children?.props?.title} className={children?.props?.extraClass}>
                 {children}
             </div>
         );
@@ -19,20 +15,29 @@ const Tabs = ({ extraClass, theme, children }) => {
     return (
         <div className={`tabs${theme ? ` tabs_theme_${theme}` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
             <ul className={`tabs__list${extraClass ? ` ${extraClass}-list` : ``}`}>
-                {children.map((child, index) => (
-                    <li
-                        key={child.props.title}
-                        onClick={() => {
-                            window.localStorage.setItem(`${children?.props?.title}_tab`, index);
-                            setActiveTab(index);
-                        }}
-                        className={`tabs__item${index === activeTab ? ` tabs__item_active` : ``}${
-                            child.props.hidden ? ` --hide` : ``
-                        }`}
-                    >
-                        {child.props.title}
-                    </li>
-                ))}
+                {children.map((child, index) => {
+                    if(child)
+                    {
+                        return (
+                            <li
+                                key={child?.props?.title}
+                                onClick={() => {
+                                    if(place)
+                                    {
+                                        window.localStorage.setItem(`${place}_tab`, index);
+                                    }
+
+                                    setActiveTab(index);
+                                }}
+                                className={`tabs__item${index === activeTab ? ` tabs__item_active` : ``}${
+                                    child?.props?.hidden ? ` --hide` : ``
+                                }`}
+                            >
+                                {child?.props?.title}
+                            </li>
+                        )
+                    }
+                })}
             </ul>
             <AnimatePresence mode={"wait"}>
                 <motion.div

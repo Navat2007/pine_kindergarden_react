@@ -285,13 +285,16 @@ const TeacherPage = () => {
                                     itemsConfig={itemConfigWork}
                                 />
                             </Tab>
-                            <Tab title={"Награды, благодарности"}>
-                                <Table
-                                    title={"Информация о наградах, благодарностях"}
-                                    items={store.item.rewards}
-                                    itemsConfig={itemConfigReward}
-                                />
-                            </Tab>
+                            {
+                                store.item.rewards.length > 0 &&
+                                <Tab title={"Награды, благодарности"}>
+                                    <Table
+                                        title={"Информация о наградах, благодарностях"}
+                                        items={store.item.rewards}
+                                        itemsConfig={itemConfigReward}
+                                    />
+                                </Tab>
+                            }
                         </Tabs>
                     </div>
                 </article>
