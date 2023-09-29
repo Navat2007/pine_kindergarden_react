@@ -770,7 +770,7 @@ const AdminTeacherPage = (props) => {
                                                     <p className='admin-view-section__description'>
                                                         <NavLink
                                                             className='admin-view-section__link'
-                                                            to={"/teacher/" + id}
+                                                            to={"/teachers/" + id}
                                                             target={"_blank"}
                                                             rel='noopener nofollow noreferer'
                                                         >
