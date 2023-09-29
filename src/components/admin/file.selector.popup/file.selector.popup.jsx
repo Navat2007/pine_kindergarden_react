@@ -10,10 +10,10 @@ import Button from "../button/button.component";
 import Popup from "../../general/popup/popup.component";
 
 import "./file.selector.popup.scss";
-import {AdminIcons, FileIcons} from "../../svgs";
+import { AdminIcons, FileIcons } from "../../svgs";
 import AlertPopup from "../../general/alert.popup/alert.popup";
 
-const FileSelectorPopup = ({onFileSelected = () => {}, onClose = () => {}, accept = "*.*", maxFileSize = 5,}) => {
+const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, accept = "*.*", maxFileSize = 5 }) => {
     const store = useMediaFilesStore();
 
     const inputFileRef = React.createRef();
@@ -87,7 +87,7 @@ const FileSelectorPopup = ({onFileSelected = () => {}, onClose = () => {}, accep
         onSingleClick: (e, data) => {
             setSelectedFile(data);
         },
-    })
+    });
 
     const handleAddFile = async (e) => {
         const getFileType = (data) => {
@@ -144,7 +144,6 @@ const FileSelectorPopup = ({onFileSelected = () => {}, onClose = () => {}, accep
             console.log(file);
             if (accept === "*.*" || file.type.match(match)) {
                 if (file.size <= maxFileSize * 1000000) {
-
                 } else {
                     errorFiles.push({
                         title: file.name,
@@ -174,8 +173,8 @@ const FileSelectorPopup = ({onFileSelected = () => {}, onClose = () => {}, accep
                         isLoaded: 0,
                         title: file.name,
                         type: getFileType(file),
-                    }
-                ]
+                    },
+                ],
             };
 
             const result = await store.add(sendObject);
@@ -343,20 +342,21 @@ const FileSelectorPopup = ({onFileSelected = () => {}, onClose = () => {}, accep
             default:
                 return FileIcons.default;
         }
-    }
+    };
 
     return (
         <div className='file-selector-popup'>
-            <div className='file-selector-popup__search'>
-                <SearchFilter config={itemsConfig} items={store.items} onSubmit={filterCallback}>
-                    <ContextMenu items={contextMenu} onItemClick={onContextItemClick}/>
-                </SearchFilter>
-            </div>
+            <SearchFilter config={itemsConfig} items={store.items} onSubmit={filterCallback}>
+                <ContextMenu items={contextMenu} onItemClick={onContextItemClick} />
+            </SearchFilter>
             <ol
-                className={`file-selector-popup__list${view === "grid" ? ` file-selector-popup__list_type_card-deck` : ``}`}
+                className={`file-selector-popup__list${
+                    view === "grid" ? ` file-selector-popup__list_type_card-deck` : ``
+                }`}
             >
                 {filtered && filtered.length === 0 && <p>Нет данных для отображения</p>}
-                {filtered && filtered.length > 0 &&
+                {filtered &&
+                    filtered.length > 0 &&
                     filtered.map((item) => {
                         return (
                             <li
@@ -366,19 +366,19 @@ const FileSelectorPopup = ({onFileSelected = () => {}, onClose = () => {}, accep
                                 }}
                             >
                                 <article
-                                    className={`file-selector-popup-card${selectedFile?.ID === item.ID ? ` file-selector-popup-card_active` : ``}`}>
+                                    className={`file-selector-popup-card${
+                                        selectedFile?.ID === item.ID ? ` file-selector-popup-card_active` : ``
+                                    }`}
+                                >
                                     {getFileIcon(item.type)}
-                                    <p className='file-selector-popup-card__title'>{item.title}</p>
-                                    {
-                                        item.title !== item.file_name
-                                        &&
-                                        <p className='file-selector-popup-card__title'>({item.file_name})</p>
-                                    }
+                                    <p className='file-selector-popup-card__title'>
+                                        {item.title}
+                                        {item.title !== item.file_name && ` (${item.file_name})`}
+                                    </p>
                                 </article>
                             </li>
-                        )
-                    })
-                }
+                        );
+                    })}
             </ol>
             <div className='file-selector-popup__panel'>
                 <Button type='button' theme='text' onClick={onClose}>
