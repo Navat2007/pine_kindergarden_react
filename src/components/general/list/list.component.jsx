@@ -50,11 +50,10 @@ const List = ({withFilter, items, itemsConfig}) => {
                                 extraClass={'commonStyles.cardButton'}
                                 type="button"
                                 theme={"public_primary"}
-                                text="Подробнее"
                                 onClick={() => {
                                     navigate()
                                 }}
-                            />
+                            >Подробнее</Button>
                         </div>
                     </li>
                 ))}

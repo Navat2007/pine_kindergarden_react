@@ -1,6 +1,6 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
-import {useForm} from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import createDOMPurify from "dompurify";
 
 import useAboutStore from "../../../store/admin/aboutStore";
@@ -30,7 +30,7 @@ const AdminAboutPage = () => {
         const [edit, setEdit] = React.useState(false);
 
         const fetchData = async () => {
-            console.log("load about");;
+            console.log("load about");
             await store.load();
         };
 
@@ -103,7 +103,7 @@ const AdminAboutPage = () => {
                             text={"Новость успешно отредактирована"}
                             opened={true}
                             onClose={() => {
-                                setEdit(false)
+                                setEdit(false);
                             }}
                         />
                     );
@@ -124,26 +124,23 @@ const AdminAboutPage = () => {
             if (edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование основных сведений`} onBack={() => {setEdit(false)}} />
+                        <TitleBlock
+                            title={`Редактирование основных сведений`}
+                            onBack={() => {
+                                setEdit(false);
+                            }}
+                        />
                         <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
                             <fieldset className='admin-form__section'>
                                 <p className='admin-form__subtitle'>Краткое описание</p>
-                                <Editor
-                                    control={control}
-                                    name='preview'
-                                    minHeight={250}
-                                    buttons={{ link: true }}
-                                />
+                                <Editor control={control} name='preview' minHeight={250} buttons={{ link: true }} />
                                 <p className='admin-form__subtitle'>Детальное описание</p>
-                                <Editor
-                                    control={control}
-                                    name='text'
-                                    minHeight={250}
-                                    buttons={{ link: true }}
-                                />
+                                <Editor control={control} name='text' minHeight={250} buttons={{ link: true }} />
                             </fieldset>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
+                                <Button type='submit' spinnerActive={sending}>
+                                    Сохранить
+                                </Button>
                                 <Button
                                     type='button'
                                     theme='text'
@@ -204,13 +201,13 @@ const AdminAboutPage = () => {
                 <Edit />
                 <View />
             </BasicPage>
-        )
-    }
+        );
+    };
 
     const Groups = () => {
         const store = useGroupsStore();
 
-        const url = 'admin/about/groups';
+        const url = "admin/about/groups";
 
         const onItemClick = (props) => {
             navigate(`/${url}/${props}`);
@@ -248,24 +245,26 @@ const AdminAboutPage = () => {
             },
         ];
 
-        return <Table
-            title={`Таблица ${url} ${user.ID}`}
-            loading={store.loading}
-            items={store.items}
-            itemsConfig={itemConfig}
-            onItemClick={onItemClick}
-            withFilter={true}
-        >
-            <Button
-                type='button'
-                iconName={AdminIcons.plus}
-                aria-label='Добавить группу'
-                onClick={() => navigate(`/${url}/new`)}
+        return (
+            <Table
+                title={`Таблица ${url} ${user.ID}`}
+                loading={store.loading}
+                items={store.items}
+                itemsConfig={itemConfig}
+                onItemClick={onItemClick}
+                withFilter={true}
             >
-                Создать
-            </Button>
-        </Table>
-    }
+                <Button
+                    type='button'
+                    iconName={AdminIcons.plus}
+                    aria-label='Добавить группу'
+                    onClick={() => navigate(`/${url}/new`)}
+                >
+                    Создать
+                </Button>
+            </Table>
+        );
+    };
 
     return (
         <Tabs place={"admin/about"}>

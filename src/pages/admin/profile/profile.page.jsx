@@ -109,12 +109,9 @@ const ProfilePage = () => {
                         />
                     </fieldset>
                     <div className='form__controls'>
-                        <Button
-                            type='submit'
-                            text='Отправить'
-                            spinnerActive={sending}
-                            style={{ marginLeft: "auto", display: "block" }}
-                        />
+                        <Button type='submit' spinnerActive={sending} style={{ marginLeft: "auto", display: "block" }}>
+                            Отправить
+                        </Button>
                     </div>
                 </form>
             </Popup>
@@ -129,15 +126,18 @@ const ProfilePage = () => {
                 onClose={() => setPopup(<></>)}
                 buttons={
                     <>
-                        <Button text={"Нет"} theme='text' size={"small"} onClick={() => setPopup(<></>)} />
+                        <Button theme='text' onClick={() => setPopup(<></>)}>
+                            Нет
+                        </Button>
                         <Button
-                            text={"Да"}
                             theme='info'
                             onClick={async () => {
                                 await fetchEditPhoto({ id: user.ID, delete: 1 });
                                 setPopup(<></>);
                             }}
-                        />
+                        >
+                            Да
+                        </Button>
                     </>
                 }
             />
@@ -225,13 +225,12 @@ const ProfilePage = () => {
                     </ul>
                     <Button
                         theme='outline'
-                        iconClass={"mdi mdi-pencil"}
-                        size='small'
                         type='button'
-                        text='Редактировать'
                         extraClass={"commonStyles.profile_edit_btn"}
                         onClick={onEditBtnClick}
-                    />
+                    >
+                        Редактировать
+                    </Button>
                 </div>
                 <ul className={"commonStyles.profile_row " + ` ` + "commonStyles.profile_table"}>
                     {phone && (

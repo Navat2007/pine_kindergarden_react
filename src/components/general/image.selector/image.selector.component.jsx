@@ -6,23 +6,23 @@ import FieldInput from "../../admin/field/field.text.component";
 import AlertPopup from "../alert.popup/alert.popup";
 import Popup from "../popup/popup.component";
 import "./image.selector.scss";
-import {AdminIcons, FileIcons} from "../../svgs.js";
+import { AdminIcons, FileIcons } from "../../svgs.js";
 import FieldTextarea from "../../admin/field/field.textarea.component";
 
 const ImageSelector = ({
-                           items,
-                           extraClass,
-                           orientation = "landscape",
-                           multiFiles,
-                           onlyOneFile,
-                           accept = "image/*",
-                           withLinks,
-                           withDescription,
-                           maxFileSize = 5,
-                           onChange,
-                           onDelete,
-                           onError,
-                       }) => {
+    items,
+    extraClass,
+    orientation = "landscape",
+    multiFiles,
+    onlyOneFile,
+    accept = "image/*",
+    withLinks,
+    withDescription,
+    maxFileSize = 5,
+    onChange,
+    onDelete,
+    onError,
+}) => {
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
     const [photoFileAddBtnDisabled, setPhotoFileAddBtnDisabled] = React.useState(false);
@@ -167,10 +167,8 @@ const ImageSelector = ({
             if (onlyOneFile) break;
         }
 
-        if (onlyOneFile)
-            setPhoto(tmp_array);
-        else
-            setPhoto([...photo, ...tmp_array]);
+        if (onlyOneFile) setPhoto(tmp_array);
+        else setPhoto([...photo, ...tmp_array]);
 
         setPhotoInputKey(window.global.makeid(30));
 
@@ -226,7 +224,6 @@ const ImageSelector = ({
                             </Button>
                             <Button
                                 type='button'
-                                text={"Да"}
                                 onClick={async () => {
                                     if (itemElement.isFile === 1 && itemElement.isLoaded === 1) {
                                         onDelete(itemElement);
@@ -238,7 +235,9 @@ const ImageSelector = ({
 
                                     setNotif(<></>);
                                 }}
-                            />
+                            >
+                                Да
+                            </Button>
                         </>
                     }
                 />
@@ -419,10 +418,10 @@ const ImageSelector = ({
                             }`}
                         >
                             {onlyOneFile && "Ограничение на кол-во файлов: 1 файл"}
-                            <br/>
+                            <br />
                             <span>Ограничение на размер изображения: {maxFileSize} MB.</span>
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             Начните загружать изображения простым перетаскиванием в любое место этого окна.
                             <span
                                 className={`admin-image-selector__download-span${

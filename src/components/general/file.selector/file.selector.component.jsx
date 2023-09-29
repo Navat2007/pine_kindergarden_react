@@ -7,20 +7,20 @@ import AlertPopup from "../alert.popup/alert.popup";
 import Popup from "../popup/popup.component";
 
 import "./file.selector.scss";
-import {AdminIcons, FileIcons} from "../../svgs.js";
+import { AdminIcons, FileIcons } from "../../svgs.js";
 
 const FileSelector = ({
-                          orientation,
-                          items,
-                          multiFiles,
-                          withDescription,
-                          onlyOneFile,
-                          maxFileSize = 5,
-                          accept = "*.*",
-                          onChange,
-                          onError,
-                          onDelete,
-                      }) => {
+    orientation,
+    items,
+    multiFiles,
+    withDescription,
+    onlyOneFile,
+    maxFileSize = 5,
+    accept = "*.*",
+    onChange,
+    onError,
+    onDelete,
+}) => {
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
     const [photoFileAddBtnDisabled, setPhotoFileAddBtnDisabled] = React.useState(false);
@@ -175,10 +175,8 @@ const FileSelector = ({
             if (onlyOneFile) break;
         }
 
-        if (onlyOneFile)
-            setPhoto(tmp_array);
-        else
-            setPhoto([...photo, ...tmp_array]);
+        if (onlyOneFile) setPhoto(tmp_array);
+        else setPhoto([...photo, ...tmp_array]);
 
         setPhotoInputKey(window.global.makeid(30));
 
@@ -328,11 +326,7 @@ const FileSelector = ({
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            {photo.length > 1 && (
-                                <p className={`admin-file-selector__title`}>
-                                    1. Главная
-                                </p>
-                            )}
+                            {photo.length > 1 && <p className={`admin-file-selector__title`}>1. Главная</p>}
                         </li>
                     ) : (
                         <li
@@ -403,19 +397,20 @@ const FileSelector = ({
                     >
                         <p className={"admin-file-download-block__text"}>
                             {onlyOneFile && "Ограничение на кол-во файлов: 1 файл"}
-                            <br/>
+                            <br />
                             <span>Ограничение на размер файлов: {maxFileSize} MB.</span>
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             Начните загружать изображения простым перетаскиванием в любое место этого окна.
                             <span className={"admin-file-download-block__span"}>или</span>
                         </p>
                         <Button
                             type='button'
-                            text={onlyOneFile ? "Выбрать файл" : "Выбрать файлы"}
                             disabled={photoFileAddBtnDisabled}
                             onClick={() => inputFileRef.current.click()}
-                        />
+                        >
+                            {onlyOneFile ? "Выбрать файл" : "Выбрать файлы"}
+                        </Button>
                         <input
                             ref={inputFileRef}
                             key={photoInputKey}
@@ -427,7 +422,7 @@ const FileSelector = ({
                         />
                     </li>
                 )}
-            < /ul>
+            </ul>
             {notif}
         </>
     );

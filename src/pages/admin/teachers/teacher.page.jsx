@@ -396,20 +396,22 @@ const AdminTeacherPage = (props) => {
                         </Tabs>
                         <div className='admin-section__bottom-panel admin-form__controls'>
                             <Button
-                                text='Сохранить'
-                                extraClass={"admin-form__button"}
+                                extraClass='admin-form__button'
                                 type='submit'
                                 form='add_form'
                                 spinnerActive={sending}
-                            />
+                            >
+                                Сохранить
+                            </Button>
                             <Button
                                 type='button'
-                                extraClass={"admin-form__button"}
+                                extraClass='admin-form__button'
                                 theme='text'
-                                text='Отмена'
                                 onClick={back}
                                 spinnerActive={sending}
-                            />
+                            >
+                                Отмена
+                            </Button>
                         </div>
                         {popup}
                     </div>

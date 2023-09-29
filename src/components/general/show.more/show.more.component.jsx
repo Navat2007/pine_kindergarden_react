@@ -44,11 +44,7 @@ const ShowMore = ({ children }) => {
     if (showMore) {
         return (
             <>
-                <motion.div
-                    initial="hidden"
-                    variants={container}
-                    animate="visible"
-                >
+                <motion.div initial='hidden' variants={container} animate='visible'>
                     {children.map((child, index) => (
                         <motion.span
                             key={index}
@@ -82,13 +78,14 @@ const ShowMore = ({ children }) => {
                         }}
                     >
                         <Button
-                            text="Скрыть"
-                            type="button"
-                            className="about__more-btn"
+                            type='button'
+                            className='about__more-btn'
                             onClick={() => {
                                 setShowMore(!showMore);
                             }}
-                        />
+                        >
+                            Скрыть
+                        </Button>
                     </motion.div>
                 )}
             </>
@@ -105,10 +102,7 @@ const ShowMore = ({ children }) => {
                         ) : (
                             <div
                                 dangerouslySetInnerHTML={{
-                                    __html: DOMPurify.sanitize(
-                                        children[0].props
-                                            .dangerouslySetInnerHTML.__html
-                                    ),
+                                    __html: DOMPurify.sanitize(children[0].props.dangerouslySetInnerHTML.__html),
                                 }}
                             />
                         )}
@@ -120,13 +114,14 @@ const ShowMore = ({ children }) => {
             <br />
             {isArray(children) && (
                 <Button
-                    text="Читать полностью"
-                    type="button"
-                    className="about__more-btn"
+                    type='button'
+                    className='about__more-btn'
                     onClick={() => {
                         setShowMore(!showMore);
                     }}
-                />
+                >
+                    Читать полностью
+                </Button>
             )}
         </div>
     );
