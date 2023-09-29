@@ -27,7 +27,7 @@ const useFeedbackStore = create(
 
             set({sending: false});
 
-            console.log(response.data);
+            //console.log(response.data);
         },
     })
 );

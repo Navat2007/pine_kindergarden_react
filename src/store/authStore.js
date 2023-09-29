@@ -64,7 +64,7 @@ const useAuthStore = create(
 
                 const response = await axios.postForm(urlEditUser, form);
 
-                console.log(response);
+                //console.log(response);
 
                 set((state) => ({user: {...state.user, fio: params.fio, phone: params.phone, position: params.position}, loading: false, error: true, errorText: response.data.error_text}));
 
@@ -97,7 +97,7 @@ const useAuthStore = create(
 
                 const response = await axios.postForm(urlCheck, form);
 
-                console.log(response);
+                //console.log(response);
 
                 if (response.data.params && 'token' in response.data.params) {
                     let tmpObject = {...response.data.params};

@@ -73,7 +73,10 @@ const App = () => {
 
             if (expireDate.isAfter(moment())) {
                 setUser(JSON.parse(user));
+                window.localStorage.setItem("token", `${JSON.parse(user).token}&${JSON.parse(user).ID}`);
                 axios.defaults.headers.post["Authorization"] = `${JSON.parse(user).token}&${JSON.parse(user).ID}`;
+                axios.defaults.headers.common["Authorization"] = `${JSON.parse(user).token}&${JSON.parse(user).ID}`;
+
             } else logout();
         }
 
@@ -87,10 +90,10 @@ const App = () => {
     return (
         <PopUpContext.Provider value={{popup, setPopup}}>
             {app && (
-                <BrowserRouter>
+                <HashRouter>
                     <RoutesList/>
                     <ToTopButton/>
-                </BrowserRouter>
+                </HashRouter>
             )}
             {popup}
         </PopUpContext.Provider>

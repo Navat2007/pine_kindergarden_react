@@ -207,7 +207,7 @@ const ImageSelector = ({
     };
 
     const handleDeletePhoto = (itemElement) => {
-        console.log(itemElement);
+        //console.log(itemElement);
 
         if (itemElement.isLoaded === 1) {
             setNotif(

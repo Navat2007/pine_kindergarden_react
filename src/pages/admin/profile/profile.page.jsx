@@ -67,7 +67,7 @@ const ProfilePage = () => {
     const onUserEditSubmit = async (params) => {
         params.id = user.ID;
 
-        console.log(params);
+        //console.log(params);
 
         await fetchEditUser(params);
 
