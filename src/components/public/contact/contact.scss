@@ -22,8 +22,8 @@
 
     &__map {
         flex: auto;
-        width: 100%;
-        min-height: min(50vmax, 30em);
+        @include box(100%);
+        min-height: min(50vb, 30em);
         background-color: #eee;
 
         @include media(lg) {
