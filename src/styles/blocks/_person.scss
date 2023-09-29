@@ -82,7 +82,10 @@
         gap: 0 1em;
         align-items: baseline;
         justify-content: start;
-        grid-template-columns: min(35%, 20em) auto;
+
+        @include media(sm) {
+            grid-template-columns: 17em auto;
+        }
     }
 
     &__label {
