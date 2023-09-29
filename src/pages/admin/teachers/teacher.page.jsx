@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useTeachersCategoriesStore from "../../../store/admin/teacherCategoriesStore";
 
+import Table from "../../../components/admin/table/table.component";
+import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
@@ -17,13 +19,11 @@ import FieldUrl from "../../../components/admin/field/field.url.component";
 import FieldSelect from "../../../components/admin/field/field.select.component";
 
 import { AdminIcons } from "../../../components/svgs";
-import Table from "../../../components/admin/table/table.component";
-import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 
 const AdminTeacherPage = (props) => {
     let { id } = useParams();
     const navigate = useNavigate();
-    const { register, handleSubmit, reset, getValues } = useForm();
+    const { register, handleSubmit, reset, getValues, control } = useForm();
 
     const store = useTeachersStore();
     const storeCategories = useTeachersCategoriesStore();
@@ -40,7 +40,10 @@ const AdminTeacherPage = (props) => {
         fetchData();
     }, [id]);
 
-    const back = () => navigate("/admin/teachers");
+    const back = () => {
+        window.localStorage.removeItem(`teacher_create_tab`);
+        navigate("/admin/teachers");
+    }
 
     //Private component
     const Article = () => {
@@ -296,9 +299,9 @@ const AdminTeacherPage = (props) => {
                 return (
                     <>
                         <TitleBlock title={"Создание"} onBack={back} />
-                        <Tabs>
+                        <Tabs place={"teacher_create"}>
                             <Tab title={"Основная информация"}>
-                                <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
+                                <form id="add_form" onSubmit={handleSubmit(onAdd)} className='admin-form'>
                                     <div className='admin-form__two-columns'>
                                         <fieldset className='admin-form__section'>
                                             <h3 className='admin-form__title'>Основная информация</h3>
@@ -342,22 +345,6 @@ const AdminTeacherPage = (props) => {
                                                 onChange={(items) => setPhoto(items)}
                                             />
                                         </fieldset>
-                                    </div>
-                                    <div className='admin-form__controls'>
-                                        <Button
-                                            text='Сохранить'
-                                            extraClass={"admin-form__button"}
-                                            type='submit'
-                                            spinnerActive={sending}
-                                        />
-                                        <Button
-                                            type='button'
-                                            extraClass={"admin-form__button"}
-                                            theme='text'
-                                            text='Отмена'
-                                            onClick={back}
-                                            spinnerActive={sending}
-                                        />
                                     </div>
                                 </form>
                             </Tab>
@@ -407,6 +394,23 @@ const AdminTeacherPage = (props) => {
                                 />
                             </Tab>
                         </Tabs>
+                        <div className='admin-form__controls'>
+                            <Button
+                                text='Сохранить'
+                                extraClass={"admin-form__button"}
+                                type='submit'
+                                form="add_form"
+                                spinnerActive={sending}
+                            />
+                            <Button
+                                type='button'
+                                extraClass={"admin-form__button"}
+                                theme='text'
+                                text='Отмена'
+                                onClick={back}
+                                spinnerActive={sending}
+                            />
+                        </div>
                         {popup}
                     </>
                 );
@@ -605,9 +609,9 @@ const AdminTeacherPage = (props) => {
                 return (
                     <>
                         <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
-                        <Tabs>
+                        <Tabs place={"teacher_create"}>
                             <Tab title={"Основная информация"}>
-                                <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
+                                <form id="edit_form" onSubmit={handleSubmit(onEdit)} className='admin-form'>
                                     <div className='admin-form__two-columns'>
                                         <fieldset className='admin-form__section'>
                                             <h3 className='admin-form__title'>Основная информация</h3>
@@ -661,23 +665,6 @@ const AdminTeacherPage = (props) => {
                                             />
                                         </fieldset>
                                     </div>
-                                    <div className='admin-form__controls'>
-                                        <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
-                                            Сохранить
-                                        </Button>
-                                        <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
-                                            Удалить
-                                        </Button>
-                                        <Button
-                                            type='button'
-                                            extraClass={"admin-form__button"}
-                                            theme='text'
-                                            onClick={back}
-                                            spinnerActive={sending}
-                                        >
-                                            Отмена
-                                        </Button>
-                                    </div>
                                 </form>
                             </Tab>
                             <Tab title={"Образование"}>
@@ -726,6 +713,23 @@ const AdminTeacherPage = (props) => {
                                 />
                             </Tab>
                         </Tabs>
+                        <div className='admin-form__controls'>
+                            <Button extraClass={"admin-form__button"} type='submit' form="edit_form" spinnerActive={sending}>
+                                Сохранить
+                            </Button>
+                            <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
+                                Удалить
+                            </Button>
+                            <Button
+                                type='button'
+                                extraClass={"admin-form__button"}
+                                theme='text'
+                                onClick={back}
+                                spinnerActive={sending}
+                            >
+                                Отмена
+                            </Button>
+                        </div>
                         {popup}
                     </>
                 );
