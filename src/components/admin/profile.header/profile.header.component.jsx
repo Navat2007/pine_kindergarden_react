@@ -38,7 +38,7 @@ const ProfileHeader = ({ className }) => {
             <div
                 className='profile-header__inner'
                 onClick={() => {
-                    navigate("/profile");
+                    //navigate("/profile");
                 }}
             >
                 <img
