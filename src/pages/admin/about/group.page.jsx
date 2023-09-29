@@ -467,7 +467,7 @@ const AdminGroupPage = (props) => {
                                 store.item?.teachers?.length > 0 &&
                                 <>
                                     <h2 className='admin-view-section__title'>Воспитатели</h2>
-                                    <TeachersSlider items={store.item?.teachers} />
+                                    <TeachersSlider type={"slide"} items={store.item?.teachers} />
                                 </>
                             }
                             <h2 className='admin-view-section__title'>Детальное описание</h2>
