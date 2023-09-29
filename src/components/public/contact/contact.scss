@@ -23,7 +23,7 @@
     &__map {
         flex: auto;
         @include box(100%);
-        min-height: min(50vb, 30em);
+        // min-height: min(50vb, 30em);
         background-color: #eee;
 
         @include media(lg) {

@@ -21,7 +21,7 @@ const Contact = () => {
                             zoom: 16,
                         }}
                         width='100%'
-                        height='100%'
+                        height='min(50vb, 30em)'
                     >
                         <Placemark
                             geometry={[55.733327, 37.055938]}
