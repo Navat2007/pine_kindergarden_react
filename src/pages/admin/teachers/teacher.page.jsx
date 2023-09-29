@@ -43,7 +43,7 @@ const AdminTeacherPage = (props) => {
     const back = () => {
         window.localStorage.removeItem(`teacher_create_tab`);
         navigate("/admin/teachers");
-    }
+    };
 
     //Private component
     const Article = () => {
@@ -301,7 +301,7 @@ const AdminTeacherPage = (props) => {
                         <TitleBlock title={"Создание"} onBack={back} />
                         <Tabs place={"teacher_create"}>
                             <Tab title={"Основная информация"}>
-                                <form id="add_form" onSubmit={handleSubmit(onAdd)} className='admin-form'>
+                                <form id='add_form' onSubmit={handleSubmit(onAdd)} className='admin-form'>
                                     <div className='admin-form__two-columns'>
                                         <fieldset className='admin-form__section'>
                                             <h3 className='admin-form__title'>Основная информация</h3>
@@ -399,7 +399,7 @@ const AdminTeacherPage = (props) => {
                                 text='Сохранить'
                                 extraClass={"admin-form__button"}
                                 type='submit'
-                                form="add_form"
+                                form='add_form'
                                 spinnerActive={sending}
                             />
                             <Button
@@ -607,11 +607,11 @@ const AdminTeacherPage = (props) => {
 
             if (id && edit && !store.loading && !storeCategories.loading) {
                 return (
-                    <>
+                    <div className='admin-section'>
                         <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
                         <Tabs place={"teacher_create"}>
                             <Tab title={"Основная информация"}>
-                                <form id="edit_form" onSubmit={handleSubmit(onEdit)} className='admin-form'>
+                                <form id='edit_form' onSubmit={handleSubmit(onEdit)} className='admin-form'>
                                     <div className='admin-form__two-columns'>
                                         <fieldset className='admin-form__section'>
                                             <h3 className='admin-form__title'>Основная информация</h3>
@@ -713,12 +713,14 @@ const AdminTeacherPage = (props) => {
                                 />
                             </Tab>
                         </Tabs>
-                        <div className='admin-form__controls'>
-                            <Button extraClass={"admin-form__button"} type='submit' form="edit_form" spinnerActive={sending}>
+                        <div className='admin-section__bottom-panel admin-form__controls'>
+                            <Button
+                                extraClass={"admin-form__button"}
+                                type='submit'
+                                form='edit_form'
+                                spinnerActive={sending}
+                            >
                                 Сохранить
-                            </Button>
-                            <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
-                                Удалить
                             </Button>
                             <Button
                                 type='button'
@@ -729,9 +731,18 @@ const AdminTeacherPage = (props) => {
                             >
                                 Отмена
                             </Button>
+                            <Button
+                                type='button'
+                                iconName={AdminIcons.delete}
+                                theme='text-error'
+                                onClick={onDelete}
+                                spinnerActive={sending}
+                            >
+                                Удалить
+                            </Button>
                         </div>
                         {popup}
-                    </>
+                    </div>
                 );
             }
         };

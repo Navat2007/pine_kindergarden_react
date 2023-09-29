@@ -1,0 +1,8 @@
+.admin-section {
+    @include box(100%);
+    display: flex;
+    flex-direction: column;
+    &__bottom-panel {
+        margin-block-start: auto;
+    }
+}
