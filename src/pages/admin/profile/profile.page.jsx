@@ -9,7 +9,7 @@ import Popup from "../../../components/general/popup/popup.component";
 import FieldInput from "../../../components/general/field/field.input.component";
 
 import { AdminIcons } from "../../../components/svgs.js";
-import no_photo_man from "../../../images/no_photo_man.png";
+import noPhoto from "../../../images/no-photo.jpg";
 
 const ProfilePage = () => {
     const { user, fetchEditPhoto, fetchEditUser } = useAuthStore();
@@ -159,7 +159,7 @@ const ProfilePage = () => {
                 <div className={"commonStyles.profile_img_block"}>
                     <img
                         className={"commonStyles.profile_img"}
-                        src={user?.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man}
+                        src={user?.photo !== "" ? window.global.baseUrl + user.photo : noPhoto}
                         alt={user?.fio}
                     />
                     <div className={"commonStyles.profile_img_panel"}>

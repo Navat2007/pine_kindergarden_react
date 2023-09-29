@@ -217,7 +217,11 @@ const TeacherPage = () => {
                 transition={{ delay: 0.2, duration: 1 }}
             >
                 <article className='person'>
-                    <SingleImageWithPreview image={store.item.photo} extraClass={"person__image"} />
+                    <SingleImageWithPreview
+                        isPersonImage={true}
+                        image={store.item.photo}
+                        extraClass={"person__image"}
+                    />
                     <div className='person__section'>
                         <div className='person__main-content'>
                             <h1 className='person__title'>{store.item.fio}</h1>

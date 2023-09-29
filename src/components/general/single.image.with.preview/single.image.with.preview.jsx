@@ -1,21 +1,22 @@
-import React from 'react';
+import React from "react";
 
 import ImagePreview from "../image.preview/image.preview.component";
 
-import noImage from "../../../images/no_image.png";
+import placeHolderImage from "../../../images/no-image.png";
+import placeHolderPhoto from "../../../images/no-photo.jpg";
 
-const SingleImageWithPreview = ({image, noPhoto = noImage, inner = false, extraClass = ""}) => {
-
+const SingleImageWithPreview = ({
+    image,
+    isPersonImage = false,
+    noPhoto = isPersonImage ? placeHolderPhoto : placeHolderImage,
+    inner = false,
+    extraClass = "",
+}) => {
     const [preview, setPreview] = React.useState(<></>);
 
     const handleOpenPreview = (slideIndex) => {
         setPreview(
-            <ImagePreview
-                open={true}
-                index={slideIndex}
-                items={[{url: image}]}
-                onClose={() => setPreview(<></>)}
-            />
+            <ImagePreview open={true} index={slideIndex} items={[{ url: image }]} onClose={() => setPreview(<></>)} />
         );
     };
 

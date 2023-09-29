@@ -5,7 +5,7 @@ import useAuthStore from "../../../store/authStore";
 
 import Button from "../button/button.component";
 import AlertPopup from "../../general/alert.popup/alert.popup";
-import no_photo_man from "../../../images/no_photo_man.png";
+import noPhoto from "../../../images/no-photo.jpg";
 import "./profile.scss";
 import { AdminIcons } from "../../svgs";
 
@@ -43,7 +43,7 @@ const ProfileHeader = ({ className }) => {
             >
                 <img
                     className='profile-header__image'
-                    src={user?.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man}
+                    src={user?.photo !== "" ? window.global.baseUrl + user.photo : noPhoto}
                     alt='Фото профиля'
                 />
                 <p className='profile-header__title'>{user.login ? user.login : user.email}</p>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import {motion} from "framer-motion";
-import {NavLink} from "react-router-dom";
+import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
 
 import useTeachersStore from "../../../store/public/teachersStore";
 
@@ -21,19 +21,23 @@ const TeachersPage = () => {
         fetchData();
     }, []);
 
-    const Person = ({person}) => {
+    const Person = ({ person }) => {
         return (
             <li className='teachers__item'>
-                <NavLink to={"/teachers/" + person.ID } className='card-link'>
+                <NavLink to={"/teachers/" + person.ID} className='card-link'>
                     <article className='teachers-card'>
-                        <SingleImageWithPreview image={person.photo} extraClass={'teachers-card__image'} />
+                        <SingleImageWithPreview
+                            isPersonImage={true}
+                            image={person.photo}
+                            extraClass={"teachers-card__image"}
+                        />
                         <h3 className='teachers-card__title'>{person.fio}</h3>
                         <p className='teachers-card__subtitle'>{person.position}</p>
                     </article>
                 </NavLink>
             </li>
-        )
-    }
+        );
+    };
 
     return (
         <BasicPage loadings={[store]}>
@@ -52,18 +56,13 @@ const TeachersPage = () => {
                         <div key={item.category}>
                             <h2 className='teachers__title'>{item.category}</h2>
                             <ul className='teachers__list'>
-                                {
-                                    item.persons.map((person) => {
-                                        return (
-                                            <Person key={person.ID} person={person} />
-                                        )
-                                    })
-                                }
+                                {item.persons.map((person) => {
+                                    return <Person key={person.ID} person={person} />;
+                                })}
                             </ul>
                         </div>
-                    )
+                    );
                 })}
-
             </motion.section>
         </BasicPage>
     );
