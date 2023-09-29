@@ -67,4 +67,33 @@
             color: var(--primary);
         }
     }
+
+    &__list {
+        @extend %reset-list;
+        margin-inline-start: min(1.75vmax, 1.25em);
+
+        display: flex;
+        gap: 1.25em;
+        flex-direction: column;
+    }
+
+    &__item {
+        display: grid;
+        gap: 0 1em;
+        align-items: baseline;
+        justify-content: start;
+        grid-template-columns: min(35%, 20em) auto;
+    }
+
+    &__label {
+        margin: 0;
+        font-size: var(--text-size-lg);
+        font-weight: normal;
+    }
+
+    &__description {
+        margin: 0;
+        font-size: var(--text-size-lg);
+        font-weight: 500;
+    }
 }

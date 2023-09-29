@@ -12,7 +12,7 @@ import { AdminIcons } from "../../../components/svgs";
 import SingleImageWithPreview from "../../../components/general/single.image.with.preview/single.image.with.preview";
 import Table from "../../../components/public/table/table.component";
 import Breadcrumbs from "../../../components/public/breadcrumbs/breadcrumbs";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 const TeacherPage = () => {
     let { id } = useParams();
@@ -249,6 +249,32 @@ const TeacherPage = () => {
                                 />
                             </Tab>
                             <Tab title={"Трудовой стаж"}>
+                                <ul className='person__list'>
+                                    <li className='person__item'>
+                                        <p className='person__label'>Общий стаж</p>
+                                        <p className='person__description'></p>
+                                    </li>
+                                    <li className='person__item'>
+                                        <p className='person__label'>Педагогический стаж</p>
+                                        <p className='person__description'></p>
+                                    </li>
+                                    <li className='person__item'>
+                                        <p className='person__label'>В данном учреждении</p>
+                                        <p className='person__description'></p>
+                                    </li>
+                                    <li className='person__item'>
+                                        <p className='person__label'>Квалификационная категория</p>
+                                        <p className='person__description'></p>
+                                    </li>
+                                    <li className='person__item'>
+                                        <p className='person__label'>Дата аттестации</p>
+                                        <p className='person__description'></p>
+                                    </li>
+                                    <li className='person__item'>
+                                        <p className='person__label'>Приказ</p>
+                                        <p className='person__description'></p>
+                                    </li>
+                                </ul>
                                 <Table
                                     title={"Информация о трудовом стаже"}
                                     items={store.item.works}
