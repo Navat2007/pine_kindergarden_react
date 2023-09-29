@@ -17,6 +17,7 @@ import MultiSelect from "../../../components/general/multi_select/multi_select.c
 import FieldText from "../../../components/admin/field/field.text.component";
 
 import { AdminIcons } from "../../../components/svgs";
+import TeachersSlider from "../../../components/public/teachers.slider/teachers.slider";
 
 const AdminGroupPage = (props) => {
     let { id } = useParams();
@@ -76,7 +77,7 @@ const AdminGroupPage = (props) => {
                         data.teachers_select.map((item) => item.value)
                     );
 
-                sendObject["image"] = image;
+                sendObject["image"] = image && image.length > 0 ? image : "";
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -222,12 +223,14 @@ const AdminGroupPage = (props) => {
                 let sendObject = { ...data };
 
                 sendObject["id"] = id;
-                sendObject["image"] = image;
+                sendObject["image"] = image && image.length > 0 ? image : "";
 
                 if (data.teachers_select && data.teachers_select.length > 0)
                     sendObject["teachers"] = Array.from(
                         data.teachers_select.map((item) => item.value)
                     );
+
+                console.log(sendObject);
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -460,6 +463,13 @@ const AdminGroupPage = (props) => {
                                 ]}
                                 front={false}
                             />
+                            {
+                                store.item?.teachers?.length > 0 &&
+                                <>
+                                    <h2 className='admin-view-section__title'>Воспитатели</h2>
+                                    <TeachersSlider items={store.item?.teachers} />
+                                </>
+                            }
                             <h2 className='admin-view-section__title'>Детальное описание</h2>
                             <div
                                 className='admin-view-section__editor'

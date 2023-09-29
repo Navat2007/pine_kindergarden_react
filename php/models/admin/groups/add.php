@@ -33,45 +33,47 @@ if($lastID > 0){
         mysqli_query($conn, $sql);
     }
 
-    for ($i = 0; $i < count($image); $i++) {
-        $url = $image[$i]['url'];
-        $main = $image[$i]['main'];
-        $order = $image[$i]['order'];
-        $isFile = (int)$image[$i]['isFile'];
-        $isLoaded = (int)$image[$i]['isLoaded'];
+    if(is_array($image)){
+        for ($i = 0; $i < count($image); $i++) {
+            $url = $image[$i]['url'];
+            $main = $image[$i]['main'];
+            $order = $image[$i]['order'];
+            $isFile = (int)$image[$i]['isFile'];
+            $isLoaded = (int)$image[$i]['isLoaded'];
 
-        if($isFile === 1 && $isLoaded === 0){
+            if($isFile === 1 && $isLoaded === 0){
 
-            $dir_name = 'groups';
-            $url = "";
+                $dir_name = 'groups';
+                $url = "";
 
-            $helper->createDir("/files/" . $dir_name . "/" . $lastID);
+                $helper->createDir("/files/" . $dir_name . "/" . $lastID);
 
-            $temp_name = $_FILES['image']['tmp_name'][$i]['file'];
-            $name = $_FILES['image']['name'][$i]['file'];
+                $temp_name = $_FILES['image']['tmp_name'][$i]['file'];
+                $name = $_FILES['image']['name'][$i]['file'];
 
-            $sqls[] = $temp_name;
-            $sqls[] = $name;
+                $sqls[] = $temp_name;
+                $sqls[] = $name;
 
-            $file_token = $helper->gen_token();
+                $file_token = $helper->gen_token();
 
-            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
 
-            @unlink($path);
+                @unlink($path);
 
-            if(copy($temp_name, $path))
-            {
-                $url = "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
+                if(copy($temp_name, $path))
+                {
+                    $url = "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
 
-                $sql = "
+                    $sql = "
                     UPDATE 
                         groups
                     SET
                         image = '$url'
                     WHERE 
                         ID = '$lastID'";
-                $sqls[] = $sql;
-                mysqli_query($conn, $sql);
+                    $sqls[] = $sql;
+                    mysqli_query($conn, $sql);
+                }
             }
         }
     }

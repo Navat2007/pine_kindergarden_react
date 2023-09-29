@@ -6,7 +6,7 @@ import SingleImageWithPreview from "../../general/single.image.with.preview/sing
 
 import "./teachers.slider.scss";
 
-const TeachersSlider = ({categories = []}) => {
+const TeachersSlider = ({categories = [], items = []}) => {
     if(categories.length > 0)
         return (
             <Splide
@@ -54,6 +54,23 @@ const TeachersSlider = ({categories = []}) => {
                 })}
             </Splide>
         );
+    else if(items.length > 0){
+        return (
+            <>
+                {items.map((person) => {
+                    return (
+                        <NavLink key={person.ID} className={"card-link"} to={"/teachers/" + person.ID} target={"_blank"}>
+                            <article className='person-card'>
+                                <SingleImageWithPreview image={person.photo} extraClass={'person-card__image'} noPhoto={""} />
+                                <h3 className='person-card__title'>{person.fio}</h3>
+                                <p className='teachers-card__subtitle'>{person.position}</p>
+                            </article>
+                        </NavLink>
+                    )
+                })}
+            </>
+        )
+    }
     else
         return null;
 };
