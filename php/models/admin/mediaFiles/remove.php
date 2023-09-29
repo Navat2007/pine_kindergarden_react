@@ -13,8 +13,7 @@ $sqls[] = $sql;
 mysqli_query($conn, $sql);
 
 $path = $_SERVER['DOCUMENT_ROOT'] . "/files/mediaFiles/" . $id;
-array_map('unlink', glob("$path/*.*"));
-rmdir($path);
+$helper->rrmdir($path);
 
 $log->add($conn, $authorization[1], 'Файл ID: ' . $id . ' удален');
 
