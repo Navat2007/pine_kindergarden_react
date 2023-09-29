@@ -4,6 +4,7 @@ import createDOMPurify from "dompurify";
 import { useForm } from "react-hook-form";
 
 import useGroupsStore from "../../../store/admin/groupsStore";
+import useTeachersStore from "../../../store/admin/teachersStore";
 
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
@@ -24,11 +25,13 @@ const AdminGroupPage = (props) => {
     const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
 
     const store = useGroupsStore();
+    const teachersStore = useTeachersStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
         await store.loadByID({ id });
+        await teachersStore.loadAll();
     };
 
     React.useEffect(() => {
@@ -67,6 +70,11 @@ const AdminGroupPage = (props) => {
                 const data = getValues();
 
                 let sendObject = { ...data };
+
+                if (data.teachers_select && data.teachers_select.length > 0)
+                    sendObject["teachers"] = Array.from(
+                        data.teachers_select.map((item) => item.value)
+                    );
 
                 sendObject["image"] = image;
 
@@ -126,9 +134,9 @@ const AdminGroupPage = (props) => {
                                     isMulti={true}
                                     name={"teachers_select"}
                                     closeMenuOnSelect={false}
-                                    options={store.teachers?.map((item) => {
+                                    options={teachersStore.items?.map((item) => {
                                         return {
-                                            label: item.title,
+                                            label: item.fio,
                                             value: item.ID,
                                         };
                                     })}
@@ -215,6 +223,11 @@ const AdminGroupPage = (props) => {
 
                 sendObject["id"] = id;
                 sendObject["image"] = image;
+
+                if (data.teachers_select && data.teachers_select.length > 0)
+                    sendObject["teachers"] = Array.from(
+                        data.teachers_select.map((item) => item.value)
+                    );
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -340,15 +353,15 @@ const AdminGroupPage = (props) => {
                                     isMulti={true}
                                     name={"teachers_select"}
                                     closeMenuOnSelect={false}
-                                    values={store.teachers?.map((item) => {
+                                    values={store.item.teachers?.map((item) => {
                                         return {
-                                            label: item.title,
+                                            label: item.fio,
                                             value: item.ID,
                                         };
                                     })}
-                                    options={store.teachers?.map((item) => {
+                                    options={teachersStore.items?.map((item) => {
                                         return {
-                                            label: item.title,
+                                            label: item.fio,
                                             value: item.ID,
                                         };
                                     })}
@@ -402,7 +415,7 @@ const AdminGroupPage = (props) => {
             if (id && !edit && !store.loading && Object.keys(store.item).length > 0) {
                 return (
                     <>
-                        <TitleBlock title={`Занятие ID: ${store.item.ID}`} onBack={back}>
+                        <TitleBlock title={`Группа ID: ${store.item.ID}`} onBack={back}>
                             <Button
                                 type='submit'
                                 isIconBtn='true'
@@ -421,7 +434,7 @@ const AdminGroupPage = (props) => {
                                     <p className='admin-view-section__description'>
                                         <NavLink
                                             className='admin-view-section__link'
-                                            to={"/lesson/" + id}
+                                            to={"/group/" + id}
                                             target={"_blank"}
                                             rel='noopener nofollow noreferer'
                                         >
@@ -470,7 +483,7 @@ const AdminGroupPage = (props) => {
     };
 
     return (
-        <BasicPage id={id} mainStore={store} loadings={[store]} back={back}>
+        <BasicPage id={id} mainStore={store} loadings={[store, teachersStore]} back={back}>
             <Article />
         </BasicPage>
     );

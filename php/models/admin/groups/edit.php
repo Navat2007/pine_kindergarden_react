@@ -11,6 +11,8 @@ $userID = $authorization[1];
 $title = mysqli_real_escape_string($conn, htmlspecialchars($_POST["title"]));
 $preview = mysqli_real_escape_string($conn, htmlspecialchars($_POST["preview"]));
 $text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
+
+$teachers = $_POST["teachers"];
 $image = $_POST["image"];
 
 $sql = "UPDATE 
@@ -31,6 +33,21 @@ if (!$result) {
 }
 else {
     $lastID = $id;
+
+    $sql = "DELETE FROM group_teachers WHERE groupID = '$id'";
+    $sqls[] = $sql;
+    mysqli_query($conn, $sql);
+
+    foreach ($teachers as $teacher) {
+
+        $sql = "
+        INSERT INTO group_teachers (groupID, teacherID) 
+        VALUES ('$lastID', '$teacher')";
+
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+    }
+
 
     for ($i = 0; $i < count($image); $i++) {
         $url = $image[$i]['url'];
