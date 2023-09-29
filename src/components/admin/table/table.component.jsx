@@ -12,6 +12,7 @@ import AlertPopup from "../../general/alert.popup/alert.popup";
 import FieldText from "../field/field.text.component";
 import FieldNumber from "../field/field.number.component";
 import FieldDate from "../field/field.date.component";
+import FieldTextArea from "../field/field.textarea.component";
 
 import "./table.scss";
 import {AdminIcons} from "../../svgs.js";
@@ -304,7 +305,7 @@ const Table = ({
                                 if (itemKey.key !== "ID") {
                                     switch (itemKey.type) {
                                         case "string":
-                                            return <FieldText
+                                            return <FieldTextArea
                                                 key={itemKey.key}
                                                 label={itemKey.header}
                                                 required={itemKey.required}

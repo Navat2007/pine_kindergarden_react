@@ -135,7 +135,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true,
+                required: false,
             },
             {
                 header: "Педагогический стаж",
@@ -143,7 +143,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true,
+                required: false,
             },
             {
                 header: "В данном учреждении",
@@ -151,7 +151,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true,
+                required: false,
             },
             {
                 header: "Квалификационная категория",
@@ -159,7 +159,7 @@ const AdminTeacherPage = (props) => {
                 type: "string",
                 filter: "string",
                 sorting: true,
-                required: true,
+                required: false,
             },
             {
                 header: "Дата аттестации",
@@ -167,7 +167,7 @@ const AdminTeacherPage = (props) => {
                 type: "date",
                 filter: "date",
                 sorting: true,
-                required: true,
+                required: false,
             },
             {
                 header: "Приказ",
