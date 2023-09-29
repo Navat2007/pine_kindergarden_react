@@ -1,31 +1,33 @@
 import React from "react";
-import {Splide, SplideSlide} from "@splidejs/react-splide";
-import {NavLink} from "react-router-dom";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { NavLink } from "react-router-dom";
 
 import SingleImageWithPreview from "../../general/single.image.with.preview/single.image.with.preview";
 
 import "./teachers.slider.scss";
 
-const TeachersSlider = ({type = "loop", categories = [], items = []}) => {
-
-    const Slide = ({person}) => {
+const TeachersSlider = ({ type = "loop", isBorderGradient = true, categories = [], items = [] }) => {
+    const Slide = ({ person }) => {
         return (
             <SplideSlide key={person.ID} data-splide-interval='5000'>
                 <NavLink className={"card-link"} to={"/teachers/" + person.ID}>
                     <article className='person-card'>
-                        <SingleImageWithPreview image={person.photo} extraClass={'person-card__image'}
-                                                noPhoto={""}/>
+                        <SingleImageWithPreview
+                            image={person.photo}
+                            extraClass={"person-card__image"}
+                            isPersonImage={true}
+                        />
                         <h3 className='person-card__title'>{person.fio}</h3>
                         <p className='teachers-card__subtitle'>{person.position}</p>
                     </article>
                 </NavLink>
             </SplideSlide>
-        )
-    }
+        );
+    };
 
     return (
         <Splide
-            className='splide teachers-slider'
+            className={`splide teachers-slider${isBorderGradient ? ` teachers-slider_border-gradient` : ``}`}
             options={{
                 type: type,
                 rewind: true,
@@ -52,19 +54,17 @@ const TeachersSlider = ({type = "loop", categories = [], items = []}) => {
                 },
             }}
         >
-            {categories.length > 0 && categories.map((category) => {
-                return category.persons.map((person) => {
-                    return (
-                        <Slide key={person.ID} person={person}/>
-                    )
-                })
-            })}
+            {categories.length > 0 &&
+                categories.map((category) => {
+                    return category.persons.map((person) => {
+                        return <Slide key={person.ID} person={person} />;
+                    });
+                })}
 
-            {items.length > 0 && items.map((person) => {
-                return (
-                    <Slide key={person.ID} person={person}/>
-                )
-            })}
+            {items.length > 0 &&
+                items.map((person) => {
+                    return <Slide key={person.ID} person={person} />;
+                })}
         </Splide>
     );
 };

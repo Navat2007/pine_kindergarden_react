@@ -73,9 +73,7 @@ const AdminGroupPage = (props) => {
                 let sendObject = { ...data };
 
                 if (data.teachers_select && data.teachers_select.length > 0)
-                    sendObject["teachers"] = Array.from(
-                        data.teachers_select.map((item) => item.value)
-                    );
+                    sendObject["teachers"] = Array.from(data.teachers_select.map((item) => item.value));
 
                 sendObject["image"] = image && image.length > 0 ? image : "";
 
@@ -226,9 +224,7 @@ const AdminGroupPage = (props) => {
                 sendObject["image"] = image && image.length > 0 ? image : "";
 
                 if (data.teachers_select && data.teachers_select.length > 0)
-                    sendObject["teachers"] = Array.from(
-                        data.teachers_select.map((item) => item.value)
-                    );
+                    sendObject["teachers"] = Array.from(data.teachers_select.map((item) => item.value));
 
                 console.log(sendObject);
 
@@ -463,13 +459,16 @@ const AdminGroupPage = (props) => {
                                 ]}
                                 front={false}
                             />
-                            {
-                                store.item?.teachers?.length > 0 &&
+                            {store.item?.teachers?.length > 0 && (
                                 <>
                                     <h2 className='admin-view-section__title'>Воспитатели</h2>
-                                    <TeachersSlider type={"slide"} items={store.item?.teachers} />
+                                    <TeachersSlider
+                                        isBorderGradient={false}
+                                        type={"loop"}
+                                        items={store.item?.teachers}
+                                    />
                                 </>
-                            }
+                            )}
                             <h2 className='admin-view-section__title'>Детальное описание</h2>
                             <div
                                 className='admin-view-section__editor'
