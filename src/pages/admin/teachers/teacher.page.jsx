@@ -297,7 +297,7 @@ const AdminTeacherPage = (props) => {
 
             if (!id && !store.loading && !storeCategories.loading) {
                 return (
-                    <>
+                    <div className='admin-section'>
                         <TitleBlock title={"Создание"} onBack={back} />
                         <Tabs place={"teacher_create"}>
                             <Tab title={"Основная информация"}>
@@ -394,7 +394,7 @@ const AdminTeacherPage = (props) => {
                                 />
                             </Tab>
                         </Tabs>
-                        <div className='admin-form__controls'>
+                        <div className='admin-section__bottom-panel admin-form__controls'>
                             <Button
                                 text='Сохранить'
                                 extraClass={"admin-form__button"}
@@ -412,7 +412,7 @@ const AdminTeacherPage = (props) => {
                             />
                         </div>
                         {popup}
-                    </>
+                    </div>
                 );
             }
         };
