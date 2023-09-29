@@ -445,12 +445,12 @@ const AdminMediaFilePage = (props) => {
                                 </fieldset>
                             </div>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
-                                <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
-                                    Удалить
+                                <Button type='submit' extraClass='admin-form__button' spinnerActive={sending}>
+                                    Сохранить
                                 </Button>
                                 <Button
                                     type='button'
+                                    extraClass='admin-form__button'
                                     theme='text'
                                     onClick={() => {
                                         setEdit(false);
@@ -458,6 +458,15 @@ const AdminMediaFilePage = (props) => {
                                     spinnerActive={sending}
                                 >
                                     Отмена
+                                </Button>
+                                <Button
+                                    type='button'
+                                    iconName={AdminIcons.delete}
+                                    theme='text-error'
+                                    onClick={onDelete}
+                                    spinnerActive={sending}
+                                >
+                                    Удалить
                                 </Button>
                             </div>
                         </form>

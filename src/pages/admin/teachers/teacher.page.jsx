@@ -715,7 +715,7 @@ const AdminTeacherPage = (props) => {
                         </Tabs>
                         <div className='admin-section__bottom-panel admin-form__controls'>
                             <Button
-                                extraClass={"admin-form__button"}
+                                extraClass='admin-form__button'
                                 type='submit'
                                 form='edit_form'
                                 spinnerActive={sending}
@@ -724,7 +724,7 @@ const AdminTeacherPage = (props) => {
                             </Button>
                             <Button
                                 type='button'
-                                extraClass={"admin-form__button"}
+                                extraClass='admin-form__button'
                                 theme='text'
                                 onClick={back}
                                 spinnerActive={sending}

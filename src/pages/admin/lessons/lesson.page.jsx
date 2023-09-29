@@ -350,23 +350,29 @@ const AdminLessonPage = (props) => {
                                 <Editor control={control} name='text' minHeight={250} buttons={{ link: true }} />
                             </fieldset>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
+                                <Button type='submit' extraClass='admin-form__button' spinnerActive={sending}>
+                                    Сохранить
+                                </Button>
                                 <Button
                                     type='button'
+                                    extraClass='admin-form__button'
                                     theme='text'
-                                    text='Удалить'
-                                    onClick={onDelete}
-                                    spinnerActive={sending}
-                                />
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    text='Отмена'
                                     onClick={() => {
                                         setEdit(false);
                                     }}
                                     spinnerActive={sending}
-                                />
+                                >
+                                    Отмена
+                                </Button>
+                                <Button
+                                    type='button'
+                                    iconName={AdminIcons.delete}
+                                    theme='text-error'
+                                    onClick={onDelete}
+                                    spinnerActive={sending}
+                                >
+                                    Удалить
+                                </Button>
                             </div>
                         </form>
                         {popup}

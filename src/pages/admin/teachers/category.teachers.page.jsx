@@ -268,23 +268,29 @@ const AdminCategoryTeachersPage = (props) => {
                                 />
                             </fieldset>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
+                                <Button type='submit' extraClass='admin-form__button' spinnerActive={sending}>
+                                    Сохранить
+                                </Button>
                                 <Button
                                     type='button'
+                                    extraClass='admin-form__button'
                                     theme='text'
-                                    text='Удалить'
-                                    onClick={onDelete}
-                                    spinnerActive={sending}
-                                />
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    text='Отмена'
                                     onClick={() => {
                                         setEdit(false);
                                     }}
                                     spinnerActive={sending}
-                                />
+                                >
+                                    Отмена
+                                </Button>
+                                <Button
+                                    type='button'
+                                    theme='text-error'
+                                    iconName={AdminIcons.delete}
+                                    onClick={onDelete}
+                                    spinnerActive={sending}
+                                >
+                                    Удалить
+                                </Button>
                             </div>
                         </form>
                         {popup}

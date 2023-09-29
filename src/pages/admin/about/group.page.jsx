@@ -18,17 +18,17 @@ import FieldText from "../../../components/admin/field/field.text.component";
 import { AdminIcons } from "../../../components/svgs";
 
 const AdminGroupPage = (props) => {
-    let {id} = useParams();
+    let { id } = useParams();
     const navigate = useNavigate();
     const DOMPurify = createDOMPurify(window);
-    const {register, handleSubmit, reset, control, setValue, getValues} = useForm();
+    const { register, handleSubmit, reset, control, setValue, getValues } = useForm();
 
     const store = useGroupsStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-        await store.loadByID({id});
+        await store.loadByID({ id });
     };
 
     React.useEffect(() => {
@@ -66,7 +66,7 @@ const AdminGroupPage = (props) => {
             const onAdd = async (params) => {
                 const data = getValues();
 
-                let sendObject = {...data};
+                let sendObject = { ...data };
 
                 sendObject["image"] = image;
 
@@ -106,7 +106,7 @@ const AdminGroupPage = (props) => {
             if (!id) {
                 return (
                     <>
-                        <TitleBlock title={"Создание"} onBack={back}/>
+                        <TitleBlock title={"Создание"} onBack={back} />
                         <form onSubmit={handleSubmit(onAdd)} className='admin-form'>
                             <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                 <FieldText
@@ -126,14 +126,12 @@ const AdminGroupPage = (props) => {
                                     isMulti={true}
                                     name={"teachers_select"}
                                     closeMenuOnSelect={false}
-                                    options={store.teachers?.map(
-                                        (item) => {
-                                            return {
-                                                label: item.title,
-                                                value: item.ID,
-                                            };
-                                        }
-                                    )}
+                                    options={store.teachers?.map((item) => {
+                                        return {
+                                            label: item.title,
+                                            value: item.ID,
+                                        };
+                                    })}
                                 />
                                 <p className='admin-form__subtitle'>Фотография</p>
                                 <ImageSelector
@@ -145,12 +143,7 @@ const AdminGroupPage = (props) => {
                             </fieldset>
                             <fieldset className='admin-form__section'>
                                 <p className='admin-form__subtitle'>Детальное описание</p>
-                                <Editor
-                                    control={control}
-                                    name='text'
-                                    minHeight={250}
-                                    buttons={{link: true}}
-                                />
+                                <Editor control={control} name='text' minHeight={250} buttons={{ link: true }} />
                             </fieldset>
                             <div className='admin-form__controls'>
                                 <Button extraClass={"admin-form__button"} type='submit' spinnerActive={sending}>
@@ -174,18 +167,20 @@ const AdminGroupPage = (props) => {
         };
 
         const Edit = () => {
-            const [image, setImage] = React.useState(store.item.image !== ""
-                ? [
-                    {
-                        ID: store.item.ID,
-                        url: store.item.image,
-                        main: 1,
-                        order: 1,
-                        isFile: 1,
-                        isLoaded: 1,
-                    },
-                ]
-                : []);
+            const [image, setImage] = React.useState(
+                store.item.image !== ""
+                    ? [
+                          {
+                              ID: store.item.ID,
+                              url: store.item.image,
+                              main: 1,
+                              order: 1,
+                              isFile: 1,
+                              isLoaded: 1,
+                          },
+                      ]
+                    : []
+            );
             const [popup, setPopup] = React.useState(<></>);
             const [sending, setSending] = React.useState(false);
 
@@ -216,7 +211,7 @@ const AdminGroupPage = (props) => {
             const onEdit = async (params) => {
                 const data = getValues();
 
-                let sendObject = {...data};
+                let sendObject = { ...data };
 
                 sendObject["id"] = id;
                 sendObject["image"] = image;
@@ -311,7 +306,7 @@ const AdminGroupPage = (props) => {
             };
 
             const handleDeletePreviewPhoto = async (item) => {
-                let sendObject = {...item};
+                let sendObject = { ...item };
 
                 sendObject["ID"] = id;
 
@@ -321,7 +316,7 @@ const AdminGroupPage = (props) => {
             if (id && edit) {
                 return (
                     <>
-                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
+                        <TitleBlock title={`Редактирование ID: ${id}`} onBack={back} />
                         <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
                             <fieldset className='admin-form__section admin-form__section_width_one-col'>
                                 <FieldText
@@ -345,22 +340,18 @@ const AdminGroupPage = (props) => {
                                     isMulti={true}
                                     name={"teachers_select"}
                                     closeMenuOnSelect={false}
-                                    values={store.teachers?.map(
-                                        (item) => {
-                                            return {
-                                                label: item.title,
-                                                value: item.ID,
-                                            };
-                                        }
-                                    )}
-                                    options={store.teachers?.map(
-                                        (item) => {
-                                            return {
-                                                label: item.title,
-                                                value: item.ID,
-                                            };
-                                        }
-                                    )}
+                                    values={store.teachers?.map((item) => {
+                                        return {
+                                            label: item.title,
+                                            value: item.ID,
+                                        };
+                                    })}
+                                    options={store.teachers?.map((item) => {
+                                        return {
+                                            label: item.title,
+                                            value: item.ID,
+                                        };
+                                    })}
                                 />
                                 <p className='admin-form__subtitle'>Фотография</p>
                                 <ImageSelector
@@ -373,26 +364,32 @@ const AdminGroupPage = (props) => {
                             </fieldset>
                             <fieldset className='admin-form__section'>
                                 <p className='admin-form__subtitle'>Детальное описание</p>
-                                <Editor
-                                    control={control}
-                                    name='text'
-                                    minHeight={250}
-                                    buttons={{link: true}}
-                                />
+                                <Editor control={control} name='text' minHeight={250} buttons={{ link: true }} />
                             </fieldset>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending}/>
-                                <Button type='button' theme='text' text='Удалить' onClick={onDelete}
-                                        spinnerActive={sending}/>
+                                <Button type='submit' extraClass='admin-form__button' spinnerActive={sending}>
+                                    Сохранить
+                                </Button>
                                 <Button
                                     type='button'
+                                    extraClass='admin-form__button'
                                     theme='text'
-                                    text='Отмена'
                                     onClick={() => {
                                         setEdit(false);
                                     }}
                                     spinnerActive={sending}
-                                />
+                                >
+                                    Отмена
+                                </Button>
+                                <Button
+                                    type='button'
+                                    iconName={AdminIcons.delete}
+                                    theme='text-error'
+                                    onClick={onDelete}
+                                    spinnerActive={sending}
+                                >
+                                    Удалить
+                                </Button>
                             </div>
                         </form>
                         {popup}
@@ -465,16 +462,16 @@ const AdminGroupPage = (props) => {
 
         return (
             <>
-                <Create/>
-                <Edit/>
-                <View/>
+                <Create />
+                <Edit />
+                <View />
             </>
         );
     };
 
     return (
         <BasicPage id={id} mainStore={store} loadings={[store]} back={back}>
-            <Article/>
+            <Article />
         </BasicPage>
     );
 };

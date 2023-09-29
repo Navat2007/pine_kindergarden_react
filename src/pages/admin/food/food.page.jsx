@@ -17,16 +17,16 @@ import { AdminIcons } from "../../../components/svgs";
 import FieldTextArea from "../../../components/admin/field/field.textarea.component";
 
 const AdminFoodPage = () => {
-    let {id} = useParams();
+    let { id } = useParams();
     const navigate = useNavigate();
-    const {register, handleSubmit, reset, getValues, setValue} = useForm();
+    const { register, handleSubmit, reset, getValues, setValue } = useForm();
 
     const store = useFoodMenuStore();
 
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-        await store.loadByID({id});
+        await store.loadByID({ id });
     };
 
     React.useEffect(() => {
@@ -195,15 +195,15 @@ const AdminFoodPage = () => {
             const [image, setImage] = React.useState(
                 store.item.image
                     ? [
-                        {
-                            ID: store.item.ID,
-                            url: store.item.image,
-                            main: 1,
-                            order: 1,
-                            isFile: 1,
-                            isLoaded: 1,
-                        },
-                    ]
+                          {
+                              ID: store.item.ID,
+                              url: store.item.image,
+                              main: 1,
+                              order: 1,
+                              isFile: 1,
+                              isLoaded: 1,
+                          },
+                      ]
                     : []
             );
             const [popup, setPopup] = React.useState(<></>);
@@ -214,15 +214,15 @@ const AdminFoodPage = () => {
                     setImage(
                         store.item.image
                             ? [
-                                {
-                                    ID: store.item.ID,
-                                    url: store.item.image,
-                                    main: 1,
-                                    order: 1,
-                                    isFile: 1,
-                                    isLoaded: 1,
-                                },
-                            ]
+                                  {
+                                      ID: store.item.ID,
+                                      url: store.item.image,
+                                      main: 1,
+                                      order: 1,
+                                      isFile: 1,
+                                      isLoaded: 1,
+                                  },
+                              ]
                             : []
                     );
                 }
@@ -429,12 +429,12 @@ const AdminFoodPage = () => {
                                 </fieldset>
                             </div>
                             <div className='admin-form__controls'>
-                                <Button type='submit' theme='primary' text='Сохранить' spinnerActive={sending} />
-                                <Button type='button' theme='text' onClick={onDelete} spinnerActive={sending}>
-                                    Удалить
+                                <Button type='submit' extraClass='admin-form__button' spinnerActive={sending}>
+                                    Сохранить
                                 </Button>
                                 <Button
                                     type='button'
+                                    extraClass='admin-form__button'
                                     theme='text'
                                     onClick={() => {
                                         setEdit(false);
@@ -442,6 +442,15 @@ const AdminFoodPage = () => {
                                     spinnerActive={sending}
                                 >
                                     Отмена
+                                </Button>
+                                <Button
+                                    type='button'
+                                    iconName={AdminIcons.delete}
+                                    theme='text-error'
+                                    onClick={onDelete}
+                                    spinnerActive={sending}
+                                >
+                                    Удалить
                                 </Button>
                             </div>
                         </form>
@@ -477,9 +486,7 @@ const AdminFoodPage = () => {
                                             <p className='admin-view-section__description'>{store.item.title}</p>
                                         </li>
                                         <li className='admin-view-section__item'>
-                                            <h3 className='admin-view-section__label'>
-                                                Описание
-                                            </h3>
+                                            <h3 className='admin-view-section__label'>Описание</h3>
                                             <p className='admin-view-section__description'>{store.item.text}</p>
                                         </li>
                                         <li className='admin-view-section__item'>
@@ -527,7 +534,7 @@ const AdminFoodPage = () => {
 
     return (
         <BasicPage id={id} mainStore={store} loadings={[store]} back={back}>
-            <Article/>
+            <Article />
         </BasicPage>
     );
 };
