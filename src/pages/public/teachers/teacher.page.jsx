@@ -104,64 +104,6 @@ const TeacherPage = () => {
             required: true,
         },
     ];
-    const itemConfigWork = [
-        {
-            header: "ID",
-            key: "ID",
-            type: "int",
-            filter: "number",
-            sorting: true,
-            hide: true,
-        },
-        {
-            header: "Общий стаж",
-            key: "summary",
-            type: "string",
-            filter: "string",
-            sorting: true,
-            required: true,
-        },
-        {
-            header: "Педагогический стаж",
-            key: "education",
-            type: "string",
-            filter: "string",
-            sorting: true,
-            required: true,
-        },
-        {
-            header: "В данном учреждении",
-            key: "work",
-            type: "string",
-            filter: "string",
-            sorting: true,
-            required: true,
-        },
-        {
-            header: "Квалификационная категория",
-            key: "category",
-            type: "string",
-            filter: "string",
-            sorting: true,
-            required: true,
-        },
-        {
-            header: "Дата аттестации",
-            key: "date",
-            type: "date",
-            filter: "date",
-            sorting: true,
-            required: true,
-        },
-        {
-            header: "Приказ",
-            key: "date_order",
-            type: "string",
-            filter: "string",
-            sorting: true,
-            required: false,
-        },
-    ];
     const itemConfigReward = [
         {
             header: "ID",
