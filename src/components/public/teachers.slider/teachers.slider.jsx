@@ -7,6 +7,22 @@ import SingleImageWithPreview from "../../general/single.image.with.preview/sing
 import "./teachers.slider.scss";
 
 const TeachersSlider = ({type = "loop", categories = [], items = []}) => {
+
+    const Slide = ({person}) => {
+        return (
+            <SplideSlide key={person.ID} data-splide-interval='5000'>
+                <NavLink className={"card-link"} to={"/teachers/" + person.ID}>
+                    <article className='person-card'>
+                        <SingleImageWithPreview image={person.photo} extraClass={'person-card__image'}
+                                                noPhoto={""}/>
+                        <h3 className='person-card__title'>{person.fio}</h3>
+                        <p className='teachers-card__subtitle'>{person.position}</p>
+                    </article>
+                </NavLink>
+            </SplideSlide>
+        )
+    }
+
     return (
         <Splide
             className='splide teachers-slider'
@@ -39,33 +55,14 @@ const TeachersSlider = ({type = "loop", categories = [], items = []}) => {
             {categories.length > 0 && categories.map((category) => {
                 return category.persons.map((person) => {
                     return (
-                        <SplideSlide key={person.ID} data-splide-interval='5000'>
-                            <NavLink className={"card-link"} to={"/teachers/" + person.ID}>
-                                <article className='person-card'>
-                                    <SingleImageWithPreview image={person.photo} extraClass={'person-card__image'}
-                                                            noPhoto={""}/>
-                                    <h3 className='person-card__title'>{person.fio}</h3>
-                                    <p className='teachers-card__subtitle'>{person.position}</p>
-                                </article>
-                            </NavLink>
-                        </SplideSlide>
+                        <Slide key={person.ID} person={person}/>
                     )
                 })
             })}
 
             {items.length > 0 && items.map((person) => {
                 return (
-                    <SplideSlide key={person.ID} data-splide-interval='5000'>
-                        <NavLink className={"card-link"} to={"/teachers/" + person.ID}
-                                 target={"_blank"}>
-                            <article className='person-card'>
-                                <SingleImageWithPreview image={person.photo} extraClass={'person-card__image'}
-                                                        noPhoto={""}/>
-                                <h3 className='person-card__title'>{person.fio}</h3>
-                                <p className='teachers-card__subtitle'>{person.position}</p>
-                            </article>
-                        </NavLink>
-                    </SplideSlide>
+                    <Slide key={person.ID} person={person}/>
                 )
             })}
         </Splide>
