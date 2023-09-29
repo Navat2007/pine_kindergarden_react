@@ -14,10 +14,10 @@ import FieldUrl from "../../../components/admin/field/field.url.component";
 import { AdminIcons } from "../../../components/svgs";
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 
-const AdminDocumentPage = (props) => {
+const AdminDocumentPage = () => {
     let { id } = useParams();
     const navigate = useNavigate();
-    const { register, handleSubmit, reset, getValues } = useForm();
+    const { register, handleSubmit, reset, getValues, setValue } = useForm();
 
     const store = useDocumentsStore();
 
@@ -152,6 +152,9 @@ const AdminDocumentPage = (props) => {
                                         required={true}
                                         placeholder={"https://..."}
                                         {...register("url")}
+                                        onFileSelected={(file) => {
+                                            setValue("url", process.env.REACT_APP_BASE_URL + file.url);
+                                        }}
                                     />
                                 </fieldset>
                                 <fieldset className='admin-form__section'>
@@ -404,6 +407,9 @@ const AdminDocumentPage = (props) => {
                                         {...register("url", {
                                             value: store.item.url,
                                         })}
+                                        onFileSelected={(file) => {
+                                            setValue("url", process.env.REACT_APP_BASE_URL + file.url);
+                                        }}
                                     />
                                 </fieldset>
                                 <fieldset className='admin-form__section'>

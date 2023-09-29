@@ -37,7 +37,6 @@ const AdminMediaFilePage = (props) => {
     //Private component
     const Article = () => {
         const getFileType = (data) => {
-            console.log(data);
             switch (data.type) {
                 case "image/jpeg":
                 case "image/png":
@@ -215,6 +214,8 @@ const AdminMediaFilePage = (props) => {
                               order: 1,
                               isFile: 1,
                               isLoaded: 1,
+                              type: store.item.type,
+                              title: store.item.title,
                           },
                       ]
                     : []
@@ -234,6 +235,8 @@ const AdminMediaFilePage = (props) => {
                                       order: 1,
                                       isFile: 1,
                                       isLoaded: 1,
+                                      type: store.item.type,
+                                      title: store.item.title,
                                   },
                               ]
                             : []
@@ -372,11 +375,36 @@ const AdminMediaFilePage = (props) => {
             };
 
             const handleDeletePreviewPhoto = async (item) => {
-                let sendObject = { ...item };
+                let sendObject = {};
 
-                sendObject["ID"] = id;
+                sendObject["id"] = id;
 
-                const result = await store.removeFile(sendObject);
+                const result = await store.remove(sendObject);
+
+                if (!result.error) {
+                    setPopup(
+                        <AlertPopup
+                            title=''
+                            text={"Документ удален"}
+                            opened={true}
+                            onClose={() => {
+                                setPopup(<></>);
+                                back();
+                            }}
+                        />
+                    );
+                } else {
+                    setPopup(
+                        <AlertPopup
+                            title='Ошибка'
+                            text={result.errorText}
+                            opened={true}
+                            onClose={() => {
+                                setPopup(<></>);
+                            }}
+                        />
+                    );
+                }
             };
 
             if (id && edit) {
@@ -412,6 +440,7 @@ const AdminMediaFilePage = (props) => {
                                         onlyOneFile={true}
                                         orientation={"portrait"}
                                         onChange={(items) => setFile(items)}
+                                        onDelete={handleDeletePreviewPhoto}
                                     />
                                 </fieldset>
                             </div>

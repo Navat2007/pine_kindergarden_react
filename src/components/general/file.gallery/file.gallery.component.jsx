@@ -29,8 +29,6 @@ const FileGallery = ({ items, orientation }) => {
     };
 
     const getThumbsForGallery = (item) => {
-        console.log(item);
-
         if (item.title.includes(".doc")) {
             return (
                 <div className={`admin-file-gallery-block`}>
@@ -64,7 +62,7 @@ const FileGallery = ({ items, orientation }) => {
             );
         }
 
-        if (item.type === "file") {
+        if (item.type === "file" || item.type === "other") {
             return (
                 <div className={`admin-file-gallery-block`}>
                     {FileIcons.default}

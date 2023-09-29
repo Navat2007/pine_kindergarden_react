@@ -22,8 +22,6 @@ $lastID = mysqli_insert_id($conn);
 
 if($lastID > 0){
     for ($i = 0; $i < count($file); $i++) {
-        $main = $file[$i]['main'];
-        $order = $file[$i]['order'];
         $isFile = (int)$file[$i]['isFile'];
         $isLoaded = (int)$file[$i]['isLoaded'];
 

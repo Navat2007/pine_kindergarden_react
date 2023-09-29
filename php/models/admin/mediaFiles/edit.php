@@ -32,11 +32,11 @@ if (!$result) {
 else {
     $lastID = $id;
 
-    for ($i = 0; $i < count($image); $i++) {
-        $main = $image[$i]['main'];
-        $order = $image[$i]['order'];
-        $isFile = (int)$image[$i]['isFile'];
-        $isLoaded = (int)$image[$i]['isLoaded'];
+    for ($i = 0; $i < count($file); $i++) {
+        $main = $file[$i]['main'];
+        $order = $file[$i]['order'];
+        $isFile = (int)$file[$i]['isFile'];
+        $isLoaded = (int)$file[$i]['isLoaded'];
 
         if($isFile === 1 && $isLoaded === 0){
 
@@ -49,8 +49,8 @@ else {
 
             $helper->createDir("/files/" . $dir_name . "/" . $id);
 
-            $temp_name = $_FILES['image']['tmp_name'][$i]['file'];
-            $name = $_FILES['image']['name'][$i]['file'];
+            $temp_name = $_FILES['file']['tmp_name'][$i]['file'];
+            $name = $_FILES['file']['name'][$i]['file'];
 
             $sqls[] = $temp_name;
             $sqls[] = $name;
@@ -70,7 +70,7 @@ else {
                         media_files
                     SET
                         url = '$url',
-                        file_name = '$name',
+                        file_name = '$name'
                     WHERE
                         ID = '$id'";
                 $sqls[] = $sql;

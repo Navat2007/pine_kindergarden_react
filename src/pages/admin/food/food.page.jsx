@@ -19,7 +19,7 @@ import FieldTextArea from "../../../components/admin/field/field.textarea.compon
 const AdminFoodPage = () => {
     let {id} = useParams();
     const navigate = useNavigate();
-    const {register, handleSubmit, reset, getValues} = useForm();
+    const {register, handleSubmit, reset, getValues, setValue} = useForm();
 
     const store = useFoodMenuStore();
 
@@ -154,6 +154,9 @@ const AdminFoodPage = () => {
                                         required={true}
                                         placeholder={"https://..."}
                                         {...register("url")}
+                                        onFileSelected={(file) => {
+                                            setValue("url", process.env.REACT_APP_BASE_URL + file.url);
+                                        }}
                                     />
                                 </fieldset>
                                 <fieldset className='admin-form__section'>
@@ -406,6 +409,9 @@ const AdminFoodPage = () => {
                                         {...register("url", {
                                             value: store.item.url,
                                         })}
+                                        onFileSelected={(file) => {
+                                            setValue("url", process.env.REACT_APP_BASE_URL + file.url);
+                                        }}
                                     />
                                 </fieldset>
                                 <fieldset className='admin-form__section'>
