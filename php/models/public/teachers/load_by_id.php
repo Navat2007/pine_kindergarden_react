@@ -89,7 +89,7 @@ function getWorks($ID)
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_object($result)) {
 
-            $data[] = (object)[
+            $data = (object)[
                 'ID' => (int)$row->ID,
                 'summary' => htmlspecialchars_decode($row->summary),
                 'education' => htmlspecialchars_decode($row->education),

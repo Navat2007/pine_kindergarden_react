@@ -1,26 +1,27 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { useParams } from "react-router-dom";
+import {motion} from "framer-motion";
+import {useParams} from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 import useTeachersStore from "../../../store/public/teachersStore";
 
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 import Tabs from "../../../components/public/tabs/tabs.component";
 import Tab from "../../../components/public/tabs/tab.component";
-
-import { AdminIcons } from "../../../components/svgs";
 import SingleImageWithPreview from "../../../components/general/single.image.with.preview/single.image.with.preview";
 import Table from "../../../components/public/table/table.component";
 import Breadcrumbs from "../../../components/public/breadcrumbs/breadcrumbs";
-import { Helmet } from "react-helmet";
+
+import {AdminIcons} from "../../../components/svgs";
+import moment from "moment";
 
 const TeacherPage = () => {
-    let { id } = useParams();
+    let {id} = useParams();
 
     const store = useTeachersStore();
 
     const fetchData = async () => {
-        await store.loadByID({ id });
+        await store.loadByID({id});
     };
 
     React.useEffect(() => {
@@ -211,10 +212,10 @@ const TeacherPage = () => {
             />
             <motion.section
                 className='article'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ delay: 0.2, duration: 1 }}
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
+                transition={{delay: 0.2, duration: 1}}
             >
                 <article className='person'>
                     <SingleImageWithPreview
@@ -238,55 +239,77 @@ const TeacherPage = () => {
                             )}
                         </div>
                         <Tabs>
-                            <Tab title={"Образование"}>
-                                <Table
-                                    title={"Информация об образовании"}
-                                    items={store.item.educations}
-                                    itemsConfig={itemConfigEducation}
-                                />
-                            </Tab>
-                            <Tab title={"Повышение квалификации"}>
-                                <Table
-                                    title={"Информация об квалификации"}
-                                    items={store.item.qualifications}
-                                    itemsConfig={itemConfigQualification}
-                                />
-                            </Tab>
-                            <Tab title={"Трудовой стаж"}>
-                                <ul className='person__list'>
-                                    <li className='person__item'>
-                                        <p className='person__label'>Общий стаж</p>
-                                        <p className='person__description'></p>
-                                    </li>
-                                    <li className='person__item'>
-                                        <p className='person__label'>Педагогический стаж</p>
-                                        <p className='person__description'></p>
-                                    </li>
-                                    <li className='person__item'>
-                                        <p className='person__label'>В данном учреждении</p>
-                                        <p className='person__description'></p>
-                                    </li>
-                                    <li className='person__item'>
-                                        <p className='person__label'>Квалификационная категория</p>
-                                        <p className='person__description'></p>
-                                    </li>
-                                    <li className='person__item'>
-                                        <p className='person__label'>Дата аттестации</p>
-                                        <p className='person__description'></p>
-                                    </li>
-                                    <li className='person__item'>
-                                        <p className='person__label'>Приказ</p>
-                                        <p className='person__description'></p>
-                                    </li>
-                                </ul>
-                                <Table
-                                    title={"Информация о трудовом стаже"}
-                                    items={store.item.works}
-                                    itemsConfig={itemConfigWork}
-                                />
-                            </Tab>
                             {
-                                store.item.rewards.length > 0 &&
+                                store?.item?.educations?.length > 0 &&
+                                <Tab title={"Образование"}>
+                                    <Table
+                                        title={"Информация об образовании"}
+                                        items={store.item.educations}
+                                        itemsConfig={itemConfigEducation}
+                                    />
+                                </Tab>
+                            }
+                            {
+                                store?.item?.qualifications?.length > 0 &&
+                                <Tab title={"Повышение квалификации"}>
+                                    <Table
+                                        title={"Информация об квалификации"}
+                                        items={store.item.qualifications}
+                                        itemsConfig={itemConfigQualification}
+                                    />
+                                </Tab>
+                            }
+                            {
+                                store?.item?.works && Object.keys(store.item.works).length > 0 &&
+                                <Tab title={"Трудовой стаж"}>
+                                    <ul className='person__list'>
+                                        {
+                                            store.item.works.summary &&
+                                            <li className='person__item'>
+                                                <p className='person__label'>Общий стаж</p>
+                                                <p className='person__description'>{store.item.works.summary}</p>
+                                            </li>
+                                        }
+                                        {
+                                            store.item.works.education &&
+                                            <li className='person__item'>
+                                                <p className='person__label'>Педагогический стаж</p>
+                                                <p className='person__description'>{store.item.works.education}</p>
+                                            </li>
+                                        }
+                                        {
+                                            store.item.works.work &&
+                                            <li className='person__item'>
+                                                <p className='person__label'>В данном учреждении</p>
+                                                <p className='person__description'>{store.item.works.work}</p>
+                                            </li>
+                                        }
+                                        {
+                                            store.item.works.category &&
+                                            <li className='person__item'>
+                                                <p className='person__label'>Квалификационная категория</p>
+                                                <p className='person__description'>{store.item.works.category}</p>
+                                            </li>
+                                        }
+                                        {
+                                            store.item.works.date_order && store.item.works.date !== "0000-00-00" &&
+                                            <li className='person__item'>
+                                                <p className='person__label'>Дата аттестации</p>
+                                                <p className='person__description'>{store.item.works.date !== "0000-00-00" && moment(store.item.works.date).format("DD.MM.YYYY")}</p>
+                                            </li>
+                                        }
+                                        {
+                                            store.item.works.date_order &&
+                                            <li className='person__item'>
+                                                <p className='person__label'>Приказ</p>
+                                                <p className='person__description'>{store.item.works.date_order}</p>
+                                            </li>
+                                        }
+                                    </ul>
+                                </Tab>
+                            }
+                            {
+                                store?.item?.rewards?.length > 0 &&
                                 <Tab title={"Награды, благодарности"}>
                                     <Table
                                         title={"Информация о наградах, благодарностях"}
