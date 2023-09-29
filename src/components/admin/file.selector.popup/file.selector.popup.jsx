@@ -365,17 +365,34 @@ const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, acce
                                     handleClick(e, item);
                                 }}
                             >
-                                <article
-                                    className={`file-selector-popup-card${
-                                        selectedFile?.ID === item.ID ? ` file-selector-popup-card_active` : ``
-                                    }`}
-                                >
-                                    {getFileIcon(item.type)}
-                                    <p className='file-selector-popup-card__title'>
-                                        {item.title}
-                                        {item.title !== item.file_name && ` (${item.file_name})`}
-                                    </p>
-                                </article>
+                                {
+                                    item.type === "image"
+                                    ?
+                                        <article className={`file-selector-popup-card${
+                                            selectedFile?.ID === item.ID ? ` file-selector-popup-card_active` : ``
+                                        }`}>
+                                            <img
+                                                className='file-selector-popup-card__image'
+                                                src={process.env.REACT_APP_BASE_URL + item.url}
+                                                alt={item.title}
+                                            />
+                                            <p className='file-selector-popup-card__image-src'>
+                                                {item.title}
+                                            </p>
+                                        </article>
+                                        :
+                                        <article
+                                            className={`file-selector-popup-card${
+                                                selectedFile?.ID === item.ID ? ` file-selector-popup-card_active` : ``
+                                            }`}
+                                        >
+                                            {getFileIcon(item.type)}
+                                            <p className='file-selector-popup-card__title'>
+                                                {item.title}
+                                                {item.title !== item.file_name && ` (${item.file_name})`}
+                                            </p>
+                                        </article>
+                                }
                             </li>
                         );
                     })}
