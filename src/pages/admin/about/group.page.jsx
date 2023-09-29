@@ -464,7 +464,7 @@ const AdminGroupPage = (props) => {
                                     <h2 className='admin-view-section__title'>Воспитатели</h2>
                                     <TeachersSlider
                                         isBorderGradient={false}
-                                        type={"loop"}
+                                        type={"slide"}
                                         items={store.item?.teachers}
                                     />
                                 </>
