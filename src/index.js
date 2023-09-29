@@ -4,7 +4,7 @@ import axios from "axios";
 import moment from "moment";
 import localization from 'moment/locale/ru';
 
-import {FileIcons, SocialIcons} from './components/svgs';
+import {SocialIcons} from './components/svgs';
 
 import App from './App';
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 
 import Logo from "../logo/logo";
 import useOnClickOutside from "../../../hook/onClickOutside";
@@ -11,6 +11,8 @@ const Menu = ({ place }) => {
     const node = React.useRef();
     const button = React.useRef();
 
+    const location = useLocation();
+
     useOnClickOutside([node, button], (e) => {
         if (burgerOpened) {
             setBurgerOpened(!burgerOpened);
@@ -18,6 +20,10 @@ const Menu = ({ place }) => {
     });
 
     const [burgerOpened, setBurgerOpened] = React.useState(false);
+
+    React.useLayoutEffect(() => {
+        setBurgerOpened(false);
+    }, [location]);
 
     return (
         <>
