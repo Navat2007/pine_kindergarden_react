@@ -30,7 +30,8 @@ if($lastID > 0){
             $dir_name = 'mediaFiles';
             $url = "";
 
-            $helper->createDir("/files/" . $dir_name . "/" . $lastID);
+            $file_token = $helper->gen_token();
+            $helper->createDir("/files/" . $dir_name . "/" . $lastID . "/" . $file_token);
 
             $temp_name = $_FILES['file']['tmp_name'][$i]['file'];
             $name = $_FILES['file']['name'][$i]['file'];
@@ -38,15 +39,13 @@ if($lastID > 0){
             $sqls[] = $temp_name;
             $sqls[] = $name;
 
-            $file_token = $helper->gen_token();
-
-            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
+            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "/" . $name;
 
             @unlink($path);
 
             if(copy($temp_name, $path))
             {
-                $url = "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
+                $url = "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "/" . $name;
 
                 $sql = "
                     UPDATE
