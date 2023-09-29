@@ -8,17 +8,16 @@ import SearchFilter from "../search.filter/search.filter.component";
 import ContextMenu from "../context.menu/context.menu.component";
 import Button from "../button/button.component";
 import Popup from "../../general/popup/popup.component";
+import AlertPopup from "../../general/alert.popup/alert.popup";
 
 import "./file.selector.popup.scss";
 import { AdminIcons, FileIcons } from "../../svgs";
-import AlertPopup from "../../general/alert.popup/alert.popup";
 
 const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, accept = "*.*", maxFileSize = 5 }) => {
     const store = useMediaFilesStore();
 
     const inputFileRef = React.createRef();
 
-    const [files, setFiles] = React.useState([]);
     const [inputKey, setInputKey] = React.useState("");
     const [view, setView] = React.useState("list");
     const [selectedFile, setSelectedFile] = React.useState(null);
