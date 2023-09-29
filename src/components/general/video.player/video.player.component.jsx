@@ -6,7 +6,7 @@ import ReactPlayer from "react-player";
 
 const VideoPlayer = ({ source, style, customClassName }) => {
     React.useEffect(() => {
-        console.log(source);
+        //console.log(source);
     }, []);
 
     const getVideoIcon = (link) => {

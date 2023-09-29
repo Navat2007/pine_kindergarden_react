@@ -30,7 +30,7 @@ const AdminAboutPage = () => {
         const [edit, setEdit] = React.useState(false);
 
         const fetchData = async () => {
-            console.log("load about");
+            //console.log("load about");
             await store.load();
         };
 
@@ -94,7 +94,7 @@ const AdminAboutPage = () => {
 
                 setSending(false);
 
-                console.log(result);
+                //console.log(result);
 
                 if (!result.error) {
                     setPopup(

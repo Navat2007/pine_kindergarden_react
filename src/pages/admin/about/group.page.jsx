@@ -226,7 +226,7 @@ const AdminGroupPage = (props) => {
                 if (data.teachers_select && data.teachers_select.length > 0)
                     sendObject["teachers"] = Array.from(data.teachers_select.map((item) => item.value));
 
-                console.log(sendObject);
+                //console.log(sendObject);
 
                 if (!checkForComplete(sendObject)) return;
 
@@ -236,7 +236,7 @@ const AdminGroupPage = (props) => {
 
                 setSending(false);
 
-                console.log(result);
+                //console.log(result);
 
                 if (!result.error) {
                     setPopup(

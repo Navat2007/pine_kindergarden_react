@@ -140,7 +140,7 @@ const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, acce
         let match = accept.split(",").join("|");
 
         for (const file of e.target.files) {
-            console.log(file);
+            //console.log(file);
             if (accept === "*.*" || file.type.match(match)) {
                 if (file.size <= maxFileSize * 1000000) {
                 } else {

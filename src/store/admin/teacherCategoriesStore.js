@@ -73,7 +73,7 @@ const useTeachersCategoriesStore = create(
 
             if (response.data) {
 
-                console.log(response.data);
+                //console.log(response.data);
 
                 if (response.data.error === 1) {
 
@@ -98,7 +98,7 @@ const useTeachersCategoriesStore = create(
 
             if (response.data) {
 
-                console.log(response.data);
+                //console.log(response.data);
 
                 if (response.data.error === 1) {
 
@@ -123,7 +123,7 @@ const useTeachersCategoriesStore = create(
 
             if (response.data) {
 
-                console.log(response.data);
+                //console.log(response.data);
 
                 if (response.data.error === 1) {
 

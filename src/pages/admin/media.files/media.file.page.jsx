@@ -293,7 +293,7 @@ const AdminMediaFilePage = (props) => {
 
                 setSending(false);
 
-                console.log(result);
+                //console.log(result);
 
                 if (!result.error) {
                     setPopup(

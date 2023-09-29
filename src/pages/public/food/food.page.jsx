@@ -27,10 +27,6 @@ const FoodPage = () => {
         fetchData();
     }, []);
 
-    React.useEffect(() => {
-        console.log(menuStore.items);
-    }, [store.items, menuStore.items]);
-
     return (
         <BasicPage loadings={[store, menuStore]}>
             <Helmet>

@@ -288,7 +288,7 @@ const AdminDocumentPage = () => {
 
                 setSending(false);
 
-                console.log(result);
+                //console.log(result);
 
                 if (!result.error) {
                     setPopup(
