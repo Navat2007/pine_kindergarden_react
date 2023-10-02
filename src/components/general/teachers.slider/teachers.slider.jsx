@@ -2,7 +2,7 @@ import React from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { NavLink } from "react-router-dom";
 
-import SingleImageWithPreview from "../../general/single.image.with.preview/single.image.with.preview";
+import SingleImageWithPreview from "../single.image.with.preview/single.image.with.preview";
 
 import "./teachers.slider.scss";
 
@@ -32,7 +32,7 @@ const TeachersSlider = ({ type = "loop", isBorderGradient = true, categories = [
                 type: type,
                 rewind: true,
                 pagination: false,
-                arrows: type === "loop" || categories.length > 1 || items.length > 1,
+                arrows: type === "loop" || categories.length > 4 || items.length > 4,
                 arrowPath:
                     "M8.152 35.878a.5.5 0 0 1 .147-.691l22.212-14.438L8.3 6.31a.5.5 0 1 1 .545-.839L31.701 20.33a.5.5 0 0 1 0 .839L8.844 36.025a.5.5 0 0 1-.692-.147Z",
                 autoplay: true,
@@ -47,9 +47,11 @@ const TeachersSlider = ({ type = "loop", isBorderGradient = true, categories = [
                     },
                     768: {
                         perPage: 2,
+                        arrows: type === "loop" || categories.length > 2 || items.length > 2,
                     },
                     1024: {
                         perPage: 3,
+                        arrows: type === "loop" || categories.length > 3 || items.length > 3,
                     },
                 },
             }}

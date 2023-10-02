@@ -9,7 +9,7 @@ import useGroupsStore from "../../../store/public/groupsStore";
 import useTeachersStore from "../../../store/public/teachersStore";
 
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
-import TeachersSlider from "../../../components/public/teachers.slider/teachers.slider";
+import TeachersSlider from "../../../components/general/teachers.slider/teachers.slider";
 
 import "./about.scss";
 import about__image from "../../../images/about__image.jpg";

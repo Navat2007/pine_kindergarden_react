@@ -8,6 +8,7 @@ import useGroupsStore from "../../../store/public/groupsStore";
 
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 import Breadcrumbs from "../../../components/public/breadcrumbs/breadcrumbs";
+import TeachersSlider from "../../../components/general/teachers.slider/teachers.slider";
 
 const GroupPage = () => {
     let { id } = useParams();
@@ -76,6 +77,16 @@ const GroupPage = () => {
                                     />
                                 </div>
                             </div>
+                            {store.item?.teachers?.length > 0 && (
+                                <>
+                                    <h2 className='article__title'>Воспитатели</h2>
+                                    <TeachersSlider
+                                        isBorderGradient={false}
+                                        type={"slide"}
+                                        items={store.item?.teachers}
+                                    />
+                                </>
+                            )}
                         </>
                     )}
                 </motion.section>
