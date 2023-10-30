@@ -25,9 +25,9 @@ const useFeedbackStore = create(
 
             const response = await axios.postForm(urlSendFeedback, form);
 
-            set({sending: false});
-
             //console.log(response.data);
+
+            set({sending: false});
         },
     })
 );

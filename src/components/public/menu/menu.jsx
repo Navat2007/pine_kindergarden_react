@@ -6,7 +6,7 @@ import useOnClickOutside from "../../../hook/onClickOutside";
 
 import "./menu.scss";
 
-const Menu = ({ place }) => {
+const Menu = ({place}) => {
 
     const node = React.useRef();
     const button = React.useRef();
@@ -27,26 +27,28 @@ const Menu = ({ place }) => {
 
     return (
         <>
-            <nav className={`menu ${place && `menu_place_${place}`}${place === "header" && burgerOpened ? " menu_opened" : ""}`}>
+            <nav
+                className={`menu ${place && `menu_place_${place}`}${place === "header" && burgerOpened ? " menu_opened" : ""}`}>
                 <div ref={node} className='menu__inner'>
+                    <Logo place={`${place}-menu`}/>
                     <ul className={`menu__list`}>
                         <li>
                             <NavLink
                                 to={"/lessons/"}
-                                className={({ isActive }) =>
+                                className={({isActive}) =>
                                     isActive
                                         ? `menu__link menu__link_active`
                                         : `menu__link`
                                 }
-                                aria-label={"Занятия"}
+                                aria-label={"Платные услуги"}
                             >
-                                Занятия
+                                Платные услуги
                             </NavLink>
                         </li>
                         <li>
                             <NavLink
                                 to={"/documents/"}
-                                className={({ isActive }) =>
+                                className={({isActive}) =>
                                     isActive
                                         ? `menu__link menu__link_active`
                                         : `menu__link`
@@ -59,7 +61,7 @@ const Menu = ({ place }) => {
                         <li>
                             <NavLink
                                 to={"/teachers/"}
-                                className={({ isActive }) =>
+                                className={({isActive}) =>
                                     isActive
                                         ? `menu__link menu__link_active`
                                         : `menu__link`
@@ -69,13 +71,10 @@ const Menu = ({ place }) => {
                                 Педагоги
                             </NavLink>
                         </li>
-                    </ul>
-                    <Logo place={`${place}-menu`} />
-                    <ul className='menu__list'>
                         <li>
                             <NavLink
                                 to={"/food/"}
-                                className={({ isActive }) =>
+                                className={({isActive}) =>
                                     isActive
                                         ? `menu__link menu__link_active`
                                         : `menu__link`
@@ -88,7 +87,7 @@ const Menu = ({ place }) => {
                         <li>
                             <NavLink
                                 to={"/mode/"}
-                                className={({ isActive }) =>
+                                className={({isActive}) =>
                                     isActive
                                         ? `menu__link menu__link_active`
                                         : `menu__link`
@@ -101,7 +100,7 @@ const Menu = ({ place }) => {
                         <li>
                             <NavLink
                                 to={"/about/"}
-                                className={({ isActive }) =>
+                                className={({isActive}) =>
                                     isActive
                                         ? `menu__link menu__link_active`
                                         : `menu__link`

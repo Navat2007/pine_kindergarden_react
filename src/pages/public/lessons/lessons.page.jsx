@@ -32,7 +32,7 @@ const LessonsPage = () => {
                 exit={{opacity: 0}}
                 transition={{delay: 0.2, duration: 1}}
             >
-                <h1 className='lessons__title'>Занятия</h1>
+                <h1 className='lessons__title'>Платные услуги</h1>
                 <p className='lessons__title'>Что будем делать?</p>
                 <ul className='lessons__list'>
                     {

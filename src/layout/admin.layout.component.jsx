@@ -30,7 +30,7 @@ const AdminLayout = () => {
             link: "/admin/documents",
         },
         {
-            title: "Занятия",
+            title: "Платные услуги",
             icon: MenuIcons.lessons,
             link: "/admin/lessons",
         },
