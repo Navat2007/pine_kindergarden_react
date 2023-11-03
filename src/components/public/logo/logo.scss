@@ -3,11 +3,20 @@
 
 .logo {
     display: block;
+<<<<<<< HEAD
     transition: 0.5s;
 
     img {
         block-size: 100%;
         inline-size: 100%;
+=======
+    inline-size: max-content;
+    block-size: 4em;
+    transition: 0.5s;
+
+    img {
+        height: inherit;
+>>>>>>> 901a043991005c26f4fb538fc39a1435a1db2457
         object-fit: contain;
     }
 

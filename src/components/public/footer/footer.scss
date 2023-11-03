@@ -28,6 +28,7 @@
             }
         }
 
+<<<<<<< HEAD
         // &_content_menu {}
     }
 
@@ -35,6 +36,18 @@
         block-size: clamp(4rem, 2.8732rem + 5.6338vw, 8rem);
         min-block-size: clamp(4rem, 2.8732rem + 5.6338vw, 8rem);
         max-block-size: clamp(4rem, 2.8732rem + 5.6338vw, 8rem);
+=======
+        &_content_menu {
+            @include media(sm) {
+                margin-top: 0.75em;
+            }
+        }
+    }
+
+    &__logo {
+        min-block-size: 4em;
+        max-block-size: 4em;
+>>>>>>> 901a043991005c26f4fb538fc39a1435a1db2457
         margin-inline: auto;
 
         @include media(sm) {
