@@ -54,6 +54,16 @@ const Header = () => {
                     <div ref={node} className='header__menu-inner'>
                         <ul className={`header__menu-list`}>
                             <li>
+                                <NavLink
+                                    to={"/"}
+                                    className={({ isActive }) =>
+                                        isActive ? `header__menu-link header__menu-link_active` : `header__menu-link`
+                                    }
+                                >
+                                    Главная
+                                </NavLink>
+                            </li>
+                            <li>
                                 <div className='header__drop-down-menu'>
                                     <div className='header__menu-link header__drop-down-menu-caption'>
                                         <span className='header__drop-down-menu-caption-text'>
