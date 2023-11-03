@@ -92,7 +92,7 @@ const Header = () => {
                                                             ? `header__drop-down-menu-link header__drop-down-menu-link_active`
                                                             : `header__drop-down-menu-link`
                                                     }
-                                                    aria-label={"Платные услуги"}
+                                                    aria-label={"Документы"}
                                                 >
                                                     Документы
                                                 </NavLink>
@@ -105,7 +105,7 @@ const Header = () => {
                                                             ? `header__drop-down-menu-link header__drop-down-menu-link_active`
                                                             : `header__drop-down-menu-link`
                                                     }
-                                                    aria-label={"Платные услуги"}
+                                                    aria-label={"Педагоги"}
                                                 >
                                                     Педагоги
                                                 </NavLink>
