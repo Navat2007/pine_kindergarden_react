@@ -32,10 +32,7 @@
     &__logo {
         align-self: center;
         flex: none;
-<<<<<<< HEAD
         block-size: 4em;
-=======
->>>>>>> 901a043991005c26f4fb538fc39a1435a1db2457
         min-block-size: 4em;
         max-block-size: 4em;
 
@@ -297,7 +294,6 @@
         font-family: var(--font-headings);
         cursor: pointer;
 
-<<<<<<< HEAD
         &:hover {
             color: var(--primary);
         }
@@ -306,8 +302,6 @@
             color: var(--primary);
         }
 
-=======
->>>>>>> 901a043991005c26f4fb538fc39a1435a1db2457
         @include media(lg) {
             color: #fff;
 
