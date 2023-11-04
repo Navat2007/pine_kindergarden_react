@@ -37,6 +37,9 @@
         max-block-size: 4em;
 
         &_place_menu {
+            @include media(xs) {
+                align-self: flex-start;
+            }
             @include media(md) {
                 display: none;
             }
@@ -100,7 +103,6 @@
             }
 
             div {
-                // background-color: black;
                 transform: rotate(135deg);
 
                 &::before,
@@ -111,7 +113,7 @@
             }
         }
 
-        @include media(lg) {
+        @include media(md) {
             display: none;
         }
     }
