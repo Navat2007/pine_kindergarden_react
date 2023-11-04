@@ -37,7 +37,7 @@
         max-block-size: 4em;
 
         &_place_menu {
-            @include media(lg) {
+            @include media(md) {
                 display: none;
             }
         }
