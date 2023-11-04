@@ -1,0 +1,121 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.submenu {
+  &:hover {
+      .submenu__caption {
+          color: var(--primary);
+
+          .submenu__button-icon {
+              transform: scale(1, -1);
+          }
+      }
+
+      .submenu__container {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: unset;
+
+          @include media(lg, max) {
+              display: block;
+          }
+      }
+  }
+
+  // &__caption {}
+
+  &__caption-text {
+      display: inline;
+  }
+
+  &__button {
+      @extend %reset-btn;
+      display: inline;
+  }
+
+  &__button-icon {
+      display: inline-block;
+      vertical-align: middle;
+      inline-size: 1.5em;
+      block-size: 1.5em;
+      transition: 0.15s ease-in;
+      svg {
+          inline-size: 1.5em;
+          block-size: 1.5em;
+      }
+  }
+
+  &__container {
+      transition: all 0.35s ease-in-out;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      display: none;
+
+      @include media(lg) {
+          display: block;
+          position: absolute;
+          inset: 100% 0 auto 0;
+
+          // для ховер эффекта, т.к. паддинг в меню его сбрасывает
+          &::before {
+              content: "";
+              position: absolute;
+              inset: -2em 0 0 0;
+              display: block;
+              inline-size: 100%;
+              block-size: 2em;
+          }
+      }
+  }
+
+  &__list {
+      @extend %reset-list;
+
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+
+      @include media(lg) {
+          flex-direction: row;
+          padding: 1em var(--padding-gor-size-sm);
+          background-color: var(--primary);
+      }
+  }
+
+  &__link {
+      text-decoration: none;
+      display: block;
+      font-size: var(--text-size-lg);
+      padding: min(1.25vmax, 0.875em) min(2vmax, 1.875em);
+      font-family: var(--font-headings);
+      cursor: pointer;
+
+      &:hover {
+          color: var(--primary);
+      }
+
+      &_active {
+          color: var(--primary);
+      }
+
+      @include media(lg) {
+          color: #fff;
+
+          &:hover {
+              color: var(--main-text-color);
+          }
+
+          &_active {
+              color: var(--main-text-color);
+          }
+      }
+
+      @include media(xs, max) {
+          font-size: 1.5em;
+      }
+  }
+}

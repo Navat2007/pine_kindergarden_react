@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { AdminIcons } from "../../svgs";
 
 import "./header.scss";
+import "./menu.scss";
+import "./submenu.scss";
 
 const Header = () => {
     const node = React.useRef();
@@ -49,45 +51,41 @@ const Header = () => {
         >
             <div className='header__inner'>
                 <Logo extraClass={"header__logo"} />
-                <nav className={`header__menu${burgerOpened ? " header__menu_opened" : ""}`}>
+                <nav className={`menu${burgerOpened ? " menu_opened" : ""}`}>
                     <Logo extraClass={"header__logo header__logo_place_menu"} />
-                    <div ref={node} className='header__menu-inner'>
-                        <ul className={`header__menu-list`}>
+                    <div ref={node} className='menu__inner'>
+                        <ul className={`menu__list`}>
                             <li>
                                 <NavLink
                                     to={"/"}
                                     className={({ isActive }) =>
-                                        isActive ? `header__menu-link header__menu-link_active` : `header__menu-link`
+                                        isActive ? `menu__link menu__link_active` : `menu__link`
                                     }
                                 >
                                     Главная
                                 </NavLink>
                             </li>
                             <li>
-                                <div className='header__drop-down-menu'>
-                                    <div className='header__menu-link header__drop-down-menu-caption'>
-                                        <span className='header__drop-down-menu-caption-text'>
-                                            Сведения об образовательной организации
-                                        </span>
+                                <div className='submenu'>
+                                    <div className='menu__link submenu__caption'>
+                                        <p className='submenu__caption-text'>Сведения об образовательной организации</p>
                                         <button
-                                            className='header__drop-down-menu-button'
+                                            className='submenu__button'
                                             type='button'
                                             aria-label='Развернуть список'
                                         >
-                                            <span className='header__drop-down-menu-button-icon'>
-                                                {AdminIcons.chevron_down}
-                                            </span>
+                                            <span className='submenu__button-icon'>{AdminIcons.chevron_down}</span>
                                         </button>
                                     </div>
-                                    <div className='header__drop-down-menu-container'>
-                                        <ul className='header__drop-down-menu-list'>
+                                    <div className='submenu__container'>
+                                        <ul className='submenu__list'>
                                             <li>
                                                 <NavLink
                                                     to={"/lessons/"}
                                                     className={({ isActive }) =>
                                                         isActive
-                                                            ? `header__drop-down-menu-link header__drop-down-menu-link_active`
-                                                            : `header__drop-down-menu-link`
+                                                            ? `submenu__link submenu__link_active`
+                                                            : `submenu__link`
                                                     }
                                                     aria-label={"Платные услуги"}
                                                 >
@@ -99,8 +97,8 @@ const Header = () => {
                                                     to={"/documents/"}
                                                     className={({ isActive }) =>
                                                         isActive
-                                                            ? `header__drop-down-menu-link header__drop-down-menu-link_active`
-                                                            : `header__drop-down-menu-link`
+                                                            ? `submenu__link submenu__link_active`
+                                                            : `submenu__link`
                                                     }
                                                     aria-label={"Документы"}
                                                 >
@@ -112,8 +110,8 @@ const Header = () => {
                                                     to={"/teachers/"}
                                                     className={({ isActive }) =>
                                                         isActive
-                                                            ? `header__drop-down-menu-link header__drop-down-menu-link_active`
-                                                            : `header__drop-down-menu-link`
+                                                            ? `submenu__link submenu__link_active`
+                                                            : `submenu__link`
                                                     }
                                                     aria-label={"Педагоги"}
                                                 >
@@ -128,7 +126,7 @@ const Header = () => {
                                 <NavLink
                                     to={"/food/"}
                                     className={({ isActive }) =>
-                                        isActive ? `header__menu-link header__menu-link_active` : `header__menu-link`
+                                        isActive ? `menu__link menu__link_active` : `menu__link`
                                     }
                                 >
                                     Питание
@@ -138,7 +136,7 @@ const Header = () => {
                                 <NavLink
                                     to={"/mode/"}
                                     className={({ isActive }) =>
-                                        isActive ? `header__menu-link header__menu-link_active` : `header__menu-link`
+                                        isActive ? `menu__link menu__link_active` : `menu__link`
                                     }
                                 >
                                     Режим
@@ -148,7 +146,7 @@ const Header = () => {
                                 <NavLink
                                     to={"/about/"}
                                     className={({ isActive }) =>
-                                        isActive ? `header__menu-link header__menu-link_active` : `header__menu-link`
+                                        isActive ? `menu__link menu__link_active` : `menu__link`
                                     }
                                 >
                                     О&nbsp;нас
@@ -160,7 +158,7 @@ const Header = () => {
                 <button
                     ref={button}
                     type='button'
-                    className={`burger${burgerOpened ? " burger_opened" : ""}`}
+                    className={`header__burger${burgerOpened ? " header__burger_opened" : ""}`}
                     aria-label='Свернуть/Развернуть меню'
                     onClick={(e) => {
                         setBurgerOpened(!burgerOpened);
