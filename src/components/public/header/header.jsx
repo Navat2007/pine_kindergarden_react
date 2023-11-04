@@ -55,7 +55,7 @@ const Header = () => {
                     <Logo extraClass={"header__logo header__logo_place_menu"} />
                     <div ref={node} className='menu__inner'>
                         <ul className={`menu__list`}>
-                            <li>
+                            <li className='menu__item'>
                                 <NavLink
                                     to={"/"}
                                     className={({ isActive }) =>
@@ -65,64 +65,50 @@ const Header = () => {
                                     Главная
                                 </NavLink>
                             </li>
-                            <li>
-                                <div className='submenu'>
-                                    <div className='menu__link submenu__caption'>
-                                        <p className='submenu__caption-text'>Сведения об образовательной организации</p>
-                                        <button
-                                            className='submenu__button'
-                                            type='button'
-                                            aria-label='Развернуть список'
+                            <li className='menu__item submenu'>
+                                <button className='menu__link submenu__button' type='button' aria-label='Развернуть список'>
+                                    <span className='submenu__button-text'>
+                                        Сведения об образовательной организации
+                                    </span>
+                                    <span className='submenu__button-icon'>{AdminIcons.chevron_down}</span>
+                                </button>
+                                <ul className='submenu__list'>
+                                    <li>
+                                        <NavLink
+                                            to={"/lessons/"}
+                                            className={({ isActive }) =>
+                                                isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                            }
+                                            aria-label={"Платные услуги"}
                                         >
-                                            <span className='submenu__button-icon'>{AdminIcons.chevron_down}</span>
-                                        </button>
-                                    </div>
-                                    <div className='submenu__container'>
-                                        <ul className='submenu__list'>
-                                            <li>
-                                                <NavLink
-                                                    to={"/lessons/"}
-                                                    className={({ isActive }) =>
-                                                        isActive
-                                                            ? `submenu__link submenu__link_active`
-                                                            : `submenu__link`
-                                                    }
-                                                    aria-label={"Платные услуги"}
-                                                >
-                                                    Платные услуги
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    to={"/documents/"}
-                                                    className={({ isActive }) =>
-                                                        isActive
-                                                            ? `submenu__link submenu__link_active`
-                                                            : `submenu__link`
-                                                    }
-                                                    aria-label={"Документы"}
-                                                >
-                                                    Документы
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    to={"/teachers/"}
-                                                    className={({ isActive }) =>
-                                                        isActive
-                                                            ? `submenu__link submenu__link_active`
-                                                            : `submenu__link`
-                                                    }
-                                                    aria-label={"Педагоги"}
-                                                >
-                                                    Педагоги
-                                                </NavLink>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                            Платные услуги
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink
+                                            to={"/documents/"}
+                                            className={({ isActive }) =>
+                                                isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                            }
+                                            aria-label={"Документы"}
+                                        >
+                                            Документы
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink
+                                            to={"/teachers/"}
+                                            className={({ isActive }) =>
+                                                isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                            }
+                                            aria-label={"Педагоги"}
+                                        >
+                                            Педагоги
+                                        </NavLink>
+                                    </li>
+                                </ul>
                             </li>
-                            <li>
+                            <li className='menu__item'>
                                 <NavLink
                                     to={"/food/"}
                                     className={({ isActive }) =>
@@ -132,7 +118,7 @@ const Header = () => {
                                     Питание
                                 </NavLink>
                             </li>
-                            <li>
+                            <li className='menu__item'>
                                 <NavLink
                                     to={"/mode/"}
                                     className={({ isActive }) =>
@@ -142,7 +128,7 @@ const Header = () => {
                                     Режим
                                 </NavLink>
                             </li>
-                            <li>
+                            <li className='menu__item'>
                                 <NavLink
                                     to={"/about/"}
                                     className={({ isActive }) =>
@@ -151,6 +137,47 @@ const Header = () => {
                                 >
                                     О&nbsp;нас
                                 </NavLink>
+                            </li>
+                            <li className='menu__item submenu'>
+                                <button className='menu__link submenu__button' type='button' aria-label='Развернуть список'>
+                                    <span className='submenu__button-text'>Еще</span>
+                                    <span className='submenu__button-icon'>{AdminIcons.chevron_down}</span>
+                                </button>
+                                <ul className='submenu__list'>
+                                    <li>
+                                        <NavLink
+                                            to={"/lessons/"}
+                                            className={({ isActive }) =>
+                                                isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                            }
+                                            aria-label={"Платные услуги"}
+                                        >
+                                            Платные услуги
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink
+                                            to={"/documents/"}
+                                            className={({ isActive }) =>
+                                                isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                            }
+                                            aria-label={"Документы"}
+                                        >
+                                            Документы
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink
+                                            to={"/teachers/"}
+                                            className={({ isActive }) =>
+                                                isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                            }
+                                            aria-label={"Педагоги"}
+                                        >
+                                            Педагоги
+                                        </NavLink>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>

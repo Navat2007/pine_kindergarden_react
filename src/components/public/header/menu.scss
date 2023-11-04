@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
 
-  @include media(lg, max) {
+  @include media(md, max) {
       position: absolute;
       inset: 0 0 auto auto;
       max-block-size: 100vh;
@@ -57,7 +57,7 @@
       align-items: center;
       text-align: center;
 
-      @include media(lg) {
+      @include media(md) {
           flex-direction: row;
           justify-content: center;
       }
