@@ -13,14 +13,14 @@ const UsersPage = () => {
     const { user } = useAuthStore();
     const navigate = useNavigate();
 
-    const { admins, loadAdmins, loading } = useUsersStore();
+    const store = useUsersStore();
 
     const onAdminItemClick = (props) => {
-        navigate(`/admin/users/admin/${props}`);
+        navigate(`/admin/users/${props}`);
     };
 
     const fetchData = async () => {
-        await loadAdmins();
+        await store.loadAll();
     };
 
     React.useEffect(() => {
@@ -72,8 +72,8 @@ const UsersPage = () => {
             </Helmet>
             <Table
                 title={"Таблица пользователи" + user.ID}
-                loading={loading.admins}
-                items={admins}
+                loading={store.loading}
+                items={store.items}
                 itemsConfig={adminItemsConfig}
                 onItemClick={onAdminItemClick}
                 withFilter={true}
@@ -82,7 +82,7 @@ const UsersPage = () => {
                     type='button'
                     iconName={AdminIcons.plus}
                     aria-label='Создать пользователя'
-                    onClick={() => navigate("/admin/users/admin/new")}
+                    onClick={() => navigate("/admin/users/new")}
                 >
                     Создать
                 </Button>

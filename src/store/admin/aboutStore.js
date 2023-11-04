@@ -1,6 +1,8 @@
 import axios from "axios";
 import create from 'zustand'
+import moment from "moment";
 
+const cacheMinutes = 60;
 const directory = 'about';
 
 const urlLoad = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load.php`;
@@ -12,6 +14,8 @@ const useAboutStore = create(
 
         loading: false,
         sending: false,
+        lastDownloadTime: null,
+        cancelToken: null,
 
         error: false,
         errorText: "",
@@ -22,48 +26,48 @@ const useAboutStore = create(
             set({error: false, errorText: ""});
         },
 
-        load: async (params) => {
+        request: async (url, params, action = "loading") => {
+            if(get().cancelToken !== null)
+                get().cancelToken.cancel();
 
-            set({loading: true});
+            set({[action]: true, error: false, errorText: "", cancelToken: axios.CancelToken.source()});
 
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.postForm(urlLoad, form);
+            const response = await axios.postForm(url, form, {cancelToken: get().cancelToken.token}).catch((error) => {});
 
-            set({loading: false});
+            set({[action]: false, cancelToken: null});
 
-            if(response.data.params){
-
-                set((state) => ({item: response.data.params}));
-
+            if(action === "sending"){
+                if (response.data.error && response.data.error === 1) {
+                    set(() => ({error: true, errorText: response.data.error_text}));
+                }
+                else
+                {
+                    set(() => ({lastDownloadTime: null}));
+                }
             }
 
+            if(response.data)
+                return response.data;
+            else
+                return null;
+        },
+
+        load: async (params) => {
+            if(get().lastDownloadTime === null || moment().diff(moment(get().lastDownloadTime), "minutes") > cacheMinutes) {
+                const response = await get().request(urlLoad, params, "loading");
+
+                if (response.params != null) {
+                    set(() => ({item: response.params, lastDownloadTime: moment()}));
+                } else {
+                    set(() => ({item: {}}));
+                }
+            }
         },
         edit: async (params) => {
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlEdit, form);
-
-            if (response.data) {
-
-                //console.log(response.data);
-
-                if (response.data.error === 1) {
-
-                    return {
-                        error: true,
-                        errorText: response.data.error_text
-                    };
-
-                }
-
-            }
-
-            return {error: false};
-
+            await get().request(urlEdit, params, "sending");
         },
     })
 );

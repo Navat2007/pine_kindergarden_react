@@ -11,7 +11,7 @@ import ProfilePage from "../pages/admin/profile/profile.page";
 
 // ADMIN PAGES
 import UsersPage from "../pages/admin/users/users.page";
-import AdminUsersPage from "../pages/admin/users/admin.users.page";
+import UserPage from "../pages/admin/users/user.page";
 import AdminAllNewsPage from "../pages/admin/news/all.news.page";
 import AdminNewsPage from "../pages/admin/news/news.page";
 import AdminDocumentsPage from "../pages/admin/documents/documents.page";
@@ -75,8 +75,8 @@ const RoutesList = () => {
             <Route path='/admin' element={<AdminLayout />}>
                 <Route path='users'>
                     <Route index element={<UsersPage />} />
-                    <Route path='admin/:id' element={<AdminUsersPage />} />
-                    <Route path='admin/new' element={<AdminUsersPage />} />
+                    <Route path=':id' element={<UserPage />} />
+                    <Route path='new' element={<UserPage />} />
                 </Route>
                 <Route path='mediaFiles'>
                     <Route index element={<AdminMediaFilesPage />} />
@@ -129,10 +129,6 @@ const RoutesList = () => {
             <Route path='*' element={<Page404 />} />
         </Routes>
     );
-
-    React.useEffect(() => {
-        //console.log(user);
-    }, [user]);
 
     if (user && (user.role === "admin" || user.role === "superadmin")) {
         return adminRoutes;

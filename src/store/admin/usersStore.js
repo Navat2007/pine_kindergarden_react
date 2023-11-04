@@ -1,170 +1,96 @@
 import axios from "axios";
-
 import create from 'zustand'
+import moment from "moment";
 
-const urlLoadAdmins = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/load_admins.php';
-const urlLoadAdmin = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/load_admin.php';
-const urlAddAdmin = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/add_admin.php';
-const urlEditAdmin = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/edit_admin.php';
-const urlRemoveAdmin = process.env.REACT_APP_BASE_URL + 'php/models/admin/users/remove_admin.php';
+const cacheMinutes = 60;
+const directory = 'users';
+
+const urlLoadAll = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load.php`;
+const urlLoadByID = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load_by_id.php`;
+
+const urlAdd = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/add.php`;
+const urlEdit = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/edit.php`;
+const urlRemove = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/remove.php`;
 
 const useUsersStore = create(
     (set, get) => ({
-        admins: [],
-        admin: {},
-        users: [],
-        user: {},
-        loading: {
-            admins: false,
-            users: false
-        },
-        sending: {
-            admins: false,
-            users: false
-        },
-        error: {
-            admins: false,
-            users: false
-        },
-        errorText: {
-            admins: "",
-            users: ""
-        },
+        items: [],
+        item: {},
+
+        loading: false,
+        sending: false,
+        lastDownloadTime: null,
+        cancelToken: null,
+
+        error: false,
+        errorText: "",
         setErrorText: (text) => {
             set({error: true, errorText: text});
         },
         clearErrorText: () => {
-            set({
-                error: {
-                    admins: false,
-                    users: false
-                },
-                errorText: {
-                    admins: "",
-                    users: ""
-                }
-            });
+            set({error: false, errorText: ""});
         },
 
-        loadAdmins: async () => {
+        request: async (url, params, action = "loading") => {
+            if(get().cancelToken !== null)
+                get().cancelToken.cancel();
 
-            set((state) => ({loading: {...state.loading, admins: true}}));
-
-            const response = await axios.post(urlLoadAdmins);
-
-            set((state) => ({loading: {...state.loading, admins: false}}));
-
-            if (response.data.params) {
-
-                set({admins: response.data.params});
-
-            }
-
-        },
-        loadAdmin: async (params) => {
-
-            set((state) => ({loading: {...state.loading, admins: true}}));
+            set({[action]: true, error: false, errorText: "", cancelToken: axios.CancelToken.source()});
 
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.postForm(urlLoadAdmin, form);
+            const response = await axios.postForm(url, form, {cancelToken: get().cancelToken.token}).catch((error) => {});
 
-            set((state) => ({loading: {...state.loading, admins: false}}));
+            set({[action]: false, cancelToken: null});
 
-            if (response.data.params) {
-
-                set({admin: response.data.params});
-
-            }
-
-        },
-        addAdmin: async (params) => {
-
-            set((state) => ({sending: {...state.sending, admins: true}}));
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlAddAdmin, form);
-
-            set((state) => ({sending: {...state.sending, admins: false}}));
-
-            if (response.data) {
-
-                if (response.data.error === 1) {
-
-                    set((state) => ({
-                        error: {...state.error, admins: true},
-                        errorText: {...state.errorText, admins: response.data.error_text}
-                    }));
-
-                    return {error: true};
-
+            if(action === "sending"){
+                if (response.data.error && response.data.error === 1) {
+                    set(() => ({error: true, errorText: response.data.error_text}));
                 }
-
-            }
-
-            return {error: false};
-
-        },
-        editAdmin: async (params) => {
-
-            set((state) => ({sending: {...state.sending, admins: true}}));
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlEditAdmin, form);
-
-            set((state) => ({sending: {...state.sending, admins: false}}));
-
-            if (response.data) {
-
-                if (response.data.error === 1) {
-
-                    set((state) => ({
-                        error: {...state.error, admins: true},
-                        errorText: {...state.errorText, admins: response.data.error_text}
-                    }));
-
-                    return {error: true};
-
+                else
+                {
+                    set(() => ({lastDownloadTime: null}));
                 }
-
             }
 
-            return {error: false};
-
+            if(response.data)
+                return response.data;
+            else
+                return null;
         },
-        removeAdmin: async (params) => {
 
-            set((state) => ({sending: {...state.sending, admins: true}}));
+        loadAll: async (params) => {
+            if(get().lastDownloadTime === null || moment().diff(moment(get().lastDownloadTime), "minutes") > cacheMinutes)
+            {
+                const response = await get().request(urlLoadAll, params);
 
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlRemoveAdmin, form);
-
-            set((state) => ({sending: {...state.sending, admins: false}}));
-
-            if (response.data) {
-
-                if (response.data.error === 1) {
-
-                    set((state) => ({
-                        error: {...state.error, admins: true},
-                        errorText: {...state.errorText, admins: response.data.error_text}
-                    }));
-
-                    return {error: true};
-
+                if(response != null && response.params){
+                    set(() => ({items: response.params, lastDownloadTime: moment()}));
                 }
-
+                else {
+                    set(() => ({items: []}));
+                }
             }
+        },
+        loadByID: async (params) => {
+            set(() => ({item: {}}));
+            const response = await get().request(urlLoadByID, params);
 
-            return {error: false};
+            if(response != null && response.params){
+                console.log("set user");
+                set(() => ({item: response.params}));
+            }
+        },
 
+        add: async (params) => {
+            await get().request(urlAdd, params, "sending");
+        },
+        edit: async (params) => {
+            await get().request(urlEdit, params, "sending");
+        },
+        remove: async (params) => {
+            await get().request(urlRemove, params, "sending");
         },
     })
 );

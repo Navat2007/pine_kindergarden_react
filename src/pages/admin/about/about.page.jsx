@@ -26,24 +26,20 @@ const AdminAboutPage = () => {
 
     // Private component
     const About = () => {
-        const store = useAboutStore();
         const [edit, setEdit] = React.useState(false);
 
-        const fetchData = async () => {
-            //console.log("load about");
+        const fetchData = async (store) => {
             await store.load();
         };
 
-        React.useEffect(() => {
-            fetchData();
-        }, [edit]);
-
         const Edit = () => {
+            const store = useAboutStore();
             const [popup, setPopup] = React.useState(<></>);
-            const [sending, setSending] = React.useState(false);
 
             React.useEffect(() => {
                 if (edit) {
+                    fetchData(store);
+
                     setValue("preview", store.item.preview);
                     setValue("text", store.item.text);
                 }
@@ -88,15 +84,9 @@ const AdminAboutPage = () => {
 
                 if (!checkForComplete(sendObject)) return;
 
-                setSending(true);
+                await store.edit(sendObject);
 
-                const result = await store.edit(sendObject);
-
-                setSending(false);
-
-                //console.log(result);
-
-                if (!result.error) {
+                if (!store.error) {
                     setPopup(
                         <AlertPopup
                             title=''
@@ -111,7 +101,7 @@ const AdminAboutPage = () => {
                     setPopup(
                         <AlertPopup
                             title='Ошибка'
-                            text={result.errorText}
+                            text={store.errorText}
                             opened={true}
                             onClose={() => {
                                 setPopup(<></>);
@@ -121,87 +111,93 @@ const AdminAboutPage = () => {
                 }
             };
 
-            if (edit) {
-                return (
-                    <>
-                        <TitleBlock
-                            title={`Редактирование основных сведений`}
-                            onBack={() => {
-                                setEdit(false);
-                            }}
-                        />
-                        <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
-                            <fieldset className='admin-form__section'>
-                                <p className='admin-form__subtitle'>Краткое описание</p>
-                                <Editor control={control} name='preview' minHeight={250} buttons={{ link: true }} />
-                                <p className='admin-form__subtitle'>Детальное описание</p>
-                                <Editor control={control} name='text' minHeight={250} buttons={{ link: true }} />
-                            </fieldset>
-                            <div className='admin-form__controls'>
-                                <Button type='submit' spinnerActive={sending}>
-                                    Сохранить
-                                </Button>
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    onClick={() => {
-                                        setEdit(false);
-                                    }}
-                                    spinnerActive={sending}
-                                >
-                                    Отмена
-                                </Button>
-                            </div>
-                        </form>
-                        {popup}
-                    </>
-                );
-            }
+            return (
+                <BasicPage mainStore={store} loadings={[store]}>
+                    <TitleBlock
+                        title={`Редактирование основных сведений`}
+                        onBack={() => {
+                            setEdit(false);
+                        }}
+                    />
+                    <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
+                        <fieldset className='admin-form__section'>
+                            <p className='admin-form__subtitle'>Краткое описание</p>
+                            <Editor control={control} name='preview' minHeight={250} buttons={{ link: true }} />
+                            <p className='admin-form__subtitle'>Детальное описание</p>
+                            <Editor control={control} name='text' minHeight={250} buttons={{ link: true }} />
+                        </fieldset>
+                        <div className='admin-form__controls'>
+                            <Button type='submit' spinnerActive={store.sending}>
+                                Сохранить
+                            </Button>
+                            <Button
+                                type='button'
+                                theme='text'
+                                onClick={() => {
+                                    setEdit(false);
+                                }}
+                                spinnerActive={store.sending}
+                            >
+                                Отмена
+                            </Button>
+                        </div>
+                    </form>
+                    {popup}
+                </BasicPage>
+            );
         };
 
         const View = () => {
-            if (!edit && !store.loading) {
-                return (
-                    <>
-                        <TitleBlock title={`Основные сведения`}>
-                            <Button
-                                type='submit'
-                                isIconBtn='true'
-                                theme='text'
-                                iconName={AdminIcons.edit}
-                                aria-label='Редактировать новость'
-                                onClick={() => {
-                                    setEdit(true);
-                                }}
-                            />
-                        </TitleBlock>
-                        <section className='admin-view-section'>
-                            <h2 className='admin-view-section__title'>Краткое описание</h2>
-                            <div
-                                className='admin-view-section__editor'
-                                dangerouslySetInnerHTML={{
-                                    __html: DOMPurify.sanitize(store.item.preview),
-                                }}
-                            />
-                            <h2 className='admin-view-section__title'>Детальное описание</h2>
-                            <div
-                                className='admin-view-section__editor'
-                                dangerouslySetInnerHTML={{
-                                    __html: DOMPurify.sanitize(store.item.text),
-                                }}
-                            />
-                        </section>
-                    </>
-                );
-            }
+            const store = useAboutStore();
+
+            React.useEffect(() => {
+                fetchData(store);
+            }, [edit]);
+
+            return (
+                <BasicPage mainStore={store} loadings={[store]}>
+                    <TitleBlock title={`Основные сведения`}>
+                        <Button
+                            type='submit'
+                            isIconBtn='true'
+                            theme='text'
+                            iconName={AdminIcons.edit}
+                            aria-label='Редактировать новость'
+                            onClick={() => {
+                                setEdit(true);
+                            }}
+                        />
+                    </TitleBlock>
+                    <section className='admin-view-section'>
+                        <h2 className='admin-view-section__title'>Краткое описание</h2>
+                        <div
+                            className='admin-view-section__editor'
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(store.item.preview),
+                            }}
+                        />
+                        <h2 className='admin-view-section__title'>Детальное описание</h2>
+                        <div
+                            className='admin-view-section__editor'
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(store.item.text),
+                            }}
+                        />
+                    </section>
+                </BasicPage>
+            );
         };
 
-        return (
-            <BasicPage id={1} mainStore={store} loadings={[store]}>
+        if(edit){
+            return (
                 <Edit />
+            );
+        }
+        else {
+            return (
                 <View />
-            </BasicPage>
-        );
+            );
+        }
     };
 
     const Groups = () => {

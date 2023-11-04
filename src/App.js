@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, HashRouter, useLocation} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 import {PopUpContext} from "./context";
@@ -61,6 +61,7 @@ const App = () => {
                 if (response?.data?.error === 3) {
                     logout();
                 }
+
                 return response;
             },
             (error) => {
@@ -90,10 +91,10 @@ const App = () => {
     return (
         <PopUpContext.Provider value={{popup, setPopup}}>
             {app && (
-                <HashRouter>
+                <BrowserRouter>
                     <RoutesList/>
                     <ToTopButton/>
-                </HashRouter>
+                </BrowserRouter>
             )}
             {popup}
         </PopUpContext.Provider>

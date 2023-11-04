@@ -1,6 +1,6 @@
-import axios from "axios";
 import create from 'zustand'
 import moment from "moment";
+import axios from "axios";
 
 const cacheMinutes = 60;
 const directory = 'about';
@@ -13,6 +13,8 @@ const useAboutStore = create(
 
         loading: false,
         sending: false,
+        lastDownloadTime: null,
+        cancelToken: null,
 
         error: false,
         errorText: "",
@@ -24,16 +26,21 @@ const useAboutStore = create(
         },
 
         request: async (url, params) => {
+            if(get().cancelToken !== null)
+                get().cancelToken.cancel();
+
             set({loading: true});
 
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.postForm(url, form).catch((error) => {
+            get().cancelToken = axios.CancelToken.source();
 
-            });
+            const response = await axios.postForm(url, form, {cancelToken: get().cancelToken.token}).catch((error) => {});
 
             set({loading: false});
+
+            get().cancelToken = null;
 
             if(response?.data?.params)
                 return response.data.params;

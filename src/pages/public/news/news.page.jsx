@@ -58,7 +58,11 @@ const NewsPage = () => {
                 <time dateTime={store?.item?.date} className='article__subtitle'>
                     {moment(store?.item?.date).format("DD.MM.YYYY")}
                 </time>
-                <SingleImageWithPreview image={store?.item?.image} extraClass={"article__image article__gap"} />
+                {
+                    store?.item?.image && (
+                        <SingleImageWithPreview image={store.item.image} extraClass={"article__image article__gap"} />
+                    )
+                }
                 <div
                     className='article__main-content'
                     dangerouslySetInnerHTML={{

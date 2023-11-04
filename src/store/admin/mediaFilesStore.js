@@ -1,6 +1,8 @@
 import axios from "axios";
 import create from 'zustand'
+import moment from "moment/moment";
 
+const cacheMinutes = 60;
 const directory = 'mediaFiles';
 
 const urlLoadAll = process.env.REACT_APP_BASE_URL + `php/models/admin/${directory}/load.php`;
@@ -18,6 +20,8 @@ const useMediaFilesStore = create(
 
         loading: false,
         sending: false,
+        lastDownloadTime: null,
+        cancelToken: null,
 
         error: false,
         errorText: "",
@@ -28,142 +32,70 @@ const useMediaFilesStore = create(
             set({error: false, errorText: ""});
         },
 
-        loadAll: async (params) => {
+        request: async (url, params, action = "loading") => {
+            if(get().cancelToken !== null)
+                get().cancelToken.cancel();
 
-            set({loading: true});
+            set({[action]: true, error: false, errorText: "", cancelToken: axios.CancelToken.source()});
 
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.postForm(urlLoadAll, form);
+            const response = await axios.postForm(url, form, {cancelToken: get().cancelToken.token}).catch((error) => {});
 
-            set({loading: false});
+            set({[action]: false, cancelToken: null});
 
-            if(response.data.params){
-
-                set((state) => ({items: response.data.params}));
-
+            if(action === "sending"){
+                if (response.data.error && response.data.error === 1) {
+                    set(() => ({error: true, errorText: response.data.error_text}));
+                }
+                else
+                {
+                    set(() => ({lastDownloadTime: null}));
+                }
             }
 
+            if(response.data)
+                return response.data;
+            else
+                return null;
+        },
+
+        loadAll: async (params) => {
+            if(get().lastDownloadTime === null || moment().diff(moment(get().lastDownloadTime), "minutes") > cacheMinutes)
+            {
+                const response = await get().request(urlLoadAll, params);
+
+                if(response != null && response.params){
+                    set(() => ({items: response.params, lastDownloadTime: moment()}));
+                }
+                else {
+                    set(() => ({items: []}));
+                }
+            }
         },
         loadByID: async (params) => {
+            const response = await get().request(urlLoadByID, params);
 
-            set({loading: true});
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlLoadByID, form);
-
-            set({loading: false});
-
-            if(response.data.params){
-
-                set((state) => ({item: response.data.params}));
-
+            if(response != null && response.params){
+                set(() => ({item: response.params}));
             }
-
+            else {
+                set(() => ({item: {}}));
+            }
         },
 
         add: async (params) => {
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlAdd, form);
-
-            if (response.data) {
-
-                //console.log(response.data);
-
-                if (response.data.error === 1) {
-
-                    return {
-                        error: true,
-                        errorText: response.data.error_text
-                    };
-
-                }
-
-            }
-
-            return {error: false};
-
+            await get().request(urlAdd, params, "sending");
         },
         edit: async (params) => {
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlEdit, form);
-
-            if (response.data) {
-
-                //console.log(response.data);
-
-                if (response.data.error === 1) {
-
-                    return {
-                        error: true,
-                        errorText: response.data.error_text
-                    };
-
-                }
-
-            }
-
-            return {error: false};
-
+            await get().request(urlEdit, params, "sending");
         },
         remove: async (params) => {
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlRemove, form);
-
-            if (response.data) {
-
-                //console.log(response.data);
-
-                if (response.data.error === 1) {
-
-                    return {
-                        error: true,
-                        errorText: response.data.error_text
-                    };
-
-                }
-
-            }
-
-            return {error: false};
-
+            await get().request(urlRemove, params, "sending");
         },
         removeFile: async (params) => {
-
-            let form = new FormData();
-            window.global.buildFormData(form, params);
-
-            const response = await axios.postForm(urlRemoveFile, form);
-
-            if (response.data) {
-
-                //console.log(response.data);
-
-                if (response.data.error === 1) {
-
-                    return {
-                        error: true,
-                        errorText: response.data.error_text
-                    };
-
-                }
-
-            }
-
-            return {error: false};
-
+            await get().request(urlRemoveFile, params, "sending");
         },
     })
 );
