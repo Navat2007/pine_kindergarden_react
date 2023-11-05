@@ -1,5 +1,5 @@
 import axios from "axios";
-import create from 'zustand'
+import {create} from 'zustand'
 import moment from "moment";
 
 const cacheMinutes = 60;

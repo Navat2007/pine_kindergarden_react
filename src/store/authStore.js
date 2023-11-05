@@ -1,7 +1,6 @@
 import axios from "axios";
 import moment from "moment";
-
-import create from 'zustand'
+import {create} from 'zustand'
 import {persist} from "zustand/middleware";
 
 const urlCheck = process.env.REACT_APP_BASE_URL + 'php/models/login/check.php';

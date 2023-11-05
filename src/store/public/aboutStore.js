@@ -1,4 +1,4 @@
-import create from 'zustand'
+import {create} from 'zustand'
 import moment from "moment";
 import axios from "axios";
 
@@ -25,38 +25,41 @@ const useAboutStore = create(
             set({error: false, errorText: ""});
         },
 
-        request: async (url, params) => {
-            if(get().cancelToken !== null)
+        request: async (url, params, action = "loading") => {
+            if (get().cancelToken !== null)
                 get().cancelToken.cancel();
 
-            set({loading: true});
+            set({[action]: true, error: false, errorText: "", cancelToken: axios.CancelToken.source()});
 
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            get().cancelToken = axios.CancelToken.source();
+            const response = await axios.postForm(url, form, {cancelToken: get().cancelToken.token}).catch((error) => {
+            });
 
-            const response = await axios.postForm(url, form, {cancelToken: get().cancelToken.token}).catch((error) => {});
+            set({[action]: false, cancelToken: null});
 
-            set({loading: false});
+            if (action === "sending") {
+                if (response.data.error && response.data.error === 1) {
+                    set(() => ({error: true, errorText: response.data.error_text}));
+                } else {
+                    set(() => ({lastDownloadTime: null}));
+                }
+            }
 
-            get().cancelToken = null;
-
-            if(response?.data?.params)
-                return response.data.params;
+            if (response.data)
+                return response.data;
             else
                 return null;
         },
 
         load: async (params) => {
-            if(get().lastDownloadTime === null || moment().diff(moment(get().lastDownloadTime), "minutes") > cacheMinutes)
-            {
+            if (get().lastDownloadTime === null || moment().diff(moment(get().lastDownloadTime), "minutes") > cacheMinutes) {
                 const response = await get().request(urlLoad, params);
 
-                if(response != null){
-                    set(() => ({item: response, lastDownloadTime: moment()}));
-                }
-                else {
+                if (response != null) {
+                    set(() => ({item: response.params, lastDownloadTime: moment()}));
+                } else {
                     set(() => ({item: {}}));
                 }
             }

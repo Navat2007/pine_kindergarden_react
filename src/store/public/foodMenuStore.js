@@ -1,5 +1,5 @@
 import axios from "axios";
-import create from 'zustand'
+import {create} from 'zustand'
 import moment from "moment";
 
 const cacheMinutes = 60;
@@ -26,25 +26,31 @@ const useFoodMenuStore = create(
             set({error: false, errorText: ""});
         },
 
-        request: async (url, params) => {
+        request: async (url, params, action = "loading") => {
             if(get().cancelToken !== null)
                 get().cancelToken.cancel();
 
-            set({loading: true});
+            set({[action]: true, error: false, errorText: "", cancelToken: axios.CancelToken.source()});
 
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            get().cancelToken = axios.CancelToken.source();
-
             const response = await axios.postForm(url, form, {cancelToken: get().cancelToken.token}).catch((error) => {});
 
-            set({loading: false});
+            set({[action]: false, cancelToken: null});
 
-            get().cancelToken = null;
+            if(action === "sending"){
+                if (response.data.error && response.data.error === 1) {
+                    set(() => ({error: true, errorText: response.data.error_text}));
+                }
+                else
+                {
+                    set(() => ({lastDownloadTime: null}));
+                }
+            }
 
-            if(response?.data?.params)
-                return response.data.params;
+            if(response.data)
+                return response.data;
             else
                 return null;
         },
@@ -55,7 +61,7 @@ const useFoodMenuStore = create(
                 const response = await get().request(urlLoadAll, params);
 
                 if(response != null){
-                    set(() => ({items: response, lastDownloadTime: moment()}));
+                    set(() => ({items: response.params, lastDownloadTime: moment()}));
                 }
                 else {
                     set(() => ({items: []}));
