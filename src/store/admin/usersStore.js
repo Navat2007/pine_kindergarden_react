@@ -74,12 +74,13 @@ const useUsersStore = create(
             }
         },
         loadByID: async (params) => {
-            set(() => ({item: {}}));
             const response = await get().request(urlLoadByID, params);
 
             if(response != null && response.params){
-                console.log("set user");
                 set(() => ({item: response.params}));
+            }
+            else {
+                set(() => ({item: {}}));
             }
         },
 

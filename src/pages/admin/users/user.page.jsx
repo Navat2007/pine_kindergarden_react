@@ -122,14 +122,15 @@ const UserPage = () => {
 
         const fetchData = async () => {
             await store.loadByID({ id });
-            console.log(store.item);
         };
 
         React.useEffect(() => {
+            if(store.item)
+                reset(store.item);
+        }, [store.item]);
+
+        React.useEffect(() => {
             fetchData();
-            reset();
-
-
         }, []);
 
         React.useEffect(() => {
@@ -148,8 +149,6 @@ const UserPage = () => {
 
             if (!store.error) back();
         };
-
-
 
         return (
             <BasicPage mainStore={store} loadings={[store]}>
