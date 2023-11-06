@@ -38,7 +38,7 @@ const LoginPage = () => {
                 transition={{ delay: 0.2, duration: 1 }}
             >
                 <form className='auth-form__form' onSubmit={handleSubmit(onSubmit)}>
-                    <Logo place={`auth-form`} />
+                    <Logo extraClass={`auth-form__logo`} />
                     <h1 className='auth-form__title'>Рады видеть!</h1>
                     <FieldEmail
                         {...register("login", {

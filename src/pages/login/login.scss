@@ -13,6 +13,11 @@
         align-items: center;
     }
 
+    &__logo {
+        align-self: center;
+        width: min(16vmax, 12em);
+    }
+
     &__title {
         font-size: 1.5em;
         margin-block: 0.75em;
