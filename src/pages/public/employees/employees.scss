@@ -1,7 +1,7 @@
 @import "../../../styles/mixins";
 @import "../../../styles/extends";
 
-.teachers {
+.employees {
     @extend %main-width;
     padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
     margin-bottom: min(7.5vmax, 10em);

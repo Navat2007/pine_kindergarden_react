@@ -17,11 +17,11 @@ const LessonPage = () => {
 
     const store = useLessonsStore();
 
-    const fetchData = async () => {
-        await store.loadByID({ id });
-    };
-
     React.useEffect(() => {
+        const fetchData = async () => {
+            await store.loadByID({ id });
+        };
+
         fetchData();
     }, []);
 

@@ -3,36 +3,36 @@ import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 
-import useTeachersStore from "../../../store/public/teachersStore";
+import useEmployeesStore from "../../../store/public/employeesStore";
 
 import SingleImageWithPreview from "../../../components/general/single.image.with.preview/single.image.with.preview";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 
-import "./teachers.scss";
+import "./employees.scss";
 
-const TeachersPage = () => {
-    const store = useTeachersStore();
-
-    const fetchData = async () => {
-        await store.loadAll();
-    };
+const EmployeesPage = () => {
+    const store = useEmployeesStore();
 
     React.useEffect(() => {
+        const fetchData = async () => {
+            await store.loadAll();
+        };
+
         fetchData();
     }, []);
 
     const Person = ({ person }) => {
         return (
             <li className='teachers__item'>
-                <NavLink to={"/teachers/" + person.ID} className='card-link'>
-                    <article className='teachers-card'>
+                <NavLink to={"/employees/" + person.ID} className='card-link'>
+                    <article className='employees-card'>
                         <SingleImageWithPreview
                             isPersonImage={true}
                             image={person.photo}
-                            extraClass={"teachers-card__image"}
+                            extraClass={"employees-card__image"}
                         />
-                        <h3 className='teachers-card__title'>{person.fio}</h3>
-                        <p className='teachers-card__subtitle'>{person.position}</p>
+                        <h3 className='employees-card__title'>{person.fio}</h3>
+                        <p className='employees-card__subtitle'>{person.position}</p>
                     </article>
                 </NavLink>
             </li>
@@ -45,7 +45,7 @@ const TeachersPage = () => {
                 <title>Педагоги</title>
             </Helmet>
             <motion.section
-                className='teachers'
+                className='employees'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -54,8 +54,8 @@ const TeachersPage = () => {
                 {store.items.map((item) => {
                     return (
                         <div key={item.category}>
-                            <h2 className='teachers__title'>{item.category}</h2>
-                            <ul className='teachers__list'>
+                            <h2 className='employees__title'>{item.category}</h2>
+                            <ul className='employees__list'>
                                 {item.persons.map((person) => {
                                     return <Person key={person.ID} person={person} />;
                                 })}
@@ -68,4 +68,4 @@ const TeachersPage = () => {
     );
 };
 
-export default TeachersPage;
+export default EmployeesPage;

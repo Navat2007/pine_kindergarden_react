@@ -6,17 +6,12 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
-$ID = htmlspecialchars($_POST["ID"]);
-$url = htmlspecialchars($_POST["url"]);
+$id = htmlspecialchars($_POST["id"]);
 
-if(!empty($url))
-{
-    $photo_path = $_SERVER['DOCUMENT_ROOT'] . $url;
-    @unlink($photo_path);
-}
-
-$sql = "UPDATE teachers SET photo = '' WHERE ID = '$ID'";
+$sql = "DELETE FROM employee_category WHERE ID = '$id'";
 $sqls[] = $sql;
-$result = mysqli_query($conn, $sql);
+mysqli_query($conn, $sql);
+
+$log->add($conn, $authorization[1], 'Подразделение ID: ' . $id . ' удалено');
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

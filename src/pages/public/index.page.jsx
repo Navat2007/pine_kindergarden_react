@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { NavLink } from "react-router-dom";
 
 import useNewsStore from "../../store/public/newsStore";
 
@@ -8,16 +9,15 @@ import Advantages from "../../components/public/advantages/advantages";
 import Contact from "../../components/public/contact/contact";
 import News from "../../components/public/news/news";
 import BasicPage from "../../components/public/basic.page/basic.page.component";
-import { NavLink } from "react-router-dom";
 
 const IndexPage = () => {
     const store = useNewsStore();
 
-    const fetchData = async () => {
-        await store.loadAllMain();
-    };
-
     React.useEffect(() => {
+        const fetchData = async () => {
+            await store.loadAllMain();
+        };
+
         fetchData();
     }, []);
 

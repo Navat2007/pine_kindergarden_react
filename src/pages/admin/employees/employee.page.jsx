@@ -2,8 +2,8 @@ import React from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import useTeachersStore from "../../../store/admin/teachersStore";
-import useTeachersCategoriesStore from "../../../store/admin/teacherCategoriesStore";
+import useTeachersStore from "../../../store/admin/employeesStore";
+import useTeachersCategoriesStore from "../../../store/admin/employeeCategoriesStore";
 
 import Table from "../../../components/admin/table/table.component";
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
@@ -42,7 +42,7 @@ const AdminTeacherPage = (props) => {
 
     const back = () => {
         window.localStorage.removeItem(`teacher_create_tab`);
-        navigate("/admin/teachers");
+        navigate("/admin/employees");
     };
 
     //Private component
@@ -787,7 +787,7 @@ const AdminTeacherPage = (props) => {
                                                     <p className='admin-view-section__description'>
                                                         <NavLink
                                                             className='admin-view-section__link'
-                                                            to={"/teachers/" + id}
+                                                            to={"/employees/" + id}
                                                             target={"_blank"}
                                                             rel='noopener nofollow noreferer'
                                                         >

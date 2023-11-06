@@ -6,7 +6,7 @@ import createDOMPurify from "dompurify";
 
 import useAboutStore from "../../../store/public/aboutStore";
 import useGroupsStore from "../../../store/public/groupsStore";
-import useTeachersStore from "../../../store/public/teachersStore";
+import useTeachersStore from "../../../store/public/employeesStore";
 
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 import TeachersSlider from "../../../components/general/teachers.slider/teachers.slider";
@@ -20,13 +20,13 @@ const AboutPage = () => {
     const groupsStore = useGroupsStore();
     const teachersStore = useTeachersStore();
 
-    const fetchData = async () => {
-        await aboutStore.load();
-        await groupsStore.loadAll();
-        await teachersStore.loadAll();
-    };
-
     React.useEffect(() => {
+        const fetchData = async () => {
+            await aboutStore.loadByID({id: 1});
+            await groupsStore.loadAll();
+            await teachersStore.loadAll();
+        };
+
         fetchData();
     }, []);
 

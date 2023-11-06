@@ -8,9 +8,9 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 $sql = "SELECT 
         t1.*, t2.title as category
     FROM 
-        teachers as t1
+        employees as t1
     LEFT JOIN 
-        teacher_category as t2 ON t1.categoryID = t2.ID";
+        employee_category as t2 ON t1.categoryID = t2.ID";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 

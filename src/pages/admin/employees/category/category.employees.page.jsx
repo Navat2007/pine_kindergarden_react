@@ -2,17 +2,17 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import useTeachersCategoriesStore from "../../../store/admin/teacherCategoriesStore";
+import useTeachersCategoriesStore from "../../../../store/admin/employeeCategoriesStore";
 
-import BasicPage from "../../../components/admin/basic.page/basic.page.component";
-import AlertPopup from "../../../components/general/alert.popup/alert.popup";
-import Button from "../../../components/admin/button/button.component";
-import TitleBlock from "../../../components/admin/title.block/title.block.component";
-import FieldText from "../../../components/admin/field/field.text.component";
+import BasicPage from "../../../../components/admin/basic.page/basic.page.component";
+import AlertPopup from "../../../../components/general/alert.popup/alert.popup";
+import Button from "../../../../components/admin/button/button.component";
+import TitleBlock from "../../../../components/admin/title.block/title.block.component";
+import FieldText from "../../../../components/admin/field/field.text.component";
 
-import { AdminIcons } from "../../../components/svgs";
+import { AdminIcons } from "../../../../components/svgs";
 
-const AdminCategoryTeachersPage = (props) => {
+const AdminCategoryEmployeesPage = (props) => {
     let { id } = useParams();
     const navigate = useNavigate();
     const { register, handleSubmit, reset, setValue, getValues } = useForm();
@@ -30,7 +30,7 @@ const AdminCategoryTeachersPage = (props) => {
         fetchData();
     }, [id]);
 
-    const back = () => navigate("/admin/teachers");
+    const back = () => navigate("/admin/employees");
 
     //Private component
     const Article = () => {
@@ -344,4 +344,4 @@ const AdminCategoryTeachersPage = (props) => {
     );
 };
 
-export default AdminCategoryTeachersPage;
+export default AdminCategoryEmployeesPage;

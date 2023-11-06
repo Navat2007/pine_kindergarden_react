@@ -6,7 +6,6 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
-$id = htmlspecialchars($_POST["id"]);
 $userID = $authorization[1];
 $fio = mysqli_real_escape_string($conn, htmlspecialchars($_POST["fio"]));
 $position = mysqli_real_escape_string($conn, htmlspecialchars($_POST["position"]));
@@ -19,42 +18,15 @@ $qualifications = $_POST["qualification"] ?? [];
 $works = $_POST["work"] ?? [];
 $rewards = $_POST["reward"] ?? [];
 
-$sql = "UPDATE 
-                teachers
-            SET
-                fio = '$fio', 
-                position = '$position', 
-                categoryID = '$categoryID', 
-                page = '$page', 
-                last_userID = '$userID'
-            WHERE 
-                ID = '$id'";
+$sql = "INSERT INTO 
+            employees (fio, position, categoryID, page, userID, last_userID) 
+        VALUES ('$fio', '$position', '$categoryID', '$page', '$userID', '$userID')
+    ";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
+$lastID = mysqli_insert_id($conn);
 
-if (!$result) {
-    $error = 1;
-    $error_text = "Ошибка при редактировании занятия: " . mysqli_error($conn);
-}
-else {
-    $lastID = $id;
-
-    $sql = "DELETE FROM teacher_education WHERE teacherID = '$id'";
-    $sqls[] = $sql;
-    mysqli_query($conn, $sql);
-
-    $sql = "DELETE FROM teacher_qualification WHERE teacherID = '$id'";
-    $sqls[] = $sql;
-    mysqli_query($conn, $sql);
-
-    $sql = "DELETE FROM teacher_work WHERE teacherID = '$id'";
-    $sqls[] = $sql;
-    mysqli_query($conn, $sql);
-
-    $sql = "DELETE FROM teacher_reward WHERE teacherID = '$id'";
-    $sqls[] = $sql;
-    mysqli_query($conn, $sql);
-
+if($lastID > 0){
     for ($i = 0; $i < count($image); $i++) {
         $url = $image[$i]['url'];
         $main = $image[$i]['main'];
@@ -63,10 +35,11 @@ else {
         $isLoaded = (int)$image[$i]['isLoaded'];
 
         if($isFile === 1 && $isLoaded === 0){
-            $dir_name = 'teachers';
+
+            $dir_name = 'employees';
             $url = "";
 
-            $helper->createDir("/files/" . $dir_name . "/" . $id);
+            $helper->createDir("/files/" . $dir_name . "/" . $lastID);
 
             $temp_name = $_FILES['image']['tmp_name'][$i]['file'];
             $name = $_FILES['image']['name'][$i]['file'];
@@ -76,21 +49,21 @@ else {
 
             $file_token = $helper->gen_token();
 
-            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $id . "/" . $file_token . "_" . $name;
+            $path = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
 
             @unlink($path);
 
             if(copy($temp_name, $path))
             {
-                $url = "/files/" . $dir_name . "/" . $id . "/" . $file_token . "_" . $name;
+                $url = "/files/" . $dir_name . "/" . $lastID . "/" . $file_token . "_" . $name;
 
                 $sql = "
                     UPDATE 
-                        teachers
+                        employees
                     SET
                         photo = '$url'
                     WHERE 
-                        ID = '$id'";
+                        ID = '$lastID'";
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);
             }
@@ -104,7 +77,7 @@ else {
         $qualification = mysqli_real_escape_string($conn, $item['qualification']);
 
         $sql = "
-            INSERT INTO teacher_education (teacherID, org_name, end_date, qualification, userID, last_userID) 
+            INSERT INTO employee_education (employeeID, org_name, end_date, qualification, userID, last_userID) 
             VALUES ('$lastID', '$orgName', '$endDate', '$qualification', '$userID', '$userID')";
 
         $sqls[] = $sql;
@@ -123,7 +96,7 @@ else {
         $hours = mysqli_real_escape_string($conn, $item['hours']);
 
         $sql = "
-            INSERT INTO teacher_qualification (teacherID, title, date, place, hours, userID, last_userID) 
+            INSERT INTO employee_qualification (employeeID, title, date, place, hours, userID, last_userID) 
             VALUES ('$lastID', '$title', '$date', '$place', '$hours', '$userID', '$userID')";
 
         $sqls[] = $sql;
@@ -145,7 +118,7 @@ else {
         $date_order = mysqli_real_escape_string($conn, $item['date_order']);
 
         $sql = "
-            INSERT INTO teacher_work (teacherID, summary, education, work, category, date, date_order, userID, last_userID) 
+            INSERT INTO employee_work (employeeID, summary, education, work, category, date, date_order, userID, last_userID) 
             VALUES ('$lastID', '$summary', '$education', '$work', '$category', '$date', '$date_order', '$userID', '$userID')";
 
         $sqls[] = $sql;
@@ -165,7 +138,7 @@ else {
         $date = mysqli_real_escape_string($conn, $item['date']);
 
         $sql = "
-            INSERT INTO teacher_reward (teacherID, title, date, userID, last_userID) 
+            INSERT INTO employee_reward (employeeID, title, date, userID, last_userID) 
             VALUES ('$lastID', '$title', '$date', '$userID', '$userID')";
 
         $sqls[] = $sql;
@@ -174,8 +147,13 @@ else {
         unset($title);
         unset($date);
     }
+}
 
-    $log->add($conn, $authorization[1], 'Сотрудник ID: ' . $id . ' отредактирован');
+if (!$result  || (int)$lastID === 0) {
+    $error = 1;
+    $error_text = "Ошибка добавления сотрудника: " .  mysqli_error($conn);
+} else {
+    $log->add($conn, $userID, 'Добавлен сотрудник ID: ' . $lastID);
 }
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

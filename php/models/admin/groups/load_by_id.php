@@ -17,7 +17,7 @@ function getTeachers($ID)
         FROM 
             group_teachers as t1
         LEFT JOIN 
-            teachers as t2 ON t1.teacherID = t2.ID
+            employees as t2 ON t1.teacherID = t2.ID
         LEFT JOIN 
             teacher_category as t3 ON t2.categoryID = t3.ID
         WHERE 
@@ -63,7 +63,7 @@ if (mysqli_num_rows($result) > 0) {
             'title' => htmlspecialchars_decode($row->title),
             'preview' => htmlspecialchars_decode($row->preview),
             'text' => htmlspecialchars_decode($row->text),
-            'teachers' => getTeachers($row->ID),
+            'employees' => getTeachers($row->ID),
             'image' => $row->image,
             'create_time' => $row->create_time,
         ];

@@ -12,11 +12,11 @@ import "./lessons.scss";
 const LessonsPage = () => {
     const store = useLessonsStore();
 
-    const fetchData = async () => {
-        await store.loadAll();
-    };
-
     React.useEffect(() => {
+        const fetchData = async () => {
+            await store.loadAll();
+        };
+
         fetchData();
     }, []);
 

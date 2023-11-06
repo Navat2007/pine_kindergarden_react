@@ -18,12 +18,12 @@ const FoodPage = () => {
     const store = useFoodStore();
     const menuStore = useFoodMenuStore();
 
-    const fetchData = async () => {
-        await store.loadAll();
-        await menuStore.loadAll();
-    };
-
     React.useEffect(() => {
+        const fetchData = async () => {
+            await store.loadAll();
+            await menuStore.loadAll();
+        };
+
         fetchData();
     }, []);
 

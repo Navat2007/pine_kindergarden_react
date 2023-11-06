@@ -10,7 +10,7 @@ const TeachersSlider = ({ type = "loop", isBorderGradient = true, categories = [
     const Slide = ({ person }) => {
         return (
             <SplideSlide key={person.ID} data-splide-interval='5000'>
-                <NavLink className={"card-link"} to={"/teachers/" + person.ID}>
+                <NavLink className={"card-link"} to={"/employees/" + person.ID}>
                     <article className='person-card'>
                         <SingleImageWithPreview
                             image={person.photo}

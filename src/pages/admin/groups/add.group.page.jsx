@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
 import useGroupsStore from "../../../store/admin/groupsStore";
-import useTeachersStore from "../../../store/admin/teachersStore";
+import useTeachersStore from "../../../store/admin/employeesStore";
 
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";

@@ -6,12 +6,19 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
-$id = htmlspecialchars($_POST["id"]);
-
-$sql = "DELETE FROM teacher_category WHERE ID = '$id'";
+$sql = "SELECT 
+            *
+        FROM 
+            employee_category";
 $sqls[] = $sql;
-mysqli_query($conn, $sql);
+$result = mysqli_query($conn, $sql);
 
-$log->add($conn, $authorization[1], 'Подразделение ID: ' . $id . ' удалено');
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_object($result)) {
+
+        $params[] = $row;
+
+    }
+}
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

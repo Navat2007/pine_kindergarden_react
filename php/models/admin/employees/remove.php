@@ -8,27 +8,27 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $id = htmlspecialchars($_POST["id"]);
 
-$sql = "DELETE FROM teachers WHERE ID = '$id'";
+$sql = "DELETE FROM employees WHERE ID = '$id'";
 $sqls[] = $sql;
 mysqli_query($conn, $sql);
 
-$sql = "DELETE FROM teacher_education WHERE teacherID = '$id'";
+$sql = "DELETE FROM employee_education WHERE employeeID = '$id'";
 $sqls[] = $sql;
 mysqli_query($conn, $sql);
 
-$sql = "DELETE FROM teacher_qualification WHERE teacherID = '$id'";
+$sql = "DELETE FROM employee_qualification WHERE employeeID = '$id'";
 $sqls[] = $sql;
 mysqli_query($conn, $sql);
 
-$sql = "DELETE FROM teacher_work WHERE teacherID = '$id'";
+$sql = "DELETE FROM employee_work WHERE employeeID = '$id'";
 $sqls[] = $sql;
 mysqli_query($conn, $sql);
 
-$sql = "DELETE FROM teacher_reward WHERE teacherID = '$id'";
+$sql = "DELETE FROM employee_reward WHERE employeeID = '$id'";
 $sqls[] = $sql;
 mysqli_query($conn, $sql);
 
-$path = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers/" . $id;
+$path = $_SERVER['DOCUMENT_ROOT'] . "/files/employees/" . $id;
 
 if(file_exists($path)){
     array_map('unlink', glob("$path/*.*"));

@@ -124,7 +124,7 @@ const Header = () => {
                                         </li>
                                         <li className='submenu__item'>
                                             <NavLink
-                                                to={"/teachers/"}
+                                                to={"/employees/"}
                                                 className={({ isActive }) =>
                                                     isActive ? `submenu__link submenu__link_active` : `submenu__link`
                                                 }
@@ -137,7 +137,7 @@ const Header = () => {
                                 </li>
                                 <li className='submenu__item'>
                                     <NavLink
-                                        to={"/teachers/"}
+                                        to={"/employees/"}
                                         className={({ isActive }) =>
                                             isActive ? `submenu__link submenu__link_active` : `submenu__link`
                                         }
@@ -229,7 +229,7 @@ const Header = () => {
                                         </li>
                                         <li className='submenu__item'>
                                             <NavLink
-                                                to={"/teachers/"}
+                                                to={"/employees/"}
                                                 className={({ isActive }) =>
                                                     isActive ? `submenu__link submenu__link_active` : `submenu__link`
                                                 }
@@ -242,7 +242,7 @@ const Header = () => {
                                 </li>
                                 <li className='submenu__item'>
                                     <NavLink
-                                        to={"/teachers/"}
+                                        to={"/employees/"}
                                         className={({ isActive }) =>
                                             isActive ? `submenu__link submenu__link_active` : `submenu__link`
                                         }

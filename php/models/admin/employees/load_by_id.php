@@ -3,6 +3,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Auth-Token');
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 function getEducations($ID)
@@ -14,9 +15,9 @@ function getEducations($ID)
     $sql = "SELECT 
             *
         FROM 
-            teacher_education as p 
+            employee_education as p 
         WHERE 
-            p.teacherID = '$ID'";
+            p.employeeID = '$ID'";
 
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
@@ -46,9 +47,9 @@ function getQualifications($ID)
     $sql = "SELECT 
             *
         FROM 
-            teacher_qualification as p 
+            employee_qualification as p 
         WHERE 
-            p.teacherID = '$ID'";
+            p.employeeID = '$ID'";
 
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
@@ -79,9 +80,9 @@ function getWorks($ID)
     $sql = "SELECT 
             *
         FROM 
-            teacher_work as p 
+            employee_work as p 
         WHERE 
-            p.teacherID = '$ID'";
+            p.employeeID = '$ID'";
 
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
@@ -89,7 +90,7 @@ function getWorks($ID)
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_object($result)) {
 
-            $data = (object)[
+            $data[] = (object)[
                 'ID' => (int)$row->ID,
                 'summary' => htmlspecialchars_decode($row->summary),
                 'education' => htmlspecialchars_decode($row->education),
@@ -114,9 +115,9 @@ function getRewards($ID)
     $sql = "SELECT 
             *
         FROM 
-            teacher_reward as p 
+            employee_reward as p 
         WHERE 
-            p.teacherID = '$ID'";
+            p.employeeID = '$ID'";
 
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
@@ -147,9 +148,9 @@ $id = htmlspecialchars($_POST["id"]);
 $sql = "SELECT 
             t1.*, t2.title as category
         FROM 
-            teachers as t1
+            employees as t1
         LEFT JOIN 
-            teacher_category as t2 ON t1.categoryID = t2.ID
+            employee_category as t2 ON t1.categoryID = t2.ID
         WHERE 
             t1.ID = '$id'";
 $sqls[] = $sql;

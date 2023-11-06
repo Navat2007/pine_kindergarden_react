@@ -2,8 +2,9 @@ import React from "react";
 import {motion} from "framer-motion";
 import {useParams} from "react-router-dom";
 import {Helmet} from "react-helmet";
+import moment from "moment";
 
-import useTeachersStore from "../../../store/public/teachersStore";
+import useEmployeesStore from "../../../store/public/employeesStore";
 
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 import Tabs from "../../../components/public/tabs/tabs.component";
@@ -13,18 +14,17 @@ import Table from "../../../components/public/table/table.component";
 import Breadcrumbs from "../../../components/public/breadcrumbs/breadcrumbs";
 
 import {AdminIcons} from "../../../components/svgs";
-import moment from "moment";
 
-const TeacherPage = () => {
+const EmployeePage = () => {
     let {id} = useParams();
 
-    const store = useTeachersStore();
-
-    const fetchData = async () => {
-        await store.loadByID({id});
-    };
+    const store = useEmployeesStore();
 
     React.useEffect(() => {
+        const fetchData = async () => {
+            await store.loadByID({id});
+        };
+
         fetchData();
     }, []);
 
@@ -144,7 +144,7 @@ const TeacherPage = () => {
                     },
                     {
                         title: "Педагоги",
-                        url: "/teachers/",
+                        url: "/employees/",
                     },
                     {
                         title: store.item.fio,
@@ -268,4 +268,4 @@ const TeacherPage = () => {
     );
 };
 
-export default TeacherPage;
+export default EmployeePage;

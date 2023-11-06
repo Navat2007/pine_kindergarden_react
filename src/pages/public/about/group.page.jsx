@@ -16,87 +16,78 @@ const GroupPage = () => {
 
     const store = useGroupsStore();
 
-    const fetchData = async () => {
-        await store.loadByID({ id });
-    };
-
     React.useEffect(() => {
+        const fetchData = async () => {
+            await store.loadByID({ id });
+        };
+
         fetchData();
     }, []);
 
-    //Private component
-    const Article = () => {
-        return (
-            <>
-                <Helmet>
-                    <title>{store.item.title}</title>
-                </Helmet>
-                <Breadcrumbs
-                    items={[
-                        {
-                            title: "Главная",
-                            url: "/",
-                        },
-                        {
-                            title: "Группы",
-                            url: "/about#groups",
-                        },
-                        {
-                            title: store.item.title,
-                            url: "",
-                        },
-                    ]}
-                />
-                <motion.section
-                    className='article'
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ delay: 0.2, duration: 1 }}
-                >
-                    {!store.loading && Object.keys(store.item).length > 0 && (
-                        <>
-                            <div className='article__two-columns'>
-                                <img
-                                    className='article__image'
-                                    src={
-                                        store.item.image.includes("http")
-                                            ? store.item.image
-                                            : process.env.REACT_APP_BASE_URL + store.item.image
-                                    }
-                                    alt='Изображение группы'
-                                />
-                                <div>
-                                    <h1 className='article__title'>{store.item.title}</h1>
-                                    <p className='article__subtitle'>{store.item.preview}</p>
-                                    <div
-                                        className='article__main-content'
-                                        dangerouslySetInnerHTML={{
-                                            __html: DOMPurify.sanitize(store.item.text),
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                            {store.item?.teachers?.length > 0 && (
-                                <>
-                                    <h2 className='article__title'>Воспитатели</h2>
-                                    <TeachersSlider
-                                        isBorderGradient={false}
-                                        type={"slide"}
-                                        items={store.item?.teachers}
-                                    />
-                                </>
-                            )}
-                        </>
-                    )}
-                </motion.section>
-            </>
-        );
-    };
-
     return (
         <BasicPage loadings={[store]}>
-            <Article />
+            <Helmet>
+                <title>{store.item.title}</title>
+            </Helmet>
+            <Breadcrumbs
+                items={[
+                    {
+                        title: "Главная",
+                        url: "/",
+                    },
+                    {
+                        title: "Группы",
+                        url: "/about#groups",
+                    },
+                    {
+                        title: store.item.title,
+                        url: "",
+                    },
+                ]}
+            />
+            <motion.section
+                className='article'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.2, duration: 1 }}
+            >
+                {!store.loading && Object.keys(store.item).length > 0 && (
+                    <>
+                        <div className='article__two-columns'>
+                            <img
+                                className='article__image'
+                                src={
+                                    store.item.image.includes("http")
+                                        ? store.item.image
+                                        : process.env.REACT_APP_BASE_URL + store.item.image
+                                }
+                                alt='Изображение группы'
+                            />
+                            <div>
+                                <h1 className='article__title'>{store.item.title}</h1>
+                                <p className='article__subtitle'>{store.item.preview}</p>
+                                <div
+                                    className='article__main-content'
+                                    dangerouslySetInnerHTML={{
+                                        __html: DOMPurify.sanitize(store.item.text),
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        {store.item?.teachers?.length > 0 && (
+                            <>
+                                <h2 className='article__title'>Воспитатели</h2>
+                                <TeachersSlider
+                                    isBorderGradient={false}
+                                    type={"slide"}
+                                    items={store.item?.teachers}
+                                />
+                            </>
+                        )}
+                    </>
+                )}
+            </motion.section>
         </BasicPage>
     );
 };

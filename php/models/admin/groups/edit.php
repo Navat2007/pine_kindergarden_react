@@ -12,7 +12,7 @@ $title = mysqli_real_escape_string($conn, htmlspecialchars($_POST["title"]));
 $preview = mysqli_real_escape_string($conn, htmlspecialchars($_POST["preview"]));
 $text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
 
-$teachers = $_POST["teachers"];
+$teachers = $_POST["employees"];
 $image = $_POST["image"];
 
 $sql = "UPDATE 

@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import useTeachersStore from "../../../store/admin/teachersStore";
-import useTeachersCategoriesStore from "../../../store/admin/teacherCategoriesStore";
+import useTeachersStore from "../../../store/admin/employeesStore";
+import useTeachersCategoriesStore from "../../../store/admin/employeeCategoriesStore";
 import useAuthStore from "../../../store/authStore";
 
 import Table from "../../../components/admin/table/table.component";
@@ -12,25 +12,25 @@ import Tabs from "../../../components/general/tabs/tabs.component";
 
 import { AdminIcons } from "../../../components/svgs";
 
-const AdminTeachersPage = () => {
+const AdminEmployeesPage = () => {
     const { user } = useAuthStore();
     const navigate = useNavigate();
 
     //Private components
-    const Teachers = () => {
+    const Employees = () => {
         const store = useTeachersStore();
 
-        const url = "admin/teachers";
+        const url = "admin/employees";
 
         const onItemClick = (props) => {
             navigate(`/${url}/${props}`);
         };
 
-        const fetchData = async () => {
-            await store.loadAll();
-        };
-
         React.useEffect(() => {
+            const fetchData = async () => {
+                await store.loadAll();
+            };
+
             fetchData();
         }, []);
 
@@ -89,17 +89,17 @@ const AdminTeachersPage = () => {
     const Category = () => {
         const store = useTeachersCategoriesStore();
 
-        const url = "admin/teachers/category";
+        const url = "admin/employees/category";
 
         const onItemClick = (props) => {
             navigate(`/${url}/${props}`);
         };
 
-        const fetchData = async () => {
-            await store.loadAll();
-        };
-
         React.useEffect(() => {
+            const fetchData = async () => {
+                await store.loadAll();
+            };
+
             fetchData();
         }, []);
 
@@ -141,9 +141,9 @@ const AdminTeachersPage = () => {
     };
 
     return (
-        <Tabs place={"admin/teachers"}>
+        <Tabs place={"admin/employees"}>
             <Tab title={"Сотрудники"}>
-                <Teachers />
+                <Employees />
             </Tab>
             <Tab title={"Структурные подразделения"}>
                 <Category />
@@ -152,4 +152,4 @@ const AdminTeachersPage = () => {
     );
 };
 
-export default AdminTeachersPage;
+export default AdminEmployeesPage;

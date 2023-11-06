@@ -20,8 +20,9 @@ import AdminDocumentsPage from "../pages/admin/documents/documents.page";
 import ViewDocumentPage from "../pages/admin/documents/document.page";
 import AddDocumentPage from "../pages/admin/documents/add.document.page";
 import EditDocumentPage from "../pages/admin/documents/edit.document.page";
-import AdminTeachersPage from "../pages/admin/teachers/teachers.page";
-import AdminTeacherPage from "../pages/admin/teachers/teacher.page";
+import AdminEmployeesPage from "../pages/admin/employees/employees.page";
+import AdminEmployeePage from "../pages/admin/employees/employee.page";
+import AdminCategoryEmployeesPage from "../pages/admin/employees/category/category.employees.page";
 import AdminFoodsPage from "../pages/admin/food/foods.page";
 import AdminFoodPage from "../pages/admin/food/food.page";
 import AddFoodPage from "../pages/admin/food/add.food.page";
@@ -38,7 +39,6 @@ import AdminGroupsPage from "../pages/admin/groups/groups.page";
 import AdminGroupPage from "../pages/admin/groups/group.page";
 import AddGroupPage from "../pages/admin/groups/add.group.page";
 import EditGroupPage from "../pages/admin/groups/edit.group.page";
-import AdminCategoryTeachersPage from "../pages/admin/teachers/category.teachers.page";
 import AdminMediaFilesPage from "../pages/admin/media.files/media.files.page";
 import AdminMediaFilePage from "../pages/admin/media.files/media.file.page";
 import AddMediaFilePage from "../pages/admin/media.files/add.media.file.page";
@@ -49,8 +49,8 @@ import IndexPage from "../pages/public/index.page";
 import LessonsPage from "../pages/public/lessons/lessons.page";
 import LessonPage from "../pages/public/lessons/lesson.page";
 import DocumentsPage from "../pages/public/documents/documents.page";
-import TeachersPage from "../pages/public/teachers/teachers.page";
-import TeacherPage from "../pages/public/teachers/teacher.page";
+import EmployeesPage from "../pages/public/employees/employees.page";
+import EmployeePage from "../pages/public/employees/employee.page";
 import FoodPage from "../pages/public/food/food.page";
 import AboutPage from "../pages/public/about/about.page";
 import ModePage from "../pages/public/mode/mode.page";
@@ -69,9 +69,9 @@ const RoutesList = () => {
                 <Route path=':id' element={<LessonPage />} />
             </Route>
             <Route path='/documents' exact={true} element={<DocumentsPage />} />
-            <Route path='/teachers'>
-                <Route index element={<TeachersPage />} />
-                <Route path=':id' element={<TeacherPage />} />
+            <Route path='/employees'>
+                <Route index element={<EmployeesPage />} />
+                <Route path=':id' element={<EmployeePage />} />
             </Route>
             <Route path='/food' exact={true} element={<FoodPage />} />
             <Route path='/mode' exact={true} element={<ModePage />} />
@@ -110,12 +110,14 @@ const RoutesList = () => {
                     <Route path='new' element={<AddDocumentPage />} />
                     <Route path='edit/:id' element={<EditDocumentPage />} />
                 </Route>
-                <Route path='teachers'>
-                    <Route index element={<AdminTeachersPage />} />
-                    <Route path=':id' element={<AdminTeacherPage />} />
-                    <Route path='new' element={<AdminTeacherPage />} />
-                    <Route path='category/:id' element={<AdminCategoryTeachersPage />} />
-                    <Route path='category/new' element={<AdminCategoryTeachersPage />} />
+                <Route path='employees'>
+                    <Route index element={<AdminEmployeesPage />} />
+                    <Route path=':id' element={<AdminEmployeePage />} />
+                    <Route path='new' element={<AdminEmployeePage />} />
+                    <Route path='edit/:id' element={<AdminEmployeePage />} />
+                    <Route path='category/:id' element={<AdminCategoryEmployeesPage />} />
+                    <Route path='category/new' element={<AdminCategoryEmployeesPage />} />
+                    <Route path='category/edit/:id' element={<AdminCategoryEmployeesPage />} />
                 </Route>
                 <Route path='food'>
                     <Route index element={<AdminFoodsPage />} />

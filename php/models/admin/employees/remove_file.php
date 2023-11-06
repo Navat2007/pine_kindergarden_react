@@ -6,26 +6,17 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
-$id = htmlspecialchars($_POST["id"]);
+$ID = htmlspecialchars($_POST["ID"]);
+$url = htmlspecialchars($_POST["url"]);
 
-$sql = "SELECT 
-        *
-    FROM 
-        teacher_category
-    WHERE 
-        ID = '$id'";
+if(!empty($url))
+{
+    $photo_path = $_SERVER['DOCUMENT_ROOT'] . $url;
+    @unlink($photo_path);
+}
+
+$sql = "UPDATE employees SET photo = '' WHERE ID = '$ID'";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_object($result)) {
-
-        $params = (object)[
-            'ID' => (int)$row->ID,
-            'title' => htmlspecialchars_decode($row->title),
-        ];
-
-    }
-}
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';
