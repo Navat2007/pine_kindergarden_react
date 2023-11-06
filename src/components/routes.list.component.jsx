@@ -27,7 +27,8 @@ import AdminModePage from "../pages/admin/mode/mode.page";
 import AdminLessonsPage from "../pages/admin/lessons/lessons.page";
 import AdminLessonPage from "../pages/admin/lessons/lesson.page";
 import AdminAboutPage from "../pages/admin/about/about.page";
-import AdminGroupPage from "../pages/admin/about/group.page";
+import EditAboutPage from "../pages/admin/about/edit.about.page";
+import AdminGroupPage from "../pages/admin/groups/group.page";
 import AdminCategoryTeachersPage from "../pages/admin/teachers/category.teachers.page";
 import AdminMediaFilesPage from "../pages/admin/media.files/media.files.page";
 import AdminMediaFilePage from "../pages/admin/media.files/media.file.page";
@@ -120,8 +121,14 @@ const RoutesList = () => {
                 </Route>
                 <Route path='about'>
                     <Route index element={<AdminAboutPage />} />
+                    <Route path='edit' element={<EditAboutPage />} />
                     <Route path='groups/:id' element={<AdminGroupPage />} />
                     <Route path='groups/new' element={<AdminGroupPage />} />
+                </Route>
+                <Route path='groups'>
+                    <Route path=':id' element={<AdminGroupPage />} />
+                    <Route path='new' element={<AdminGroupPage />} />
+                    <Route path='edit/:id' element={<AdminGroupPage />} />
                 </Route>
             </Route>
             <Route path='/profile' exact={true} element={<AdminLayout />}>
