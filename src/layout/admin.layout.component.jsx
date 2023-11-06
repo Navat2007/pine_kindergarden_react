@@ -40,6 +40,11 @@ const AdminLayout = () => {
             link: "/admin/teachers",
         },
         {
+            title: "Группы",
+            icon: MenuIcons.employers,
+            link: "/admin/groups",
+        },
+        {
             title: "Питание",
             icon: MenuIcons.food,
             link: "/admin/food",
