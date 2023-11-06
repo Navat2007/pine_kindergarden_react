@@ -26,7 +26,7 @@ const AdminNewsPage = (props) => {
 
     const store = useNewsStore();
 
-    const back = () => navigate(`/admin/news/edit/${id}`);
+    const back = () => navigate(`/admin/news/${id}`);
 
     const [photo, setPhoto] = React.useState([]);
     const [photoPreview, setPhotoPreview] = React.useState([]);
