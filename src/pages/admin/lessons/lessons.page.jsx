@@ -21,11 +21,11 @@ const AdminLessonsPage = () => {
         navigate(`/${url}/${props}`);
     };
 
-    const fetchData = async () => {
-        await store.loadAll();
-    };
-
     React.useEffect(() => {
+        const fetchData = async () => {
+            await store.loadAll();
+        };
+
         fetchData();
     }, []);
 
