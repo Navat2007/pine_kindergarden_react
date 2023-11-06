@@ -15,7 +15,9 @@ import UserPage from "../pages/admin/users/user.page";
 import AdminAllNewsPage from "../pages/admin/news/all.news.page";
 import AdminNewsPage from "../pages/admin/news/news.page";
 import AdminDocumentsPage from "../pages/admin/documents/documents.page";
-import AdminDocumentPage from "../pages/admin/documents/document.page";
+import ViewDocumentPage from "../pages/admin/documents/document.page";
+import AddDocumentPage from "../pages/admin/documents/add.document.page";
+import EditDocumentPage from "../pages/admin/documents/edit.document.page";
 import AdminTeachersPage from "../pages/admin/teachers/teachers.page";
 import AdminTeacherPage from "../pages/admin/teachers/teacher.page";
 import AdminFoodsPage from "../pages/admin/food/foods.page";
@@ -90,8 +92,9 @@ const RoutesList = () => {
                 </Route>
                 <Route path='documents'>
                     <Route index element={<AdminDocumentsPage />} />
-                    <Route path=':id' element={<AdminDocumentPage />} />
-                    <Route path='new' element={<AdminDocumentPage />} />
+                    <Route path=':id' element={<ViewDocumentPage />} />
+                    <Route path='new' element={<AddDocumentPage />} />
+                    <Route path='edit/:id' element={<EditDocumentPage />} />
                 </Route>
                 <Route path='teachers'>
                     <Route index element={<AdminTeachersPage />} />

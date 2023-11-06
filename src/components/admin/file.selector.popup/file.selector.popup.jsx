@@ -140,7 +140,6 @@ const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, acce
         let match = accept.split(",").join("|");
 
         for (const file of e.target.files) {
-            //console.log(file);
             if (accept === "*.*" || file.type.match(match)) {
                 if (file.size <= maxFileSize * 1000000) {
                 } else {
@@ -176,13 +175,13 @@ const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, acce
                 ],
             };
 
-            const result = await store.add(sendObject);
+            await store.add(sendObject);
 
-            if (result.error) {
+            if (store.error) {
                 setNotif(
                     <AlertPopup
                         title='Ошибка'
-                        text={result.errorText}
+                        text={store.errorText}
                         opened={true}
                         onClose={() => {
                             setNotif(<></>);
@@ -397,7 +396,7 @@ const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, acce
                     })}
             </ol>
             <div className='file-selector-popup__panel'>
-                <Button type='button' theme='text' onClick={onClose}>
+                <Button type='button' theme='text' onClick={onClose} spinnerActive={store.loading}>
                     Отмена
                 </Button>
                 <Button
@@ -406,6 +405,7 @@ const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, acce
                         onFileSelected(selectedFile);
                         onClose();
                     }}
+                    spinnerActive={store.loading}
                 >
                     Выбрать
                 </Button>
