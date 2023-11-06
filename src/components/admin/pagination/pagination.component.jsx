@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import _ from "lodash";
-import Button from "../button/button.component";
 import "./pagination.scss";
 import { AdminIcons } from "../../svgs";
 
@@ -22,24 +21,23 @@ const Pagination = ({ pageCount, pageIndex = 1, minCount = 10, setPageChangeCall
     return (
         <>
             {pageCount && (
-                <div className='pagination'>
-                    <Button
+                <div className='admin-pagination'>
+                    <button
                         type='button'
-                        isIconBtn
-                        iconName={AdminIcons.chevron_left}
-                        theme='text'
-                        extraClass='pagination__thumb'
+                        className='admin-pagination__thumb admin-pagination__item'
                         onClick={() => handlePageSelect(page - 1)}
                         aria-label='Назад'
                         disabled={page === 1}
-                    />
-                    <ul className='pagination__list'>
+                    >
+                        <span className='admin-pagination__thumb-icon'>{AdminIcons.chevron_left}</span>
+                    </button>
+                    <ul className='admin-pagination__list'>
                         {pages.map((item, index) => (
                             <Fragment key={item}>
                                 {pageCount <= minCount && (
                                     <li
-                                        className={`pagination__item ${
-                                            item === page ? "pagination__item_actived" : ""
+                                        className={`admin-pagination__item ${
+                                            item === page ? "admin-pagination__item_active" : ""
                                         }`}
                                         onClick={() => handlePageSelect(item)}
                                     >
@@ -48,8 +46,8 @@ const Pagination = ({ pageCount, pageIndex = 1, minCount = 10, setPageChangeCall
                                 )}
                                 {pageCount > minCount && (
                                     <li
-                                        className={`pagination__item ${
-                                            item === page ? "pagination__item_actived" : ""
+                                        className={`admin-pagination__item ${
+                                            item === page ? "admin-pagination__item_active" : ""
                                         } ${
                                             index !== 0 && index !== pageCount - 1 && (index < page - 2 || index > page)
                                                 ? "--hide"
@@ -61,24 +59,25 @@ const Pagination = ({ pageCount, pageIndex = 1, minCount = 10, setPageChangeCall
                                     </li>
                                 )}
                                 {pageCount > minCount && index === 0 && (
-                                    <li className={`pagination__item ${page > 3 ? "" : "--hide"}`}>...</li>
+                                    <li className={`admin-pagination__item ${page > 3 ? "" : "--hide"}`}>...</li>
                                 )}
                                 {pageCount > minCount && index === pageCount - 2 && (
-                                    <li className={`pagination__item ${page < pageCount - 2 ? "" : "--hide"}`}>...</li>
+                                    <li className={`admin-pagination__item ${page < pageCount - 2 ? "" : "--hide"}`}>
+                                        ...
+                                    </li>
                                 )}
                             </Fragment>
                         ))}
                     </ul>
-                    <Button
+                    <button
                         type='button'
-                        isIconBtn
-                        iconName={AdminIcons.chevron_right}
-                        theme='text'
-                        extraClass='pagination__thumb'
+                        className='admin-pagination__thumb admin-pagination__item'
                         onClick={() => handlePageSelect(page + 1)}
                         aria-label='Вперед'
                         disabled={page === pageCount}
-                    />
+                    >
+                        <span className='admin-pagination__thumb-icon'>{AdminIcons.chevron_right}</span>
+                    </button>
                 </div>
             )}
         </>
