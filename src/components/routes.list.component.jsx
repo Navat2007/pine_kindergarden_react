@@ -22,6 +22,8 @@ import AddDocumentPage from "../pages/admin/documents/add.document.page";
 import EditDocumentPage from "../pages/admin/documents/edit.document.page";
 import AdminEmployeesPage from "../pages/admin/employees/employees.page";
 import AdminEmployeePage from "../pages/admin/employees/employee.page";
+import AddEmployeePage from "../pages/admin/employees/add.employee.page";
+import EditEmployeePage from "../pages/admin/employees/edit.employee.page";
 import AdminCategoryEmployeesPage from "../pages/admin/employees/category/category.employees.page";
 import AdminFoodsPage from "../pages/admin/food/foods.page";
 import AdminFoodPage from "../pages/admin/food/food.page";
@@ -113,8 +115,8 @@ const RoutesList = () => {
                 <Route path='employees'>
                     <Route index element={<AdminEmployeesPage />} />
                     <Route path=':id' element={<AdminEmployeePage />} />
-                    <Route path='new' element={<AdminEmployeePage />} />
-                    <Route path='edit/:id' element={<AdminEmployeePage />} />
+                    <Route path='new' element={<AddEmployeePage />} />
+                    <Route path='edit/:id' element={<EditEmployeePage />} />
                     <Route path='category/:id' element={<AdminCategoryEmployeesPage />} />
                     <Route path='category/new' element={<AdminCategoryEmployeesPage />} />
                     <Route path='category/edit/:id' element={<AdminCategoryEmployeesPage />} />
