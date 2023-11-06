@@ -22,10 +22,14 @@ import AdminTeachersPage from "../pages/admin/teachers/teachers.page";
 import AdminTeacherPage from "../pages/admin/teachers/teacher.page";
 import AdminFoodsPage from "../pages/admin/food/foods.page";
 import AdminFoodPage from "../pages/admin/food/food.page";
+import AddFoodPage from "../pages/admin/food/add.food.page";
+import EditFoodPage from "../pages/admin/food/edit.food.page";
 import AdminModesPage from "../pages/admin/mode/modes.page";
 import AdminModePage from "../pages/admin/mode/mode.page";
 import AdminLessonsPage from "../pages/admin/lessons/lessons.page";
 import AdminLessonPage from "../pages/admin/lessons/lesson.page";
+import AddLessonPage from "../pages/admin/lessons/add.lesson.page";
+import EditLessonPage from "../pages/admin/lessons/edit.lesson.page";
 import AdminAboutPage from "../pages/admin/about/about.page";
 import EditAboutPage from "../pages/admin/about/edit.about.page";
 import AdminGroupsPage from "../pages/admin/groups/groups.page";
@@ -110,7 +114,8 @@ const RoutesList = () => {
                 <Route path='food'>
                     <Route index element={<AdminFoodsPage />} />
                     <Route path='menu/:id' element={<AdminFoodPage />} />
-                    <Route path='menu/new' element={<AdminFoodPage />} />
+                    <Route path='menu/new' element={<AddFoodPage />} />
+                    <Route path='menu/edit/:id' element={<EditFoodPage />} />
                 </Route>
                 <Route path='mode'>
                     <Route index element={<AdminModesPage />} />
@@ -120,7 +125,8 @@ const RoutesList = () => {
                 <Route path='lessons'>
                     <Route index element={<AdminLessonsPage />} />
                     <Route path=':id' element={<AdminLessonPage />} />
-                    <Route path='new' element={<AdminLessonPage />} />
+                    <Route path='new' element={<AddLessonPage />} />
+                    <Route path='edit/:id' element={<EditLessonPage />} />
                 </Route>
                 <Route path='about'>
                     <Route index element={<AdminAboutPage />} />
