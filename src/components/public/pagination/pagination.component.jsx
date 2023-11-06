@@ -21,24 +21,22 @@ const Pagination = ({ pageCount, pageIndex = 1, minCount = 10, setPageChangeCall
     return (
         <>
             {pageCount && (
-                <div className='admin-pagination'>
+                <div className='pagination'>
                     <button
                         type='button'
-                        className='admin-pagination__thumb admin-pagination__item'
+                        className='pagination__thumb pagination__item'
                         onClick={() => handlePageSelect(page - 1)}
                         aria-label='Назад'
                         disabled={page === 1}
                     >
-                        <span className='admin-pagination__thumb-icon'>{AdminIcons.chevron_left}</span>
+                        <span className='pagination__thumb-icon'>{AdminIcons.chevron_left}</span>
                     </button>
-                    <ul className='admin-pagination__list'>
+                    <ul className='pagination__list'>
                         {pages.map((item, index) => (
                             <Fragment key={item}>
                                 {pageCount <= minCount && (
                                     <li
-                                        className={`admin-pagination__item ${
-                                            item === page ? "admin-pagination__item_active" : ""
-                                        }`}
+                                        className={`pagination__item ${item === page ? "pagination__item_active" : ""}`}
                                         onClick={() => handlePageSelect(item)}
                                     >
                                         {item}
@@ -46,8 +44,8 @@ const Pagination = ({ pageCount, pageIndex = 1, minCount = 10, setPageChangeCall
                                 )}
                                 {pageCount > minCount && (
                                     <li
-                                        className={`admin-pagination__item ${
-                                            item === page ? "admin-pagination__item_active" : ""
+                                        className={`pagination__item ${
+                                            item === page ? "pagination__item_active" : ""
                                         } ${
                                             index !== 0 && index !== pageCount - 1 && (index < page - 2 || index > page)
                                                 ? "--hide"
@@ -59,24 +57,22 @@ const Pagination = ({ pageCount, pageIndex = 1, minCount = 10, setPageChangeCall
                                     </li>
                                 )}
                                 {pageCount > minCount && index === 0 && (
-                                    <li className={`admin-pagination__item ${page > 3 ? "" : "--hide"}`}>...</li>
+                                    <li className={`pagination__item ${page > 3 ? "" : "--hide"}`}>...</li>
                                 )}
                                 {pageCount > minCount && index === pageCount - 2 && (
-                                    <li className={`admin-pagination__item ${page < pageCount - 2 ? "" : "--hide"}`}>
-                                        ...
-                                    </li>
+                                    <li className={`pagination__item ${page < pageCount - 2 ? "" : "--hide"}`}>...</li>
                                 )}
                             </Fragment>
                         ))}
                     </ul>
                     <button
                         type='button'
-                        className='admin-pagination__thumb admin-pagination__item'
+                        className='pagination__thumb pagination__item'
                         onClick={() => handlePageSelect(page + 1)}
                         aria-label='Вперед'
                         disabled={page === pageCount}
                     >
-                        <span className='admin-pagination__thumb-icon'>{AdminIcons.chevron_right}</span>
+                        <span className='pagination__thumb-icon'>{AdminIcons.chevron_right}</span>
                     </button>
                 </div>
             )}

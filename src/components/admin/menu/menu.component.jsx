@@ -57,22 +57,18 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                 }`}
             >
                 <nav className='admin-menu__nav'>
-                    <Logo place={"admin-menu"} />
+                    <Logo extraClass={"admin-menu__logo"} />
                     <ul className='admin-menu__list'>
                         {menu.map((item) => (
                             <li
-                                className={`admin-menu__item${
-                                    item.separator ? ` admin-menu__item_separator` : ``
-                                }`}
+                                className={`admin-menu__item${item.separator ? ` admin-menu__item_separator` : ``}`}
                                 key={item.title}
                             >
                                 {!item.separator && (
                                     <NavLink
                                         to={item.link}
                                         className={({ isActive }) =>
-                                            isActive
-                                                ? `admin-menu__link admin-menu__link_active`
-                                                : `admin-menu__link`
+                                            isActive ? `admin-menu__link admin-menu__link_active` : `admin-menu__link`
                                         }
                                         aria-label={item.title}
                                     >
