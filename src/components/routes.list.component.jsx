@@ -39,6 +39,8 @@ import EditGroupPage from "../pages/admin/groups/edit.group.page";
 import AdminCategoryTeachersPage from "../pages/admin/teachers/category.teachers.page";
 import AdminMediaFilesPage from "../pages/admin/media.files/media.files.page";
 import AdminMediaFilePage from "../pages/admin/media.files/media.file.page";
+import AddMediaFilePage from "../pages/admin/media.files/add.media.file.page";
+import EditMediaFilePage from "../pages/admin/media.files/edit.media.file.page";
 
 // PUBLIC PAGES
 import IndexPage from "../pages/public/index.page";
@@ -91,7 +93,8 @@ const RoutesList = () => {
                 <Route path='mediaFiles'>
                     <Route index element={<AdminMediaFilesPage />} />
                     <Route path=':id' element={<AdminMediaFilePage />} />
-                    <Route path='new' element={<AdminMediaFilePage />} />
+                    <Route path='new' element={<AddMediaFilePage />} />
+                    <Route path='edit/:id' element={<EditMediaFilePage />} />
                 </Route>
                 <Route path='news'>
                     <Route index element={<AdminAllNewsPage />} />
