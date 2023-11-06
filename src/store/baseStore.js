@@ -78,6 +78,11 @@ export class Store{
                         set(() => ({item: {}}));
                     }
                 },
+
+                add: async () => {},
+                edit: async () => {},
+                remove: async () => {},
+                removeFile: async () => {},
             };
 
             if(this.place === "admin"){

@@ -28,17 +28,17 @@ const AdminAboutPage = () => {
     const About = () => {
         const [edit, setEdit] = React.useState(false);
 
-        const fetchData = async (store) => {
-            await store.load();
-        };
-
         const Edit = () => {
             const store = useAboutStore();
             const [popup, setPopup] = React.useState(<></>);
 
             React.useEffect(() => {
+                const fetchData = async () => {
+                    await store.loadByID({id: 1});
+                };
+
                 if (edit) {
-                    fetchData(store);
+                    fetchData();
 
                     setValue("preview", store.item.preview);
                     setValue("text", store.item.text);
@@ -151,7 +151,11 @@ const AdminAboutPage = () => {
             const store = useAboutStore();
 
             React.useEffect(() => {
-                fetchData(store);
+                const fetchData = async () => {
+                    await store.loadByID({id: 1});
+                };
+
+                fetchData();
             }, [edit]);
 
             return (
