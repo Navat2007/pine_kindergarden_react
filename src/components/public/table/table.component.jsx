@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import moment from "moment";
 import { useForm } from "react-hook-form";
 
-import Pagination from "../../admin/pagination/pagination.component";
+import Pagination from "../pagination/pagination.component";
 import SearchFilter from "../../admin/search.filter/search.filter.component";
 import Button from "../../admin/button/button.component";
 import Popup from "../../general/popup/popup.component";
