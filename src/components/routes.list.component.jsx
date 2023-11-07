@@ -61,6 +61,9 @@ import ModePage from "../pages/public/mode/mode.page";
 import GroupPage from "../pages/public/about/group.page";
 import AllNewsPage from "../pages/public/news/all.news.page";
 import NewsPage from "../pages/public/news/news.page";
+import MenuPage from "../pages/admin/menu/menu.page";
+import AddMenuPage from "../pages/admin/menu/add.menu.page";
+import EditMenuPage from "../pages/admin/menu/edit.menu.page";
 
 const RoutesList = () => {
     const { user } = useAuthStore();
@@ -101,6 +104,11 @@ const RoutesList = () => {
                     <Route path=':id' element={<AdminMediaFilePage />} />
                     <Route path='new' element={<AddMediaFilePage />} />
                     <Route path='edit/:id' element={<EditMediaFilePage />} />
+                </Route>
+                <Route path='menu'>
+                    <Route index element={<MenuPage />} />
+                    <Route path='new' element={<AddMenuPage />} />
+                    <Route path='edit/:id' element={<EditMenuPage />} />
                 </Route>
                 <Route path='news'>
                     <Route index element={<AdminAllNewsPage />} />
