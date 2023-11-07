@@ -3,7 +3,7 @@ import React from 'react';
 const MenuPage = () => {
     return (
         <div>
-            Menu
+            В разработке
         </div>
     );
 };

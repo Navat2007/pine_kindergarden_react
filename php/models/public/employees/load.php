@@ -6,11 +6,12 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $sql = "SELECT 
-        t1.*, t2.title as category
+        t1.*, t2.title as category, t2.sorting
     FROM 
         employees as t1
     LEFT JOIN 
-        employee_category as t2 ON t1.categoryID = t2.ID";
+        employee_category as t2 ON t1.categoryID = t2.ID
+    ORDER BY t2.sorting = '0', t2.sorting";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
@@ -33,8 +34,6 @@ if (mysqli_num_rows($result) > 0) {
         }
 
     }
-
-    sort($categories);
 
     foreach ($categories as $category) {
         $personsForCategory = [];

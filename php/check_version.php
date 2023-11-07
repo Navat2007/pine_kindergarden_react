@@ -5,6 +5,6 @@ header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Aut
 require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
-$params = 1;
+$params = 2;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';
