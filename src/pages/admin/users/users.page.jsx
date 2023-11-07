@@ -1,12 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import useUsersStore from "../../../store/admin/usersStore";
 import useAuthStore from "../../../store/authStore";
 
 import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
-import { Helmet } from "react-helmet";
+
 import { AdminIcons } from "../../../components/svgs.js";
 
 const UsersPage = () => {
@@ -16,14 +17,14 @@ const UsersPage = () => {
     const store = useUsersStore();
 
     const onAdminItemClick = (props) => {
-        navigate(`/admin/users/${props}`);
-    };
-
-    const fetchData = async () => {
-        await store.loadAll();
+        navigate(`/admin/users/edit/${props}`);
     };
 
     React.useEffect(() => {
+        const fetchData = async () => {
+            await store.loadAll();
+        };
+
         fetchData();
     }, []);
 

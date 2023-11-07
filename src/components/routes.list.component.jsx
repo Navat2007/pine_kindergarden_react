@@ -11,7 +11,8 @@ import ProfilePage from "../pages/admin/profile/profile.page";
 
 // ADMIN PAGES
 import UsersPage from "../pages/admin/users/users.page";
-import UserPage from "../pages/admin/users/user.page";
+import AddUserPage from "../pages/admin/users/add.user.page";
+import EditUserPage from "../pages/admin/users/edit.user.page";
 import AdminAllNewsPage from "../pages/admin/news/all.news.page";
 import AdminNewsPage from "../pages/admin/news/news.page";
 import EditNewsPage from "../pages/admin/news/edit.news.page";
@@ -92,8 +93,8 @@ const RoutesList = () => {
             <Route path='/admin' element={<AdminLayout />}>
                 <Route path='users'>
                     <Route index element={<UsersPage />} />
-                    <Route path=':id' element={<UserPage />} />
-                    <Route path='new' element={<UserPage />} />
+                    <Route path='edit/:id' element={<EditUserPage />} />
+                    <Route path='new' element={<AddUserPage />} />
                 </Route>
                 <Route path='mediaFiles'>
                     <Route index element={<AdminMediaFilesPage />} />
