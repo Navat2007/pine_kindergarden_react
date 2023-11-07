@@ -22,7 +22,7 @@ const AdminLayout = () => {
         },
         {
             title: "Меню",
-            icon: MenuIcons.media,
+            icon: MenuIcons.menu,
             link: "/admin/menu",
         },
         {
