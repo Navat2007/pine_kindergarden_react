@@ -41,7 +41,7 @@ const AdminLayout = () => {
         },
         {
             title: "Группы",
-            icon: MenuIcons.employers,
+            icon: MenuIcons.groups,
             link: "/admin/groups",
         },
         {
