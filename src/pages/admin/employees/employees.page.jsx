@@ -92,7 +92,7 @@ const AdminEmployeesPage = () => {
         const url = "admin/employees/category";
 
         const onItemClick = (props) => {
-            navigate(`/${url}/${props}`);
+            navigate(`/${url}/edit/${props}`);
         };
 
         React.useEffect(() => {
@@ -115,6 +115,13 @@ const AdminEmployeesPage = () => {
                 header: "Структурное подразделение",
                 key: "title",
                 type: "string",
+                sorting: true,
+            },
+            {
+                header: "Сортировка",
+                key: "sorting",
+                type: "int",
+                filter: "number",
                 sorting: true,
             },
         ];

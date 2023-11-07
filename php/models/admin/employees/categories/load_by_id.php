@@ -23,7 +23,7 @@ if (mysqli_num_rows($result) > 0) {
         $params = (object)[
             'ID' => (int)$row->ID,
             'title' => htmlspecialchars_decode($row->title),
-            'sorting' => htmlspecialchars_decode($row->sorting),
+            'sorting' => (int)$row->sorting,
         ];
 
     }
