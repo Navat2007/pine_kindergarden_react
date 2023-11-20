@@ -42,10 +42,10 @@ const Contact = () => {
                     <a
                         className='contact__link'
                         target={"_blank"}
-                        href='tel:84956302426'
+                        href='tel:84956302158'
                         rel='noopener nofollow noreferer'
                     >
-                        +7&nbsp;(495)&nbsp;630-24-26
+                        +7&nbsp;(495)&nbsp;630-21-58
                     </a>
                     <br />
                     E-mail:&nbsp;
