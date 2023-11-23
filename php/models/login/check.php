@@ -23,7 +23,7 @@ if (strlen($password) > 72) {
     die();
 }
 
-if (isset($login) && isset($password)) {
+if (!empty($login) && !empty($password) ) {
 
     $sql = "SELECT 
                 accounts.*

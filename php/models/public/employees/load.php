@@ -12,7 +12,6 @@ $sql = "SELECT
     LEFT JOIN 
         employee_category as t2 ON t1.categoryID = t2.ID
     ORDER BY t2.sorting = '0', t2.sorting";
-$sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {

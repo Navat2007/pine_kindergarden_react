@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import useTeachersStore from "../../../store/admin/employeesStore";
 import useTeachersCategoriesStore from "../../../store/admin/employeeCategoriesStore";
-import useAuthStore from "../../../store/authStore";
+import {userStore} from "../../../store/userStore";
 
 import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
@@ -13,7 +13,6 @@ import Tabs from "../../../components/general/tabs/tabs.component";
 import { AdminIcons } from "../../../components/svgs";
 
 const AdminEmployeesPage = () => {
-    const { user } = useAuthStore();
     const navigate = useNavigate();
 
     //Private components
@@ -67,7 +66,7 @@ const AdminEmployeesPage = () => {
 
         return (
             <Table
-                title={`Таблица ${url} ${user.ID}`}
+                title={`Таблица ${url} ${userStore.value.ID}`}
                 loading={store.loading}
                 items={store.items}
                 itemsConfig={itemConfig}
@@ -128,7 +127,7 @@ const AdminEmployeesPage = () => {
 
         return (
             <Table
-                title={`Таблица ${url} ${user.ID}`}
+                title={`Таблица ${url} ${userStore.value.ID}`}
                 loading={store.loading}
                 items={store.items}
                 itemsConfig={itemConfig}

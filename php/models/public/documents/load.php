@@ -10,7 +10,6 @@ $sql = "SELECT
     FROM 
         documents
     ORDER BY create_time DESC";
-$sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {

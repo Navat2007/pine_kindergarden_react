@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import useAuthStore from "../../../store/authStore";
+import {Logout} from "../../../services/user";
+import {userStore} from "../../../store/userStore";
 
 import Button from "../button/button.component";
 import AlertPopup from "../../general/alert.popup/alert.popup";
@@ -10,14 +11,13 @@ import "./profile.scss";
 import { AdminIcons } from "../../svgs";
 
 const ProfileHeader = ({ className }) => {
-    const { user, logout } = useAuthStore();
     const navigate = useNavigate();
 
     const [userRole, setUserRole] = React.useState("");
     const [popupOpened, setPopupOpened] = React.useState(false);
 
     React.useEffect(() => {
-        switch (user.role) {
+        switch (userStore.value.role) {
             case "superadmin":
                 setUserRole("Главный администратор");
                 break;
@@ -31,7 +31,7 @@ const ProfileHeader = ({ className }) => {
                 setUserRole("");
                 break;
         }
-    }, [user.role]);
+    }, [userStore.value.role]);
 
     return (
         <div className='profile-header'>
@@ -43,10 +43,10 @@ const ProfileHeader = ({ className }) => {
             >
                 <img
                     className='profile-header__image'
-                    src={user?.photo !== "" ? window.global.baseUrl + user.photo : noPhoto}
+                    src={userStore.value?.photo !== "" ? window.global.baseUrl + userStore.value.photo : noPhoto}
                     alt='Фото профиля'
                 />
-                <p className='profile-header__title'>{user.login ? user.login : user.email}</p>
+                <p className='profile-header__title'>{userStore.value.login ? userStore.value.login : userStore.value.email}</p>
                 <p className='profile-header__subtitle'>{userRole}</p>
             </div>
             <Button
@@ -70,7 +70,7 @@ const ProfileHeader = ({ className }) => {
                         <Button
                             type='button'
                             onClick={() => {
-                                logout();
+                                Logout();
                                 navigate("/", { replace: true });
                             }}
                         >

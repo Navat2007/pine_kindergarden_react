@@ -5,24 +5,23 @@ header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Aut
 require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
-$id = 1;
-
 $sql = "SELECT 
         *
     FROM 
-        food
-    WHERE 
-        ID = '$id'";
+        menu
+    ORDER BY parentID, sorting";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_object($result)) {
 
-        $params = (object)[
+        $params[] = (object)[
             'ID' => (int)$row->ID,
-            'text' => htmlspecialchars_decode($row->text),
-            'preview' => htmlspecialchars_decode($row->preview),
-            'image' => $row->image,
+            'parentID' => (int)$row->parentID,
+            'sorting' => (int)$row->sorting,
+            'page' => (int)$row->page,
+            'title' => htmlspecialchars_decode($row->title),
+            'url' => htmlspecialchars_decode($row->url),
         ];
 
     }

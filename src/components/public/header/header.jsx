@@ -95,92 +95,92 @@ const Header = () => {
                                 Педагоги
                             </NavLink>
                         </li>
-                        {/* Это выпадающее меню (в мобильной версии, просто будет сдвиг влево) */}
-                        {/*<li className='menu__item menu__item_has-submenu submenu'>*/}
-                        {/*    <button className='submenu__button' type='button' aria-label='Развернуть список'>*/}
-                        {/*        <span className='submenu__button-text'>Сведения об образовательной организации</span>*/}
-                        {/*        <span className='submenu__button-icon'>{AdminIcons.chevron_down}</span>*/}
-                        {/*    </button>*/}
-                        {/*    <ul className='submenu__list'>*/}
-                        {/*        <li className='submenu__item'>*/}
-                        {/*            <NavLink*/}
-                        {/*                to={"/lessons/"}*/}
-                        {/*                className={({ isActive }) =>*/}
-                        {/*                    isActive ? `submenu__link submenu__link_active` : `submenu__link`*/}
-                        {/*                }*/}
-                        {/*                aria-label={"Платные услуги"}*/}
-                        {/*            >*/}
-                        {/*                Платные услуги*/}
-                        {/*            </NavLink>*/}
-                        {/*        </li>*/}
-                        {/*        <li className='submenu__item'>*/}
-                        {/*            <NavLink*/}
-                        {/*                to={"/documents/"}*/}
-                        {/*                className={({ isActive }) =>*/}
-                        {/*                    isActive ? `submenu__link submenu__link_active` : `submenu__link`*/}
-                        {/*                }*/}
-                        {/*                aria-label={"Документы"}*/}
-                        {/*            >*/}
-                        {/*                Документы*/}
-                        {/*            </NavLink>*/}
-                        {/*        </li>*/}
-                        {/*        /!* Это еще один выпадающий список, классы submenu_inset_right - это с какой стороны будет появлятся окошко, есть левая сторона, можно как-нить к скрипту подтянуть, чтобы не врезался за край экрана. Также по идее если выставлять правильно сторону появления окна, то можно вкладывать много уровней меню. *!/*/}
-                        {/*        <li className='submenu__item submenu__item_has-submenu submenu submenu_inset_right'>*/}
-                        {/*            <button className='submenu__button' type='button' aria-label='Развернуть список'>*/}
-                        {/*                <span className='submenu__button-text'>*/}
-                        {/*                    Сведения об образовательной организации*/}
-                        {/*                </span>*/}
-                        {/*                <span className='submenu__button-icon'>{AdminIcons.chevron_down}</span>*/}
-                        {/*            </button>*/}
-                        {/*            <ul className='submenu__list'>*/}
-                        {/*                <li className='submenu__item'>*/}
-                        {/*                    <NavLink*/}
-                        {/*                        to={"/lessons/"}*/}
-                        {/*                        className={({ isActive }) =>*/}
-                        {/*                            isActive ? `submenu__link submenu__link_active` : `submenu__link`*/}
-                        {/*                        }*/}
-                        {/*                        aria-label={"Платные услуги"}*/}
-                        {/*                    >*/}
-                        {/*                        Платные услуги*/}
-                        {/*                    </NavLink>*/}
-                        {/*                </li>*/}
-                        {/*                <li className='submenu__item'>*/}
-                        {/*                    <NavLink*/}
-                        {/*                        to={"/documents/"}*/}
-                        {/*                        className={({ isActive }) =>*/}
-                        {/*                            isActive ? `submenu__link submenu__link_active` : `submenu__link`*/}
-                        {/*                        }*/}
-                        {/*                        aria-label={"Документы"}*/}
-                        {/*                    >*/}
-                        {/*                        Документы*/}
-                        {/*                    </NavLink>*/}
-                        {/*                </li>*/}
-                        {/*                <li className='submenu__item'>*/}
-                        {/*                    <NavLink*/}
-                        {/*                        to={"/employees/"}*/}
-                        {/*                        className={({ isActive }) =>*/}
-                        {/*                            isActive ? `submenu__link submenu__link_active` : `submenu__link`*/}
-                        {/*                        }*/}
-                        {/*                        aria-label={"Педагоги"}*/}
-                        {/*                    >*/}
-                        {/*                        Педагоги*/}
-                        {/*                    </NavLink>*/}
-                        {/*                </li>*/}
-                        {/*            </ul>*/}
-                        {/*        </li>*/}
-                        {/*        <li className='submenu__item'>*/}
-                        {/*            <NavLink*/}
-                        {/*                to={"/employees/"}*/}
-                        {/*                className={({ isActive }) =>*/}
-                        {/*                    isActive ? `submenu__link submenu__link_active` : `submenu__link`*/}
-                        {/*                }*/}
-                        {/*                aria-label={"Педагоги"}*/}
-                        {/*            >*/}
-                        {/*                Педагоги*/}
-                        {/*            </NavLink>*/}
-                        {/*        </li>*/}
-                        {/*    </ul>*/}
-                        {/*</li>*/}
+                         Это выпадающее меню (в мобильной версии, просто будет сдвиг влево)
+                        <li className='menu__item menu__item_has-submenu submenu'>
+                            <button className='submenu__button' type='button' aria-label='Развернуть список'>
+                                <span className='submenu__button-text'>Сведения об образовательной организации</span>
+                                <span className='submenu__button-icon'>{AdminIcons.chevron_down}</span>
+                            </button>
+                            <ul className='submenu__list'>
+                                <li className='submenu__item'>
+                                    <NavLink
+                                        to={"/lessons/"}
+                                        className={({ isActive }) =>
+                                            isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                        }
+                                        aria-label={"Платные услуги"}
+                                    >
+                                        Платные услуги
+                                    </NavLink>
+                                </li>
+                                <li className='submenu__item'>
+                                    <NavLink
+                                        to={"/documents/"}
+                                        className={({ isActive }) =>
+                                            isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                        }
+                                        aria-label={"Документы"}
+                                    >
+                                        Документы
+                                    </NavLink>
+                                </li>
+                                {/* Это еще один выпадающий список, классы submenu_inset_right - это с какой стороны будет появлятся окошко, есть левая сторона, можно как-нить к скрипту подтянуть, чтобы не врезался за край экрана. Также по идее если выставлять правильно сторону появления окна, то можно вкладывать много уровней меню. */}
+                                <li className='submenu__item submenu__item_has-submenu submenu submenu_inset_right'>
+                                    <button className='submenu__button' type='button' aria-label='Развернуть список'>
+                                        <span className='submenu__button-text'>
+                                            Сведения об образовательной организации
+                                        </span>
+                                        <span className='submenu__button-icon'>{AdminIcons.chevron_down}</span>
+                                    </button>
+                                    <ul className='submenu__list'>
+                                        <li className='submenu__item'>
+                                            <NavLink
+                                                to={"/lessons/"}
+                                                className={({ isActive }) =>
+                                                    isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                                }
+                                                aria-label={"Платные услуги"}
+                                            >
+                                                Платные услуги
+                                            </NavLink>
+                                        </li>
+                                        <li className='submenu__item'>
+                                            <NavLink
+                                                to={"/documents/"}
+                                                className={({ isActive }) =>
+                                                    isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                                }
+                                                aria-label={"Документы"}
+                                            >
+                                                Документы
+                                            </NavLink>
+                                        </li>
+                                        <li className='submenu__item'>
+                                            <NavLink
+                                                to={"/employees/"}
+                                                className={({ isActive }) =>
+                                                    isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                                }
+                                                aria-label={"Педагоги"}
+                                            >
+                                                Педагоги
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li className='submenu__item'>
+                                    <NavLink
+                                        to={"/employees/"}
+                                        className={({ isActive }) =>
+                                            isActive ? `submenu__link submenu__link_active` : `submenu__link`
+                                        }
+                                        aria-label={"Педагоги"}
+                                    >
+                                        Педагоги
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </li>
                         <li className='menu__item'>
                             <NavLink
                                 to={"/food/"}

@@ -5,7 +5,7 @@ import createDOMPurify from "dompurify";
 
 import useFoodAboutStore from "../../../store/admin/foodAboutStore";
 import useFoodMenuStore from "../../../store/admin/foodMenuStore";
-import useAuthStore from "../../../store/authStore";
+import {userStore} from "../../../store/userStore";
 
 import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
@@ -19,7 +19,6 @@ import { AdminIcons } from "../../../components/svgs";
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 
 const AdminFoodsPage = () => {
-    const { user } = useAuthStore();
     const navigate = useNavigate();
 
     // Private component
@@ -241,7 +240,7 @@ const AdminFoodsPage = () => {
 
         return (
             <Table
-                title={`Таблица ${url} ${user.ID}`}
+                title={`Таблица ${url} ${userStore.value.ID}`}
                 loading={store.loading}
                 items={store.items}
                 itemsConfig={itemConfig}

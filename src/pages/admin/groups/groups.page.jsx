@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import useGroupsStore from "../../../store/admin/groupsStore";
-import useAuthStore from "../../../store/authStore";
+import {userStore} from "../../../store/userStore";
 
 import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
@@ -10,7 +10,6 @@ import Button from "../../../components/admin/button/button.component";
 import { AdminIcons } from "../../../components/svgs";
 
 const AdminGroupsPage = () => {
-    const { user } = useAuthStore();
     const navigate = useNavigate();
 
     const store = useGroupsStore();
@@ -54,7 +53,7 @@ const AdminGroupsPage = () => {
 
     return (
         <Table
-            title={`Таблица ${url} ${user.ID}`}
+            title={`Таблица ${url} ${userStore.value.ID}`}
             loading={store.loading}
             items={store.items}
             itemsConfig={itemConfig}

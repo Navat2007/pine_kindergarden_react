@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import useAuthStore from "../store/authStore";
+import {userStore} from "../store/userStore";
 
 import AdminLayout from "../layout/admin.layout.component";
 import PublicLayout from "../layout/public.layout.component";
@@ -66,8 +66,6 @@ import AddMenuPage from "../pages/admin/menu/add.menu.page";
 import EditMenuPage from "../pages/admin/menu/edit.menu.page";
 
 const RoutesList = () => {
-    const { user } = useAuthStore();
-
     const publicRoutes = (
         <Route path='/' element={<PublicLayout />}>
             <Route index element={<IndexPage />} />
@@ -167,7 +165,7 @@ const RoutesList = () => {
         </Routes>
     );
 
-    if (user && (user.role === "admin" || user.role === "superadmin")) {
+    if (userStore.value && (userStore.value.role === "admin" || userStore.value.role === "superadmin")) {
         return adminRoutes;
     }
 

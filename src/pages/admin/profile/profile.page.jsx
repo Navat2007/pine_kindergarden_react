@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import useAuthStore from "../../../store/authStore";
+import {userStore} from "../../../store/userStore";
 
 import Button from "../../../components/general/button/button.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
@@ -12,7 +12,7 @@ import { AdminIcons } from "../../../components/svgs.js";
 import noPhoto from "../../../images/no-photo.jpg";
 
 const ProfilePage = () => {
-    const { user, fetchEditPhoto, fetchEditUser } = useAuthStore();
+    const user = userStore.value;
     const { register, handleSubmit, reset } = useForm();
 
     const [phone, setPhone] = React.useState();
@@ -50,7 +50,7 @@ const ProfilePage = () => {
 
             if (file.type.match("image.*")) {
                 if (file.size <= 1500000) {
-                    await fetchEditPhoto({ id: user.ID, photo: file });
+                    //await fetchEditPhoto({ id: user.ID, photo: file });
                 } else {
                     setPopup(<AlertPopup text={"Файл больше 1,5 Мб."} opened={true} onClose={() => setPopup(<></>)} />);
                 }
@@ -69,7 +69,7 @@ const ProfilePage = () => {
 
         //console.log(params);
 
-        await fetchEditUser(params);
+        //await fetchEditUser(params);
 
         setPopup(<></>);
     };
@@ -132,7 +132,7 @@ const ProfilePage = () => {
                         <Button
                             theme='info'
                             onClick={async () => {
-                                await fetchEditPhoto({ id: user.ID, delete: 1 });
+                                //await fetchEditPhoto({ id: user.ID, delete: 1 });
                                 setPopup(<></>);
                             }}
                         >

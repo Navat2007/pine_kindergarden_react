@@ -4,17 +4,16 @@ import moment from "moment";
 import axios from "axios";
 import {PopUpContext} from "./context";
 
-import useAuthStore from "./store/authStore";
+import {SetUser, Logout} from "./services/user";
 
+import Preloader from "./components/public/preloader/preloader.component";
 import RoutesList from "./components/routes.list.component";
 import ToTopButton from "./components/general/to.top.button/to.top.button.component";
 
 import "./styles/globals.css";
 
 const App = () => {
-    const {setUser, logout} = useAuthStore();
-
-    const [app, setApp] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
     const [popup, setPopup] = React.useState(<></>);
 
     const fetchData = () => {
@@ -59,7 +58,7 @@ const App = () => {
                     });
 
                 if (response?.data?.error === 3) {
-                    logout();
+                    Logout();
                 }
 
                 return response;
@@ -73,15 +72,11 @@ const App = () => {
             let expireDate = moment(JSON.parse(user).tokenDate, "DD.MM.YYYY").add(1, "months");
 
             if (expireDate.isAfter(moment())) {
-                setUser(JSON.parse(user));
-                window.localStorage.setItem("token", `${JSON.parse(user).token}&${JSON.parse(user).ID}`);
-                axios.defaults.headers.post["Authorization"] = `${JSON.parse(user).token}&${JSON.parse(user).ID}`;
-                axios.defaults.headers.common["Authorization"] = `${JSON.parse(user).token}&${JSON.parse(user).ID}`;
-
-            } else logout();
+                SetUser(JSON.parse(user));
+            } else Logout();
         }
 
-        setApp(true);
+        setLoading(false);
     };
 
     React.useEffect(() => {
@@ -90,12 +85,16 @@ const App = () => {
 
     return (
         <PopUpContext.Provider value={{popup, setPopup}}>
-            {app && (
+            {
+                loading
+                ?
+                <Preloader loading={true}/>
+                :
                 <BrowserRouter>
                     <RoutesList/>
                     <ToTopButton/>
                 </BrowserRouter>
-            )}
+            }
             {popup}
         </PopUpContext.Provider>
     );

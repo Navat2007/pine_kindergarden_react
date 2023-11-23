@@ -9,7 +9,6 @@ $sql = "SELECT
         ID, title, text, url, image
     FROM 
         food_menu";
-$sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {

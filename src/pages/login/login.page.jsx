@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 
-import useAuthStore from "../../store/authStore";
+import {Login, Loading, Error} from "../../services/user";
 
 import Logo from "../../components/public/logo/logo";
 import Button from "../../components/admin/button/button.component";
@@ -14,7 +14,6 @@ import FieldCheckbox from "../../components/admin/field/field.checkbox.component
 import "./login.scss";
 
 const LoginPage = () => {
-    const { login, loading, error, errorText } = useAuthStore();
     const {
         register,
         handleSubmit,
@@ -22,7 +21,7 @@ const LoginPage = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
-        await login(data);
+        await Login(data);
     };
 
     return (
@@ -70,11 +69,11 @@ const LoginPage = () => {
                         defaultChecked={window.localStorage.getItem("remember")}
                     />
                     <div className='auth-form__footer'>
-                        <p className='auth-form__error'>{errorText}</p>
+                        <p className='auth-form__error'>{Error.value}</p>
                         <Button
                             extraClass={"auth-form__button"}
-                            disabled={loading === "loading"}
-                            spinnerActive={loading === "loading"}
+                            disabled={Loading.value === "loading"}
+                            spinnerActive={Loading.value === "loading"}
                         >
                             Войти
                         </Button>

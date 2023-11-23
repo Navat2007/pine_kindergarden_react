@@ -12,7 +12,6 @@ $sql = "SELECT
     WHERE 
         item.archive = '0' AND item.active = '1' AND item.date <= NOW()
     ORDER BY date DESC";
-$sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {

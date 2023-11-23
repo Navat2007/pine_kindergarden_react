@@ -50,7 +50,6 @@ $sql = "SELECT
         groups
     WHERE 
         ID = '$id'";
-$sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {

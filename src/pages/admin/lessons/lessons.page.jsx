@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import useLessonsStore from "../../../store/admin/lessonsStore";
-import useAuthStore from "../../../store/authStore";
+import {userStore} from "../../../store/userStore";
 
 import Table from "../../../components/admin/table/table.component";
 import Button from "../../../components/admin/button/button.component";
@@ -11,7 +11,6 @@ import Button from "../../../components/admin/button/button.component";
 import { AdminIcons } from "../../../components/svgs";
 
 const AdminLessonsPage = () => {
-    const { user } = useAuthStore();
     const navigate = useNavigate();
     const store = useLessonsStore();
 
@@ -59,7 +58,7 @@ const AdminLessonsPage = () => {
                 <title>Административный раздел. Занятия</title>
             </Helmet>
             <Table
-                title={`Таблица ${url} ${user.ID}`}
+                title={`Таблица ${url} ${userStore.value.ID}`}
                 loading={store.loading}
                 items={store.items}
                 itemsConfig={itemConfig}

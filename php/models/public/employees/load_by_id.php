@@ -152,7 +152,6 @@ $sql = "SELECT
             employee_category as t2 ON t1.categoryID = t2.ID
         WHERE 
             t1.ID = '$id'";
-$sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
