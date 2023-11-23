@@ -44,7 +44,7 @@ const DocumentsPage = () => {
                                         <div className='documents__item-text'>
                                             <p>{item.title}</p>
                                         </div>
-                                        <a className='documents__item-link' href={item.url.includes("http") ? item.url : process.env.REACT_APP_BASE_URL + item.url} target={"_blank"} rel='noopener nofollow noreferer'>
+                                        <a className='documents__item-link' href={item.url.includes("http") ? item.url : process.env.REACT_APP_BASE_URL + item.url} target={"_blank"} rel='noopener nofollow noreferrer'>
                                             Скачать
                                         </a>
                                     </div>

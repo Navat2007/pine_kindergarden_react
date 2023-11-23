@@ -61,7 +61,7 @@ const AdminMediaFilePage = (props) => {
                                                 : process.env.REACT_APP_BASE_URL + store.item.url
                                         }
                                         target={"_blank"}
-                                        rel='noopener nofollow noreferer'
+                                        rel='noopener nofollow noreferrer'
                                     >
                                         Открыть {AdminIcons.open_in_new}
                                     </NavLink>

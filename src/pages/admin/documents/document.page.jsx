@@ -62,7 +62,7 @@ const ViewDocumentPage = () => {
                                         className='admin-view-section__link'
                                         to={store.item.url}
                                         target={"_blank"}
-                                        rel='noopener nofollow noreferer'
+                                        rel='noopener nofollow noreferrer'
                                     >
                                         Открыть {AdminIcons.open_in_new}
                                     </NavLink>

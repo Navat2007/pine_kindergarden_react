@@ -52,8 +52,8 @@ const Tabs = ({ children, extraClass, theme, place = window.global.makeid(6) }) 
                     {children
                         .filter((child, index) => activeTab === index)
                         .map((child) => (
-                            <div key={child.props.title} className={child.props.extraClass}>
-                                {child.props.children}
+                            <div key={child.props?.title} className={child.props?.extraClass}>
+                                {child.props?.children}
                             </div>
                         ))}
                 </motion.div>

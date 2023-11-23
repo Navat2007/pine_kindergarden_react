@@ -6,7 +6,7 @@ import logo from "../../../images/logo.svg";
 
 const Logo = ({ extraClass }) => {
     return (
-        <NavLink to={"/"} className={`logo${extraClass && ` ${extraClass}`}`} rel='noreferer nofollow noopener'>
+        <NavLink to={"/"} className={`logo${extraClass && ` ${extraClass}`}`} rel='noreferrer nofollow noopener'>
             <img src={logo} loading='lazy' alt='Векторное изображение трех сосен с надписью - Сосны' />
         </NavLink>
     );

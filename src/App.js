@@ -17,7 +17,7 @@ const App = () => {
     const [app, setApp] = React.useState(false);
     const [popup, setPopup] = React.useState(<></>);
 
-    const fetchData = async () => {
+    const fetchData = () => {
         const user = window.localStorage.getItem("user");
 
         axios.interceptors.response.use(

@@ -232,7 +232,7 @@ const AdminEmployeePage = (props) => {
                                                 className='admin-view-section__link'
                                                 to={"/employees/" + id}
                                                 target={"_blank"}
-                                                rel='noopener nofollow noreferer'
+                                                rel='noopener nofollow noreferrer'
                                             >
                                                 На страницу {AdminIcons.open_in_new}
                                             </NavLink>
@@ -246,7 +246,7 @@ const AdminEmployeePage = (props) => {
                                                     className='admin-view-section__link'
                                                     to={store.item.page}
                                                     target={"_blank"}
-                                                    rel='noopener nofollow noreferer'
+                                                    rel='noopener nofollow noreferrer'
                                                 >
                                                     {store.item.page}
                                                 </NavLink>

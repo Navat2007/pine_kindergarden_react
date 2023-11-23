@@ -43,7 +43,7 @@ const Contact = () => {
                         className='contact__link'
                         target={"_blank"}
                         href='tel:84956302158'
-                        rel='noopener nofollow noreferer'
+                        rel='noopener nofollow noreferrer'
                     >
                         +7&nbsp;(495)&nbsp;630-21-58
                     </a>
@@ -53,7 +53,7 @@ const Contact = () => {
                         className='contact__link'
                         target={"_blank"}
                         href='mailto:crrds7777@gmail.com'
-                        rel='noopener nofollow noreferer'
+                        rel='noopener nofollow noreferrer'
                     >
                         crrds7777@gmail.com
                     </a>

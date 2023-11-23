@@ -67,7 +67,7 @@ const AdminNewsPage = (props) => {
                                         className='admin-view-section__link'
                                         to={"/item/" + id}
                                         target={"_blank"}
-                                        rel='noopener nofollow noreferer'
+                                        rel='noopener nofollow noreferrer'
                                     >
                                         На страницу {AdminIcons.open_in_new}
                                     </NavLink>
