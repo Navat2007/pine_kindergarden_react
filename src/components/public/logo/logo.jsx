@@ -12,4 +12,4 @@ const Logo = ({ extraClass }) => {
     );
 };
 
-export default Logo;
+export default React.memo(Logo);
