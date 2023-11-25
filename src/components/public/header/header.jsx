@@ -1,6 +1,7 @@
 import React from "react";
 import {NavLink, useLocation} from "react-router-dom";
 import {motion} from "framer-motion";
+import {GenerateUrl} from "../../../utils/generateUrl";
 
 import {menuStore} from "../../../store/public/menuStore";
 import {getMenuList} from "../../../services/menu";
@@ -42,12 +43,9 @@ const Header = () => {
             }
         };
         window.addEventListener("scroll", stickyHeaderEvent);
-
-        getMenuList();
     }, []);
 
     function DropdownMenu({items}) {
-        console.log(items);
         if (!items) return null;
 
         return items.map((item) => {
@@ -61,12 +59,6 @@ const Header = () => {
     function MenuItem({item}) {
         let className = ["menu__link"];
 
-        console.log(location.pathname);
-
-        if (location.pathname.includes(item.url)) {
-            className.push("menu__link_active");
-        }
-
         return (
             <li className={"menu__item"}>
                 {item.ext ? (
@@ -74,7 +66,10 @@ const Header = () => {
                         {item.title}
                     </a>
                 ) : (
-                    <NavLink to={item.url} className={className.join(" ")}>
+                    <NavLink to={GenerateUrl(item.title)} className={({isActive}) => {
+                        if(isActive) className.push("menu__link_active");
+                        return className.join(" ");
+                    }}>
                         {item.title}
                     </NavLink>
                 )}
@@ -110,8 +105,8 @@ const Header = () => {
                 <nav className={`menu${burgerOpened ? " menu_opened" : ""}`}>
                     <Logo extraClass={"header__logo header__logo_place_menu"}/>
                     <ul className={`menu__list`}>
-                        {menuStore.value?.length > 0
-                            && <DropdownMenu items={menuStore.value}/>}
+                        {menuStore.value?.sorted?.length > 0
+                            && <DropdownMenu items={menuStore.value.sorted}/>}
                     </ul>
                 </nav>
                 <button

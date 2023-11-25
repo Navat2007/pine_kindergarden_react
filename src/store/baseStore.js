@@ -68,8 +68,11 @@ export class Store{
                         }
                     }
                 },
-                loadByID: async (params) => {
+                loadByID: async (params, debug) => {
                     const response = await get().request.sendPostForm(this.urlLoadByID, params);
+
+                    if(debug)
+                        console.log(response);
 
                     if(response != null && response.params){
                         set(() => ({item: response.params}));

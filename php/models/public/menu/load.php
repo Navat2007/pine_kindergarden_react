@@ -32,6 +32,7 @@ if (mysqli_num_rows($result) > 0) {
             'ID' => (int)$row->ID,
             'parentID' => (int)$row->parentID,
             'sorting' => (int)$row->sorting,
+            'custom_page' => (int)$row->custom_page,
             'page' => (int)$row->page,
             'title' => htmlspecialchars_decode($row->title),
             'url' => htmlspecialchars_decode($row->url),
@@ -39,7 +40,8 @@ if (mysqli_num_rows($result) > 0) {
 
     }
 
-    $params = getItems(0, $menu);
+    $params['all'] = $menu;
+    $params['sorted'] = getItems(0, $menu);
 }
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

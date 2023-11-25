@@ -1,6 +1,9 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import {userStore} from "../store/userStore";
+import {menuStore} from "../store/public/menuStore";
+
+import {GenerateUrl} from "../utils/generateUrl";
 
 import AdminLayout from "../layout/admin.layout.component";
 import PublicLayout from "../layout/public.layout.component";
@@ -56,36 +59,62 @@ import DocumentsPage from "../pages/public/documents/documents.page";
 import EmployeesPage from "../pages/public/employees/employees.page";
 import EmployeePage from "../pages/public/employees/employee.page";
 import FoodPage from "../pages/public/food/food.page";
-import AboutPage from "../pages/public/about/about.page";
 import ModePage from "../pages/public/mode/mode.page";
-import GroupPage from "../pages/public/about/group.page";
 import AllNewsPage from "../pages/public/news/all.news.page";
 import NewsPage from "../pages/public/news/news.page";
 import MenuPage from "../pages/admin/menu/menu.page";
 import AddMenuPage from "../pages/admin/menu/add.menu.page";
 import EditMenuPage from "../pages/admin/menu/edit.menu.page";
+import CustomPage from "../pages/public/custom/custom.page";
+import ContactsPage from "../pages/public/contacts/contacts.page";
+import GroupsPage from "../pages/public/groups/groups.page";
+import GroupPage from "../pages/public/groups/group.page";
+import SupportPage from "../pages/public/support/support.page";
 
 const RoutesList = () => {
+    const menu = menuStore.value.all.filter(item => item.custom_page === 1);
+
+    console.log(menuStore.value.all.filter(item => item.custom_page === 0));
+
+    const customRoutes = React.useMemo(() => {
+        return (
+            <>
+                {
+                    menu.map(item =>
+                        <Route
+                            exact={true}
+                            key={item.title}
+                            path={GenerateUrl(item.title)}
+                            element={<CustomPage/>}
+                        />
+                    )
+                }
+            </>
+        )
+    }, [menu]);
+
     const publicRoutes = (
         <Route path='/' element={<PublicLayout />}>
             <Route index element={<IndexPage />} />
-            <Route path='/lessons'>
+            <Route path='/платные-услуги'>
                 <Route index element={<LessonsPage />} />
                 <Route path=':id' element={<LessonPage />} />
             </Route>
             <Route path='/documents' exact={true} element={<DocumentsPage />} />
-            <Route path='/employees'>
+            <Route path='/руководство-педагогический-состав'>
                 <Route index element={<EmployeesPage />} />
                 <Route path=':id' element={<EmployeePage />} />
             </Route>
-            <Route path='/food' exact={true} element={<FoodPage />} />
-            <Route path='/mode' exact={true} element={<ModePage />} />
-            <Route path='/about' exact={true} element={<AboutPage />} />
-            <Route path='/group/:id' exact={true} element={<GroupPage />} />
-            <Route path='/news'>
+            <Route path='/питание' exact={true} element={<FoodPage />} />
+            <Route path='/контакты' exact={true} element={<ContactsPage />} />
+            <Route path='/задать-вопрос' exact={true} element={<SupportPage />} />
+            <Route path='/наши-группы' exact={true} element={<GroupsPage />} />
+            <Route path='/наши-группы/:id' exact={true} element={<GroupPage />} />
+            <Route path='/новости'>
                 <Route index element={<AllNewsPage />} />
                 <Route path=':id' element={<NewsPage />} />
             </Route>
+            {customRoutes}
         </Route>
     );
 

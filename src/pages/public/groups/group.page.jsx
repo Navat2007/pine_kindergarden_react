@@ -37,7 +37,7 @@ const GroupPage = () => {
                     },
                     {
                         title: "Группы",
-                        url: "/about#groups",
+                        url: "/наши-группы",
                     },
                     {
                         title: store.item.title,
@@ -75,13 +75,13 @@ const GroupPage = () => {
                                 />
                             </div>
                         </div>
-                        {store.item?.teachers?.length > 0 && (
+                        {store.item?.employees?.length > 0 && (
                             <>
                                 <h2 className='article__title'>Воспитатели</h2>
                                 <TeachersSlider
                                     isBorderGradient={false}
                                     type={"slide"}
-                                    items={store.item?.teachers}
+                                    items={store.item?.employees}
                                 />
                             </>
                         )}

@@ -4,6 +4,7 @@ import moment from "moment";
 import axios from "axios";
 import {PopUpContext} from "./context";
 
+import {getMenuList} from "./services/menu";
 import {SetUser, Logout} from "./services/user";
 
 import Preloader from "./components/public/preloader/preloader.component";
@@ -12,11 +13,12 @@ import ToTopButton from "./components/general/to.top.button/to.top.button.compon
 
 import "./styles/globals.css";
 
+
 const App = () => {
     const [loading, setLoading] = React.useState(true);
     const [popup, setPopup] = React.useState(<></>);
 
-    const fetchData = () => {
+    const fetchData = async () => {
         const user = window.localStorage.getItem("user");
 
         axios.interceptors.response.use(
@@ -75,6 +77,8 @@ const App = () => {
                 SetUser(JSON.parse(user));
             } else Logout();
         }
+
+        await getMenuList();
 
         setLoading(false);
     };
