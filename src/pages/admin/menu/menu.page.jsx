@@ -59,6 +59,22 @@ const MenuPage = () => {
                                 />
                             </div>
                             <div className='admin-menu-constructor__caption-info'>
+                                <Button
+                                    type='button'
+                                    isIconBtn='true'
+                                    theme='text'
+                                    iconName={AdminIcons.plus}
+                                    aria-label='Добавить подменю'
+                                    title='Добавить подменю'
+                                />
+                                <Button
+                                    type='button'
+                                    isIconBtn='true'
+                                    theme='text'
+                                    iconName={AdminIcons.edit}
+                                    aria-label='Редактировать страницу'
+                                    title='Редактировать страницу'
+                                />
                                 <h2 className='admin-menu-constructor__caption-title'>Главная</h2>
                                 <p className='admin-menu-constructor__caption-description'>Страница</p>
                                 <Button
