@@ -1,5 +1,6 @@
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import moment from "moment";
 import axios from "axios";
 import {PopUpContext} from "./context";
@@ -12,6 +13,7 @@ import RoutesList from "./components/routes.list.component";
 import ToTopButton from "./components/general/to.top.button/to.top.button.component";
 
 import "./styles/globals.css";
+
 
 
 const App = () => {
@@ -87,20 +89,24 @@ const App = () => {
         fetchData();
     }, []);
 
+    const queryClient = React.useMemo(() => new QueryClient(), []);
+
     return (
-        <PopUpContext.Provider value={{popup, setPopup}}>
-            {
-                loading
-                ?
-                <Preloader loading={true}/>
-                :
-                <BrowserRouter>
-                    <RoutesList/>
-                    <ToTopButton/>
-                </BrowserRouter>
-            }
-            {popup}
-        </PopUpContext.Provider>
+        <QueryClientProvider client={queryClient}>
+            <PopUpContext.Provider value={{popup, setPopup}}>
+                {
+                    loading
+                        ?
+                        <Preloader loading={true}/>
+                        :
+                        <BrowserRouter>
+                            <RoutesList/>
+                            <ToTopButton/>
+                        </BrowserRouter>
+                }
+                {popup}
+            </PopUpContext.Provider>
+        </QueryClientProvider>
     );
 };
 

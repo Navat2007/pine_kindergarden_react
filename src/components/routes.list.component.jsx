@@ -74,8 +74,6 @@ import SupportPage from "../pages/public/support/support.page";
 const RoutesList = () => {
     const menu = menuStore.value.all.filter(item => item.custom_page === 1);
 
-    console.log(menuStore.value.all.filter(item => item.custom_page === 0));
-
     const customRoutes = React.useMemo(() => {
         return (
             <>
