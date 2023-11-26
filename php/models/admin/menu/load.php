@@ -6,24 +6,43 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
+function getItems($parentID, $menu) {
+    $items = [];
+    foreach ($menu as $item) {
+        if ($item->parentID == $parentID) {
+            $item->submenu = getItems($item->ID, $menu);
+            $items[] = $item;
+        }
+    }
+    return $items;
+}
+
 $sql = "SELECT 
-        ID, title, create_time
+        *
     FROM 
-        lessons
-    ORDER BY create_time DESC";
-$sqls[] = $sql;
+        menu
+    ORDER BY parentID, sorting";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
+    $menu = [];
+
     while ($row = mysqli_fetch_object($result)) {
 
-        $params[] = (object)[
+        $menu[] = (object)[
             'ID' => (int)$row->ID,
+            'parentID' => (int)$row->parentID,
+            'sorting' => (int)$row->sorting,
+            'custom_page' => (int)$row->custom_page,
+            'page' => (int)$row->page,
             'title' => htmlspecialchars_decode($row->title),
-            'create_time' => $row->create_time,
+            'url' => htmlspecialchars_decode($row->url),
         ];
 
     }
+
+    $params['all'] = $menu;
+    $params['sorted'] = getItems(0, $menu);
 }
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

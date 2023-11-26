@@ -1,11 +1,13 @@
 import axios from "axios";
 import {create} from 'zustand'
 import moment from "moment/moment";
+import {isFunction} from "lodash";
 
 export class Store{
-    constructor(place, directory, cacheMinutes = 60) {
+    constructor(place, directory, config = {}, cacheMinutes = 60) {
         this.place = place;
         this.directory = directory;
+        this.config = config;
         this.cacheMinutes = cacheMinutes;
 
         this.urlLoadAll = process.env.REACT_APP_BASE_URL + `php/models/${this.place}/${this.directory}/load.php`;
@@ -42,31 +44,45 @@ export class Store{
 
                 request: new Request(set, get),
 
-                loadAll: async (params) => {
+                loadAll: async (params, debug) => {
                     if(get().lastDownloadTime === null || moment().diff(moment(get().lastDownloadTime), "minutes") > this.cacheMinutes)
                     {
                         const response = await get().request.sendPostForm(this.urlLoadAll, params);
 
+                        if(debug)
+                            console.log(response);
+
                         if(response != null && response.params){
                             set(() => ({items: response.params, lastDownloadTime: moment()}));
+                            return response.params;
                         }
                         else {
                             set(() => ({items: []}));
+                            return [];
                         }
                     }
+
+                    return get().items;
                 },
-                loadAllMain: async (params) => {
+                loadAllMain: async (params, debug) => {
                     if(get().lastAllMainDownloadTime === null || moment().diff(moment(get().lastAllMainDownloadTime), "minutes") > this.cacheMinutes)
                     {
                         const response = await get().request.sendPostForm(this.urlLoadAllMain, params);
 
+                        if(debug)
+                            console.log(response);
+
                         if(response != null){
                             set(() => ({itemsMain: response.params, lastAllMainDownloadTime: moment()}));
+                            return response.params;
                         }
                         else {
                             set(() => ({itemsMain: []}));
+                            return [];
                         }
                     }
+
+                    return get().itemsMain;
                 },
                 loadByID: async (params, debug) => {
                     const response = await get().request.sendPostForm(this.urlLoadByID, params);
@@ -76,9 +92,11 @@ export class Store{
 
                     if(response != null && response.params){
                         set(() => ({item: response.params}));
+                        return response.params;
                     }
                     else {
                         set(() => ({item: {}}));
+                        return {};
                     }
                 },
 
@@ -86,6 +104,13 @@ export class Store{
                 edit: async () => {},
                 remove: async () => {},
                 removeFile: async () => {},
+
+                setItems: (items) => {
+                    set(() => ({items: items}));
+                },
+                setItem: (item) => {
+                    set(() => ({item: item}));
+                }
             };
 
             if(this.place === "admin"){
@@ -103,6 +128,15 @@ export class Store{
                 }
             }
 
+            if(this.config && Object.keys(this.config).length > 0){
+                Object.keys(this.config).forEach(key => {
+                    if(isFunction(this.config[key]))
+                        config[key] = (...args) => this.config[key]({set, get, ...args});
+                    else
+                        config[key] = this.config[key];
+                });
+            }
+
             return config;
         };
 
@@ -113,7 +147,7 @@ export class Store{
 }
 
 export class Request{
-    constructor(set, get, ) {
+    constructor(set, get) {
         this.set = set;
         this.get = get;
     }
@@ -141,7 +175,41 @@ export class Request{
             }
         }
 
-        if(response.data)
+        if(response && response.data)
+            return response.data;
+
+        return null;
+    }
+}
+
+export class SignalRequest{
+    constructor(signal) {
+        this.signal = signal;
+    }
+
+    async sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async sendPostForm (url, params, sleepTime = 500)  {
+        this.signal.loading.value = true;
+
+        let form = new FormData();
+        window.global.buildFormData(form, params);
+
+        const response = await axios.postForm(url, form).catch(() => {
+            this.signal.error.value = {error: true, errorText: "Ошибка загрузки."};
+        });
+
+        await this.sleep(sleepTime);
+
+        if (response && response.data.error && response.data.error > 0) {
+            this.signal.error.value = {error: true, errorText: response.data.error_text};
+        }
+
+        this.signal.loading.value = false;
+
+        if(response && response.data)
             return response.data;
 
         return null;

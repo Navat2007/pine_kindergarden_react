@@ -16,7 +16,7 @@
     &__item {
         width: clamp(20em, 50vi, 50em);
 
-        &_opened .admin-menu-constructor__container {
+        &_opened > .admin-menu-constructor__container {
             display: flex;
         }
     }
