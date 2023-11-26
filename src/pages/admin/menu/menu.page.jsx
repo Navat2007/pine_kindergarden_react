@@ -29,31 +29,43 @@ const MenuPage = () => {
     return (
         <BasicPage mainStore={store} loadings={[store]}>
             <TitleBlock title={`Структура меню`}>
-                <Button
-                    type='button'
-                    isIconBtn='true'
-                    theme='text'
-                    iconName={AdminIcons.edit}
-                    aria-label='Редактировать'
-                    onClick={() => setIsEditing((prev) => !prev)}
-                />
+                {!isEditing && (
+                    <Button
+                        type='button'
+                        iconName={AdminIcons.edit}
+                        aria-label='Редактировать'
+                        onClick={() => setIsEditing((prev) => !prev)}
+                        style={{ marginLeft: "auto" }}
+                    >
+                        Сортировать
+                    </Button>
+                )}
+                {isEditing && (
+                    <>
+                        <Button
+                            type='button'
+                            aria-label='Сохранить'
+                            style={{ marginLeft: "auto" }}
+                            onClick={() => setIsEditing((prev) => !prev)}
+                        >
+                            Сохранить
+                        </Button>
+                        <Button type='button' theme={"text"} aria-label='Отмена'>
+                            Отмена
+                        </Button>
+                    </>
+                )}
             </TitleBlock>
             <section className={`admin-menu-constructor ${isEditing ? ` admin-menu-constructor_mode_editing` : ``}`}>
-                <Button type='button' aria-label='Создать страницу'>
-                    Создать страницу
-                </Button>
                 <ul className='admin-menu-constructor__list'>
-                    <li
-                        className={`admin-menu-constructor__item ${
-                            isOpen ? ` admin-menu-constructor__item_opened` : ``
-                        }`}
-                    >
+                    <li className='admin-menu-constructor__item'>
                         <div className='admin-menu-constructor__caption'>
                             <div className='admin-menu-constructor__caption-panel'>
                                 <Button
                                     type='button'
+                                    extraClass={"admin-menu-constructor__sorting-button"}
                                     isIconBtn='true'
-                                    theme='outline'
+                                    theme='text'
                                     iconName={AdminIcons.chevron_down}
                                     aria-label='Поднять на уровень вниз'
                                 />
@@ -61,6 +73,7 @@ const MenuPage = () => {
                             <div className='admin-menu-constructor__caption-info'>
                                 <Button
                                     type='button'
+                                    extraClass={"admin-menu-constructor__button"}
                                     isIconBtn='true'
                                     theme='text'
                                     iconName={AdminIcons.plus}
@@ -70,15 +83,108 @@ const MenuPage = () => {
                                 <Button
                                     type='button'
                                     isIconBtn='true'
+                                    extraClass={"admin-menu-constructor__button"}
                                     theme='text'
                                     iconName={AdminIcons.edit}
                                     aria-label='Редактировать страницу'
                                     title='Редактировать страницу'
                                 />
                                 <h2 className='admin-menu-constructor__caption-title'>Главная</h2>
-                                <p className='admin-menu-constructor__caption-description'>Страница</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className='admin-menu-constructor__item'>
+                        <div className='admin-menu-constructor__caption'>
+                            <div className='admin-menu-constructor__caption-panel'>
                                 <Button
                                     type='button'
+                                    extraClass={"admin-menu-constructor__sorting-button"}
+                                    isIconBtn='true'
+                                    theme='text'
+                                    iconName={AdminIcons.chevron_up}
+                                    aria-label='Поднять на уровень вверх'
+                                />
+                                <Button
+                                    type='button'
+                                    extraClass={"admin-menu-constructor__sorting-button"}
+                                    isIconBtn='true'
+                                    theme='text'
+                                    iconName={AdminIcons.chevron_down}
+                                    aria-label='Поднять на уровень вниз'
+                                />
+                            </div>
+                            <div className='admin-menu-constructor__caption-info'>
+                                <Button
+                                    type='button'
+                                    extraClass={"admin-menu-constructor__button"}
+                                    isIconBtn='true'
+                                    theme='text'
+                                    iconName={AdminIcons.plus}
+                                    aria-label='Добавить подменю'
+                                    title='Добавить подменю'
+                                />
+                                <Button
+                                    type='button'
+                                    extraClass={"admin-menu-constructor__button"}
+                                    isIconBtn='true'
+                                    theme='text'
+                                    iconName={AdminIcons.edit}
+                                    aria-label='Редактировать страницу'
+                                    title='Редактировать страницу'
+                                />
+                                <h2 className='admin-menu-constructor__caption-title'>Платные услуги</h2>
+                            </div>
+                        </div>
+                    </li>
+                    <li
+                        className={`admin-menu-constructor__item ${
+                            isOpen ? ` admin-menu-constructor__item_opened` : ``
+                        }`}
+                    >
+                        <div className='admin-menu-constructor__caption'>
+                            <div className='admin-menu-constructor__caption-panel'>
+                                <Button
+                                    type='button'
+                                    extraClass={"admin-menu-constructor__sorting-button"}
+                                    isIconBtn='true'
+                                    theme='text'
+                                    iconName={AdminIcons.chevron_up}
+                                    aria-label='Поднять на уровень вверх'
+                                />
+                                <Button
+                                    type='button'
+                                    extraClass={"admin-menu-constructor__sorting-button"}
+                                    isIconBtn='true'
+                                    theme='text'
+                                    iconName={AdminIcons.chevron_down}
+                                    aria-label='Поднять на уровень вниз'
+                                />
+                            </div>
+                            <div className='admin-menu-constructor__caption-info'>
+                                <Button
+                                    type='button'
+                                    extraClass={"admin-menu-constructor__button"}
+                                    isIconBtn='true'
+                                    theme='text'
+                                    iconName={AdminIcons.plus}
+                                    aria-label='Добавить подменю'
+                                    title='Добавить подменю'
+                                />
+                                <Button
+                                    type='button'
+                                    extraClass={"admin-menu-constructor__button"}
+                                    isIconBtn='true'
+                                    theme='text'
+                                    iconName={AdminIcons.edit}
+                                    aria-label='Редактировать страницу'
+                                    title='Редактировать страницу'
+                                />
+                                <h2 className='admin-menu-constructor__caption-title'>
+                                    Сведения об образовательной организации
+                                </h2>
+                                <Button
+                                    type='button'
+                                    extraClass={"admin-menu-constructor__button"}
                                     isIconBtn='true'
                                     theme='text'
                                     iconName={isOpen ? AdminIcons.chevron_up : AdminIcons.chevron_down}
@@ -88,277 +194,136 @@ const MenuPage = () => {
                             </div>
                         </div>
                         <div className='admin-menu-constructor__container'>
-                            <FieldTextComponent
-                                label={"Название страницы"}
-                                extraClass='admin-menu-constructor__container-field'
-                                placeholder={"Введите название страницы..."}
-                            />
-                            <FieldSelectComponent
-                                label={"Подменю"}
-                                extraClass='admin-menu-constructor__container-field'
-                            />
-                            <Button
-                                type='button'
-                                isIconBtn={true}
-                                theme='outline-error'
-                                extraClass='admin-menu-constructor__container-button'
-                                iconName={AdminIcons.close}
-                                aria-label='Удалить'
-                            />
+                            <ul className='admin-menu-constructor__list'>
+                                <li className='admin-menu-constructor__item'>
+                                    <div className='admin-menu-constructor__caption'>
+                                        <div className='admin-menu-constructor__caption-panel'>
+                                            <Button
+                                                type='button'
+                                                extraClass={"admin-menu-constructor__sorting-button"}
+                                                isIconBtn='true'
+                                                theme='text'
+                                                iconName={AdminIcons.chevron_down}
+                                                aria-label='Поднять на уровень вниз'
+                                            />
+                                        </div>
+                                        <div className='admin-menu-constructor__caption-info'>
+                                            <Button
+                                                type='button'
+                                                extraClass={"admin-menu-constructor__button"}
+                                                isIconBtn='true'
+                                                theme='text'
+                                                iconName={AdminIcons.plus}
+                                                aria-label='Добавить подменю'
+                                                title='Добавить подменю'
+                                            />
+                                            <Button
+                                                type='button'
+                                                extraClass={"admin-menu-constructor__button"}
+                                                isIconBtn='true'
+                                                theme='text'
+                                                iconName={AdminIcons.edit}
+                                                aria-label='Редактировать страницу'
+                                                title='Редактировать страницу'
+                                            />
+                                            <h2 className='admin-menu-constructor__caption-title'>Главная</h2>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li className='admin-menu-constructor__item'>
+                                    <div className='admin-menu-constructor__caption'>
+                                        <div className='admin-menu-constructor__caption-panel'>
+                                            <Button
+                                                type='button'
+                                                extraClass={"admin-menu-constructor__sorting-button"}
+                                                isIconBtn='true'
+                                                theme='text'
+                                                iconName={AdminIcons.chevron_up}
+                                                aria-label='Поднять на уровень вверх'
+                                            />
+                                            <Button
+                                                type='button'
+                                                extraClass={"admin-menu-constructor__sorting-button"}
+                                                isIconBtn='true'
+                                                theme='text'
+                                                iconName={AdminIcons.chevron_down}
+                                                aria-label='Поднять на уровень вниз'
+                                            />
+                                        </div>
+                                        <div className='admin-menu-constructor__caption-info'>
+                                            <Button
+                                                type='button'
+                                                extraClass={"admin-menu-constructor__button"}
+                                                isIconBtn='true'
+                                                theme='text'
+                                                iconName={AdminIcons.plus}
+                                                aria-label='Добавить подменю'
+                                                title='Добавить подменю'
+                                            />
+                                            <Button
+                                                type='button'
+                                                extraClass={"admin-menu-constructor__button"}
+                                                isIconBtn='true'
+                                                theme='text'
+                                                iconName={AdminIcons.edit}
+                                                aria-label='Редактировать страницу'
+                                                title='Редактировать страницу'
+                                            />
+                                            <h2 className='admin-menu-constructor__caption-title'>Платные услуги</h2>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li
+                                    className={`admin-menu-constructor__item ${
+                                        isOpen ? ` admin-menu-constructor__item_opened` : ``
+                                    }`}
+                                >
+                                    <div className='admin-menu-constructor__caption'>
+                                        <div className='admin-menu-constructor__caption-panel'>
+                                            <Button
+                                                type='button'
+                                                extraClass={"admin-menu-constructor__sorting-button"}
+                                                isIconBtn='true'
+                                                theme='text'
+                                                iconName={AdminIcons.chevron_up}
+                                                aria-label='Поднять на уровень вверх'
+                                            />
+                                            <Button
+                                                type='button'
+                                                extraClass={"admin-menu-constructor__sorting-button"}
+                                                isIconBtn='true'
+                                                theme='text'
+                                                iconName={AdminIcons.chevron_down}
+                                                aria-label='Поднять на уровень вниз'
+                                            />
+                                        </div>
+                                        <div className='admin-menu-constructor__caption-info'>
+                                            <Button
+                                                type='button'
+                                                extraClass={"admin-menu-constructor__button"}
+                                                isIconBtn='true'
+                                                theme='text'
+                                                iconName={AdminIcons.plus}
+                                                aria-label='Добавить подменю'
+                                                title='Добавить подменю'
+                                            />
+                                            <Button
+                                                type='button'
+                                                extraClass={"admin-menu-constructor__button"}
+                                                isIconBtn='true'
+                                                theme='text'
+                                                iconName={AdminIcons.edit}
+                                                aria-label='Редактировать страницу'
+                                                title='Редактировать страницу'
+                                            />
+                                            <h2 className='admin-menu-constructor__caption-title'>
+                                                Сведения об образовательной организации
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                    </li>
-                    <li className='admin-menu-constructor__item'>
-                        <div className='admin-menu-constructor__caption'>
-                            <div className='admin-menu-constructor__caption-panel'>
-                                <Button
-                                    type='button'
-                                    isIconBtn='true'
-                                    theme='outline'
-                                    iconName={AdminIcons.chevron_up}
-                                    aria-label='Поднять на уровень вверх'
-                                />
-                                <Button
-                                    type='button'
-                                    isIconBtn='true'
-                                    theme='outline'
-                                    iconName={AdminIcons.chevron_down}
-                                    aria-label='Поднять на уровень вниз'
-                                />
-                            </div>
-                            <div className='admin-menu-constructor__caption-info'>
-                                <h2 className='admin-menu-constructor__caption-title'>Платные услуги</h2>
-                                <p className='admin-menu-constructor__caption-description'>Страница</p>
-                                <Button
-                                    type='button'
-                                    isIconBtn='true'
-                                    theme='text'
-                                    iconName={AdminIcons.chevron_down}
-                                    aria-label='Развернуть'
-                                />
-                            </div>
-                        </div>
-                        <div className='admin-menu-constructor__container'>
-                            <FieldTextComponent
-                                label={"Название страницы"}
-                                extraClass='admin-menu-constructor__container-field'
-                                placeholder={"Введите название страницы..."}
-                            />
-                            <FieldSelectComponent
-                                label={"Подменю"}
-                                extraClass='admin-menu-constructor__container-field'
-                            />
-                            <Button
-                                type='button'
-                                isIconBtn={true}
-                                theme='outline-error'
-                                extraClass='admin-menu-constructor__container-button'
-                                iconName={AdminIcons.close}
-                                aria-label='Удалить'
-                            />
-                        </div>
-                    </li>
-                    <li className='admin-menu-constructor__item'>
-                        <div className='admin-menu-constructor__caption'>
-                            <div className='admin-menu-constructor__caption-panel'>
-                                <Button
-                                    type='button'
-                                    isIconBtn='true'
-                                    theme='outline'
-                                    iconName={AdminIcons.chevron_up}
-                                    aria-label='Поднять на уровень вверх'
-                                />
-                                <Button
-                                    type='button'
-                                    isIconBtn='true'
-                                    theme='outline'
-                                    iconName={AdminIcons.chevron_down}
-                                    aria-label='Поднять на уровень вниз'
-                                />
-                            </div>
-                            <div className='admin-menu-constructor__caption-info'>
-                                <h2 className='admin-menu-constructor__caption-title'>
-                                    Сведения об образовательной организации
-                                </h2>
-                                <p className='admin-menu-constructor__caption-description'>Подменю Страница</p>
-                                <Button
-                                    type='button'
-                                    isIconBtn='true'
-                                    theme='text'
-                                    iconName={AdminIcons.chevron_down}
-                                    aria-label='Развернуть'
-                                />
-                            </div>
-                        </div>
-                        <div className='admin-menu-constructor__container'>
-                            <FieldTextComponent
-                                label={"Название страницы*"}
-                                required={true}
-                                extraClass='admin-menu-constructor__container-field'
-                                placeholder={"Введите название страницы..."}
-                            />
-                            <FieldSelectComponent
-                                label={"Подменю"}
-                                extraClass='admin-menu-constructor__container-field'
-                            />
-                            <Button
-                                type='button'
-                                isIconBtn={true}
-                                theme='outline-error'
-                                extraClass='admin-menu-constructor__container-button'
-                                iconName={AdminIcons.close}
-                                aria-label='Удалить'
-                                onClick={""}
-                            />
-                        </div>
-                        <ul className='admin-menu-constructor__list'>
-                            <li className='admin-menu-constructor__item'>
-                                <div className='admin-menu-constructor__caption'>
-                                    <div className='admin-menu-constructor__caption-panel'>
-                                        <Button
-                                            type='button'
-                                            isIconBtn='true'
-                                            theme='outline'
-                                            iconName={AdminIcons.chevron_down}
-                                            aria-label='Поднять на уровень вниз'
-                                        />
-                                    </div>
-                                    <div className='admin-menu-constructor__caption-info'>
-                                        <h2 className='admin-menu-constructor__caption-title'>Главная</h2>
-                                        <p className='admin-menu-constructor__caption-description'>Страница</p>
-                                        <Button
-                                            type='button'
-                                            isIconBtn='true'
-                                            theme='text'
-                                            iconName={AdminIcons.chevron_down}
-                                            aria-label='Развернуть'
-                                        />
-                                    </div>
-                                </div>
-                                <div className='admin-menu-constructor__container'>
-                                    <FieldTextComponent
-                                        label={"Название страницы"}
-                                        extraClass='admin-menu-constructor__container-field'
-                                        placeholder={"Введите название страницы..."}
-                                    />
-                                    <FieldSelectComponent
-                                        label={"Подменю"}
-                                        extraClass='admin-menu-constructor__container-field'
-                                    />
-                                    <Button
-                                        type='button'
-                                        isIconBtn={true}
-                                        theme='outline-error'
-                                        extraClass='admin-menu-constructor__container-button'
-                                        iconName={AdminIcons.close}
-                                        aria-label='Удалить'
-                                    />
-                                </div>
-                            </li>
-                            <li className='admin-menu-constructor__item'>
-                                <div className='admin-menu-constructor__caption'>
-                                    <div className='admin-menu-constructor__caption-panel'>
-                                        <Button
-                                            type='button'
-                                            isIconBtn='true'
-                                            theme='outline'
-                                            iconName={AdminIcons.chevron_up}
-                                            aria-label='Поднять на уровень вверх'
-                                        />
-                                        <Button
-                                            type='button'
-                                            isIconBtn='true'
-                                            theme='outline'
-                                            iconName={AdminIcons.chevron_down}
-                                            aria-label='Поднять на уровень вниз'
-                                        />
-                                    </div>
-                                    <div className='admin-menu-constructor__caption-info'>
-                                        <h2 className='admin-menu-constructor__caption-title'>Платные услуги</h2>
-                                        <p className='admin-menu-constructor__caption-description'>Страница</p>
-                                        <Button
-                                            type='button'
-                                            isIconBtn='true'
-                                            theme='text'
-                                            iconName={AdminIcons.chevron_down}
-                                            aria-label='Развернуть'
-                                        />
-                                    </div>
-                                </div>
-                                <div className='admin-menu-constructor__container'>
-                                    <FieldTextComponent
-                                        label={"Название страницы"}
-                                        extraClass='admin-menu-constructor__container-field'
-                                        placeholder={"Введите название страницы..."}
-                                    />
-                                    <FieldSelectComponent
-                                        label={"Подменю"}
-                                        extraClass='admin-menu-constructor__container-field'
-                                    />
-                                    <Button
-                                        type='button'
-                                        isIconBtn={true}
-                                        theme='outline-error'
-                                        extraClass='admin-menu-constructor__container-button'
-                                        iconName={AdminIcons.close}
-                                        aria-label='Удалить'
-                                    />
-                                </div>
-                            </li>
-                            <li className='admin-menu-constructor__item'>
-                                <div className='admin-menu-constructor__caption'>
-                                    <div className='admin-menu-constructor__caption-panel'>
-                                        <Button
-                                            type='button'
-                                            isIconBtn='true'
-                                            theme='outline'
-                                            iconName={AdminIcons.chevron_up}
-                                            aria-label='Поднять на уровень вверх'
-                                        />
-                                        <Button
-                                            type='button'
-                                            isIconBtn='true'
-                                            theme='outline'
-                                            iconName={AdminIcons.chevron_down}
-                                            aria-label='Поднять на уровень вниз'
-                                        />
-                                    </div>
-                                    <div className='admin-menu-constructor__caption-info'>
-                                        <h2 className='admin-menu-constructor__caption-title'>
-                                            Сведения об образовательной организации
-                                        </h2>
-                                        <p className='admin-menu-constructor__caption-description'>Подменю Страница</p>
-                                        <Button
-                                            type='button'
-                                            isIconBtn='true'
-                                            theme='text'
-                                            iconName={AdminIcons.chevron_down}
-                                            aria-label='Развернуть'
-                                        />
-                                    </div>
-                                </div>
-                                <div className='admin-menu-constructor__container'>
-                                    <FieldTextComponent
-                                        label={"Название страницы*"}
-                                        required={true}
-                                        extraClass='admin-menu-constructor__container-field'
-                                        placeholder={"Введите название страницы..."}
-                                    />
-                                    <FieldSelectComponent
-                                        label={"Подменю"}
-                                        extraClass='admin-menu-constructor__container-field'
-                                    />
-                                    <Button
-                                        type='button'
-                                        isIconBtn={true}
-                                        theme='outline-error'
-                                        extraClass='admin-menu-constructor__container-button'
-                                        iconName={AdminIcons.close}
-                                        aria-label='Удалить'
-                                        onClick={""}
-                                    />
-                                </div>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </section>
