@@ -52,7 +52,6 @@
         color: var(--admin-primary-color);
 
         &:hover:not(disabled) {
-            opacity: 1;
             background-color: #ffffffbf;
         }
     }
@@ -62,7 +61,6 @@
         color: var(--admin-text-color);
 
         &:hover:not(disabled) {
-            opacity: 1;
             background-color: rgba(var(--admin-primary-opacity-color), 0.1);
         }
     }
@@ -72,7 +70,6 @@
         color: var(--admin-error-color);
 
         &:hover:not(disabled) {
-            opacity: 1;
             background-color: rgba(var(--admin-primary-opacity-color), 0.1);
         }
     }
@@ -83,8 +80,17 @@
         color: var(--admin-text-color);
 
         &:hover:not(disabled) {
-            opacity: 1;
             background-color: rgba(var(--admin-primary-opacity-color), 0.1);
+        }
+    }
+
+    &_theme_outline-error {
+        background-color: transparent;
+        outline: 1px solid var(--admin-error-color);
+        color: var(--admin-error-color);
+
+        &:hover:not(disabled) {
+            background-color: rgba(var(--admin-error-opacity-color), 0.1);
         }
     }
 

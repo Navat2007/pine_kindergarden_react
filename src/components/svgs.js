@@ -254,6 +254,11 @@ export const AdminIcons = {
             <path d='M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z' />
         </svg>
     ),
+    chevron_up: (
+        <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24'>
+            <path d='M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41Z' />
+        </svg>
+    ),
     arrow_right_thin: (
         <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='-2 2.5 24 24'>
             <path d='M4.1 24.5l-.9-1.1 11.3-9.3L3.3 5.6l.8-1.1L16.7 14z' />

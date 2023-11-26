@@ -8,9 +8,10 @@
     --admin-primary-opacity-color: 16, 156, 241;
 
     --admin-error-color: #f7685b;
+    --admin-error-opacity-color: 247, 103, 89;
     --admin-alert-color: #ffb946;
     --admin-success-color: #2ed47a;
-    --admin-info-color: #109CF1;
+    --admin-info-color: #109cf1;
 
     --admin-grey-100-color: #c2cfe0;
     --admin-grey-200-color: #90a0b7;
@@ -69,3 +70,4 @@
 @import "./blocks/admin-form";
 @import "./blocks/admin-view-section";
 @import "./blocks/admin-section";
+@import "./blocks/admin-menu-constructor";

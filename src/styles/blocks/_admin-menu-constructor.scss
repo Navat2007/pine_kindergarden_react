@@ -1,0 +1,108 @@
+.admin-menu-constructor {
+    // Режим редактирования
+    &_mode_editing {
+        .admin-menu-constructor__caption-panel {
+            display: flex;
+        }
+        .admin-menu-constructor__container {
+            margin-inline-start: 6em;
+        }
+
+        .admin-menu-constructor__container-field {
+            pointer-events: unset;
+        }
+        .admin-menu-constructor__container-button {
+            display: unset;
+        }
+    }
+
+    &__list {
+        @extend %reset-list;
+        padding-block: 1em;
+        padding-inline-start: 2em;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    &__item {
+        width: clamp(20em, 50vi, 50em);
+
+        &_opened {
+            .admin-menu-constructor__caption-info {
+                border-radius: 5px 5px 0 0;
+                background-color: var(--admin-grey-100-color);
+            }
+            .admin-menu-constructor__container {
+                display: flex;
+            }
+        }
+    }
+
+    &__caption {
+        display: flex;
+        gap: 0.5em;
+        align-items: center;
+    }
+
+    &__caption-panel {
+        display: none;
+        gap: 0.5em;
+        justify-content: end;
+        inline-size: 5.5em;
+        min-inline-size: 5.5em;
+        max-inline-size: 5.5em;
+
+        button {
+            border-radius: 5px;
+        }
+    }
+
+    &__caption-info {
+        flex: auto;
+        display: flex;
+        gap: 1em;
+        align-items: center;
+        border: 1px solid var(--admin-grey-100-color);
+        padding-inline: 1em 0.5em;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+
+        button {
+            border-radius: 5px;
+        }
+    }
+
+    &__caption-title {
+        font-size: inherit;
+        font-weight: 600;
+        margin-inline-end: auto;
+    }
+
+    &__caption-description {
+        font-size: 0.875em;
+        font-style: italic;
+    }
+
+    &__container {
+        padding: 1em;
+        border-radius: 0 0 5px 5px;
+        border: 1px solid var(--admin-grey-100-color);
+
+        display: none;
+        gap: 0.5em;
+    }
+
+    &__container-field {
+        flex: auto;
+        pointer-events: none;
+    }
+
+    &__container-button {
+        flex: none;
+        align-self: end;
+        margin-block-end: 0.375em;
+        border-radius: 5px;
+        display: none;
+    }
+}

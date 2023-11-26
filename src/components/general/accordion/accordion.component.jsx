@@ -3,25 +3,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import styles from "./accordion.module.scss";
 import { AdminIcons } from "../../svgs.js";
 
-const Accordion = ({
-    theme = "text",
-    extraClass,
-    children,
-    title,
-    ...rest
-}) => {
+const Accordion = ({ theme = "text", extraClass, children, title, ...rest }) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
-    const config = [
-        styles.accordion,
-        theme ? styles["accordion_theme_" + theme] : null,
-        extraClass,
-    ];
+    const config = [styles.accordion, theme ? styles["accordion_theme_" + theme] : null, extraClass];
 
     const finalClassName = config.filter(Boolean).join(" ");
 
     return (
-        <div className={finalClassName} data-testid="accordion" {...rest}>
+        <div className={finalClassName} data-testid='accordion' {...rest}>
             <div
                 aria-controls={title}
                 aria-expanded={isOpen}
@@ -29,10 +19,7 @@ const Accordion = ({
                 onClick={() => setIsOpen((prev) => !prev)}
             >
                 <div>{title}</div>
-                <AnimatePresence
-                    initial={false}
-                    mode="wait"
-                >
+                <AnimatePresence initial={false} mode='wait'>
                     <motion.div
                         className={styles.icon}
                         key={isOpen ? "minus" : "plus"}
