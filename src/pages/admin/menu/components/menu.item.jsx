@@ -7,7 +7,6 @@ import MenuList from "./menu.list";
 import {AdminIcons} from "../../../../components/svgs";
 
 const MenuItem = ({title, item, firstSorting, lastSorting}) => {
-    console.log("Render item: ", item);
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = React.useState(false);
 

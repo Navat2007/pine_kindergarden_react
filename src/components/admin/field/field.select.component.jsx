@@ -15,6 +15,7 @@ const FieldSelect = (
             disabled: false,
         },
         selectItems = [],
+        flatOptions = <></>,
         disabled,
         ...rest
     },
@@ -45,6 +46,7 @@ const FieldSelect = (
                             {item.title}
                         </option>
                     ))}
+                    {flatOptions}
                 </select>
                 <span className={`field__info-text${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
             </div>

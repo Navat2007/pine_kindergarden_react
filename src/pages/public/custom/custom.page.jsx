@@ -3,7 +3,7 @@ import {Helmet} from "react-helmet";
 import Construction from "../../../components/public/cunstruction/construction";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 
-const CustomPage = () => {
+const CustomPage = ({id}) => {
     return (
         <BasicPage>
             <Helmet>

@@ -83,7 +83,7 @@ const RoutesList = () => {
                             exact={true}
                             key={item.title}
                             path={GenerateUrl(item.title)}
-                            element={<CustomPage/>}
+                            element={<CustomPage id={item.ID} />}
                         />
                     )
                 }

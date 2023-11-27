@@ -1,6 +1,8 @@
 import generateUrl from "generate-url";
 
 export const GenerateUrl = (title) => {
+    if(!title) return "";
+
     title = title
         .replaceAll(',', "")
         .replaceAll('.', "")

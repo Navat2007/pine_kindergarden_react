@@ -9,7 +9,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 $id = htmlspecialchars($_POST["id"]);
 
 $sql = "SELECT 
-        *
+        *, (SELECT COUNT(*) FROM menu WHERE parentID = '$id') AS submenu
     FROM 
         menu
     WHERE 
@@ -28,6 +28,7 @@ if (mysqli_num_rows($result) > 0) {
             'page' => (int)$row->page,
             'title' => htmlspecialchars_decode($row->title),
             'url' => htmlspecialchars_decode($row->url),
+            'submenu' => (int)$row->submenu,
         ];
 
     }
