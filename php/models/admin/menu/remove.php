@@ -8,7 +8,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
 $id = htmlspecialchars($_POST["id"]);
 
-$sql = "DELETE FROM lessons WHERE ID = '$id'";
+$sql = "DELETE FROM menu WHERE ID = '$id'";
 $sqls[] = $sql;
 mysqli_query($conn, $sql);
 

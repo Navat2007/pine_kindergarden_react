@@ -12,7 +12,7 @@ $text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
 $image = $_POST["image"];
 
 $sql = "INSERT INTO 
-            lessons (title, text, userID, last_userID) 
+            menu (title, text, userID, last_userID) 
         VALUES ('$title', '$text', '$userID', '$userID')
     ";
 $sqls[] = $sql;

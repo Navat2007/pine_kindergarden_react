@@ -13,7 +13,7 @@ $text = mysqli_real_escape_string($conn, htmlspecialchars($_POST["text"]));
 $image = $_POST["image"];
 
 $sql = "UPDATE 
-                lessons
+                menu
             SET
                 title = '$title', 
                 text = '$text', 
