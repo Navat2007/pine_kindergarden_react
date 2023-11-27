@@ -17,7 +17,7 @@ const useFeedbackStore = create(
             set({error: false, errorText: ""});
         },
 
-        sendFeedback: async (params) => {
+        sendFeedback: async (params, debug = false) => {
             set({sending: true});
 
             let form = new FormData();
@@ -25,7 +25,8 @@ const useFeedbackStore = create(
 
             const response = await axios.postForm(urlSendFeedback, form);
 
-            //console.log(response.data);
+            if(debug)
+                console.log(response.data);
 
             set({sending: false});
         },

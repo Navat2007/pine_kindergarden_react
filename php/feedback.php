@@ -5,9 +5,9 @@ header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Aut
 $phone = htmlspecialchars($_POST['phone']);
 $text = htmlspecialchars($_POST['message']);
 
-$to = "dssosny@yandex.ru";
+$to = "dssosny@yandex.ru, navat2007@yandex.ru";
 
-$subject = 'Новая заявка на обратный звонок';
+$subject = 'Новая заявка на обратный звонок | ' . date('d.m.Y H:i');
 $message = "";
 
 $message .= '<tr style="box-sizing: border-box;">
