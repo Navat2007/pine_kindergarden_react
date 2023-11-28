@@ -14,7 +14,7 @@ const PublicLayout = lazy(() => import("../layout/public.layout.component"));
 
 const IndexPage = lazy(() => import("../pages/public/index.page"));
 const LessonsPage = lazy(() => import("../pages/public/lessons/lessons.page"));
-const LessonPage = lazy(() => import("../pages/public/documents/documents.page"));
+const LessonPage = lazy(() => import("../pages/public/lessons/lesson.page"));
 const DocumentsPage = lazy(() => import("../pages/public/documents/documents.page"));
 const EmployeesPage = lazy(() => import("../pages/public/employees/employees.page"));
 const EmployeePage = lazy(() => import("../pages/public/employees/employee.page"));
@@ -100,7 +100,7 @@ const RoutesList = () => {
                 <Route index element={<LessonsPage/>}/>
                 <Route path=':id' element={<LessonPage/>}/>
             </Route>
-            <Route path='/documents' exact={true} element={<DocumentsPage/>}/>
+            <Route path='/документы' exact={true} element={<DocumentsPage/>}/>
             <Route path='/сотрудники'>
                 <Route index element={<EmployeesPage/>}/>
                 <Route path=':id' element={<EmployeePage/>}/>

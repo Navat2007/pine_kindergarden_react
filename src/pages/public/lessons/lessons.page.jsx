@@ -63,7 +63,7 @@ const LessonsPage = () => {
                                 >
                                     <NavLink
                                         className={"card-link"}
-                                        to={"/lessons/" + item.ID}
+                                        to={"" + item.ID}
                                     >
                                         <article className='lessons__card'>
                                             <img

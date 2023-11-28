@@ -54,7 +54,10 @@ const MenuItem = ({title, item, firstSorting, lastSorting}) => {
                                 iconName={AdminIcons.plus}
                                 aria-label='Добавить подменю'
                                 title='Добавить подменю'
-                                onClick={() => navigate(`new/${item.ID}`)}
+                                onClick={() => {
+                                    const sorting = item.submenu[item.submenu.length - 1]?.sorting || 0;
+                                    navigate(`new/${item.ID}/${sorting}`)
+                                }}
                             />
                         }
                         <Button
