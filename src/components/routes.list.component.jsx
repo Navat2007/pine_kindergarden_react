@@ -1,55 +1,14 @@
-import React from "react";
+import React, {lazy} from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import {userStore} from "../store/userStore";
 import {menuStore} from "../store/public/menuStore";
 
 import {GenerateUrl} from "../utils/generateUrl";
 
-import AdminLayout from "../layout/admin.layout.component";
 import PublicLayout from "../layout/public.layout.component";
 
 import Page404 from "../pages/404/404.page";
 import LoginPage from "../pages/login/login.page";
-import ProfilePage from "../pages/admin/profile/profile.page";
-
-// ADMIN PAGES
-import UsersPage from "../pages/admin/users/users.page";
-import AddUserPage from "../pages/admin/users/add.user.page";
-import EditUserPage from "../pages/admin/users/edit.user.page";
-import AdminAllNewsPage from "../pages/admin/news/all.news.page";
-import AdminNewsPage from "../pages/admin/news/news.page";
-import EditNewsPage from "../pages/admin/news/edit.news.page";
-import AddNewsPage from "../pages/admin/news/add.news.page";
-import AdminDocumentsPage from "../pages/admin/documents/documents.page";
-import ViewDocumentPage from "../pages/admin/documents/document.page";
-import AddDocumentPage from "../pages/admin/documents/add.document.page";
-import EditDocumentPage from "../pages/admin/documents/edit.document.page";
-import AdminEmployeesPage from "../pages/admin/employees/employees.page";
-import AdminEmployeePage from "../pages/admin/employees/employee.page";
-import AddEmployeePage from "../pages/admin/employees/add.employee.page";
-import EditEmployeePage from "../pages/admin/employees/edit.employee.page";
-import AddCategoryEmployeesPage from "../pages/admin/employees/category/add.category.employees.page";
-import EditCategoryEmployeesPage from "../pages/admin/employees/category/edit.category.employees.page";
-import AdminFoodsPage from "../pages/admin/food/foods.page";
-import AdminFoodPage from "../pages/admin/food/food.page";
-import AddFoodPage from "../pages/admin/food/add.food.page";
-import EditFoodPage from "../pages/admin/food/edit.food.page";
-import AdminModesPage from "../pages/admin/mode/modes.page";
-import AdminModePage from "../pages/admin/mode/mode.page";
-import AdminLessonsPage from "../pages/admin/lessons/lessons.page";
-import AdminLessonPage from "../pages/admin/lessons/lesson.page";
-import AddLessonPage from "../pages/admin/lessons/add.lesson.page";
-import EditLessonPage from "../pages/admin/lessons/edit.lesson.page";
-import AdminAboutPage from "../pages/admin/about/about.page";
-import EditAboutPage from "../pages/admin/about/edit.about.page";
-import AdminGroupsPage from "../pages/admin/groups/groups.page";
-import AdminGroupPage from "../pages/admin/groups/group.page";
-import AddGroupPage from "../pages/admin/groups/add.group.page";
-import EditGroupPage from "../pages/admin/groups/edit.group.page";
-import AdminMediaFilesPage from "../pages/admin/media.files/media.files.page";
-import AdminMediaFilePage from "../pages/admin/media.files/media.file.page";
-import AddMediaFilePage from "../pages/admin/media.files/add.media.file.page";
-import EditMediaFilePage from "../pages/admin/media.files/edit.media.file.page";
 
 // PUBLIC PAGES
 import IndexPage from "../pages/public/index.page";
@@ -59,17 +18,59 @@ import DocumentsPage from "../pages/public/documents/documents.page";
 import EmployeesPage from "../pages/public/employees/employees.page";
 import EmployeePage from "../pages/public/employees/employee.page";
 import FoodPage from "../pages/public/food/food.page";
-import ModePage from "../pages/public/mode/mode.page";
 import AllNewsPage from "../pages/public/news/all.news.page";
 import NewsPage from "../pages/public/news/news.page";
-import MenuPage from "../pages/admin/menu/menu.page";
-import AddMenuPage from "../pages/admin/menu/add.menu.page";
-import EditMenuPage from "../pages/admin/menu/edit.menu.page";
 import CustomPage from "../pages/public/custom/custom.page";
 import ContactsPage from "../pages/public/contacts/contacts.page";
 import GroupsPage from "../pages/public/groups/groups.page";
 import GroupPage from "../pages/public/groups/group.page";
 import SupportPage from "../pages/public/support/support.page";
+import AboutPage from "../pages/public/about/about.page";
+
+// ADMIN PAGES
+const AdminLayout = lazy(() => import("../layout/admin.layout.component"));
+
+const MenuPage = lazy(() => import("../pages/admin/menu/menu.page"));
+const AddMenuPage = lazy(() => import("../pages/admin/menu/add.menu.page"));
+const EditMenuPage = lazy(() => import("../pages/admin/menu/edit.menu.page"));
+const ProfilePage = lazy(() => import("../pages/admin/profile/profile.page"));
+const UsersPage = lazy(() => import("../pages/admin/users/users.page"));
+const AddUserPage = lazy(() => import("../pages/admin/users/add.user.page"));
+const EditUserPage = lazy(() => import("../pages/admin/users/edit.user.page"));
+const AdminAllNewsPage = lazy(() => import("../pages/admin/news/all.news.page"));
+const AdminNewsPage = lazy(() => import("../pages/admin/news/news.page"));
+const EditNewsPage = lazy(() => import("../pages/admin/news/edit.news.page"));
+const AddNewsPage = lazy(() => import("../pages/admin/news/add.news.page"));
+const AdminDocumentsPage = lazy(() => import("../pages/admin/documents/documents.page"));
+const ViewDocumentPage = lazy(() => import("../pages/admin/documents/document.page"));
+const AddDocumentPage = lazy(() => import("../pages/admin/documents/add.document.page"));
+const EditDocumentPage = lazy(() => import("../pages/admin/documents/edit.document.page"));
+const EditMediaFilePage = lazy(() => import("../pages/admin/media.files/edit.media.file.page"));
+const AddMediaFilePage = lazy(() => import("../pages/admin/media.files/add.media.file.page"));
+const AdminMediaFilePage = lazy(() => import("../pages/admin/media.files/media.file.page"));
+const AdminMediaFilesPage = lazy(() => import("../pages/admin/media.files/media.files.page"));
+const EditGroupPage = lazy(() => import("../pages/admin/groups/edit.group.page"));
+const AddGroupPage = lazy(() => import("../pages/admin/groups/add.group.page"));
+const AdminGroupPage = lazy(() => import("../pages/admin/groups/group.page"));
+const AdminGroupsPage = lazy(() => import("../pages/admin/groups/groups.page"));
+const EditAboutPage = lazy(() => import("../pages/admin/about/edit.about.page"));
+const AdminAboutPage = lazy(() => import("../pages/admin/about/about.page"));
+const EditLessonPage = lazy(() => import("../pages/admin/lessons/edit.lesson.page"));
+const AddLessonPage = lazy(() => import("../pages/admin/lessons/add.lesson.page"));
+const AdminLessonsPage = lazy(() => import("../pages/admin/lessons/lessons.page"));
+const AdminLessonPage = lazy(() => import("../pages/admin/lessons/lesson.page"));
+const AdminModePage = lazy(() => import("../pages/admin/mode/mode.page"));
+const AdminModesPage = lazy(() => import("../pages/admin/mode/modes.page"));
+const EditFoodPage = lazy(() => import("../pages/admin/food/edit.food.page"));
+const AddFoodPage = lazy(() => import("../pages/admin/food/add.food.page"));
+const AdminFoodsPage = lazy(() => import("../pages/admin/food/foods.page"));
+const AdminFoodPage = lazy(() => import("../pages/admin/food/food.page"));
+const EditCategoryEmployeesPage = lazy(() => import("../pages/admin/employees/category/edit.category.employees.page"));
+const AddCategoryEmployeesPage = lazy(() => import("../pages/admin/employees/category/add.category.employees.page"));
+const EditEmployeePage = lazy(() => import("../pages/admin/employees/edit.employee.page"));
+const AddEmployeePage = lazy(() => import("../pages/admin/employees/add.employee.page"));
+const AdminEmployeePage = lazy(() => import("../pages/admin/employees/employee.page"));
+const AdminEmployeesPage = lazy(() => import("../pages/admin/employees/employees.page"));
 
 const RoutesList = () => {
     const menu = menuStore.value.all.filter(item => item.custom_page === 1);
@@ -99,13 +100,14 @@ const RoutesList = () => {
                 <Route path=':id' element={<LessonPage />} />
             </Route>
             <Route path='/documents' exact={true} element={<DocumentsPage />} />
-            <Route path='/руководство-педагогический-состав'>
+            <Route path='/сотрудники'>
                 <Route index element={<EmployeesPage />} />
                 <Route path=':id' element={<EmployeePage />} />
             </Route>
             <Route path='/питание' exact={true} element={<FoodPage />} />
             <Route path='/контакты' exact={true} element={<ContactsPage />} />
             <Route path='/задать-вопрос' exact={true} element={<SupportPage />} />
+            <Route path='/о-нас' exact={true} element={<AboutPage />} />
             <Route path='/наши-группы' exact={true} element={<GroupsPage />} />
             <Route path='/наши-группы/:id' exact={true} element={<GroupPage />} />
             <Route path='/новости'>

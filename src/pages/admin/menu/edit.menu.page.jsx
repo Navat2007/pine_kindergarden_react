@@ -1,17 +1,20 @@
 import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
+import {useForm} from "react-hook-form";
 
 import useMenuStore from "../../../store/admin/menuStore";
+
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import FileSelector from "../../../components/general/file.selector/file.selector.component";
 import Button from "../../../components/admin/button/button.component";
-import {AdminIcons} from "../../../components/svgs";
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
-import {useForm} from "react-hook-form";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import {GenerateUrl} from "../../../utils/generateUrl";
 import FieldSelect from "../../../components/admin/field/field.select.component";
+
+import {AdminIcons} from "../../../components/svgs";
+import {getMenuList} from "../../../services/menu";
 
 const EditMenuPage = () => {
     let {id} = useParams();
@@ -26,11 +29,15 @@ const EditMenuPage = () => {
 
     React.useLayoutEffect(() => {
         const fetchData = async () => {
-            const response = await store.loadByID({id}, true);
+            const response = await store.loadByID({id});
 
             if (response) {
-                reset(response);
-                setValue("url", GenerateUrl(store.item.value.title));
+                reset({});
+
+                if(response.page !== 0 && response.custom_page === 1)
+                    setValue("url", GenerateUrl(response.title));
+                else if(response.page === 1 && response.custom_page === 0)
+                    setValue("url", response.url);
             }
         };
 
@@ -49,10 +56,11 @@ const EditMenuPage = () => {
                     }}
                 />
             );
+
             return false;
         }
 
-        return false;
+        return true;
     };
 
     const onEdit = async () => {
@@ -60,21 +68,43 @@ const EditMenuPage = () => {
 
         let sendObject = {...data};
 
-        if (!checkForComplete(sendObject)) return;
+        if (!checkForComplete(sendObject))
+            return;
 
         sendObject["id"] = id;
+        sendObject["parentID"] = store.item.value.parentID;
+
+        if(data.type === "Пользовательская страница") {
+            sendObject["page"] = 1;
+            sendObject["custom_page"] = 1;
+            sendObject["url"] = GenerateUrl(data.title);
+        } else if(data.type === "Содержит подменю") {
+            sendObject["page"] = 0;
+            sendObject["custom_page"] = 0;
+            sendObject["url"] = "";
+        }
+        else {
+            sendObject["page"] = 1;
+            sendObject["custom_page"] = 0;
+            sendObject["url"] = getValues("type");
+        }
 
         await store.edit(sendObject);
 
-        if (!store.error) {
+        if (!store.error.value) {
             setPopup(
                 <AlertPopup
                     title=''
                     text={"Пункт меню успешно отредактирован"}
                     opened={true}
-                    onClose={back}
+                    onClose={async () => {
+                        back();
+                        await getMenuList();
+                    }}
                 />
             );
+
+            await getMenuList();
         } else {
             setPopup(
                 <AlertPopup
@@ -90,6 +120,19 @@ const EditMenuPage = () => {
     };
 
     const onDelete = async () => {
+        if(getValues("type") === "Содержит подменю" && store.item.value.submenu > 0) {
+            setPopup(<AlertPopup
+                title='Ошибка'
+                text={`Не возможно удалить меню, т.к. меню содержит ${store.item.value.submenu} подменю`}
+                opened={true}
+                onClose={() => {
+                    setPopup(<></>);
+                }}
+            />);
+
+            return;
+        }
+
         setPopup(
             <AlertPopup
                 text={"Вы уверены что хотите удалить?"}
@@ -169,7 +212,15 @@ const EditMenuPage = () => {
                                 value: store.item.value.title,
                             })}
                             onChange={(e) => {
-                                setValue("url", GenerateUrl(e.target.value));
+                                if(getValues("type") === "Пользовательская страница") {
+                                    setValue("url", GenerateUrl(e.target.value));
+                                }
+                                else if (getValues("type") === "Содержит подменю") {
+                                    setValue("url", "");
+                                }
+                                else {
+                                    setValue("url", getValues("type"));
+                                }
                             }}
                         />
                         <FieldText
@@ -177,9 +228,7 @@ const EditMenuPage = () => {
                             required={false}
                             placeholder={""}
                             disabled={true}
-                            {...register("url", {
-                                value: GenerateUrl(store.item.value.title),
-                            })}
+                            {...register("url")}
                         />
                         <FieldSelect
                             label={"Тип меню"}
@@ -204,7 +253,6 @@ const EditMenuPage = () => {
                                 value: getDefaultSelectItem(),
                             })}
                             onChange={(e) => {
-                                console.log(getValues("type"));
                                 if(getValues("type") === "Содержит подменю" && store.item.value.submenu > 0) {
                                     setValue("type", "Содержит подменю");
                                     setPopup(<AlertPopup
@@ -215,6 +263,15 @@ const EditMenuPage = () => {
                                             setPopup(<></>);
                                         }}
                                     />);
+                                }
+
+                                if(e.target.value === "Пользовательская страница") {
+                                    setValue("url", GenerateUrl(getValues("title")));
+                                } else if (e.target.value === "Содержит подменю") {
+                                    setValue("url", "");
+                                }
+                                else {
+                                    setValue("url", GenerateUrl(e.target.value));
                                 }
                             }}
                         />

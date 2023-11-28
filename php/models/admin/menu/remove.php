@@ -12,10 +12,10 @@ $sql = "DELETE FROM menu WHERE ID = '$id'";
 $sqls[] = $sql;
 mysqli_query($conn, $sql);
 
-$path = $_SERVER['DOCUMENT_ROOT'] . "/files/lessons/" . $id;
+$path = $_SERVER['DOCUMENT_ROOT'] . "/files/menu/" . $id;
 array_map('unlink', glob("$path/*.*"));
 rmdir($path);
 
-$log->add($conn, $authorization[1], 'Занятие ID: ' . $id . ' удалено');
+$log->add($conn, $authorization[1], 'Меню ID: ' . $id . ' удалено');
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

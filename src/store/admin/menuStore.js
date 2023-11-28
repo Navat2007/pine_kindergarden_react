@@ -9,12 +9,12 @@ const items = signal([]);
 const item = signal(false);
 
 const baseStore = new Store("admin", "menu");
-const request = new SignalRequest({loading: loading, error: error});
+const request = new SignalRequest({loading: loading, sending: sending, error: error});
 
 let lastDownloadTime = null;
 
-const loadAll = async (params, debug) => {
-    if (lastDownloadTime === null || moment().diff(moment(lastDownloadTime), "minutes") > baseStore.cacheMinutes) {
+const loadAll = async (params, debug, force) => {
+    if (force || lastDownloadTime === null || moment().diff(moment(lastDownloadTime), "minutes") > baseStore.cacheMinutes) {
         const response = await request.sendPostForm(baseStore.urlLoadAll, params);
 
         if (debug)
@@ -43,6 +43,20 @@ const loadByID = async (params, debug) => {
     }
 }
 
+const edit = async (params, debug) => {
+    const response = await request.sendPostForm(baseStore.urlEdit, params, true);
+
+    if (debug)
+        console.log(response);
+}
+
+const remove = async (params, debug) => {
+    const response = await request.sendPostForm(baseStore.urlRemove, params, true);
+
+    if (debug)
+        console.log(response);
+}
+
 const save = async (params, debug) => {
 
 }
@@ -55,5 +69,7 @@ export default {
     error: error,
     loadAll: loadAll,
     loadByID: loadByID,
-    save: save
+    edit: edit,
+    save: save,
+    remove: remove
 };

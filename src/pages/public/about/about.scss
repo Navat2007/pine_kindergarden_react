@@ -1,0 +1,140 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.about {
+    &_contain_inner {
+        @extend %main-width;
+        padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
+    }
+
+    &_bg_light-primary {
+        background-color: #a4bd24;
+    }
+
+    &__inner {
+        @extend %main-width;
+        padding: min(3.25vmax, 1.875em) var(--padding-gor-size-sm);
+
+        &_bg_half-image {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            @include media(xl) {
+                padding: 0 var(--padding-gor-size-sm);
+                gap: min(2.5vmax, 2.5em);
+                flex-direction: row;
+                min-block-size: min(40vmax, 30em);
+            }
+            &::after {
+                flex: 0 0 min(40vmax, 30em);
+                order: -1;
+
+                content: "";
+                display: block;
+                background-image: url(../../../images/about__bg-image.jpg);
+                background-position: 50% 50%;
+                background-size: cover;
+                @include media(xl) {
+                    flex: 0 0 50%;
+                }
+            }
+        }
+    }
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+        gap: min(2.25vmax, 1.875em);
+
+        @include media(md) {
+            flex-direction: row;
+        }
+    }
+
+    &__title {
+        margin: 0;
+        font-family: var(--font-headings);
+        font-size: var(--title-size-lg);
+        text-align: center;
+    }
+
+    &__text {
+        .about__title {
+            text-align: left;
+        }
+        p {
+            font-family: var(--font-headings);
+            font-size: var(--text-size-xl);
+            line-height: 150%;
+            @include media(lg) {
+                line-height: 208%;
+                max-width: min(30vmax, 22em);
+            }
+        }
+    }
+
+    &__image {
+        align-self: start;
+        margin-left: auto;
+        object-fit: cover;
+
+        order: -1;
+
+        @include media(md) {
+            order: unset;
+            flex: 1 0 50%;
+            max-width: 50%;
+            aspect-ratio: 4/3;
+        }
+
+        @include media(lg) {
+            aspect-ratio: 6.23/3.12;
+        }
+    }
+
+    &__description {
+        font-size: var(--text-size-xl);
+        line-height: 157%;
+        padding: 0 var(--padding-gor-size-sm);
+        box-sizing: border-box;
+        @include media(xl) {
+            padding: 0;
+            margin: min(3.25vmax, 1.875em) 0;
+        }
+    }
+
+    &__list {
+        @extend %reset-list;
+
+        overflow: hidden;
+
+        padding: 1.875em 0;
+        box-sizing: border-box;
+
+        display: grid;
+        justify-content: center;
+        gap: 2.5em 1.875em;
+
+        @include media(xs) {
+            gap: 5em 1.875em;
+            grid-template-columns: repeat(auto-fit, min(40vw, 33em));
+        }
+
+        @include media(lg) {
+            justify-content: space-between;
+        }
+    }
+}
+
+.about-card {
+    &__image {
+        object-fit: cover;
+        aspect-ratio: 541/318;
+        @extend %alt-text-on-after;
+    }
+    &__title {
+        margin: 0.75em 0;
+        font-family: var(--font-headings);
+        font-size: var(--title-size-sm);
+    }
+}

@@ -2,10 +2,11 @@ import React from "react";
 import {NavLink, useLocation} from "react-router-dom";
 import {motion} from "framer-motion";
 import {GenerateUrl} from "../../../utils/generateUrl";
+import classNames from "classnames";
 
 import {menuStore} from "../../../store/public/menuStore";
-import {getMenuList} from "../../../services/menu";
 
+import OverflowMenuWrapper from "../overflow.menu.wrapper/overflow.menu.wrapper";
 import useOnClickOutside from "../../../hook/onClickOutside";
 import Logo from "../logo/logo";
 import {AdminIcons} from "../../svgs";
@@ -45,6 +46,16 @@ const Header = () => {
         window.addEventListener("scroll", stickyHeaderEvent);
     }, []);
 
+    const getMenuLink = (menu) => {
+        if (menu.custom_page === 1) {
+            return GenerateUrl(menu.title);
+        } else if (menu.page === 1 && menu.custom_page === 0) {
+            return menu.url;
+        } else {
+            return "";
+        }
+    }
+
     function DropdownMenu({items}) {
         if (!items) return null;
 
@@ -61,13 +72,13 @@ const Header = () => {
 
         return (
             <li className={"menu__item"}>
-                {item.ext ? (
+                {item.page === 2 ? (
                     <a href={item.url} target={"_blank"} className={className.join(" ")}>
                         {item.title}
                     </a>
                 ) : (
-                    <NavLink to={GenerateUrl(item.title)} className={({isActive}) => {
-                        if(isActive) className.push("menu__link_active");
+                    <NavLink to={getMenuLink(item)} className={({isActive}) => {
+                        if (isActive) className.push("menu__link_active");
                         return className.join(" ");
                     }}>
                         {item.title}
@@ -102,19 +113,25 @@ const Header = () => {
         >
             <div className='header__inner'>
                 <Logo extraClass={"header__logo"}/>
-                <nav className={`menu${burgerOpened ? " menu_opened" : ""}`}>
+                <nav className={classNames({
+                    'menu': true,
+                    'menu_opened': burgerOpened
+                })}>
                     <Logo extraClass={"header__logo header__logo_place_menu"}/>
-                    <ul className={`menu__list`}>
+                    <OverflowMenuWrapper>
                         {menuStore.value?.sorted?.length > 0
                             && <DropdownMenu items={menuStore.value.sorted}/>}
-                    </ul>
+                    </OverflowMenuWrapper>
                 </nav>
                 <button
                     ref={button}
                     type='button'
-                    className={`header__burger${burgerOpened ? " header__burger_opened" : ""}`}
+                    className={classNames({
+                        'header__burger': true,
+                        'header__burger_opened': burgerOpened
+                    })}
                     aria-label='Свернуть/Развернуть меню'
-                    onClick={(e) => {
+                    onClick={() => {
                         setBurgerOpened(!burgerOpened);
                     }}
                 >

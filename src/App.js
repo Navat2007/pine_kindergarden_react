@@ -14,8 +14,6 @@ import ToTopButton from "./components/general/to.top.button/to.top.button.compon
 
 import "./styles/globals.css";
 
-
-
 const App = () => {
     const [loading, setLoading] = React.useState(true);
     const [popup, setPopup] = React.useState(<></>);

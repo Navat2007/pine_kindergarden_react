@@ -191,8 +191,11 @@ export class SignalRequest{
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    async sendPostForm (url, params, sleepTime = 500)  {
-        this.signal.loading.value = true;
+    async sendPostForm (url, params, sending, sleepTime = 500)  {
+        if(sending)
+            this.signal.sending.value = true;
+        else
+            this.signal.loading.value = true;
 
         let form = new FormData();
         window.global.buildFormData(form, params);
@@ -207,7 +210,10 @@ export class SignalRequest{
             this.signal.error.value = {error: true, errorText: response.data.error_text};
         }
 
-        this.signal.loading.value = false;
+        if(sending)
+            this.signal.sending.value = false;
+        else
+            this.signal.loading.value = false;
 
         if(response && response.data)
             return response.data;
