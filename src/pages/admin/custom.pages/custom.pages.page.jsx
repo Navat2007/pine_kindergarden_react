@@ -1,19 +1,16 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import {useNavigate} from "react-router-dom";
 
-import useMediaFilesStore from "../../../store/admin/mediaFilesStore";
 import {userStore} from "../../../store/userStore";
+import useCustomPagesStore from "../../../store/admin/customPagesStore";
 
 import Table from "../../../components/admin/table/table.component";
-import Button from "../../../components/admin/button/button.component";
 
-import { AdminIcons } from "../../../components/svgs";
-
-const AdminMediaFilesPage = () => {
+const CustomPagesPage = () => {
     const navigate = useNavigate();
-    const store = useMediaFilesStore();
+    const store = useCustomPagesStore();
 
-    const url = "admin/mediaFiles";
+    const url = "admin/customPages";
 
     const onItemClick = (props) => {
         navigate(`/${url}/${props}`);
@@ -60,23 +57,14 @@ const AdminMediaFilesPage = () => {
 
     return (
         <Table
-            title={`Таблица медиа файлов ${url} ${userStore.value.ID}`}
+            title={`Таблица пользовательских страниц ${url} ${userStore.value.ID}`}
             loading={store.loading}
             items={store.items}
             itemsConfig={itemConfig}
             onItemClick={onItemClick}
             withFilter={true}
-        >
-            <Button
-                type='button'
-                iconName={AdminIcons.plus}
-                aria-label='Добавить'
-                onClick={() => navigate(`/${url}/new`)}
-            >
-                Создать
-            </Button>
-        </Table>
+        />
     );
 };
 
-export default AdminMediaFilesPage;
+export default CustomPagesPage;

@@ -26,6 +26,11 @@ const AdminLayout = () => {
             link: "/admin/menu",
         },
         {
+            title: "Пользовательские страницы",
+            icon: MenuIcons.menu,
+            link: "/admin/customPages",
+        },
+        {
             title: "separator",
             separator: true,
         },

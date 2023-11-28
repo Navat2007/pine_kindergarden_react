@@ -72,6 +72,8 @@ const EditEmployeePage = lazy(() => import("../pages/admin/employees/edit.employ
 const AddEmployeePage = lazy(() => import("../pages/admin/employees/add.employee.page"));
 const AdminEmployeePage = lazy(() => import("../pages/admin/employees/employee.page"));
 const AdminEmployeesPage = lazy(() => import("../pages/admin/employees/employees.page"));
+const CustomPagesPage = lazy(() => import("../pages/admin/custom.pages/custom.pages.page"));
+const EditCustomPagesPage = lazy(() => import("../pages/admin/custom.pages/edit.custom.pages.page"));
 
 const RoutesList = () => {
     const menu = menuStore.value.all.filter(item => item.custom_page === 1);
@@ -138,6 +140,10 @@ const RoutesList = () => {
                         <Route index element={<MenuPage/>}/>
                         <Route path='new/:id/:sorting' element={<AddMenuPage/>}/>
                         <Route path='edit/:id' element={<EditMenuPage/>}/>
+                    </Route>
+                    <Route path='customPages'>
+                        <Route index element={<CustomPagesPage/>}/>
+                        <Route path='edit/:id' element={<EditCustomPagesPage/>}/>
                     </Route>
                     <Route path='news'>
                         <Route index element={<AdminAllNewsPage/>}/>
