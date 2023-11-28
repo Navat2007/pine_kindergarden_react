@@ -144,7 +144,7 @@ const EmployeePage = () => {
                     },
                     {
                         title: "Педагоги",
-                        url: "/employees/",
+                        url: "/сотрудники/",
                     },
                     {
                         title: store.item.fio,

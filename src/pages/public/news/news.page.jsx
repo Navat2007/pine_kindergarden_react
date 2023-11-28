@@ -39,7 +39,7 @@ const NewsPage = () => {
                     },
                     {
                         title: "Новости",
-                        url: "/news/",
+                        url: "/новости/",
                     },
                     {
                         title: store.item.title,

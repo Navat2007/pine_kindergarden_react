@@ -38,7 +38,7 @@ const LessonPage = () => {
                     },
                     {
                         title: "Занятия",
-                        url: "/lessons/",
+                        url: "/платные-услуги/",
                     },
                     {
                         title: store.item.title,

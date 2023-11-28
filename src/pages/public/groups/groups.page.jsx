@@ -65,7 +65,7 @@ const GroupsPage = () => {
                                 >
                                     <NavLink
                                         className={"card-link"}
-                                        to={"/наши-группы/" + item.ID}
+                                        to={"" + item.ID}
                                         aria-label={"Главная страница"}
                                     >
                                         <article className='about-card'>

@@ -24,7 +24,7 @@ const EmployeesPage = () => {
     const Person = ({ person }) => {
         return (
             <li className='teachers__item'>
-                <NavLink to={"/employees/" + person.ID} className='card-link'>
+                <NavLink to={"" + person.ID} className='card-link'>
                     <article className='employees-card'>
                         <SingleImageWithPreview
                             isPersonImage={true}

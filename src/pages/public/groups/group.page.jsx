@@ -37,7 +37,7 @@ const GroupPage = () => {
                     },
                     {
                         title: "Группы",
-                        url: "/наши-группы",
+                        url: "/группы",
                     },
                     {
                         title: store.item.title,

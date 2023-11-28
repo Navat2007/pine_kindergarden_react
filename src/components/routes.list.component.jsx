@@ -109,8 +109,8 @@ const RoutesList = () => {
             <Route path='/контакты' exact={true} element={<ContactsPage/>}/>
             <Route path='/задать-вопрос' exact={true} element={<SupportPage/>}/>
             <Route path='/о-нас' exact={true} element={<AboutPage/>}/>
-            <Route path='/наши-группы' exact={true} element={<GroupsPage/>}/>
-            <Route path='/наши-группы/:id' exact={true} element={<GroupPage/>}/>
+            <Route path='/группы' exact={true} element={<GroupsPage/>}/>
+            <Route path='/группы/:id' exact={true} element={<GroupPage/>}/>
             <Route path='/новости'>
                 <Route index element={<AllNewsPage/>}/>
                 <Route path=':id' element={<NewsPage/>}/>
