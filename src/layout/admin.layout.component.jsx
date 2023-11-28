@@ -26,8 +26,8 @@ const AdminLayout = () => {
             link: "/admin/menu",
         },
         {
-            title: "Пользовательские страницы",
-            icon: MenuIcons.menu,
+            title: "Cтраницы",
+            icon: MenuIcons.user_pages,
             link: "/admin/customPages",
         },
         {

@@ -176,6 +176,11 @@ export const MenuIcons = {
             <path d='M2 6H0v5h.01L0 20c0 1.1.9 2 2 2h18v-2H2V6Zm20-2h-8l-2-2H6c-1.1 0-1.99.9-1.99 2L4 16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2ZM7 15l4.5-6 3.5 4.51 2.5-3.01L21 15H7Z' />
         </svg>
     ),
+    user_pages: (
+        <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24'>
+            <path d='M19 3H4.99C3.89 3 3 3.9 3 5l.01 14c0 1.1.89 2 1.99 2h10l6-6V5c0-1.1-.9-2-2-2ZM7 8h10v2H7V8Zm5 6H7v-2h5v2Zm2 5.5V14h5.5L14 19.5Z' />
+        </svg>
+    ),
 };
 
 export const AdminIcons = {
