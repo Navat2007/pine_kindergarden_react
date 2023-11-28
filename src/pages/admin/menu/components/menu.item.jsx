@@ -48,18 +48,19 @@ const MenuItem = ({title, item, firstSorting, lastSorting}) => {
                             &&
                             <Button
                                 type='button'
-                                extraClass={"admin-menu-constructor__button"}
+                                extraClass={"admin-menu-constructor__button__edit"}
                                 isIconBtn='true'
                                 theme='text'
                                 iconName={AdminIcons.plus}
                                 aria-label='Добавить подменю'
                                 title='Добавить подменю'
+                                onClick={() => navigate(`new/${item.ID}`)}
                             />
                         }
                         <Button
                             type='button'
                             isIconBtn='true'
-                            extraClass={"admin-menu-constructor__button"}
+                            extraClass={"admin-menu-constructor__button__edit"}
                             theme='text'
                             iconName={AdminIcons.edit}
                             aria-label='Редактировать страницу'

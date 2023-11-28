@@ -4,6 +4,9 @@
         .admin-menu-constructor__caption-panel {
             display: flex;
         }
+        .admin-menu-constructor__button__edit{
+            display: none;
+        }
     }
 
     &__list {

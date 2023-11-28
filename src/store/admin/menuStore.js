@@ -43,6 +43,13 @@ const loadByID = async (params, debug) => {
     }
 }
 
+const add = async (params, debug) => {
+    const response = await request.sendPostForm(baseStore.urlAdd, params, true);
+
+    if (debug)
+        console.log(response);
+}
+
 const edit = async (params, debug) => {
     const response = await request.sendPostForm(baseStore.urlEdit, params, true);
 
@@ -69,6 +76,7 @@ export default {
     error: error,
     loadAll: loadAll,
     loadByID: loadByID,
+    add: add,
     edit: edit,
     save: save,
     remove: remove

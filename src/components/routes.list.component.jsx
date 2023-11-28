@@ -136,7 +136,7 @@ const RoutesList = () => {
                     </Route>
                     <Route path='menu'>
                         <Route index element={<MenuPage/>}/>
-                        <Route path='new' element={<AddMenuPage/>}/>
+                        <Route path='new/:id/:sorting' element={<AddMenuPage/>}/>
                         <Route path='edit/:id' element={<EditMenuPage/>}/>
                     </Route>
                     <Route path='news'>

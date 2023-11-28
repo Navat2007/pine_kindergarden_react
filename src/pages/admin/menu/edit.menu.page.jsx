@@ -6,7 +6,6 @@ import useMenuStore from "../../../store/admin/menuStore";
 
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldText from "../../../components/admin/field/field.text.component";
-import FileSelector from "../../../components/general/file.selector/file.selector.component";
 import Button from "../../../components/admin/button/button.component";
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
@@ -100,11 +99,10 @@ const EditMenuPage = () => {
                     onClose={async () => {
                         back();
                         await getMenuList();
+                        await store.loadAll({}, false, true);
                     }}
                 />
             );
-
-            await getMenuList();
         } else {
             setPopup(
                 <AlertPopup
@@ -159,9 +157,10 @@ const EditMenuPage = () => {
                                             title=''
                                             text={"Пункт меню удален"}
                                             opened={true}
-                                            onClose={() => {
-                                                setPopup(<></>);
+                                            onClose={async () => {
                                                 back();
+                                                await getMenuList();
+                                                await store.loadAll({}, false, true);
                                             }}
                                         />
                                     );

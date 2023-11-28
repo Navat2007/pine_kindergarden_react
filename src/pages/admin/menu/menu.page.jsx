@@ -47,7 +47,7 @@ const MenuPage = () => {
                             type='button'
                             iconName={AdminIcons.plus}
                             aria-label='Добавить'
-                            onClick={() => navigate("new")}
+                            onClick={() => navigate("new/0/" + store.items.value.sorted[store.items.value.sorted.length - 1]?.sorting)}
                         >
                             Добавить
                         </Button>
