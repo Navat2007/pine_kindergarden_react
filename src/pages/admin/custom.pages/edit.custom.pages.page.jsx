@@ -8,8 +8,8 @@ import useMenuStore from "../../../store/admin/menuStore";
 import useCustomPagesStore from "../../../store/admin/customPagesStore";
 
 import Editor from "../../../components/general/reach.editor/editor.component";
-import Tabs from "../../../components/public/tabs/tabs.component";
-import Tab from "../../../components/public/tabs/tab.component";
+import Tabs from "../../../components/general/tabs/tabs.component";
+import Tab from "../../../components/general/tabs/tab.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import Button from "../../../components/admin/button/button.component";
