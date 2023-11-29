@@ -143,7 +143,7 @@ const RoutesList = () => {
                     </Route>
                     <Route path='customPages'>
                         <Route index element={<CustomPagesPage/>}/>
-                        <Route path='edit/:id' element={<EditCustomPagesPage/>}/>
+                        <Route path=':id' element={<EditCustomPagesPage/>}/>
                     </Route>
                     <Route path='news'>
                         <Route index element={<AdminAllNewsPage/>}/>

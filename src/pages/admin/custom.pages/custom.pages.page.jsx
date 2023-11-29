@@ -5,6 +5,7 @@ import {userStore} from "../../../store/userStore";
 import useCustomPagesStore from "../../../store/admin/customPagesStore";
 
 import Table from "../../../components/admin/table/table.component";
+import {Helmet} from "react-helmet";
 
 const CustomPagesPage = () => {
     const navigate = useNavigate();
@@ -40,30 +41,28 @@ const CustomPagesPage = () => {
             sorting: true,
         },
         {
-            header: "Тип файла",
-            key: "type",
+            header: "Ссылка",
+            key: "url",
             type: "string",
-            filter: "select",
-            sorting: true,
-        },
-        {
-            header: "Дата",
-            key: "create_time",
-            type: "datetime",
-            filter: "date",
+            filter: "string",
             sorting: true,
         },
     ];
 
     return (
-        <Table
-            title={`Таблица пользовательских страниц ${url} ${userStore.value.ID}`}
-            loading={store.loading}
-            items={store.items}
-            itemsConfig={itemConfig}
-            onItemClick={onItemClick}
-            withFilter={true}
-        />
+        <>
+            <Helmet>
+                <title>{`Таблица пользовательских страниц`}</title>
+            </Helmet>
+            <Table
+                title={`Таблица пользовательских страниц ${url} ${userStore.value.ID}`}
+                loading={store.loading}
+                items={store.items}
+                itemsConfig={itemConfig}
+                onItemClick={onItemClick}
+                withFilter={true}
+            />
+        </>
     );
 };
 

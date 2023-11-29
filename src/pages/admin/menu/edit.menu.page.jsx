@@ -133,7 +133,7 @@ const EditMenuPage = () => {
 
         setPopup(
             <AlertPopup
-                text={"Вы уверены что хотите удалить?"}
+                text={`Вы уверены что хотите удалить? ${store.item.value.custom_page === 1 ? " Вместе с пунктом меню, будет удалена страница" : ""}`}
                 opened={true}
                 onClose={() => setPopup(<></>)}
                 buttons={
