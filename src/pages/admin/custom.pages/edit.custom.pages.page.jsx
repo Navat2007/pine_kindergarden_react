@@ -103,7 +103,6 @@ const EditCustomPagesPage = () => {
                     onClose={async () => {
                         back();
                         await getMenuList();
-                        await store.loadAll({}, false, true);
                     }}
                 />
             );
@@ -151,7 +150,6 @@ const EditCustomPagesPage = () => {
                                             onClose={async () => {
                                                 back();
                                                 await getMenuList();
-                                                await store.loadAll({}, false, true);
                                             }}
                                         />
                                     );

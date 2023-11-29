@@ -99,7 +99,6 @@ const EditMenuPage = () => {
                     onClose={async () => {
                         back();
                         await getMenuList();
-                        await store.loadAll({}, false, true);
                     }}
                 />
             );
@@ -160,7 +159,6 @@ const EditMenuPage = () => {
                                             onClose={async () => {
                                                 back();
                                                 await getMenuList();
-                                                await store.loadAll({}, false, true);
                                             }}
                                         />
                                     );
@@ -265,6 +263,14 @@ const EditMenuPage = () => {
                                 }
 
                                 if(e.target.value === "Пользовательская страница") {
+                                    setPopup(<AlertPopup
+                                        title='Внимание'
+                                        text={"При сохранении "}
+                                        opened={true}
+                                        onClose={() => {
+                                            setPopup(<></>);
+                                        }}
+                                    />);
                                     setValue("url", GenerateUrl(getValues("title")));
                                 } else if (e.target.value === "Содержит подменю") {
                                     setValue("url", "");

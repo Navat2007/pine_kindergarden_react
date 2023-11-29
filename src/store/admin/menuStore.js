@@ -13,7 +13,7 @@ const request = new SignalRequest({loading: loading, sending: sending, error: er
 
 let lastDownloadTime = null;
 
-const loadAll = async (params, debug, force) => {
+const loadAll = async (params, debug, force = true) => {
     if (force || lastDownloadTime === null || moment().diff(moment(lastDownloadTime), "minutes") > baseStore.cacheMinutes) {
         const response = await request.sendPostForm(baseStore.urlLoadAll, params);
 
