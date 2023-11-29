@@ -349,7 +349,7 @@ const AdminNewsPage = (props) => {
                             onChange={(items) => setPhotoReview(items)}
                             onDelete={handleDeleteReviewPhoto}
                         />
-                        <h2 className='Фото галерея'>Детальная картинка</h2>
+                        <h2 className='admin-form__title'>Фото галерея</h2>
                         <ImageSelector
                             items={photo}
                             multiFiles={true}

@@ -15,7 +15,7 @@ $page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["page"]));
 $custom_page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["custom_page"]));
 
 $sql = "UPDATE 
-            menu
+            custom_pages
         SET
             title = '$title', 
             url = '$url', 

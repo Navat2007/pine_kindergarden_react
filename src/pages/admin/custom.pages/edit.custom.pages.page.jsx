@@ -1,11 +1,15 @@
 import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useForm} from "react-hook-form";
+import {isArray} from "lodash";
 import {getMenuList} from "../../../services/menu";
 
 import useMenuStore from "../../../store/admin/menuStore";
 import useCustomPagesStore from "../../../store/admin/customPagesStore";
 
+import Editor from "../../../components/general/reach.editor/editor.component";
+import Tabs from "../../../components/public/tabs/tabs.component";
+import Tab from "../../../components/public/tabs/tab.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import Button from "../../../components/admin/button/button.component";
@@ -14,12 +18,11 @@ import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import {GenerateUrl} from "../../../utils/generateUrl";
 
 import {AdminIcons} from "../../../components/svgs";
-import {isArray} from "lodash";
 
 const EditCustomPagesPage = () => {
     let {id} = useParams();
     const navigate = useNavigate();
-    const {register, handleSubmit, reset, getValues, setValue} = useForm();
+    const {register, control, handleSubmit, reset, getValues, setValue} = useForm();
 
     const [popup, setPopup] = React.useState(<></>);
 
@@ -41,6 +44,11 @@ const EditCustomPagesPage = () => {
             if(!data || (isArray(data) && data.length === 0)) {
                 setValue("title", menu.title);
                 setValue("url", GenerateUrl(menu.title));
+            }
+            else {
+                setValue("editor", store.item.content);
+                setValue("title", store.item.title);
+                setValue("url", GenerateUrl(store.item.title));
             }
         };
 
@@ -75,22 +83,10 @@ const EditCustomPagesPage = () => {
             return;
 
         sendObject["id"] = id;
-        sendObject["parentID"] = store.item.value.parentID;
 
-        if(data.type === "Пользовательская страница") {
-            sendObject["page"] = 1;
-            sendObject["custom_page"] = 1;
-            sendObject["url"] = GenerateUrl(data.title);
-        } else if(data.type === "Содержит подменю") {
-            sendObject["page"] = 0;
-            sendObject["custom_page"] = 0;
-            sendObject["url"] = "";
-        }
-        else {
-            sendObject["page"] = 1;
-            sendObject["custom_page"] = 0;
-            sendObject["url"] = getValues("type");
-        }
+        console.log(sendObject);
+
+        return;
 
         await store.edit(sendObject);
 
@@ -180,28 +176,42 @@ const EditCustomPagesPage = () => {
         <BasicPage mainStore={store} loadings={[store, menuStore]}>
             <TitleBlock title={`Страница ID: ${id}`} onBack={back}/>
             <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
-                <div className='admin-form__two-columns'>
-                    <fieldset className='admin-form__section'>
-                        <FieldText
-                            label={"Название*"}
-                            required={true}
-                            placeholder={"Введите название"}
-                            {...register("title", {
-                                value: store.item.value?.title,
-                            })}
-                            onChange={(e) => {
-                                setValue("url", GenerateUrl(e.target.value));
-                            }}
-                        />
-                        <FieldText
-                            label={"Ссылка"}
-                            required={false}
-                            placeholder={""}
-                            disabled={true}
-                            {...register("url")}
-                        />
-                    </fieldset>
-                </div>
+                <Tabs>
+                    <Tab title={"Основная информация"}>
+                        <div className='admin-form__two-columns'>
+                            <fieldset className='admin-form__section'>
+                                <FieldText
+                                    label={"Название*"}
+                                    required={true}
+                                    placeholder={"Введите название"}
+                                    {...register("title", {
+                                        value: store.item.value?.title,
+                                    })}
+                                    onChange={(e) => {
+                                        setValue("url", GenerateUrl(e.target.value));
+                                    }}
+                                />
+                                <FieldText
+                                    label={"Ссылка"}
+                                    required={false}
+                                    placeholder={""}
+                                    disabled={true}
+                                    {...register("url")}
+                                />
+                                <p className='admin-form__subtitle'>Описание для анонса</p>
+                                <Editor
+                                    control={control}
+                                    name='editor'
+                                    minHeight={250}
+                                    buttons={{ link: true }}
+                                />
+                            </fieldset>
+                        </div>
+                    </Tab>
+                    <Tab title={"Фотографии"}>
+
+                    </Tab>
+                </Tabs>
                 <div className='admin-form__controls'>
                     <Button type='submit' extraClass='admin-form__button' spinnerActive={store.sending.value}>
                         Сохранить

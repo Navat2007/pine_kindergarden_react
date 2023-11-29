@@ -6,33 +6,6 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
-function getMenu($ID){
-    global $conn;
-
-    $data = array();
-
-    $sql = "SELECT 
-            *
-        FROM 
-            custom_page_files as f 
-        WHERE 
-            f.custom_page_ID = '$ID'";
-
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_object($result)) {
-            $data[] = (object)[
-                'ID' => (int)$row->ID,
-                'custom_page_ID' => (int)$row->custom_page_ID,
-                'url' => htmlspecialchars_decode($row->url),
-                'type' => htmlspecialchars_decode($row->type),
-            ];
-        }
-    }
-
-    return $data;
-}
 function getFiles($ID){
     global $conn;
 
@@ -77,7 +50,6 @@ if (mysqli_num_rows($result) > 0) {
         $params = (object)[
             'ID' => (int)$row->ID,
             'menuID' => (int)$row->menuID,
-            'menu' => getMenu($row->ID),
             'title' => htmlspecialchars_decode($row->title),
             'content' => htmlspecialchars_decode($row->content),
             'files' => getFiles($row->ID),
