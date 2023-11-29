@@ -18,6 +18,8 @@ import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import {GenerateUrl} from "../../../utils/generateUrl";
 
 import {AdminIcons} from "../../../components/svgs";
+import UrlsSelector from "../../../components/admin/urls.selector/urls.selector";
+import {signal} from "@preact/signals-react";
 
 const EditCustomPagesPage = () => {
     let {id} = useParams();
@@ -25,6 +27,7 @@ const EditCustomPagesPage = () => {
     const {register, control, handleSubmit, reset, getValues, setValue} = useForm();
 
     const [popup, setPopup] = React.useState(<></>);
+    const video = signal([]);
 
     const store = useCustomPagesStore();
     const menuStore = useMenuStore;
@@ -84,6 +87,7 @@ const EditCustomPagesPage = () => {
 
         sendObject["id"] = id;
 
+        console.log(video.value);
         console.log(sendObject);
 
         return;
@@ -198,7 +202,7 @@ const EditCustomPagesPage = () => {
                                     disabled={true}
                                     {...register("url")}
                                 />
-                                <p className='admin-form__subtitle'>Описание для анонса</p>
+                                <p className='admin-form__subtitle'>Содержание страницы</p>
                                 <Editor
                                     control={control}
                                     name='editor'
@@ -209,6 +213,14 @@ const EditCustomPagesPage = () => {
                         </div>
                     </Tab>
                     <Tab title={"Фотографии"}>
+
+                    </Tab>
+                    <Tab title={"Видео"}>
+                        <fieldset className='admin-form__section'>
+                            <UrlsSelector items={video}/>
+                        </fieldset>
+                    </Tab>
+                    <Tab title={"Файлы"}>
 
                     </Tab>
                 </Tabs>
