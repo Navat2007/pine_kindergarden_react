@@ -6,7 +6,7 @@ import MenuList from "./menu.list";
 
 import {AdminIcons} from "../../../../components/svgs";
 
-const MenuItem = ({title, item, firstSorting, lastSorting}) => {
+const MenuItem = ({title, item, firstSorting, lastSorting, onUpSorting = () => {}, onDownSorting = () => {}}) => {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -27,6 +27,9 @@ const MenuItem = ({title, item, firstSorting, lastSorting}) => {
                                 theme='text'
                                 iconName={AdminIcons.chevron_up}
                                 aria-label='Поднять на уровень вверх'
+                                onClick={() => {
+                                    onUpSorting(item);
+                                }}
                             />
                         }
                         {
@@ -39,6 +42,9 @@ const MenuItem = ({title, item, firstSorting, lastSorting}) => {
                                 theme='text'
                                 iconName={AdminIcons.chevron_down}
                                 aria-label='Поднять на уровень вниз'
+                                onClick={() => {
+                                    onDownSorting(item);
+                                }}
                             />
                         }
                     </div>

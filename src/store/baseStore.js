@@ -10,6 +10,7 @@ export class Store{
         this.config = config;
         this.cacheMinutes = cacheMinutes;
 
+        this.baseUrl = process.env.REACT_APP_BASE_URL + `php/models/${this.place}/${this.directory}/`;
         this.urlLoadAll = process.env.REACT_APP_BASE_URL + `php/models/${this.place}/${this.directory}/load.php`;
         this.urlLoadByID = process.env.REACT_APP_BASE_URL + `php/models/${this.place}/${this.directory}/load_by_id.php`;
         this.urlLoadAllMain = process.env.REACT_APP_BASE_URL + `php/models/${this.place}/${this.directory}/load_last_for_main_page.php`;

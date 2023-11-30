@@ -65,7 +65,10 @@ const remove = async (params, debug) => {
 }
 
 const save = async (params, debug) => {
+    const response = await request.sendPostForm(baseStore.baseUrl + "saveSorting.php", params, true);
 
+    if (debug)
+        console.log(response);
 }
 
 export default {

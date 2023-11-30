@@ -1,5 +1,8 @@
 import Api from "./Api";
 import {menuStore} from "../store/public/menuStore";
+import {signal} from "@preact/signals-react";
+
+export const sortingToSave = signal([]);
 
 export const getMenuList = async () => {
     try {

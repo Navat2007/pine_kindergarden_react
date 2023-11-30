@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import useMenuStore from "../../../store/admin/menuStore";
+import {sortingToSave} from "../../../services/menu";
 
 import MenuList from "./components/menu.list";
 import Button from "../../../components/admin/button/button.component";
@@ -25,7 +26,15 @@ const MenuPage = () => {
     }, []);
 
     const saveSorting = async () => {
-        await store.save();
+        const toSave = [];
+
+        sortingToSave.value.map(item => {
+            return item.map(menu => {
+                toSave.push({id: menu.ID, sorting: menu.sorting});
+            })
+        });
+
+        await store.save({ sorting: toSave});
         setIsEditing((prev) => !prev);
     }
 

@@ -1,8 +1,11 @@
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
 
 export function useFirstRender() {
-    const ref = useRef(true);
-    const firstRender = ref.current;
-    ref.current = false;
-    return firstRender;
+    const firstRender = useRef(true);
+
+    useEffect(() => {
+        firstRender.current = false;
+    }, []);
+
+    return firstRender.current;
 }
