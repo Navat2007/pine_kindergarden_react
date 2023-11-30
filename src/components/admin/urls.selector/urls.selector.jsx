@@ -4,6 +4,7 @@ import FieldText from "../field/field.text.component";
 import Button from "../button/button.component";
 
 import {AdminIcons} from "../../svgs";
+import FieldUrl from "../field/field.url.component";
 
 const UrlsSelector = ({items}) => {
     const handleVideoLink = () => {
@@ -14,7 +15,7 @@ const UrlsSelector = ({items}) => {
         <>
             {items.value.map((item) => (
                 <div className='form__group-block' key={item.id}>
-                    <FieldText
+                    <FieldUrl
                         placeholder='Введите url-адрес...'
                         defaultValue={item.url}
                         onBlur={(event) => {
