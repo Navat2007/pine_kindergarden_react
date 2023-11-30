@@ -1,0 +1,25 @@
+.urls-selector {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+
+    // &__input {}
+
+    &__share-link {
+        border-radius: 5px;
+        text-decoration: none;
+        &:hover {
+        }
+        &:active {
+            transform: translateY(1px);
+        }
+        &:focus {
+            outline: none;
+        }
+        &:focus-visible {
+            outline: 2px solid;
+        }
+    }
+    &__delete-button {
+    }
+}

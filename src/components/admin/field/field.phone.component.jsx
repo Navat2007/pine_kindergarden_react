@@ -1,11 +1,27 @@
-import React, {forwardRef} from "react";
+import React, { forwardRef } from "react";
 
 import "./field.scss";
 
-const FieldPhone = ({errorText, extraClass, label = "Телефон", placeholder = "+7(___)___-__-__", required = false, ...rest}, ref) => {
+const FieldPhone = (
+    {
+        errorText,
+        extraClass,
+        label = "Телефон",
+        visuallyLabel,
+        placeholder = "+7(___)___-__-__",
+        required = false,
+        ...rest
+    },
+    ref
+) => {
     return (
         <div className={`field${errorText ? " field_state_error" : ""}${extraClass ? ` ${extraClass}` : ``}`}>
-            <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='tel'>
+            <label
+                className={`field__label${extraClass ? ` ${extraClass}-label` : ``}${
+                    !visuallyLabel ? ` visually-hidden` : ``
+                }`}
+                htmlFor='tel'
+            >
                 {label}
             </label>
             <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>

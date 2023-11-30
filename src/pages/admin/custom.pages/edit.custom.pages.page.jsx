@@ -1,8 +1,8 @@
-import React from 'react';
-import {useNavigate, useParams} from "react-router-dom";
-import {useForm} from "react-hook-form";
-import {isArray} from "lodash";
-import {getMenuList} from "../../../services/menu";
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { isArray } from "lodash";
+import { getMenuList } from "../../../services/menu";
 
 import useMenuStore from "../../../store/admin/menuStore";
 import useCustomPagesStore from "../../../store/admin/customPagesStore";
@@ -15,19 +15,20 @@ import FieldText from "../../../components/admin/field/field.text.component";
 import Button from "../../../components/admin/button/button.component";
 import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
-import {GenerateUrl} from "../../../utils/generateUrl";
+import { GenerateUrl } from "../../../utils/generateUrl";
 
-import {AdminIcons} from "../../../components/svgs";
+import { AdminIcons } from "../../../components/svgs";
 import UrlsSelector from "../../../components/admin/urls.selector/urls.selector";
-import {signal} from "@preact/signals-react";
+import { signal } from "@preact/signals-react";
 
 const EditCustomPagesPage = () => {
-    let {id} = useParams();
+    let { id } = useParams();
     const navigate = useNavigate();
-    const {register, control, handleSubmit, reset, getValues, setValue} = useForm();
+    const { register, control, handleSubmit, reset, getValues, setValue } = useForm();
 
     const [popup, setPopup] = React.useState(<></>);
     const video = signal([]);
+    const files = signal([]);
 
     const store = useCustomPagesStore();
     const menuStore = useMenuStore;
@@ -38,17 +39,16 @@ const EditCustomPagesPage = () => {
         const fetchData = async () => {
             reset();
 
-            const data = await store.loadByID({id});
-            const menu = await menuStore.loadByID({id});
+            const data = await store.loadByID({ id });
+            const menu = await menuStore.loadByID({ id });
 
             console.log(data);
             console.log(menu);
 
-            if(!data || (isArray(data) && data.length === 0)) {
+            if (!data || (isArray(data) && data.length === 0)) {
                 setValue("title", menu.title);
                 setValue("url", GenerateUrl(menu.title));
-            }
-            else {
+            } else {
                 setValue("editor", store.item.content);
                 setValue("title", store.item.title);
                 setValue("url", GenerateUrl(store.item.title));
@@ -80,10 +80,9 @@ const EditCustomPagesPage = () => {
     const onEdit = async () => {
         const data = getValues();
 
-        let sendObject = {...data};
+        let sendObject = { ...data };
 
-        if (!checkForComplete(sendObject))
-            return;
+        if (!checkForComplete(sendObject)) return;
 
         sendObject["id"] = id;
 
@@ -128,8 +127,12 @@ const EditCustomPagesPage = () => {
                 onClose={() => setPopup(<></>)}
                 buttons={
                     <>
-                        <Button type='button' theme='text' onClick={() => setPopup(<></>)}
-                                spinnerActive={store.sending.value}>
+                        <Button
+                            type='button'
+                            theme='text'
+                            onClick={() => setPopup(<></>)}
+                            spinnerActive={store.sending.value}
+                        >
                             Нет
                         </Button>
                         <Button
@@ -178,7 +181,7 @@ const EditCustomPagesPage = () => {
 
     return (
         <BasicPage mainStore={store} loadings={[store, menuStore]}>
-            <TitleBlock title={`Страница ID: ${id}`} onBack={back}/>
+            <TitleBlock title={`Страница ID: ${id}`} onBack={back} />
             <form onSubmit={handleSubmit(onEdit)} className='admin-form'>
                 <Tabs>
                     <Tab title={"Основная информация"}>
@@ -203,25 +206,21 @@ const EditCustomPagesPage = () => {
                                     {...register("url")}
                                 />
                                 <p className='admin-form__subtitle'>Содержание страницы</p>
-                                <Editor
-                                    control={control}
-                                    name='editor'
-                                    minHeight={250}
-                                    buttons={{ link: true }}
-                                />
+                                <Editor control={control} name='editor' minHeight={250} buttons={{ link: true }} />
                             </fieldset>
                         </div>
                     </Tab>
-                    <Tab title={"Фотографии"}>
-
-                    </Tab>
+                    <Tab title={"Фотографии"}></Tab>
                     <Tab title={"Видео"}>
-                        <fieldset className='admin-form__section'>
-                            <UrlsSelector items={video}/>
+                        <fieldset className='admin-form__section admin-form__section_width_one-col'>
+                            <h2 className='admin-form__title'>Видео</h2>
+                            <UrlsSelector items={video} />
                         </fieldset>
                     </Tab>
                     <Tab title={"Файлы"}>
-
+                        <fieldset className='admin-form__section admin-form__section_width_one-col'>
+                            <UrlsSelector items={files} withFiles={true} />
+                        </fieldset>
                     </Tab>
                 </Tabs>
                 <div className='admin-form__controls'>

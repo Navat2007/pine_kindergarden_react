@@ -1,8 +1,19 @@
-import React, {forwardRef} from "react";
+import React, { forwardRef } from "react";
 
 import "./field.scss";
 
-const FieldPassword = ({errorText, extraClass, label = "Пароль", placeholder = "Введите пароль...", required = false, ...rest}, ref) => {
+const FieldPassword = (
+    {
+        errorText,
+        extraClass,
+        label = "Пароль",
+        visuallyLabel,
+        placeholder = "Введите пароль...",
+        required = false,
+        ...rest
+    },
+    ref
+) => {
     const [eyeActive, setEyeActive] = React.useState(false);
 
     const toggleEye = (e) => {
@@ -11,7 +22,12 @@ const FieldPassword = ({errorText, extraClass, label = "Пароль", placehold
 
     return (
         <div className={`field${errorText ? " field_state_error" : ""}${extraClass ? ` ${extraClass}` : ``}`}>
-            <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='password'>
+            <label
+                className={`field__label${extraClass ? ` ${extraClass}-label` : ``}${
+                    !visuallyLabel ? ` visually-hidden` : ``
+                }`}
+                htmlFor='password'
+            >
                 {label}
             </label>
             <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>
@@ -30,11 +46,12 @@ const FieldPassword = ({errorText, extraClass, label = "Пароль", placehold
                 />
                 <span className={`field__info-text${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
                 <span
-                    className={`field__icon-eye${eyeActive ? ` field__icon-eye_active` : ``}${extraClass ? ` ${extraClass}-icon-eye` : ``}`}
+                    className={`field__icon-eye${eyeActive ? ` field__icon-eye_active` : ``}${
+                        extraClass ? ` ${extraClass}-icon-eye` : ``
+                    }`}
                     aria-label='Скрыть/Отобразить пароль'
                     onClick={toggleEye}
-                >
-                </span>
+                ></span>
             </div>
         </div>
     );

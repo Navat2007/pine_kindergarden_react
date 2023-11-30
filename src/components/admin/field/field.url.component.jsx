@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 
-import {PopUpContext} from "../../../context";
+import { PopUpContext } from "../../../context";
 
 import Button from "../button/button.component";
 import FileSelectorPopup from "../file.selector.popup/file.selector.popup";
@@ -9,14 +9,32 @@ import Popup from "../../general/popup/popup.component";
 import "./field.scss";
 import { AdminIcons } from "../../svgs";
 
-const FieldUrl = ({ errorText, extraClass, label = "", placeholder = "", required = false, withFileSelect, onFileSelected = () => {}, ...rest }, ref) => {
+const FieldUrl = (
+    {
+        errorText,
+        extraClass,
+        label = "",
+        visuallyLabel,
+        placeholder = "",
+        required = false,
+        withFileSelect,
+        onFileSelected = () => {},
+        ...rest
+    },
+    ref
+) => {
     const id = window.global.makeid(8);
 
-    const {setPopup} = React.useContext(PopUpContext);
+    const { setPopup } = React.useContext(PopUpContext);
 
     return (
         <div className={`field${errorText ? ` field_state_error` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
-            <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor={id}>
+            <label
+                className={`field__label${extraClass ? ` ${extraClass}-label` : ``}${
+                    !visuallyLabel ? ` visually-hidden` : ``
+                }`}
+                htmlFor={id}
+            >
                 {label}
             </label>
             <div
@@ -35,9 +53,7 @@ const FieldUrl = ({ errorText, extraClass, label = "", placeholder = "", require
                     {...rest}
                 />
                 <span className={`field__info-text${extraClass ? ` ${extraClass}-info-text` : ``}`}>{errorText}</span>
-                {
-                    withFileSelect
-                    &&
+                {withFileSelect && (
                     <Button
                         type='button'
                         extraClass={"field__icon-image-search"}
@@ -54,14 +70,17 @@ const FieldUrl = ({ errorText, extraClass, label = "", placeholder = "", require
                                         setPopup(<></>);
                                     }}
                                 >
-                                    <FileSelectorPopup onFileSelected={onFileSelected} onClose={() => {
-                                        setPopup(<></>);
-                                    }} />
+                                    <FileSelectorPopup
+                                        onFileSelected={onFileSelected}
+                                        onClose={() => {
+                                            setPopup(<></>);
+                                        }}
+                                    />
                                 </Popup>
                             )
                         }
                     />
-                }
+                )}
             </div>
         </div>
     );

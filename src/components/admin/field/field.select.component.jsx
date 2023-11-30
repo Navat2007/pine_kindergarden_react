@@ -7,6 +7,7 @@ const FieldSelect = (
         errorText,
         extraClass,
         label = "",
+        visuallyLabel,
         placeholder = "",
         required = false,
         defaultSelectItem = {
@@ -25,7 +26,12 @@ const FieldSelect = (
 
     return (
         <div className={`field${errorText ? ` field_state_error` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
-            <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor={id}>
+            <label
+                className={`field__label${extraClass ? ` ${extraClass}-label` : ``}${
+                    !visuallyLabel ? ` visually-hidden` : ``
+                }`}
+                htmlFor={id}
+            >
                 {label}
             </label>
             <div className={`field__inner field__inner_content_select${extraClass ? ` ${extraClass}-inner` : ``}`}>

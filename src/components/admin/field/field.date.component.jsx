@@ -2,12 +2,20 @@ import React, { forwardRef } from "react";
 
 import "./field.scss";
 
-const FieldDate = ({ errorText, extraClass, label = "", placeholder = "", type = "date", required = false, ...rest }, ref) => {
+const FieldDate = (
+    { errorText, extraClass, label = "", visuallyLabel, placeholder = "", type = "date", required = false, ...rest },
+    ref
+) => {
     const id = window.global.makeid(8);
 
     return (
         <div className={`field${errorText ? ` field_state_error` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
-            <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor={id}>
+            <label
+                className={`field__label${extraClass ? ` ${extraClass}-label` : ``}${
+                    !visuallyLabel ? ` visually-hidden` : ``
+                }`}
+                htmlFor={id}
+            >
                 {label}
             </label>
             <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>

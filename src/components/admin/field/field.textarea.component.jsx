@@ -2,19 +2,27 @@ import React, { forwardRef } from "react";
 
 import "./field.scss";
 
-const FieldTextArea = ({ errorText, extraClass, label = "", placeholder = "", required = false, ...rest }, ref) => {
+const FieldTextArea = (
+    { errorText, extraClass, label = "", visuallyLabel, placeholder = "", required = false, ...rest },
+    ref
+) => {
     const id = window.global.makeid(8);
 
     const handleKeyDown = (e) => {
-        e.target.style.height = 'inherit';
+        e.target.style.height = "inherit";
         e.target.style.height = `${e.target.scrollHeight}px`;
         // In case you have a limitation
         // e.target.style.height = `${Math.min(e.target.scrollHeight, limit)}px`;
-    }
+    };
 
     return (
         <div className={`field${errorText ? ` field_state_error` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
-            <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor={id}>
+            <label
+                className={`field__label${extraClass ? ` ${extraClass}-label` : ``}${
+                    !visuallyLabel ? ` visually-hidden` : ``
+                }`}
+                htmlFor={id}
+            >
                 {label}
             </label>
             <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>

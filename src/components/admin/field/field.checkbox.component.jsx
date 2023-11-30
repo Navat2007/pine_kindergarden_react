@@ -2,7 +2,10 @@ import React, { forwardRef } from "react";
 
 import "./field.scss";
 
-const FieldCheckbox = ({ errorText, extraClass, label = "", placeholder = "", required = false, ...rest }, ref) => {
+const FieldCheckbox = (
+    { errorText, extraClass, label = "", visuallyLabel, placeholder = "", required = false, ...rest },
+    ref
+) => {
     const id = window.global.makeid(8);
 
     return (
@@ -11,7 +14,12 @@ const FieldCheckbox = ({ errorText, extraClass, label = "", placeholder = "", re
                 extraClass ? ` ${extraClass}` : ``
             }`}
         >
-            <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor={id}>
+            <label
+                className={`field__label${extraClass ? ` ${extraClass}-label` : ``}${
+                    !visuallyLabel ? ` visually-hidden` : ``
+                }`}
+                htmlFor={id}
+            >
                 {label}
             </label>
             <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>

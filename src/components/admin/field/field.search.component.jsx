@@ -2,14 +2,17 @@ import React, { forwardRef } from "react";
 
 import "./field.scss";
 
-const FieldEmail = ({ errorText, extraClass, hasLabel = true, labelText, required = false, ...rest }, ref) => {
+const FieldEmail = ({ errorText, extraClass, label, visuallyLabel, required = false, ...rest }, ref) => {
     return (
         <div className={`field${extraClass ? ` ${extraClass}` : ``}${errorText ? ` field_state_error` : ``}`}>
-            {hasLabel && (
-                <label className={`field__label${extraClass ? ` ${extraClass}-label` : ``}`} htmlFor='search'>
-                    {labelText}
-                </label>
-            )}
+            <label
+                className={`field__label${extraClass ? ` ${extraClass}-label` : ``}${
+                    !visuallyLabel ? ` visually-hidden` : ``
+                }`}
+                htmlFor='search'
+            >
+                {label}
+            </label>
             <div className={`field__inner${extraClass ? ` ${extraClass}-inner` : ``}`}>
                 <input
                     ref={ref}

@@ -158,7 +158,7 @@ const SearchFilter = ({ config, onSubmit, items, children, front }) => {
             <fieldset className={"search-filter__row"}>
                 <FieldSearch
                     placeholder={"Поиск..."}
-                    hasLabel={false}
+                    visuallyLabel={false}
                     extraClass={"search-filter__field"}
                     {...register("search_string")}
                 />
