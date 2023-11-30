@@ -15,17 +15,23 @@ $page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["page"]));
 $custom_page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["custom_page"]));
 
 function CheckTitle(): bool{
-    global $conn, $sqls, $ID, $title;
+    global $conn, $sqls, $id, $title, $custom_page;
 
     $sql = "SELECT 
         ID
     FROM 
         menu
     WHERE 
-        title = '$title' AND ID <> '$ID'";
+        title = '$title' AND ID <> '$id'";
+    $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
 
-    return mysqli_num_rows($result) == 0;
+    if((int)$custom_page == 0)
+        return true;
+    else if(mysqli_num_rows($result) == 0)
+        return true;
+
+    return false;
 }
 
 if(CheckTitle()){
@@ -42,6 +48,16 @@ if(CheckTitle()){
             ID = '$id'";
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
+
+    if((int)$custom_page != 1){
+        $sql = "DELETE FROM custom_pages WHERE menuID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+
+        $sql = "DELETE FROM custom_page_files WHERE menuID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+    }
 
     if (!$result) {
         $error = 1;

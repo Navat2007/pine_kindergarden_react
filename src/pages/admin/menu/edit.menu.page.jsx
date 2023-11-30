@@ -97,8 +97,8 @@ const EditMenuPage = () => {
                     text={"Пункт меню успешно отредактирован"}
                     opened={true}
                     onClose={async () => {
-                        back();
                         await getMenuList();
+                        back();
                     }}
                 />
             );
@@ -262,15 +262,18 @@ const EditMenuPage = () => {
                                     />);
                                 }
 
-                                if(e.target.value === "Пользовательская страница") {
+                                if(store.item.value.custom_page === 1 && e.target.value !== "Пользовательская страница") {
                                     setPopup(<AlertPopup
                                         title='Внимание'
-                                        text={"При сохранении "}
+                                        text={"При сохранении информация привязанная к этой странице будет удалена!"}
                                         opened={true}
                                         onClose={() => {
                                             setPopup(<></>);
                                         }}
                                     />);
+                                }
+
+                                if(e.target.value === "Пользовательская страница") {
                                     setValue("url", GenerateUrl(getValues("title")));
                                 } else if (e.target.value === "Содержит подменю") {
                                     setValue("url", "");
