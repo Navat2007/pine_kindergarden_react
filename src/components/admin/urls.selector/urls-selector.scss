@@ -1,14 +1,28 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
 .urls-selector {
     display: flex;
     gap: 0.5em;
     align-items: center;
 
-    // &__input {}
+    &__input {
+        flex: auto;
+    }
 
     &__share-link {
-        border-radius: 5px;
+        flex: none;
         text-decoration: none;
+        padding: 0.5em;
+        @include box(2.5em);
+        min-inline-size: 2.5em;
+        max-inline-size: 2.5em;
+        color: var(--admin-text-color);
+        border-radius: 50%;
+        transition: background-color 0.25s ease-in;
+
         &:hover {
+            background-color: rgba(var(--admin-primary-opacity-color), 0.1);
         }
         &:active {
             transform: translateY(1px);
@@ -20,6 +34,6 @@
             outline: 2px solid;
         }
     }
-    &__delete-button {
-    }
+
+    // &__delete-button {}
 }

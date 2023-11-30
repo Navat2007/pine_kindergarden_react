@@ -47,10 +47,12 @@ const UrlsSelector = ({ items, withFiles }) => {
                     )}
                     <Button
                         type='button'
-                        extraClass={"urls-selector__remove-button"}
+                        theme={"text-error"}
+                        extraClass={"urls-selector__delete-button"}
                         isIconBtn={true}
                         iconName={AdminIcons.close}
                         aria-label='Удалить поле'
+                        title='Удалить поле'
                         onClick={() => {
                             items.value = items.value.filter((link) => link.id !== item.id);
                         }}
