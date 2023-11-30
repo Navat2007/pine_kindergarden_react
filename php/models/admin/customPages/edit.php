@@ -80,7 +80,7 @@ function AddPage(){
 }
 
 function EditPage(){
-    global $conn, $sqls, $log, $ID, $title, $url, $userID;
+    global $conn, $sqls, $log, $ID, $title, $content, $userID;
 
     $sql = "UPDATE 
             custom_pages

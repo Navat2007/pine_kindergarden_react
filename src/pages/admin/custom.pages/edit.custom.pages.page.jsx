@@ -114,6 +114,8 @@ const EditCustomPagesPage = () => {
         sendObject["video"] = video.value.filter((item) => item.url).map(item => item.url);
         sendObject["files"] = files.value.filter((item) => item.url).map(item => item.url);
 
+        console.log(sendObject);
+
         const response = await store.edit(sendObject);
 
         if (response.error === 0) {
