@@ -27,6 +27,7 @@ function getFiles($ID){
                 'menuID' => (int)$row->menuID,
                 'url' => htmlspecialchars_decode($row->url),
                 'type' => htmlspecialchars_decode($row->type),
+                'title' => htmlspecialchars_decode($row->title),
             ];
         }
     }

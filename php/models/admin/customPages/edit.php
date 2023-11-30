@@ -104,7 +104,7 @@ function EditPage(){
 
 function UpdateAssets()
 {
-    global $conn, $sqls, $ID, $photo, $video, $files;
+    global $conn, $sqls, $error_text, $ID, $photo, $video, $files;
 
     $sql = "
         DELETE FROM custom_page_files WHERE menuID = '$ID'
@@ -136,9 +136,12 @@ function UpdateAssets()
 
     if($files){
         foreach ($files as $key => $value) {
+            $error_text = $value;
+            $fileTitle = $value['title'];
+            $fileUrl = $value['url'];
             $sql = "
-                INSERT INTO custom_page_files (menuID, type, url) 
-                VALUES ('$ID', 'file', '$value')
+                INSERT INTO custom_page_files (menuID, type, url, title) 
+                VALUES ('$ID', 'file', '$fileUrl', '$fileTitle')
             ";
             $sqls[] = $sql;
             mysqli_query($conn, $sql);

@@ -72,7 +72,8 @@ const EditCustomPagesPage = () => {
                         case "file":
                             files.value.push({
                                 id: window.global.makeid(12),
-                                url: item.url
+                                url: item.url,
+                                title: item.title
                             })
                             break;
                     }
@@ -112,9 +113,12 @@ const EditCustomPagesPage = () => {
         sendObject["id"] = id;
         sendObject["photo"] = photo.value.filter((item) => item.url).map(item => item.url);
         sendObject["video"] = video.value.filter((item) => item.url).map(item => item.url);
-        sendObject["files"] = files.value.filter((item) => item.url).map(item => item.url);
-
-        console.log(sendObject);
+        sendObject["files"] = files.value.filter((item) => item.url).map(item => {
+            return {
+                title: item.title,
+                url: item.url
+            }
+        });
 
         const response = await store.edit(sendObject);
 
