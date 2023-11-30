@@ -7,7 +7,7 @@ const FieldPhone = (
         errorText,
         extraClass,
         label = "Телефон",
-        visuallyLabel,
+        visuallyLabel = true,
         placeholder = "+7(___)___-__-__",
         required = false,
         ...rest

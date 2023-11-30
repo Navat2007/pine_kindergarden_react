@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 
 import "./field.scss";
 
-const FieldEmail = ({ errorText, extraClass, visuallyLabel, required = false, ...rest }, ref) => {
+const FieldEmail = ({ errorText, extraClass, visuallyLabel = true, required = false, ...rest }, ref) => {
     return (
         <div className={`field${errorText ? ` field_state_error` : ``}${extraClass ? ` ${extraClass}` : ``}`}>
             <label

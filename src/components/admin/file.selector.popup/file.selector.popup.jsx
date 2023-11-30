@@ -352,10 +352,26 @@ const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, acce
                     view === "grid" ? ` file-selector-popup__list_type_card-deck` : ``
                 }`}
             >
-                {filtered && filtered.length === 0 && <p>Нет данных для отображения</p>}
+                {filtered && filtered
+                    .filter((item) => {
+                        if(accept === "image/*" && item.type === "image")
+                            return true;
+
+                        if(accept === "*.*")
+                            return true;
+                    })
+                    .length === 0 && <p>Нет файлов</p>}
                 {filtered &&
                     filtered.length > 0 &&
-                    filtered.map((item) => {
+                    filtered
+                        .filter((item) => {
+                            if(accept === "image/*" && item.type === "image")
+                                return true;
+
+                            if(accept === "*.*")
+                                return true;
+                        })
+                        .map((item) => {
                         return (
                             <li
                                 key={item.ID}

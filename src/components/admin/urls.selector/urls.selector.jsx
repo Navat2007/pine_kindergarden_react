@@ -1,13 +1,12 @@
 import React from "react";
 
-import FieldText from "../field/field.text.component";
 import Button from "../button/button.component";
+import FieldUrl from "../field/field.url.component";
 
 import { AdminIcons } from "../../svgs";
-import FieldUrl from "../field/field.url.component";
 import "./urls-selector.scss";
 
-const UrlsSelector = ({ items, withFiles }) => {
+const UrlsSelector = ({ items, withFiles, accept = "*.*" }) => {
     const handleVideoLink = () => {
         items.value = [...items.value, { id: window.global.makeid(12), url: "" }];
     };
@@ -19,10 +18,19 @@ const UrlsSelector = ({ items, withFiles }) => {
                     <FieldUrl
                         label='Ссылка на видео'
                         visuallyLabel={false}
-                        placeholder='Введите url-адрес...'
                         extraClass={"urls-selector__input"}
                         defaultValue={item.url}
                         withFileSelect={withFiles}
+                        accept={accept}
+                        onFileSelected={(file) => {
+                            items.value = items.value.map((link) => {
+                                if (link.id === item.id) {
+                                    link.url = file.url;
+                                }
+
+                                return link;
+                            });
+                        }}
                         onBlur={(event) => {
                             items.value = items.value.map((link) => {
                                 if (link.id === item.id) {

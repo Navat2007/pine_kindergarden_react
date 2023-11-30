@@ -7,7 +7,7 @@ const FieldSelect = (
         errorText,
         extraClass,
         label = "",
-        visuallyLabel,
+        visuallyLabel = true,
         placeholder = "",
         required = false,
         defaultSelectItem = {

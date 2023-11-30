@@ -21,14 +21,17 @@ import { AdminIcons } from "../../../components/svgs";
 import UrlsSelector from "../../../components/admin/urls.selector/urls.selector";
 import { signal } from "@preact/signals-react";
 
+const photo = signal([]);
+const video = signal([]);
+const files = signal([]);
+
 const EditCustomPagesPage = () => {
     let { id } = useParams();
     const navigate = useNavigate();
     const { register, control, handleSubmit, reset, getValues, setValue } = useForm();
 
     const [popup, setPopup] = React.useState(<></>);
-    const video = signal([]);
-    const files = signal([]);
+
 
     const store = useCustomPagesStore();
     const menuStore = useMenuStore;
@@ -210,7 +213,12 @@ const EditCustomPagesPage = () => {
                             </fieldset>
                         </div>
                     </Tab>
-                    <Tab title={"Фотографии"}></Tab>
+                    <Tab title={"Фотографии"}>
+                        <fieldset className='admin-form__section admin-form__section_width_one-col'>
+                            <h2 className='admin-form__title'>Фотографии</h2>
+                            <UrlsSelector items={photo} withFiles={true} accept={"image/*"}/>
+                        </fieldset>
+                    </Tab>
                     <Tab title={"Видео"}>
                         <fieldset className='admin-form__section admin-form__section_width_one-col'>
                             <h2 className='admin-form__title'>Видео</h2>
@@ -219,6 +227,7 @@ const EditCustomPagesPage = () => {
                     </Tab>
                     <Tab title={"Файлы"}>
                         <fieldset className='admin-form__section admin-form__section_width_one-col'>
+                            <h2 className='admin-form__title'>Файлы</h2>
                             <UrlsSelector items={files} withFiles={true} />
                         </fieldset>
                     </Tab>

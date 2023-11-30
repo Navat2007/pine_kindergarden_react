@@ -7,7 +7,7 @@ const FieldPassword = (
         errorText,
         extraClass,
         label = "Пароль",
-        visuallyLabel,
+        visuallyLabel = true,
         placeholder = "Введите пароль...",
         required = false,
         ...rest

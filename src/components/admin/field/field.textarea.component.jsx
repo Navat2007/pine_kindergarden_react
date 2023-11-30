@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 import "./field.scss";
 
 const FieldTextArea = (
-    { errorText, extraClass, label = "", visuallyLabel, placeholder = "", required = false, ...rest },
+    { errorText, extraClass, label = "", visuallyLabel = true, placeholder = "", required = false, ...rest },
     ref
 ) => {
     const id = window.global.makeid(8);

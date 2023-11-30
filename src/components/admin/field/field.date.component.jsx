@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 import "./field.scss";
 
 const FieldDate = (
-    { errorText, extraClass, label = "", visuallyLabel, placeholder = "", type = "date", required = false, ...rest },
+    { errorText, extraClass, label = "", visuallyLabel = true, placeholder = "", type = "date", required = false, ...rest },
     ref
 ) => {
     const id = window.global.makeid(8);

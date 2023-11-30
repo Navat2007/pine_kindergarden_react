@@ -14,8 +14,8 @@ const FieldUrl = (
         errorText,
         extraClass,
         label = "",
-        visuallyLabel,
-        placeholder = "",
+        visuallyLabel = true,
+        placeholder = "https://...",
         required = false,
         withFileSelect,
         onFileSelected = () => {},
@@ -75,6 +75,7 @@ const FieldUrl = (
                                         onClose={() => {
                                             setPopup(<></>);
                                         }}
+                                        {...rest}
                                     />
                                 </Popup>
                             )
