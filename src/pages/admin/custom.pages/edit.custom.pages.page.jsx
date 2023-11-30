@@ -44,9 +44,6 @@ const EditCustomPagesPage = () => {
             const data = await store.loadByID({ id });
             const menu = await menuStore.loadByID({ id });
 
-            console.log(data);
-            console.log(menu);
-
             if (!data || (isArray(data) && data.length === 0)) {
                 setValue("title", menu.title);
                 setValue("url", GenerateUrl(menu.title));
@@ -118,7 +115,6 @@ const EditCustomPagesPage = () => {
         sendObject["files"] = files.value.filter((item) => item.url).map(item => item.url);
 
         const response = await store.edit(sendObject);
-        console.log(response);
 
         if (response.error === 0) {
             setPopup(
