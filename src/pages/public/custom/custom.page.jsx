@@ -30,8 +30,6 @@ const CustomPage = ({id}) => {
         return store.item?.page?.files?.filter(item => item.type === "file") || [];
     })
 
-    console.log(store.item);
-
     React.useEffect(() => {
         if (id) {
             store.loadByID({id});
