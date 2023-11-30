@@ -2,6 +2,7 @@ import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
+import {getMenuList} from "../../../services/menu";
 import useMenuStore from "../../../store/admin/menuStore";
 
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
@@ -11,9 +12,6 @@ import BasicPage from "../../../components/admin/basic.page/basic.page.component
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import {GenerateUrl} from "../../../utils/generateUrl";
 import FieldSelect from "../../../components/admin/field/field.select.component";
-
-import {AdminIcons} from "../../../components/svgs";
-import {getMenuList} from "../../../services/menu";
 
 const AddMenuPage = () => {
     let {id, sorting} = useParams();

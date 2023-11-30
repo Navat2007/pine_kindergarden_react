@@ -14,9 +14,9 @@ function getFiles($ID){
     $sql = "SELECT 
             *
         FROM 
-            custom_page_files as f 
+            custom_page_files
         WHERE 
-            f.custom_page_ID = '$ID'";
+            menuID = '$ID'";
 
     $result = mysqli_query($conn, $sql);
 
@@ -24,7 +24,7 @@ function getFiles($ID){
         while ($row = mysqli_fetch_object($result)) {
             $data[] = (object)[
                 'ID' => (int)$row->ID,
-                'custom_page_ID' => (int)$row->custom_page_ID,
+                'menuID' => (int)$row->menuID,
                 'url' => htmlspecialchars_decode($row->url),
                 'type' => htmlspecialchars_decode($row->type),
             ];
@@ -41,7 +41,7 @@ $sql = "SELECT
     FROM 
         custom_pages
     WHERE 
-        ID = '$id'";
+        menuID = '$id'";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
@@ -52,7 +52,7 @@ if (mysqli_num_rows($result) > 0) {
             'menuID' => (int)$row->menuID,
             'title' => htmlspecialchars_decode($row->title),
             'content' => htmlspecialchars_decode($row->content),
-            'files' => getFiles($row->ID),
+            'files' => getFiles($row->menuID),
         ];
     }
 }

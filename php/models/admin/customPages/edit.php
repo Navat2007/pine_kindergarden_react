@@ -6,34 +6,159 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/params.php';
 
-$id = htmlspecialchars($_POST["id"]);
+$ID = htmlspecialchars($_POST["id"]);
 $userID = $authorization[1];
 $title = mysqli_real_escape_string($conn, htmlspecialchars($_POST["title"]));
 $url = mysqli_real_escape_string($conn, htmlspecialchars($_POST["url"]));
-$parentID = mysqli_real_escape_string($conn, htmlspecialchars($_POST["parentID"]));
-$page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["page"]));
-$custom_page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["custom_page"]));
+$content = mysqli_real_escape_string($conn, htmlspecialchars($_POST["content"]));
+$photo = $_POST["photo"];
+$video = $_POST["video"];
+$files = $_POST["files"];
 
-$sql = "UPDATE 
+function CheckTitle(): bool{
+    global $conn, $sqls, $ID, $title;
+
+    $sql = "SELECT 
+        ID
+    FROM 
+        menu
+    WHERE 
+        title = '$title' AND ID <> '$ID'";
+    $result = mysqli_query($conn, $sql);
+
+    return mysqli_num_rows($result) == 0;
+}
+
+function CheckPageExist(): bool
+{
+    global $conn, $sqls, $ID;
+
+    $sql = "SELECT 
+        ID
+    FROM 
+        custom_pages
+    WHERE 
+        menuID = '$ID'";
+    $result = mysqli_query($conn, $sql);
+
+    return mysqli_num_rows($result) > 0;
+}
+
+function UpdateMenu()
+{
+    global $conn, $sqls, $ID, $title, $url, $userID;
+
+    $sql = "UPDATE 
+            menu
+        SET
+            title = '$title', 
+            url = '$url',
+            last_userID = '$userID'
+        WHERE 
+            ID = '$ID'";
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+}
+
+function AddPage(){
+    global $conn, $sqls, $log, $ID, $title, $content, $userID;
+
+    $sql = "
+        INSERT INTO custom_pages (menuID, title, content, userID, last_userID) 
+        VALUES ('$ID', '$title', '$content', '$userID', '$userID')
+    ";
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result) {
+        $error = 1;
+        $error_text = "Ошибка при редактировании пользовательской страницы: " . mysqli_error($conn);
+    }
+    else {
+        $log->add($conn, $authorization[1], 'Пользовательская страница: ' . $title . ' отредактирована');
+    }
+}
+
+function EditPage(){
+    global $conn, $sqls, $log, $ID, $title, $url, $userID;
+
+    $sql = "UPDATE 
             custom_pages
         SET
             title = '$title', 
-            url = '$url', 
-            parentID = '$parentID', 
-            page = '$page', 
-            custom_page = '$custom_page', 
+            content = '$content', 
             last_userID = '$userID'
         WHERE 
-            ID = '$id'";
-$sqls[] = $sql;
-$result = mysqli_query($conn, $sql);
+            menuID = '$ID'";
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
 
-if (!$result) {
-    $error = 1;
-    $error_text = "Ошибка при редактировании меню: " . mysqli_error($conn);
+    if (!$result) {
+        $error = 1;
+        $error_text = "Ошибка при редактировании пользовательской страницы: " . mysqli_error($conn);
+    }
+    else {
+        $log->add($conn, $authorization[1], 'Пользовательская страница: ' . $title . ' отредактирована');
+    }
 }
-else {
-    $log->add($conn, $authorization[1], 'Пункт меню: ' . $title . ' отредактирован');
+
+function UpdateAssets()
+{
+    global $conn, $sqls, $ID, $photo, $video, $files;
+
+    $sql = "
+        DELETE FROM custom_page_files WHERE menuID = '$ID'
+    ";
+    $sqls[] = $sql;
+    mysqli_query($conn, $sql);
+
+    if($photo){
+        foreach ($photo as $key => $value) {
+            $sql = "
+                INSERT INTO custom_page_files (menuID, type, url) 
+                VALUES ('$ID', 'photo', '$value')
+            ";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+        }
+    }
+
+    if($video){
+        foreach ($video as $key => $value) {
+            $sql = "
+                INSERT INTO custom_page_files (menuID, type, url) 
+                VALUES ('$ID', 'video', '$value')
+            ";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+        }
+    }
+
+    if($files){
+        foreach ($files as $key => $value) {
+            $sql = "
+                INSERT INTO custom_page_files (menuID, type, url) 
+                VALUES ('$ID', 'file', '$value')
+            ";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+        }
+    }
+}
+
+if(CheckTitle()){
+    UpdateMenu();
+
+    if(CheckPageExist())
+        EditPage();
+    else
+        AddPage();
+
+    UpdateAssets();
+}
+else{
+    $error = 1;
+    $error_text = "Ошибка при редактировании пользовательской страницы: такое название уже существует";
 }
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

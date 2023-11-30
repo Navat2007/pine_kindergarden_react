@@ -25,7 +25,7 @@ const UrlsSelector = ({ items, withFiles, accept = "*.*" }) => {
                         onFileSelected={(file) => {
                             items.value = items.value.map((link) => {
                                 if (link.id === item.id) {
-                                    link.url = file.url;
+                                    link.url = process.env.REACT_APP_BASE_URL + file.url;
                                 }
 
                                 return link;

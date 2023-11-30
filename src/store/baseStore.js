@@ -115,16 +115,16 @@ export class Store{
 
             if(this.place === "admin"){
                 config['add'] = async (params) => {
-                    await get().request.sendPostForm(this.urlAdd, params, "sending");
+                    return await get().request.sendPostForm(this.urlAdd, params, "sending");
                 }
                 config['edit'] = async (params) => {
-                    await get().request.sendPostForm(this.urlEdit, params, "sending");
+                    return await get().request.sendPostForm(this.urlEdit, params, "sending");
                 }
                 config['remove'] = async (params) => {
-                    await get().request.sendPostForm(this.urlRemove, params, "sending");
+                    return await get().request.sendPostForm(this.urlRemove, params, "sending");
                 }
                 config['removeFile'] = async (params) => {
-                    await get().request.sendPostForm(this.urlRemoveFile, params, "sending");
+                    return await get().request.sendPostForm(this.urlRemoveFile, params, "sending");
                 }
             }
 
@@ -192,6 +192,8 @@ export class SignalRequest{
     }
 
     async sendPostForm (url, params, sending, sleepTime = 500)  {
+        this.signal.error.value = null;
+
         if(sending)
             this.signal.sending.value = true;
         else
@@ -207,7 +209,7 @@ export class SignalRequest{
         await this.sleep(sleepTime);
 
         if (response && response.data.error && response.data.error > 0) {
-            this.signal.error.value = {error: true, errorText: response.data.error_text};
+            this.signal.error.value = response.data.error_text;
         }
 
         if(sending)

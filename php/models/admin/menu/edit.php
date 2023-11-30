@@ -14,7 +14,22 @@ $parentID = mysqli_real_escape_string($conn, htmlspecialchars($_POST["parentID"]
 $page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["page"]));
 $custom_page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["custom_page"]));
 
-$sql = "UPDATE 
+function CheckTitle(): bool{
+    global $conn, $sqls, $ID, $title;
+
+    $sql = "SELECT 
+        ID
+    FROM 
+        menu
+    WHERE 
+        title = '$title' AND ID <> '$ID'";
+    $result = mysqli_query($conn, $sql);
+
+    return mysqli_num_rows($result) == 0;
+}
+
+if(CheckTitle()){
+    $sql = "UPDATE 
             menu
         SET
             title = '$title', 
@@ -25,15 +40,20 @@ $sql = "UPDATE
             last_userID = '$userID'
         WHERE 
             ID = '$id'";
-$sqls[] = $sql;
-$result = mysqli_query($conn, $sql);
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
 
-if (!$result) {
-    $error = 1;
-    $error_text = "Ошибка при редактировании меню: " . mysqli_error($conn);
+    if (!$result) {
+        $error = 1;
+        $error_text = "Ошибка при редактировании меню: " . mysqli_error($conn);
+    }
+    else {
+        $log->add($conn, $authorization[1], 'Пункт меню: ' . $title . ' отредактирован');
+    }
 }
-else {
-    $log->add($conn, $authorization[1], 'Пункт меню: ' . $title . ' отредактирован');
+else{
+    $error = 1;
+    $error_text = "Ошибка при редактировании пункта меню: такое название уже существует";
 }
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

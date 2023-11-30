@@ -14,19 +14,39 @@ $page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["page"]));
 $custom_page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["custom_page"]));
 $sorting = mysqli_real_escape_string($conn, htmlspecialchars($_POST["sorting"]));
 
-$sql = "INSERT INTO 
+function CheckTitle(): bool{
+    global $conn, $sqls, $ID, $title;
+
+    $sql = "SELECT 
+        ID
+    FROM 
+        menu
+    WHERE 
+        title = '$title' AND ID <> '$ID'";
+    $result = mysqli_query($conn, $sql);
+
+    return mysqli_num_rows($result) == 0;
+}
+
+if(CheckTitle()){
+    $sql = "INSERT INTO 
             menu (title, url, parentID, page, custom_page, sorting, userID, last_userID) 
         VALUES ('$title', '$url', '$parentID', '$page', '$custom_page', '$sorting', '$userID', '$userID')
     ";
-$sqls[] = $sql;
-$result = mysqli_query($conn, $sql);
-$lastID = mysqli_insert_id($conn);
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+    $lastID = mysqli_insert_id($conn);
 
-if (!$result  || (int)$lastID === 0) {
+    if (!$result  || (int)$lastID === 0) {
+        $error = 1;
+        $error_text = "Ошибка добавления пункта меню: " .  mysqli_error($conn);
+    } else {
+        $log->add($conn, $userID, 'Добавлен пункт меню: ' . $title);
+    }
+}
+else{
     $error = 1;
-    $error_text = "Ошибка добавления пункта меню: " .  mysqli_error($conn);
-} else {
-    $log->add($conn, $userID, 'Добавлен пункт меню: ' . $title);
+    $error_text = "Ошибка при добавлении пункта меню: такое название уже существует";
 }
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/answer.php';

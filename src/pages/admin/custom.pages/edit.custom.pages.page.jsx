@@ -32,7 +32,6 @@ const EditCustomPagesPage = () => {
 
     const [popup, setPopup] = React.useState(<></>);
 
-
     const store = useCustomPagesStore();
     const menuStore = useMenuStore;
 
@@ -51,10 +50,36 @@ const EditCustomPagesPage = () => {
             if (!data || (isArray(data) && data.length === 0)) {
                 setValue("title", menu.title);
                 setValue("url", GenerateUrl(menu.title));
+                setValue("content", "");
             } else {
-                setValue("editor", store.item.content);
-                setValue("title", store.item.title);
-                setValue("url", GenerateUrl(store.item.title));
+                setValue("content", data.content);
+                setValue("title", data.title);
+                setValue("url", GenerateUrl(data.title));
+
+                data.files.map((item) => {
+                    switch (item.type) {
+                        case "photo":
+                            photo.value.push({
+                                id: window.global.makeid(12),
+                                url: item.url
+                            })
+                            break;
+
+                        case "video":
+                            video.value.push({
+                                id: window.global.makeid(12),
+                                url: item.url
+                            })
+                            break;
+
+                        case "file":
+                            files.value.push({
+                                id: window.global.makeid(12),
+                                url: item.url
+                            })
+                            break;
+                    }
+                })
             }
         };
 
@@ -88,23 +113,24 @@ const EditCustomPagesPage = () => {
         if (!checkForComplete(sendObject)) return;
 
         sendObject["id"] = id;
+        sendObject["photo"] = photo.value.filter((item) => item.url).map(item => item.url);
+        sendObject["video"] = video.value.filter((item) => item.url).map(item => item.url);
+        sendObject["files"] = files.value.filter((item) => item.url).map(item => item.url);
 
-        console.log(video.value);
-        console.log(sendObject);
+        const response = await store.edit(sendObject);
+        console.log(response);
 
-        return;
-
-        await store.edit(sendObject);
-
-        if (!store.error.value) {
+        if (response.error === 0) {
             setPopup(
                 <AlertPopup
                     title=''
-                    text={"Пункт меню успешно отредактирован"}
+                    text={"Страница успешно отредактирована"}
                     opened={true}
                     onClose={async () => {
+                        photo.value = [];
+                        video.value = [];
+                        files.value = [];
                         back();
-                        await getMenuList();
                     }}
                 />
             );
@@ -112,7 +138,7 @@ const EditCustomPagesPage = () => {
             setPopup(
                 <AlertPopup
                     title='Ошибка'
-                    text={store.error.value}
+                    text={response.error_text}
                     opened={true}
                     onClose={() => {
                         setPopup(<></>);
@@ -151,9 +177,12 @@ const EditCustomPagesPage = () => {
                                     setPopup(
                                         <AlertPopup
                                             title=''
-                                            text={"Пункт меню удален"}
+                                            text={"Страница и пункт меню удалены"}
                                             opened={true}
                                             onClose={async () => {
+                                                photo.value = [];
+                                                video.value = [];
+                                                files.value = [];
                                                 back();
                                                 await getMenuList();
                                             }}
@@ -209,7 +238,7 @@ const EditCustomPagesPage = () => {
                                     {...register("url")}
                                 />
                                 <p className='admin-form__subtitle'>Содержание страницы</p>
-                                <Editor control={control} name='editor' minHeight={250} buttons={{ link: true }} />
+                                <Editor control={control} name='content' minHeight={250} buttons={{ link: true }} />
                             </fieldset>
                         </div>
                     </Tab>
