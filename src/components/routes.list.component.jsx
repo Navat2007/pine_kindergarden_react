@@ -84,7 +84,6 @@ const RoutesList = () => {
                 {
                     menu.map(item =>
                         <Route
-                            exact={true}
                             key={item.title}
                             path={GenerateUrl(item.title)}
                             element={<CustomPage id={item.ID}/>}

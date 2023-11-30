@@ -1,0 +1,55 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.custom-iframe {
+    @include box(100%);
+    border: none;
+    transition:
+        transform 0.35s,
+        box-shadow 0.35s;
+
+    &:hover {
+        transform: translate3d(0, -5px, 0);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--main-text-color);
+    }
+
+    &_holder_link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+
+        background-color: var(--dark-grey-color);
+        text-decoration: none;
+        color: inherit;
+
+        padding: min(3vmax, 1.875em);
+    }
+
+    &_holder_pharagraph {
+        pointer-events: none;
+    }
+
+    &__icon {
+        width: 25%;
+        svg {
+            @include box(100%);
+        }
+    }
+
+    &__name {
+        font-weight: 500;
+        margin: 0;
+        word-break: break-all;
+        @include clamp(3, 1);
+    }
+}
