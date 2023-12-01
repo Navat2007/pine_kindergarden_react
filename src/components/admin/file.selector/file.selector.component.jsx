@@ -7,7 +7,7 @@ import AlertPopup from "../../general/alert.popup/alert.popup";
 import Popup from "../../general/popup/popup.component";
 
 import "./file.selector.scss";
-import { AdminIcons, FileIcons } from "../../svgs.js";
+import {AdminIcons, FileIcons} from "../../svgs.js";
 
 const FileSelector = ({
     orientation,
@@ -129,13 +129,11 @@ const FileSelector = ({
         let errorFiles = [];
 
         async function readFileAsDataURL(file) {
-            let result_base64 = await new Promise((resolve) => {
+            return await new Promise((resolve) => {
                 let fileReader = new FileReader();
                 fileReader.onload = (e) => resolve(fileReader.result);
                 fileReader.readAsDataURL(file);
             });
-
-            return result_base64;
         }
 
         let tmp_array = [];

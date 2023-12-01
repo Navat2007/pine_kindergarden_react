@@ -239,8 +239,6 @@ const Table = ({
                     if (itemValue[prop]) return itemValue[prop] === filterValue[prop];
                     else return false;
             }
-
-            return false;
         }
 
         setSorted([]);

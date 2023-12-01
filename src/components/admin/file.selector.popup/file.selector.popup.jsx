@@ -11,7 +11,7 @@ import Popup from "../../general/popup/popup.component";
 import AlertPopup from "../../general/alert.popup/alert.popup";
 
 import "./file.selector.popup.scss";
-import { AdminIcons, FileIcons } from "../../svgs";
+import {AdminIcons, FileIcons} from "../../svgs";
 
 const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, accept = "*.*", maxFileSize = 5 }) => {
     const store = useMediaFilesStore();
@@ -126,13 +126,11 @@ const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, acce
         };
 
         async function readFileAsDataURL(file) {
-            let result_base64 = await new Promise((resolve) => {
+            return await new Promise((resolve) => {
                 let fileReader = new FileReader();
                 fileReader.onload = (e) => resolve(fileReader.result);
                 fileReader.readAsDataURL(file);
             });
-
-            return result_base64;
         }
 
         let errorFiles = [];
@@ -284,8 +282,6 @@ const FileSelectorPopup = ({ onFileSelected = () => {}, onClose = () => {}, acce
                     if (itemValue[prop]) return itemValue[prop] === filterValue[prop];
                     else return false;
             }
-
-            return false;
         }
 
         setSorted([]);
