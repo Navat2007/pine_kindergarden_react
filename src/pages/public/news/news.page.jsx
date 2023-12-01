@@ -55,7 +55,7 @@ const NewsPage = () => {
                 transition={{ delay: 0.2, duration: 1 }}
             >
                 <h1 className='article__title'>{store?.item?.title}</h1>
-                <time dateTime={store?.item?.date} className='article__subtitle'>
+                <time dateTime={store?.item?.date} className='article__caption'>
                     {moment(store?.item?.date).format("DD.MM.YYYY")}
                 </time>
                 {

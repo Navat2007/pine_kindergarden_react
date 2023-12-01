@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import {userStore} from "../../../store/userStore";
 
-import Button from "../../../components/general/button/button.component";
+// import Button from "../../../components/public/button/button.component.jsx";
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Popup from "../../../components/general/popup/popup.component";
 import FieldInput from "../../../components/general/field/field.input.component";
@@ -109,9 +109,9 @@ const ProfilePage = () => {
                         />
                     </fieldset>
                     <div className='form__controls'>
-                        <Button type='submit' spinnerActive={sending} style={{ marginLeft: "auto", display: "block" }}>
+                        {/* <Button type='submit' spinnerActive={sending} style={{ marginLeft: "auto", display: "block" }}>
                             Отправить
-                        </Button>
+                        </Button> */}
                     </div>
                 </form>
             </Popup>
@@ -126,7 +126,7 @@ const ProfilePage = () => {
                 onClose={() => setPopup(<></>)}
                 buttons={
                     <>
-                        <Button theme='text' onClick={() => setPopup(<></>)}>
+                        {/* <Button theme='text' onClick={() => setPopup(<></>)}>
                             Нет
                         </Button>
                         <Button
@@ -137,7 +137,7 @@ const ProfilePage = () => {
                             }}
                         >
                             Да
-                        </Button>
+                        </Button> */}
                     </>
                 }
             />
@@ -165,7 +165,7 @@ const ProfilePage = () => {
                     <div className={"commonStyles.profile_img_panel"}>
                         {user?.photo !== "" && (
                             <>
-                                <Button
+                                {/* <Button
                                     type='button'
                                     size='small'
                                     theme='text'
@@ -184,22 +184,10 @@ const ProfilePage = () => {
                                     iconClass='mdi mdi-delete'
                                     aria-label='Удалить фото'
                                     onClick={onDeleteBtnClick}
-                                />
+                                /> */}
                             </>
                         )}
-                        {user?.photo === "" && (
-                            <Button
-                                type='button'
-                                size='small'
-                                theme='text'
-                                isIconBtn={true}
-                                iconClass='mdi mdi-plus-circle'
-                                aria-label='Добавить фото'
-                                onClick={(e) => {
-                                    document.getElementById("img-profile").click();
-                                }}
-                            />
-                        )}
+
                     </div>
                     <input
                         className={"commonStyles.profile_img_input"}
@@ -223,14 +211,14 @@ const ProfilePage = () => {
                             </li>
                         )}
                     </ul>
-                    <Button
+                    {/* <Button
                         theme='outline'
                         type='button'
                         extraClass={"commonStyles.profile_edit_btn"}
                         onClick={onEditBtnClick}
                     >
                         Редактировать
-                    </Button>
+                    </Button> */}
                 </div>
                 <ul className={"commonStyles.profile_row " + ` ` + "commonStyles.profile_table"}>
                     {phone && (

@@ -12,8 +12,8 @@ import Construction from "../../../components/public/cunstruction/construction";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import VideoGallery from "../../../components/general/video.gallery/video.gallery";
-import Button from "../../../components/general/button/button.component";
 import Breadcrumbs from "../../../components/public/breadcrumbs/breadcrumbs";
+import { FileIcons } from "../../../components/svgs";
 
 const CustomPage = ({ id }) => {
     const location = useLocation();
@@ -76,20 +76,21 @@ const CustomPage = ({ id }) => {
                         }}
                     />
                     {photo.value.length > 0 && (
-                        <div className='article__gap'>
+                        <div className='article__section'>
                             <h2 className='article__subtitle'>Галерея</h2>
                             <ImageGallery extraClass={"article__gallery"} items={photo.value} />
                         </div>
                     )}
                     {video.value.length > 0 && (
-                        <div className='article__gap'>
+                        <div className='article__section'>
                             <h2 className='article__subtitle'>Видео</h2>
                             <VideoGallery items={video.value} />
                         </div>
                     )}
                     {files.value.length > 0 && (
-                        <>
-                            <ul>
+                        <div className='article__section'>
+                            <h2 className='article__subtitle'>Документы</h2>
+                            <ul className='article__files'>
                                 {files.value.map((file) => (
                                     <li key={window.global.makeid(6)}>
                                         <a
@@ -100,20 +101,18 @@ const CustomPage = ({ id }) => {
                                             }
                                             target={"_blank"}
                                             rel='noreferrer noopener nofollow'
+                                            className='article__file-link'
                                         >
+                                            {FileIcons.pdf}
                                             {file.title ? file.title : file.url}
                                         </a>
                                     </li>
                                 ))}
                             </ul>
-                            <Button
-                                type='button'
-                                theme={"info_outline"}
-                                style={{ alignSelf: "flex-start", marginTop: "1em" }}
-                                text={"Скачать все файлы"}
-                                onClick={() => {}}
-                            />
-                        </>
+                            <button type='button' className='article__button'>
+                                Скачать все файлы
+                            </button>
+                        </div>
                     )}
                 </motion.section>
             ) : (

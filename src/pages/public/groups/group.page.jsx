@@ -66,7 +66,7 @@ const GroupPage = () => {
                             />
                             <div>
                                 <h1 className='article__title'>{store.item.title}</h1>
-                                <p className='article__subtitle'>{store.item.preview}</p>
+                                <p className='article__caption'>{store.item.preview}</p>
                                 <div
                                     className='article__main-content'
                                     dangerouslySetInnerHTML={{
