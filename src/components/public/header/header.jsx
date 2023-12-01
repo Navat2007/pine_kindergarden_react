@@ -83,6 +83,11 @@ const Header = () => {
         };
         window.addEventListener("scroll", stickyHeaderEvent);
         window.addEventListener("resize", checkMenuSize);
+
+        return () => {
+            window.removeEventListener("scroll", stickyHeaderEvent);
+            window.removeEventListener("resize", checkMenuSize);
+        }
     }, []);
 
     useSignalEffect(() => {
