@@ -1,20 +1,26 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { GenerateUrl } from "../../../utils/generateUrl";
+import {signal} from "@preact/signals-react";
 import classNames from "classnames";
+
+import useWindowSize from "../../../hook/useWindowSize";
+import useOnClickOutside from "../../../hook/onClickOutside";
 
 import { menuStore } from "../../../store/public/menuStore";
 
-import useOnClickOutside from "../../../hook/onClickOutside";
-import Logo from "../logo/logo";
-import { AdminIcons } from "../../svgs";
+import DropdownMenu from "./drop.down.menu";
 
+import Logo from "../logo/logo";
 import "./header.scss";
-import {computed, signal, useSignalEffect} from "@preact/signals-react";
+
+const menuItems = signal([]);
+const menuMobileItems = signal([]);
+const mobileMenuItemsWidths = signal([]);
 
 const Header = () => {
     const location = useLocation();
+    const [width, height] = useWindowSize();
 
     const node = React.useRef();
     const button = React.useRef();
@@ -23,56 +29,20 @@ const Header = () => {
     const mobileMenuList = React.useRef();
     const stickyHeader = React.useRef();
 
-    const menuItems = signal([])
-    const menuMobileItems = signal([])
-
-    const numberOfItems = signal(0);
-    const totalSpace = signal(0);
-    const breakWidths = signal([]);
-    const availableSpace = signal(0);
-    const numOfVisibleItems = signal(0);
-    const requiredSpace = signal(0);
-
-    const isBurgerOpened = signal(false);
-
-    function checkMenuSize() {
-        availableSpace = menuList.current.getBoundingClientRect().width;
-        numOfVisibleItems = menuList.current.children.length;
-        requiredSpace = breakWidths[numOfVisibleItems - 1];
-
-        if (requiredSpace > availableSpace) {
-            menuMobileItems.value.unshift(menuItems.value.pop());
-            numOfVisibleItems -= 1;
-            checkMenuSize();
-        } else if (availableSpace > breakWidths[numOfVisibleItems]) {
-            menuItems.value.push(menuMobileItems.value.shift());
-            numOfVisibleItems += 1;
-        }
-
-        // mobileMenu.current.setAttribute("count", numberOfItems - numOfVisibleItems);
-        // if (numOfVisibleItems === numberOfItems) mobileMenu.current.classList.add("visually-hidden");
-        // else mobileMenu.current.classList.remove("visually-hidden");
-    }
+    const [burgerOpened, setBurgerOpened] = React.useState(false);
 
     useOnClickOutside([node, button], (e) => {
-        if (isBurgerOpened.value) {
-            console.log("outside");
-            isBurgerOpened.value = !isBurgerOpened.value;
+        if (burgerOpened) {
+            setBurgerOpened(!burgerOpened);
         }
     });
 
     React.useLayoutEffect(() => {
-        isBurgerOpened.value = false;
+        setBurgerOpened(false);
     }, [location]);
 
     React.useEffect(() => {
         let fixedTop = stickyHeader.current.offsetTop;
-
-        Array.from(menuList.current.children).map((children) => {
-            totalSpace.value += children.getBoundingClientRect().width;
-            numberOfItems.value += 1;
-            breakWidths.value.push(totalSpace);
-        });
 
         const stickyHeaderEvent = () => {
             if (window.pageYOffset > fixedTop) {
@@ -81,79 +51,41 @@ const Header = () => {
                 stickyHeader.current.classList.remove("header_sticky");
             }
         };
+
         window.addEventListener("scroll", stickyHeaderEvent);
-        window.addEventListener("resize", checkMenuSize);
 
         return () => {
             window.removeEventListener("scroll", stickyHeaderEvent);
-            window.removeEventListener("resize", checkMenuSize);
         }
     }, []);
 
-    useSignalEffect(() => {
-        menuItems.value = menuStore.value.sorted;
+    React.useEffect(() => {
+        let offset = 40;
+        let availableSpace = menuList.current.getBoundingClientRect().width;
+        let requiredSpace = Object.values(menuList.current.childNodes).reduce((total, children) => total + children.offsetWidth, 0) + offset;
 
-    }, [menuStore]);
+        if(requiredSpace > availableSpace){
+            for (let i = menuList.current.childNodes.length - 1; i >= 0; i--) {
+                const elementWidth = menuList.current.childNodes[i].offsetWidth;
 
-    const getMenuLink = (menu) => {
-        if (menu.custom_page === 1) {
-            return GenerateUrl(menu.title);
-        } else if (menu.page === 1 && menu.custom_page === 0) {
-            return menu.url;
-        } else {
-            return "";
+                menuMobileItems.value.unshift(menuItems.value.pop());
+                mobileMenuItemsWidths.value.unshift(elementWidth);
+
+                requiredSpace -= elementWidth;
+
+                if(availableSpace > requiredSpace)
+                    break;
+            }
         }
-    };
+        else if(mobileMenuItemsWidths.value.length > 0 && availableSpace > mobileMenuItemsWidths.value[0] + requiredSpace){
+            menuItems.value.push(menuMobileItems.value.shift());
+            mobileMenuItemsWidths.value.shift();
+        }
+    }, [width])
 
-    function DropdownMenu({ items }) {
-        if (!items) return null;
-
-        return items.map((item) => {
-            if (item.submenu?.length > 0) return <DropdownItem key={item.title} item={item} items={item.submenu} />;
-
-            return <MenuItem key={item.title} item={item} />;
-        });
-    }
-
-    function MenuItem({ item }) {
-        let className = ["header__menu-link"];
-
-        return (
-            <li>
-                {item.page === 2 ? (
-                    <a href={item.url} target={"_blank"} className={className.join(" ")}>
-                        {item.title}
-                    </a>
-                ) : (
-                    <NavLink
-                        to={getMenuLink(item)}
-                        className={({ isActive }) => {
-                            if (isActive) className.push("header__menu-link_active");
-                            return className.join(" ");
-                        }}
-                    >
-                        {item.title}
-                    </NavLink>
-                )}
-            </li>
-        );
-    }
-
-    function DropdownItem({ item, items }) {
-        return (
-            <li className='header__submenu'>
-                <button className='header__submenu-button' type='button' aria-label='Развернуть список'>
-                    <span className='header__submenu-button-text'>{item.title}</span>
-                    <span className='header__submenu-button-icon'>{AdminIcons.chevron_down}</span>
-                </button>
-                <div className='header__submenu-list-container'>
-                    <ul className='header__submenu-list'>
-                        <DropdownMenu items={items} />
-                    </ul>
-                </div>
-            </li>
-        );
-    }
+    React.useEffect(() => {
+        menuItems.value = menuStore.value.sorted;
+    }, [menuStore.value]);
 
     return (
         <motion.header
@@ -173,7 +105,7 @@ const Header = () => {
                     <div
                         className={classNames({
                             "header__mobile-menu": true,
-                            "header__mobile-menu_opened": isBurgerOpened.value,
+                            "header__mobile-menu_opened": burgerOpened,
                         })}
                         ref={mobileMenu}
                     >
@@ -183,8 +115,7 @@ const Header = () => {
                             className='header__mobile-button'
                             aria-label='Свернуть/Развернуть меню'
                             onClick={() => {
-                                isBurgerOpened.value = !isBurgerOpened.value;
-                                console.log(isBurgerOpened.value);
+                                setBurgerOpened(!burgerOpened);
                             }}
                         >
                             <div></div>
