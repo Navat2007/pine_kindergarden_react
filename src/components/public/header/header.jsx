@@ -1,15 +1,14 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import { GenerateUrl } from "../../../utils/generateUrl";
+import {NavLink, useLocation} from "react-router-dom";
+import {motion} from "framer-motion";
+import {GenerateUrl} from "../../../utils/generateUrl";
 import classNames from "classnames";
 
-import { menuStore } from "../../../store/public/menuStore";
+import {menuStore} from "../../../store/public/menuStore";
 
-import OverflowMenuWrapper from "../overflow.menu.wrapper/overflow.menu.wrapper";
 import useOnClickOutside from "../../../hook/onClickOutside";
 import Logo from "../logo/logo";
-import { AdminIcons } from "../../svgs";
+import {AdminIcons} from "../../svgs";
 
 import "./header.scss";
 import "./menu.scss";
@@ -19,6 +18,9 @@ const Header = () => {
     const node = React.useRef();
     const button = React.useRef();
     const location = useLocation();
+    const menuList = React.useRef();
+    const mobileMenu = React.useRef();
+    const mobileMenuList = React.useRef();
     const stickyHeader = React.useRef();
     const [burgerOpened, setBurgerOpened] = React.useState(false);
 
@@ -34,7 +36,54 @@ const Header = () => {
 
     React.useLayoutEffect(() => {
         const header = document.querySelector(".header");
+
         let fixedTop = stickyHeader.current.offsetTop;
+        let numberOfItems = 0;
+        let totalSpace = 0;
+        let breakWidths = [];
+        let availableSpace, numOfVisibleItems, requiredSpace;
+
+        Array.from(menuList.current.children).map((children) => {
+            totalSpace += children.getBoundingClientRect().width;
+            numberOfItems += 1;
+            breakWidths.push(totalSpace);
+        });
+
+        function checkMenuSize() {
+            // Get instant state
+            availableSpace = menuList.current.getBoundingClientRect().width;
+            numOfVisibleItems = menuList.current.children.length;
+            requiredSpace = breakWidths[numOfVisibleItems - 1];
+
+            // There is not enought space
+            if (requiredSpace > availableSpace) {
+                mobileMenuList.current.prepend(menuList.current.children[menuList.current.children.length - 1]);
+                mobileMenuList.current.firstElementChild
+                    .querySelector('a')
+                    .classList.remove('header__menu-link');
+                mobileMenuList.current.firstElementChild
+                    .querySelector('a')
+                    .classList.add('header__drop-down-menu-link');
+                numOfVisibleItems -= 1;
+                checkMenuSize();
+                // There is more than enough space
+            } else if (availableSpace > breakWidths[numOfVisibleItems]) {
+                menuList.current.append(mobileMenuList.current.children[0]);
+                menuList.current.lastElementChild
+                    .querySelector('a')
+                    .classList.remove('header__drop-down-menu-link');
+                menuList.current.lastElementChild
+                    .querySelector('a')
+                    .classList.add('header__menu-link');
+                numOfVisibleItems += 1;
+            }
+
+            // Update the button accordingly
+            mobileMenu.current.setAttribute('count', numberOfItems - numOfVisibleItems);
+            if (numOfVisibleItems === numberOfItems)
+                mobileMenu.current.classList.add('visually-hidden');
+            else mobileMenu.current.classList.remove('visually-hidden');
+        }
 
         const stickyHeaderEvent = () => {
             if (window.pageYOffset > fixedTop) {
@@ -44,6 +93,8 @@ const Header = () => {
             }
         };
         window.addEventListener("scroll", stickyHeaderEvent);
+        window.addEventListener('resize', checkMenuSize);
+        window.addEventListener('DOMContentLoaded', checkMenuSize);
     }, []);
 
     const getMenuLink = (menu) => {
@@ -56,17 +107,18 @@ const Header = () => {
         }
     };
 
-    function DropdownMenu({ items }) {
+    function DropdownMenu({items}) {
         if (!items) return null;
 
         return items.map((item) => {
-            if (item.submenu?.length > 0) return <DropdownItem key={item.title} item={item} items={item.submenu} />;
+            if (item.submenu?.length > 0)
+                return <DropdownItem key={item.title} item={item} items={item.submenu}/>;
 
-            return <MenuItem key={item.title} item={item} />;
+            return <MenuItem key={item.title} item={item}/>;
         });
     }
 
-    function MenuItem({ item }) {
+    function MenuItem({item}) {
         let className = ["menu__link"];
 
         return (
@@ -78,7 +130,7 @@ const Header = () => {
                 ) : (
                     <NavLink
                         to={getMenuLink(item)}
-                        className={({ isActive }) => {
+                        className={({isActive}) => {
                             if (isActive) className.push("menu__link_active");
                             return className.join(" ");
                         }}
@@ -90,7 +142,7 @@ const Header = () => {
         );
     }
 
-    function DropdownItem({ item, items }) {
+    function DropdownItem({item, items}) {
         return (
             <li className='submenu'>
                 <button className='submenu__button' type='button' aria-label='Развернуть список'>
@@ -98,7 +150,7 @@ const Header = () => {
                     <span className='submenu__button-icon'>{AdminIcons.chevron_down}</span>
                 </button>
                 <ul className='submenu__list'>
-                    <DropdownMenu items={items} />
+                    <DropdownMenu items={items}/>
                 </ul>
             </li>
         );
@@ -108,23 +160,23 @@ const Header = () => {
         <motion.header
             ref={stickyHeader}
             className='header'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: 0.2, duration: 1 }}
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{delay: 0.2, duration: 1}}
         >
             <div className='header__inner'>
-                <Logo extraClass={"header__logo"} />
+                <Logo extraClass={"header__logo"}/>
                 <menu
                     className={classNames({
                         menu: true,
                         menu_opened: burgerOpened,
                     })}
                 >
-                    <OverflowMenuWrapper>
-                        {menuStore.value?.sorted?.length > 0 && <DropdownMenu items={menuStore.value.sorted} />}
-                    </OverflowMenuWrapper>
-                    <div className='header__drop-down-menu'>
+                    <ul className={`menu__list`} ref={menuList}>
+                        {menuStore.value?.sorted?.length > 0 && <DropdownMenu items={menuStore.value.sorted}/>}
+                    </ul>
+                    <div className='header__drop-down-menu' ref={mobileMenu}>
                         <button
                             ref={button}
                             type='button'
@@ -140,21 +192,10 @@ const Header = () => {
                             <div></div>
                         </button>
                         <div className='header__drop-down-menu-container'>
-                            <ul className='header__drop-down-menu-list'></ul>
+                            <ul className='header__drop-down-menu-list' ref={mobileMenuList}></ul>
                         </div>
                     </div>
                 </menu>
-                {/* <nav
-                    className={classNames({
-                        menu: true,
-                        menu_opened: burgerOpened,
-                    })}
-                > */}
-                {/* <Logo extraClass={"header__logo header__logo_place_menu"} /> */}
-                {/* <OverflowMenuWrapper>
-                        {menuStore.value?.sorted?.length > 0 && <DropdownMenu items={menuStore.value.sorted} />}
-                    </OverflowMenuWrapper> */}
-                {/* </nav> */}
             </div>
         </motion.header>
     );
@@ -224,4 +265,5 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-*/}
+*/
+}

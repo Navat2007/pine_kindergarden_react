@@ -13,6 +13,7 @@ $url = mysqli_real_escape_string($conn, htmlspecialchars($_POST["url"]));
 $parentID = mysqli_real_escape_string($conn, htmlspecialchars($_POST["parentID"]));
 $page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["page"]));
 $custom_page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["custom_page"]));
+$external = mysqli_real_escape_string($conn, htmlspecialchars($_POST["external"]));
 
 function CheckTitle(): bool{
     global $conn, $sqls, $id, $title, $custom_page;
@@ -43,6 +44,7 @@ if(CheckTitle()){
             parentID = '$parentID', 
             page = '$page', 
             custom_page = '$custom_page', 
+            external = '$external', 
             last_userID = '$userID'
         WHERE 
             ID = '$id'";

@@ -82,6 +82,12 @@ const EditMenuPage = () => {
             sendObject["custom_page"] = 0;
             sendObject["url"] = "";
         }
+        else if(data.type === "Внешняя ссылка") {
+            sendObject["page"] = 1;
+            sendObject["custom_page"] = 1;
+            sendObject["external"] = 1;
+            sendObject["url"] = getValues("url");
+        }
         else {
             sendObject["page"] = 1;
             sendObject["custom_page"] = 0;
@@ -233,6 +239,7 @@ const EditMenuPage = () => {
                             defaultSelectItem={null}
                             flatOptions={<>
                                 <option value="Пользовательская страница">Пользовательская страница</option>
+                                <option value="Внешняя ссылка">Внешняя ссылка</option>
                                 <option value="Содержит подменю">Содержит подменю</option>
                                 <optgroup label=""/>
                                 <optgroup label="Системные страницы">

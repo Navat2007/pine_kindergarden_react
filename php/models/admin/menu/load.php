@@ -34,6 +34,7 @@ if (mysqli_num_rows($result) > 0) {
             'parentID' => (int)$row->parentID,
             'sorting' => (int)$row->sorting,
             'custom_page' => (int)$row->custom_page,
+            'external' => (int)$row->external,
             'page' => (int)$row->page,
             'title' => htmlspecialchars_decode($row->title),
             'url' => htmlspecialchars_decode($row->url),
