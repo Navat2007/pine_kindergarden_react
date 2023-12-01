@@ -112,9 +112,5 @@
                 }
             }
         }
-
-        @include media(md) {
-            display: none;
-        }
     }
 }

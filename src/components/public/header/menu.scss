@@ -51,6 +51,7 @@
     &__list {
         @extend %reset-list;
         flex: auto;
+        // overflow: hidden;
 
         display: flex;
         flex-direction: column;
@@ -60,29 +61,14 @@
         }
 
         @include media(md) {
-            flex-wrap: wrap;
+            // flex-wrap: wrap;
             align-items: center;
             flex-direction: row;
-            justify-content: center;
+            // justify-content: center;
         }
-    }
 
-    &__item {
-        // &_has-submenu {}
-
-        &_more-menu {
-            @include media(md, max) {
-                & > .submenu__button {
-                    display: none;
-                }
-            }
-
-            @include media(md) {
-                & > .submenu__list {
-                    max-block-size: 90vh;
-                    overflow: auto;
-                }
-            }
+        li {
+            flex: none;
         }
     }
 

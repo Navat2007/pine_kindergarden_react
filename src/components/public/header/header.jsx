@@ -1,15 +1,15 @@
 import React from "react";
-import {NavLink, useLocation} from "react-router-dom";
-import {motion} from "framer-motion";
-import {GenerateUrl} from "../../../utils/generateUrl";
+import { NavLink, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { GenerateUrl } from "../../../utils/generateUrl";
 import classNames from "classnames";
 
-import {menuStore} from "../../../store/public/menuStore";
+import { menuStore } from "../../../store/public/menuStore";
 
 import OverflowMenuWrapper from "../overflow.menu.wrapper/overflow.menu.wrapper";
 import useOnClickOutside from "../../../hook/onClickOutside";
 import Logo from "../logo/logo";
-import {AdminIcons} from "../../svgs";
+import { AdminIcons } from "../../svgs";
 
 import "./header.scss";
 import "./menu.scss";
@@ -54,33 +54,35 @@ const Header = () => {
         } else {
             return "";
         }
-    }
+    };
 
-    function DropdownMenu({items}) {
+    function DropdownMenu({ items }) {
         if (!items) return null;
 
         return items.map((item) => {
-            if (item.submenu?.length > 0)
-                return <DropdownItem key={item.title} item={item} items={item.submenu}/>;
+            if (item.submenu?.length > 0) return <DropdownItem key={item.title} item={item} items={item.submenu} />;
 
-            return <MenuItem key={item.title} item={item}/>;
+            return <MenuItem key={item.title} item={item} />;
         });
     }
 
-    function MenuItem({item}) {
+    function MenuItem({ item }) {
         let className = ["menu__link"];
 
         return (
-            <li className={"menu__item"}>
+            <li>
                 {item.page === 2 ? (
                     <a href={item.url} target={"_blank"} className={className.join(" ")}>
                         {item.title}
                     </a>
                 ) : (
-                    <NavLink to={getMenuLink(item)} className={({isActive}) => {
-                        if (isActive) className.push("menu__link_active");
-                        return className.join(" ");
-                    }}>
+                    <NavLink
+                        to={getMenuLink(item)}
+                        className={({ isActive }) => {
+                            if (isActive) className.push("menu__link_active");
+                            return className.join(" ");
+                        }}
+                    >
                         {item.title}
                     </NavLink>
                 )}
@@ -88,15 +90,15 @@ const Header = () => {
         );
     }
 
-    function DropdownItem({item, items}) {
+    function DropdownItem({ item, items }) {
         return (
-            <li className='menu__item menu__item_has-submenu submenu'>
+            <li className='submenu'>
                 <button className='submenu__button' type='button' aria-label='Развернуть список'>
                     <span className='submenu__button-text'>{item.title}</span>
                     <span className='submenu__button-icon'>{AdminIcons.chevron_down}</span>
                 </button>
                 <ul className='submenu__list'>
-                    <DropdownMenu items={items}/>
+                    <DropdownMenu items={items} />
                 </ul>
             </li>
         );
@@ -106,37 +108,53 @@ const Header = () => {
         <motion.header
             ref={stickyHeader}
             className='header'
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            exit={{opacity: 0}}
-            transition={{delay: 0.2, duration: 1}}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
         >
             <div className='header__inner'>
-                <Logo extraClass={"header__logo"}/>
-                <nav className={classNames({
-                    'menu': true,
-                    'menu_opened': burgerOpened
-                })}>
-                    <Logo extraClass={"header__logo header__logo_place_menu"}/>
-                    <OverflowMenuWrapper>
-                        {menuStore.value?.sorted?.length > 0
-                            && <DropdownMenu items={menuStore.value.sorted}/>}
-                    </OverflowMenuWrapper>
-                </nav>
-                <button
-                    ref={button}
-                    type='button'
+                <Logo extraClass={"header__logo"} />
+                <menu
                     className={classNames({
-                        'header__burger': true,
-                        'header__burger_opened': burgerOpened
+                        menu: true,
+                        menu_opened: burgerOpened,
                     })}
-                    aria-label='Свернуть/Развернуть меню'
-                    onClick={() => {
-                        setBurgerOpened(!burgerOpened);
-                    }}
                 >
-                    <div></div>
-                </button>
+                    <OverflowMenuWrapper>
+                        {menuStore.value?.sorted?.length > 0 && <DropdownMenu items={menuStore.value.sorted} />}
+                    </OverflowMenuWrapper>
+                    <div className='header__drop-down-menu'>
+                        <button
+                            ref={button}
+                            type='button'
+                            className={classNames({
+                                header__burger: true,
+                                header__burger_opened: burgerOpened,
+                            })}
+                            aria-label='Свернуть/Развернуть меню'
+                            onClick={() => {
+                                setBurgerOpened(!burgerOpened);
+                            }}
+                        >
+                            <div></div>
+                        </button>
+                        <div className='header__drop-down-menu-container'>
+                            <ul className='header__drop-down-menu-list'></ul>
+                        </div>
+                    </div>
+                </menu>
+                {/* <nav
+                    className={classNames({
+                        menu: true,
+                        menu_opened: burgerOpened,
+                    })}
+                > */}
+                {/* <Logo extraClass={"header__logo header__logo_place_menu"} /> */}
+                {/* <OverflowMenuWrapper>
+                        {menuStore.value?.sorted?.length > 0 && <DropdownMenu items={menuStore.value.sorted} />}
+                    </OverflowMenuWrapper> */}
+                {/* </nav> */}
             </div>
         </motion.header>
     );
