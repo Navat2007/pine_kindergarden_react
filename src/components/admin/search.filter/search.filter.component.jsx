@@ -4,7 +4,7 @@ import moment from "moment";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Button from "../button/button.component";
-import MultiSelect from "../../general/multi_select/multi_select.component";
+import MultiSelect from "../multi_select/multi_select.component";
 import FieldSearch from "../field/field.search.component";
 import FieldText from "../field/field.text.component";
 import FieldNumber from "../field/field.number.component";

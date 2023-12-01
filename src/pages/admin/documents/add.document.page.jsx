@@ -6,7 +6,7 @@ import useDocumentsStore from "../../../store/admin/documentsStore";
 
 import AlertPopup from "../../../components/general/alert.popup/alert.popup";
 import Button from "../../../components/admin/button/button.component";
-import ImageSelector from "../../../components/general/image.selector/image.selector.component";
+import ImageSelector from "../../../components/admin/image.selector/image.selector.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldText from "../../../components/admin/field/field.text.component";
 import FieldUrl from "../../../components/admin/field/field.url.component";

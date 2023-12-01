@@ -1,25 +1,27 @@
 import React from "react";
 import axios from "axios";
 
-import Button from "../../admin/button/button.component";
-import FieldTextarea from "../../admin/field/field.textarea.component";
-import AlertPopup from "../alert.popup/alert.popup";
-import Popup from "../popup/popup.component";
-
-import "./file.selector.scss";
+import Button from "../button/button.component";
+import FieldInput from "../field/field.text.component";
+import AlertPopup from "../../general/alert.popup/alert.popup";
+import Popup from "../../general/popup/popup.component";
+import "./image.selector.scss";
 import { AdminIcons, FileIcons } from "../../svgs.js";
+import FieldTextarea from "../field/field.textarea.component";
 
-const FileSelector = ({
-    orientation,
+const ImageSelector = ({
     items,
+    extraClass,
+    orientation = "landscape",
     multiFiles,
-    withDescription,
     onlyOneFile,
+    accept = "image/*",
+    withLinks,
+    withDescription,
     maxFileSize = 5,
-    accept = "*.*",
     onChange,
-    onError,
     onDelete,
+    onError,
 }) => {
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
@@ -31,20 +33,12 @@ const FileSelector = ({
     const inputFileRef = React.createRef();
 
     React.useEffect(() => {
-        setPhoto(items);
-    }, []);
-
-    React.useEffect(() => {
         onChange(photo);
     }, [photo]);
 
-    function getFileType(file) {
-        if (file.type.match("image/*")) return "image";
-
-        if (file.type.match("application/pdf")) return "pdf";
-
-        return "file";
-    }
+    React.useEffect(() => {
+        setPhoto(items);
+    }, []);
 
     function getOrderIndex(array, tmpArray) {
         let index = 0;
@@ -108,12 +102,12 @@ const FileSelector = ({
             .catch((err) => {
                 //console.log(err);
 
-                if (onError) onError("Не удалось загрузить файл по ссылке");
+                if (onError) onError("Не удалось загрузить изображение по ссылке");
                 else
                     setNotif(
                         <AlertPopup
                             title='Ошибка!'
-                            text={"Не удалось загрузить файл по ссылке"}
+                            text={"Не удалось загрузить изображение по ссылке"}
                             opened={true}
                             onClose={() => {
                                 setNotif(<></>);
@@ -125,7 +119,7 @@ const FileSelector = ({
             });
     };
 
-    const handleAddFile = async (e) => {
+    const handleAddFilePhoto = async (e) => {
         let errorFiles = [];
 
         async function readFileAsDataURL(file) {
@@ -167,8 +161,6 @@ const FileSelector = ({
                 file: file,
                 isFile: 1,
                 isLoaded: 0,
-                title: file.name,
-                type: getFileType(file),
                 order: onlyOneFile ? 1 : getOrderIndex(photo, tmp_array),
             });
 
@@ -183,16 +175,16 @@ const FileSelector = ({
         if (errorFiles.length > 0) {
             setNotif(
                 <Popup opened={true} onClose={() => setNotif(<></>)} title={"Ошибка загрузки файлов"}>
-                    <div className='admin-file-alert'>
-                        <h3 className={`admin-file-alert__caption`}>
+                    <div className='admin-image-alert'>
+                        <h3 className={`admin-image-alert__caption`}>
                             {AdminIcons.error} Не удалось добавить следующие файлы:
                         </h3>
-                        <ol className={`admin-file-alert__list`}>
+                        <ol className={`admin-image-alert__list`}>
                             {errorFiles.map((error) => (
-                                <li className='admin-file-alert__item' key={error.title}>
-                                    <p className={`admin-file-alert__text`}>
+                                <li className='admin-image-alert__item' key={error.title}>
+                                    <p className={`admin-image-alert__text`}>
                                         {error.title}{" "}
-                                        <span className={`admin-file-alert__error-span`}>{error.text}</span>
+                                        <span className={`admin-image-alert__error-span`}>{error.text}</span>
                                     </p>
                                 </li>
                             ))}
@@ -215,6 +207,8 @@ const FileSelector = ({
     };
 
     const handleDeletePhoto = (itemElement) => {
+        //console.log(itemElement);
+
         if (itemElement.isLoaded === 1) {
             setNotif(
                 <AlertPopup
@@ -306,41 +300,61 @@ const FileSelector = ({
 
     return (
         <>
-            <ul className={`admin-file-selector`}>
+            <ul className={`admin-image-selector${extraClass ? ` ${extraClass}` : ``}`}>
                 {photo.map((item, index) =>
                     item.main ? (
                         <li
                             key={index}
-                            className={`admin-file-selector__item${
-                                orientation === "portrait" ? ` admin-file-selector__item_portrait` : ``
-                            }`}
+                            className={`admin-image-selector__item${
+                                orientation === "portrait" ? ` admin-image-selector__item_portrait` : ``
+                            }${extraClass ? ` ${extraClass}-item` : ``}`}
                         >
                             {getThumbsForGallery(item)}
-                            <div className={"admin-file-selector__item-panel"}>
+                            <div
+                                className={`admin-image-selector__item-panel${
+                                    extraClass ? ` ${extraClass}-item-panel` : ``
+                                }`}
+                            >
                                 <Button
                                     type='button'
                                     isIconBtn='true'
+                                    theme='white'
                                     iconName={AdminIcons.close}
                                     aria-label='Удалить'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            {photo.length > 1 && <p className={`admin-file-selector__title`}>1. Главная</p>}
+                            {photo.length > 1 && (
+                                <p className={`admin-image-selector__title${extraClass ? ` ${extraClass}-title` : ``}`}>
+                                    1. Главная
+                                </p>
+                            )}
                         </li>
                     ) : (
                         <li
                             key={index}
-                            className={`admin-file-selector__item${
-                                orientation === "portrait" ? ` admin-file-selector__item_portrait` : ``
-                            }`}
+                            className={`admin-image-selector__item${
+                                orientation === "portrait" ? ` admin-image-selector__item_portrait` : ``
+                            }${extraClass ? ` ${extraClass}-item` : ``}`}
                         >
                             {getThumbsForGallery(item)}
-                            <span className={`admin-file-selector__current-position`}>{item.order}</span>
-                            <div className={"admin-file-selector__item-panel"}>
+                            <span
+                                className={`admin-image-selector__current-position${
+                                    extraClass ? ` ${extraClass}-current-position` : ``
+                                }`}
+                            >
+                                {item.order}
+                            </span>
+                            <div
+                                className={`admin-image-selector__item-panel${
+                                    extraClass ? ` ${extraClass}-item-panel` : ``
+                                }`}
+                            >
                                 <Button
                                     type='button'
-                                    extraClass='admin-file-selector__button'
+                                    theme='white'
+                                    extraClass='admin-image-selector__button'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleMovePhoto(item.order, 1)}
                                 >
@@ -349,16 +363,18 @@ const FileSelector = ({
                                 <Button
                                     type='button'
                                     isIconBtn='true'
+                                    theme='white'
                                     iconName={AdminIcons.close}
                                     aria-label='Удалить'
                                     disabled={photoAddBtnDisabled}
                                     onClick={() => handleDeletePhoto(item)}
                                 />
                             </div>
-                            <div className={"admin-file-selector__thumbs"}>
+                            <div className={`admin-image-selector__thumbs${extraClass ? ` ${extraClass}-thumbs` : ``}`}>
                                 <Button
                                     type='button'
                                     isIconBtn='true'
+                                    theme='white'
                                     iconName={AdminIcons.chevron_left}
                                     aria-label='Назад'
                                     disabled={photoAddBtnDisabled}
@@ -367,6 +383,7 @@ const FileSelector = ({
                                 {index < photo.length - 1 && (
                                     <Button
                                         type='button'
+                                        theme='white'
                                         isIconBtn='true'
                                         iconName={AdminIcons.chevron_right}
                                         aria-label='Вперед'
@@ -380,12 +397,12 @@ const FileSelector = ({
                 )}
                 {(photo.length === 0 || !onlyOneFile) && (
                     <li
-                        className={`admin-file-selector__item admin-file-download-block${
-                            orientation === "portrait" ? ` admin-file-selector__item_portrait` : ``
+                        className={`admin-image-selector__download-block${
+                            extraClass ? ` ${extraClass}-download-block` : ``
                         }`}
                         onDrop={(e) => {
                             e.preventDefault();
-                            handleAddFile({
+                            handleAddFilePhoto({
                                 target: {
                                     files: e.dataTransfer.files,
                                 },
@@ -395,14 +412,24 @@ const FileSelector = ({
                             e.preventDefault();
                         }}
                     >
-                        <p className={"admin-file-download-block__text"}>
+                        <p
+                            className={`admin-image-selector__download-text${
+                                extraClass ? ` ${extraClass}-download-text` : ``
+                            }`}
+                        >
                             {onlyOneFile && "Ограничение на кол-во файлов: 1 файл"}
                             <br />
-                            <span>Ограничение на размер файлов: {maxFileSize} MB.</span>
+                            <span>Ограничение на размер изображения: {maxFileSize} MB.</span>
                             <br />
                             <br />
                             Начните загружать изображения простым перетаскиванием в любое место этого окна.
-                            <span className={"admin-file-download-block__span"}>или</span>
+                            <span
+                                className={`admin-image-selector__download-span${
+                                    extraClass ? ` ${extraClass}-download-span` : ``
+                                }`}
+                            >
+                                или
+                            </span>
                         </p>
                         <Button
                             type='button'
@@ -414,7 +441,7 @@ const FileSelector = ({
                         <input
                             ref={inputFileRef}
                             key={photoInputKey}
-                            onChange={handleAddFile}
+                            onChange={handleAddFilePhoto}
                             hidden={true}
                             type='file'
                             accept={accept}
@@ -423,9 +450,29 @@ const FileSelector = ({
                     </li>
                 )}
             </ul>
+            {withLinks && (
+                <div className={`admin-image-selector__group-block${extraClass ? ` ${extraClass}-group-block` : ``}`}>
+                    <FieldInput
+                        ref={inputRef}
+                        label={"Ссылка на фото"}
+                        type='url'
+                        placeholder='Введите url-адрес...'
+                        layout='flex'
+                    />
+                    <Button
+                        type='button'
+                        theme='text'
+                        iconName={AdminIcons.plus}
+                        isIconBtn='true'
+                        aria-label='Добавить поле'
+                        disabled={photoAddBtnDisabled}
+                        onClick={handleAddPhoto}
+                    />
+                </div>
+            )}
             {notif}
         </>
     );
 };
 
-export default FileSelector;
+export default ImageSelector;

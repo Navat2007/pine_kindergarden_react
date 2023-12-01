@@ -11,76 +11,84 @@ import Logo from "../logo/logo";
 import { AdminIcons } from "../../svgs";
 
 import "./header.scss";
+import {computed, signal, useSignalEffect} from "@preact/signals-react";
 
 const Header = () => {
+    const location = useLocation();
+
     const node = React.useRef();
     const button = React.useRef();
-    const location = useLocation();
     const menuList = React.useRef();
     const mobileMenu = React.useRef();
     const mobileMenuList = React.useRef();
     const stickyHeader = React.useRef();
-    const [burgerOpened, setBurgerOpened] = React.useState(false);
+
+    const menuItems = signal([])
+    const menuMobileItems = signal([])
+
+    const numberOfItems = signal(0);
+    const totalSpace = signal(0);
+    const breakWidths = signal([]);
+    const availableSpace = signal(0);
+    const numOfVisibleItems = signal(0);
+    const requiredSpace = signal(0);
+
+    const isBurgerOpened = signal(false);
+
+    function checkMenuSize() {
+        availableSpace = menuList.current.getBoundingClientRect().width;
+        numOfVisibleItems = menuList.current.children.length;
+        requiredSpace = breakWidths[numOfVisibleItems - 1];
+
+        if (requiredSpace > availableSpace) {
+            menuMobileItems.value.unshift(menuItems.value.pop());
+            numOfVisibleItems -= 1;
+            checkMenuSize();
+        } else if (availableSpace > breakWidths[numOfVisibleItems]) {
+            menuItems.value.push(menuMobileItems.value.shift());
+            numOfVisibleItems += 1;
+        }
+
+        // mobileMenu.current.setAttribute("count", numberOfItems - numOfVisibleItems);
+        // if (numOfVisibleItems === numberOfItems) mobileMenu.current.classList.add("visually-hidden");
+        // else mobileMenu.current.classList.remove("visually-hidden");
+    }
 
     useOnClickOutside([node, button], (e) => {
-        if (burgerOpened) {
-            setBurgerOpened(!burgerOpened);
+        if (isBurgerOpened.value) {
+            console.log("outside");
+            isBurgerOpened.value = !isBurgerOpened.value;
         }
     });
 
     React.useLayoutEffect(() => {
-        setBurgerOpened(false);
+        isBurgerOpened.value = false;
     }, [location]);
 
-    React.useLayoutEffect(() => {
-        const header = document.querySelector(".header");
-
+    React.useEffect(() => {
         let fixedTop = stickyHeader.current.offsetTop;
-        let numberOfItems = 0;
-        let totalSpace = 0;
-        let breakWidths = [];
-        let availableSpace, numOfVisibleItems, requiredSpace;
 
         Array.from(menuList.current.children).map((children) => {
-            totalSpace += children.getBoundingClientRect().width;
-            numberOfItems += 1;
-            breakWidths.push(totalSpace);
+            totalSpace.value += children.getBoundingClientRect().width;
+            numberOfItems.value += 1;
+            breakWidths.value.push(totalSpace);
         });
-
-        function checkMenuSize() {
-            // Get instant state
-            availableSpace = menuList.current.getBoundingClientRect().width;
-            numOfVisibleItems = menuList.current.children.length;
-            requiredSpace = breakWidths[numOfVisibleItems - 1];
-
-            // There is not enought space
-            if (requiredSpace > availableSpace) {
-                mobileMenuList.current.prepend(menuList.current.children[menuList.current.children.length - 1]);
-                numOfVisibleItems -= 1;
-                checkMenuSize();
-                // There is more than enough space
-            } else if (availableSpace > breakWidths[numOfVisibleItems]) {
-                menuList.current.append(mobileMenuList.current.children[0]);
-                numOfVisibleItems += 1;
-            }
-
-            // Update the button accordingly
-            mobileMenu.current.setAttribute("count", numberOfItems - numOfVisibleItems);
-            if (numOfVisibleItems === numberOfItems) mobileMenu.current.classList.add("visually-hidden");
-            else mobileMenu.current.classList.remove("visually-hidden");
-        }
 
         const stickyHeaderEvent = () => {
             if (window.pageYOffset > fixedTop) {
-                header.classList.add("header_sticky");
+                stickyHeader.current.classList.add("header_sticky");
             } else {
-                header.classList.remove("header_sticky");
+                stickyHeader.current.classList.remove("header_sticky");
             }
         };
         window.addEventListener("scroll", stickyHeaderEvent);
         window.addEventListener("resize", checkMenuSize);
-        // checkMenuSize();
     }, []);
+
+    useSignalEffect(() => {
+        menuItems.value = menuStore.value.sorted;
+
+    }, [menuStore]);
 
     const getMenuLink = (menu) => {
         if (menu.custom_page === 1) {
@@ -155,12 +163,12 @@ const Header = () => {
                 <Logo extraClass={"header__logo"} />
                 <menu className='header__menu'>
                     <ul className={`header__menu-list`} ref={menuList}>
-                        {menuStore.value?.sorted?.length > 0 && <DropdownMenu items={menuStore.value.sorted} />}
+                        <DropdownMenu items={menuItems.value} />
                     </ul>
                     <div
                         className={classNames({
                             "header__mobile-menu": true,
-                            "header__mobile-menu_opened": burgerOpened,
+                            "header__mobile-menu_opened": isBurgerOpened.value,
                         })}
                         ref={mobileMenu}
                     >
@@ -170,13 +178,16 @@ const Header = () => {
                             className='header__mobile-button'
                             aria-label='Свернуть/Развернуть меню'
                             onClick={() => {
-                                setBurgerOpened(!burgerOpened);
+                                isBurgerOpened.value = !isBurgerOpened.value;
+                                console.log(isBurgerOpened.value);
                             }}
                         >
                             <div></div>
                         </button>
                         <div className='header__mobile-menu-container'>
-                            <ul className='header__mobile-menu-list' ref={mobileMenuList}></ul>
+                            <ul className='header__mobile-menu-list' ref={mobileMenuList}>
+                                <DropdownMenu items={menuMobileItems.value} />
+                            </ul>
                         </div>
                     </div>
                 </menu>

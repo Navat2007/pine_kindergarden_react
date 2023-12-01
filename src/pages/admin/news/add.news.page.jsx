@@ -10,7 +10,7 @@ import Button from "../../../components/admin/button/button.component";
 import Tabs from "../../../components/general/tabs/tabs.component";
 import Tab from "../../../components/general/tabs/tab.component";
 import Editor from "../../../components/general/reach.editor/editor.component";
-import ImageSelector from "../../../components/general/image.selector/image.selector.component";
+import ImageSelector from "../../../components/admin/image.selector/image.selector.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 import FieldCheckbox from "../../../components/admin/field/field.checkbox.component";
 import FieldText from "../../../components/admin/field/field.text.component";
