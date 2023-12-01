@@ -1,18 +1,16 @@
 import React from "react";
-import {NavLink, useLocation} from "react-router-dom";
-import {motion} from "framer-motion";
-import {GenerateUrl} from "../../../utils/generateUrl";
+import { NavLink, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { GenerateUrl } from "../../../utils/generateUrl";
 import classNames from "classnames";
 
-import {menuStore} from "../../../store/public/menuStore";
+import { menuStore } from "../../../store/public/menuStore";
 
 import useOnClickOutside from "../../../hook/onClickOutside";
 import Logo from "../logo/logo";
-import {AdminIcons} from "../../svgs";
+import { AdminIcons } from "../../svgs";
 
 import "./header.scss";
-import "./menu.scss";
-import "./submenu.scss";
 
 const Header = () => {
     const node = React.useRef();
@@ -58,31 +56,18 @@ const Header = () => {
             // There is not enought space
             if (requiredSpace > availableSpace) {
                 mobileMenuList.current.prepend(menuList.current.children[menuList.current.children.length - 1]);
-                mobileMenuList.current.firstElementChild
-                    .querySelector('a')
-                    .classList.remove('header__menu-link');
-                mobileMenuList.current.firstElementChild
-                    .querySelector('a')
-                    .classList.add('header__drop-down-menu-link');
                 numOfVisibleItems -= 1;
                 checkMenuSize();
                 // There is more than enough space
             } else if (availableSpace > breakWidths[numOfVisibleItems]) {
                 menuList.current.append(mobileMenuList.current.children[0]);
-                menuList.current.lastElementChild
-                    .querySelector('a')
-                    .classList.remove('header__drop-down-menu-link');
-                menuList.current.lastElementChild
-                    .querySelector('a')
-                    .classList.add('header__menu-link');
                 numOfVisibleItems += 1;
             }
 
             // Update the button accordingly
-            mobileMenu.current.setAttribute('count', numberOfItems - numOfVisibleItems);
-            if (numOfVisibleItems === numberOfItems)
-                mobileMenu.current.classList.add('visually-hidden');
-            else mobileMenu.current.classList.remove('visually-hidden');
+            mobileMenu.current.setAttribute("count", numberOfItems - numOfVisibleItems);
+            if (numOfVisibleItems === numberOfItems) mobileMenu.current.classList.add("visually-hidden");
+            else mobileMenu.current.classList.remove("visually-hidden");
         }
 
         const stickyHeaderEvent = () => {
@@ -93,8 +78,8 @@ const Header = () => {
             }
         };
         window.addEventListener("scroll", stickyHeaderEvent);
-        window.addEventListener('resize', checkMenuSize);
-        window.addEventListener('DOMContentLoaded', checkMenuSize);
+        window.addEventListener("resize", checkMenuSize);
+        // checkMenuSize();
     }, []);
 
     const getMenuLink = (menu) => {
@@ -107,19 +92,18 @@ const Header = () => {
         }
     };
 
-    function DropdownMenu({items}) {
+    function DropdownMenu({ items }) {
         if (!items) return null;
 
         return items.map((item) => {
-            if (item.submenu?.length > 0)
-                return <DropdownItem key={item.title} item={item} items={item.submenu}/>;
+            if (item.submenu?.length > 0) return <DropdownItem key={item.title} item={item} items={item.submenu} />;
 
-            return <MenuItem key={item.title} item={item}/>;
+            return <MenuItem key={item.title} item={item} />;
         });
     }
 
-    function MenuItem({item}) {
-        let className = ["menu__link"];
+    function MenuItem({ item }) {
+        let className = ["header__menu-link"];
 
         return (
             <li>
@@ -130,8 +114,8 @@ const Header = () => {
                 ) : (
                     <NavLink
                         to={getMenuLink(item)}
-                        className={({isActive}) => {
-                            if (isActive) className.push("menu__link_active");
+                        className={({ isActive }) => {
+                            if (isActive) className.push("header__menu-link_active");
                             return className.join(" ");
                         }}
                     >
@@ -142,16 +126,18 @@ const Header = () => {
         );
     }
 
-    function DropdownItem({item, items}) {
+    function DropdownItem({ item, items }) {
         return (
-            <li className='submenu'>
-                <button className='submenu__button' type='button' aria-label='Развернуть список'>
-                    <span className='submenu__button-text'>{item.title}</span>
-                    <span className='submenu__button-icon'>{AdminIcons.chevron_down}</span>
+            <li className='header__submenu'>
+                <button className='header__submenu-button' type='button' aria-label='Развернуть список'>
+                    <span className='header__submenu-button-text'>{item.title}</span>
+                    <span className='header__submenu-button-icon'>{AdminIcons.chevron_down}</span>
                 </button>
-                <ul className='submenu__list'>
-                    <DropdownMenu items={items}/>
-                </ul>
+                <div className='header__submenu-list-container'>
+                    <ul className='header__submenu-list'>
+                        <DropdownMenu items={items} />
+                    </ul>
+                </div>
             </li>
         );
     }
@@ -160,30 +146,28 @@ const Header = () => {
         <motion.header
             ref={stickyHeader}
             className='header'
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            exit={{opacity: 0}}
-            transition={{delay: 0.2, duration: 1}}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
         >
             <div className='header__inner'>
-                <Logo extraClass={"header__logo"}/>
-                <menu
-                    className={classNames({
-                        menu: true,
-                        menu_opened: burgerOpened,
-                    })}
-                >
-                    <ul className={`menu__list`} ref={menuList}>
-                        {menuStore.value?.sorted?.length > 0 && <DropdownMenu items={menuStore.value.sorted}/>}
+                <Logo extraClass={"header__logo"} />
+                <menu className='header__menu'>
+                    <ul className={`header__menu-list`} ref={menuList}>
+                        {menuStore.value?.sorted?.length > 0 && <DropdownMenu items={menuStore.value.sorted} />}
                     </ul>
-                    <div className='header__drop-down-menu' ref={mobileMenu}>
+                    <div
+                        className={classNames({
+                            "header__mobile-menu": true,
+                            "header__mobile-menu_opened": burgerOpened,
+                        })}
+                        ref={mobileMenu}
+                    >
                         <button
                             ref={button}
                             type='button'
-                            className={classNames({
-                                header__burger: true,
-                                header__burger_opened: burgerOpened,
-                            })}
+                            className='header__mobile-button'
                             aria-label='Свернуть/Развернуть меню'
                             onClick={() => {
                                 setBurgerOpened(!burgerOpened);
@@ -191,8 +175,8 @@ const Header = () => {
                         >
                             <div></div>
                         </button>
-                        <div className='header__drop-down-menu-container'>
-                            <ul className='header__drop-down-menu-list' ref={mobileMenuList}></ul>
+                        <div className='header__mobile-menu-container'>
+                            <ul className='header__mobile-menu-list' ref={mobileMenuList}></ul>
                         </div>
                     </div>
                 </menu>
@@ -203,8 +187,8 @@ const Header = () => {
 
 export default Header;
 
-
-{ /*
+{
+    /*
 
 // Header menu for mobile
 const menuList = document.querySelector('.header__menu-list');
