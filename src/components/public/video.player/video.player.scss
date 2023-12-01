@@ -9,8 +9,7 @@
         box-shadow 0.35s;
 
     &:hover {
-        transform: translate3d(0, -5px, 0);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+        transform: scale(1.05);
     }
 
     &:focus {
@@ -28,7 +27,7 @@
         flex-direction: column;
         text-align: center;
 
-        background-color: var(--dark-grey-color);
+        background-color: var(--dark-background);
         text-decoration: none;
         color: inherit;
 

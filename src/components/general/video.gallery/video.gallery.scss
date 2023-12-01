@@ -1,0 +1,24 @@
+@import "../../../styles/mixins";
+@import "../../../styles/extends";
+
+.video-gallery {
+    @extend %reset-list;
+
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(auto-fill, minmax(min(21em, 100%), 1fr));
+
+    &__item {
+        @include box(100%);
+        position: relative;
+        overflow: hidden;
+        // aspect-ratio: 1/1;
+        outline: 2px solid var(--dark-background);
+        border-radius: 5px;
+        aspect-ratio: 22/15;
+
+        &:has(:focus-visible) {
+            outline: 2px solid var(--main-text-color);
+        }
+    }
+}

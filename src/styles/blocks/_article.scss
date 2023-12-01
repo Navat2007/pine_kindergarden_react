@@ -28,6 +28,10 @@
         font-weight: 600;
     }
 
+    &__main-content {
+        line-height: 1.5;
+    }
+
     & .article__gallery {
         margin-block: min(3.25vmax, 1.875em);
     }
