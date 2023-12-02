@@ -27,17 +27,16 @@ if (mysqli_num_rows($result) > 0) {
     $menu = [];
 
     while ($row = mysqli_fetch_object($result)) {
-
         $menu[] = (object)[
             'ID' => (int)$row->ID,
             'parentID' => (int)$row->parentID,
             'sorting' => (int)$row->sorting,
             'custom_page' => (int)$row->custom_page,
             'page' => (int)$row->page,
+            'external' => (int)$row->external,
             'title' => htmlspecialchars_decode($row->title),
             'url' => htmlspecialchars_decode($row->url),
         ];
-
     }
 
     $params['all'] = $menu;

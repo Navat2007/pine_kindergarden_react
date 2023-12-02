@@ -17,26 +17,21 @@ const getMenuLink = (menu) => {
 function MenuItem({ item }) {
     let className = ["header__menu-link"];
 
-    if (item.title === "Test") {
-        console.log(item);
-    }
-
     return (
         <li>
             {item.external === 1 ? (
-                <a href={item.url} target={"_blank"} data-external={item.external} className={className.join(" ")} rel="noreferrer">
-                    {item.title} ext
+                <a href={item.url} target={"_blank"} className={className.join(" ")} rel="noreferrer">
+                    {item.title}
                 </a>
             ) : (
                 <NavLink
-                    data-external={item.external}
                     to={getMenuLink(item)}
                     className={({ isActive }) => {
                         if (isActive) className.push("header__menu-link_active");
                         return className.join(" ");
                     }}
                 >
-                    {item.title} ext
+                    {item.title}
                 </NavLink>
             )}
         </li>
