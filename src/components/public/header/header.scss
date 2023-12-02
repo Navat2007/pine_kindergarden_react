@@ -85,26 +85,7 @@
 
     &__submenu > .header__submenu-list-container,
     &__menu-list > .header__submenu > .header__submenu-list-container {
-        position: fixed;
-        z-index: 1;
-        inset: 6em 0 auto 0;
-
-        overflow: auto;
-        max-block-size: 90dvb;
-
-        padding: 1em var(--padding-gor-size-sm);
-        background-color: #fff;
-        box-shadow: 0 8px 8px rgba(0, 0, 0, 0.26);
-        border-block-start: 1px solid var(--dark-background);
-        border-radius: 0 0 10px 10px;
-
         & > .header__submenu-list {
-            @extend %main-width;
-            padding-inline: min(15vi, 150px);
-
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(21em, 100%), 1fr));
-
             // & > .header__submenu > .header__submenu-list-container {
             //     @extend %hidden-block;
             //     height: 0;
@@ -131,6 +112,28 @@
     &__submenu {
         display: flex;
 
+        &[dataLevel="1"] > .header__submenu-list-container {
+            position: fixed;
+            z-index: 1;
+            inset: 6em 0 auto 0;
+
+            overflow: auto;
+            max-block-size: 90dvb;
+
+            padding: 1em var(--padding-gor-size-sm);
+            background-color: #fff;
+            box-shadow: 0 8px 8px rgba(0, 0, 0, 0.26);
+            border-block-start: 1px solid var(--dark-background);
+            border-radius: 0 0 10px 10px;
+        }
+
+        &[dataLevel="2"] {
+            & > .header__submenu-list-container {
+                overflow: hidden;
+                height: 0;
+            }
+        }
+
         &_opened {
             & > .header__submenu-button .header__submenu-button-icon {
                 transform: scale(1, -1);
@@ -138,6 +141,11 @@
 
             & > .header__submenu-list-container {
                 @extend %visibility-block;
+            }
+
+            &[dataLevel="2"] > .header__submenu-list-container {
+                height: auto;
+                overflow: unset;
             }
         }
     }
@@ -148,6 +156,11 @@
 
     &__submenu-list {
         @extend %reset-list;
+        @extend %main-width;
+        padding-inline: min(15vi, 150px);
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(21em, 100%), 1fr));
 
         .header__menu-link {
             padding-block: 1em;
