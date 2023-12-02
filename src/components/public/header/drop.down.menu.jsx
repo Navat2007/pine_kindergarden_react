@@ -19,7 +19,7 @@ function MenuItem({ item }) {
     return (
         <li>
             {item.external === 1 ? (
-                <a href={item.url} target={"_blank"} className={className.join(" ")}>
+                <a href={item.url} target={"_blank"} className={className.join(" ")} rel="noreferrer">
                     {item.title}
                 </a>
             ) : (
