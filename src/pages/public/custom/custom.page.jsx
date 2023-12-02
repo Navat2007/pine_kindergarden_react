@@ -92,13 +92,7 @@ const CustomPage = ({ id }) => {
                                     </li>
                                 ))}
                             </ul>
-                            <button
-                                type='button'
-                                className='article__button'
-                                onClick={() => {
-
-                                }}
-                            >
+                            <button type='button' className='article__button' onClick={() => {}}>
                                 Скачать все файлы
                             </button>
                         </div>
