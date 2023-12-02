@@ -31,6 +31,18 @@
         min-block-size: 4em;
         max-block-size: 4em;
         margin-block: 1em;
+
+        @include media(sm, max) {
+            display: none;
+        }
+
+        &_place_submenu {
+            display: block;
+
+            @include media(sm) {
+                display: none;
+            }
+        }
     }
 
     // Меню
@@ -45,6 +57,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        @include media(sm, max) {
+            display: none;
+        }
 
         & > li {
             flex: none;
@@ -94,24 +110,24 @@
             inset: 0 0 auto 0;
 
             overflow: auto;
-            max-block-size: 100vh;
-            max-block-size: 100dvb;
+            block-size: 100vh;
+            block-size: 100dvb;
 
-            padding: 5em var(--padding-gor-size-sm) 1em;
+            padding: 1em var(--padding-gor-size-sm);
             background-color: #fff;
             box-shadow: 0 8px 8px rgba(0, 0, 0, 0.26);
             border-block-start: 1px solid var(--dark-background);
-            border-radius: 0 0 10px 10px;
 
             @include media(sm) {
                 inset: 6em 0 auto 0;
+                block-size: unset;
                 max-block-size: 90dvb;
                 padding-block-start: 1em;
+                border-radius: 0 0 10px 10px;
             }
 
             & > .header__submenu-list {
                 @extend %main-width;
-                padding-inline: 1em;
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(min(21em, 100%), 1fr));
 
@@ -181,6 +197,15 @@
         }
     }
 
+    &__mobile-menu {
+        @include media(sm, max) {
+            inline-size: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
     &__burger-button {
         z-index: 100;
 
@@ -195,7 +220,6 @@
         min-width: 3.25em;
         border-radius: 15px;
         padding: 0.75em;
-        box-sizing: border-box;
         transition: all 0.35s ease;
 
         display: flex;
