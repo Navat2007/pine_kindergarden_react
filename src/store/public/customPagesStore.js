@@ -21,7 +21,7 @@ export const loadAllFiles = async (params) => {
             let a = document.createElement('a');
 
             a.href = url;
-            a.download = "Файлы к сценарию " + params.title + ".zip";
+            a.download = "Файлы со страницы " + params.title + ".zip";
             document.body.appendChild(a);
             a.click();
             a.remove();

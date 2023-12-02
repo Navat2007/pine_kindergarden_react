@@ -87,21 +87,29 @@ const CustomPage = ({ id }) => {
                                             rel='noreferrer noopener nofollow'
                                             className='article__file-link'
                                         >
-                                            {FileIcons.pdf}
+                                            {FileIcons.default}
                                             {file.title ? file.title : file.url}
                                         </a>
                                     </li>
                                 ))}
                             </ul>
-                            <button
-                                type='button'
-                                className='article__button'
-                                onClick={async () => {
-                                    await loadAllFiles({id});
-                                }}
-                            >
-                                Скачать все файлы
-                            </button>
+                            {
+                                files.value.length > 1
+                                &&
+                                <button
+                                    type='button'
+                                    className='article__button'
+                                    onClick={async () => {
+                                        await loadAllFiles({
+                                            id,
+                                            title: store.item.menu.title,
+                                            files: files.value.map(item => item.url)
+                                        });
+                                    }}
+                                >
+                                    Скачать все файлы
+                                </button>
+                            }
                         </div>
                     )}
                 </motion.section>
