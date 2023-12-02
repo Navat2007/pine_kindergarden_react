@@ -84,6 +84,9 @@ const EditMenuPage = () => {
             const parentItems = store.items.value.all.filter(item => item.parentID === parseInt(getValues("parent")));
             sendObject["sorting"] = parentItems[parentItems.length - 1].sorting + 1;
         }
+        else {
+            sendObject["sorting"] = store.item.value.sorting;
+        }
 
         if(data.type === "Пользовательская страница") {
             sendObject["custom_page"] = 1;

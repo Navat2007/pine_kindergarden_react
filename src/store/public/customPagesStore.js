@@ -7,7 +7,7 @@ export const loadAllFiles = async (params) => {
     let form = new FormData();
     window.global.buildFormData(form, params);
 
-    fetch("", {
+    fetch(baseStore.baseUrl + "loadAllFiles.php", {
         method: 'POST',
         body: form
     })

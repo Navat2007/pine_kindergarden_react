@@ -6,12 +6,13 @@ import { isObject } from "lodash";
 import { computed } from "@preact/signals-react";
 import createDOMPurify from "dompurify";
 
-import useCustomPagesStore from "../../../store/public/customPagesStore";
+import useCustomPagesStore, {loadAllFiles} from "../../../store/public/customPagesStore";
 
 import Construction from "../../../components/public/cunstruction/construction";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import VideoGallery from "../../../components/general/video.gallery/video.gallery";
+
 import { FileIcons } from "../../../components/svgs";
 
 const CustomPage = ({ id }) => {
@@ -92,7 +93,13 @@ const CustomPage = ({ id }) => {
                                     </li>
                                 ))}
                             </ul>
-                            <button type='button' className='article__button' onClick={() => {}}>
+                            <button
+                                type='button'
+                                className='article__button'
+                                onClick={async () => {
+                                    await loadAllFiles({id});
+                                }}
+                            >
                                 Скачать все файлы
                             </button>
                         </div>
