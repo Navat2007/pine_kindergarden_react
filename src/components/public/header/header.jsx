@@ -111,6 +111,7 @@ const Header = () => {
                             header__submenu_opened: burgerOpened,
                         })}
                         ref={mobileMenu}
+                        data-level='1'
                     >
                         <button
                             ref={button}

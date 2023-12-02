@@ -112,7 +112,7 @@
     &__submenu {
         display: flex;
 
-        &[dataLevel="1"] > .header__submenu-list-container {
+        &[data-level="1"] > .header__submenu-list-container {
             position: fixed;
             z-index: 1;
             inset: 6em 0 auto 0;
@@ -127,7 +127,7 @@
             border-radius: 0 0 10px 10px;
         }
 
-        &[dataLevel="2"] {
+        &[data-level="2"] {
             & > .header__submenu-list-container {
                 overflow: hidden;
                 height: 0;
