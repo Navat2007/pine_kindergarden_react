@@ -55,10 +55,10 @@ const MenuPage = () => {
                     <>
                         <Button
                             type='button'
-                            iconName={AdminIcons.edit}
+                            iconName={AdminIcons.ascending}
                             aria-label='Сортировать'
                             onClick={() => setIsEditing((prev) => !prev)}
-                            style={{ marginLeft: "auto" }}
+                            style={{ paddingBlock: ".75em", marginLeft: "1.875em" }}
                         >
                             Сортировать
                         </Button>
@@ -67,6 +67,7 @@ const MenuPage = () => {
                             iconName={AdminIcons.plus}
                             aria-label='Добавить'
                             onClick={() => navigate("new/0/" + store.items.value.sorted[store.items.value.sorted.length - 1]?.sorting)}
+                            style={{ paddingBlock: ".75em"}}
                         >
                             Добавить
                         </Button>
