@@ -1,7 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { AdminIcons } from "../../svgs";
 import React from "react";
+<<<<<<< HEAD
 import { GenerateUrl } from "../../../utils/generateUrl";
+=======
+import {GenerateUrl} from "../../../utils/generateUrl";
+import classNames from "classnames";
+>>>>>>> 2f069c1e5e3c2c8086e2921031529dd788c3f5f2
 
 const getMenuLink = (menu) => {
     if (menu.custom_page === 1) {
@@ -16,21 +21,26 @@ const getMenuLink = (menu) => {
 function MenuItem({ item }) {
     let className = ["header__menu-link"];
 
+    if (item.title === "Test") {
+        console.log(item);
+    }
+
     return (
         <li>
-            {item.page === 2 ? (
-                <a href={item.url} target={"_blank"} className={className.join(" ")}>
-                    {item.title}
+            {item.external === 1 ? (
+                <a href={item.url} target={"_blank"} data-external={item.external} className={className.join(" ")} rel="noreferrer">
+                    {item.title} ext
                 </a>
             ) : (
                 <NavLink
+                    data-external={item.external}
                     to={getMenuLink(item)}
                     className={({ isActive }) => {
                         if (isActive) className.push("header__menu-link_active");
                         return className.join(" ");
                     }}
                 >
-                    {item.title}
+                    {item.title} ext
                 </NavLink>
             )}
         </li>

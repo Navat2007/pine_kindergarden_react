@@ -18,9 +18,12 @@ import {getMenuList} from "../../../services/menu";
 const EditMenuPage = () => {
     let {id} = useParams();
     const navigate = useNavigate();
-    const {register, handleSubmit, reset, getValues, setValue} = useForm();
+    const {register, handleSubmit, reset, getValues, setValue} = useForm({
+        mode: "onChange"
+    });
 
     const [popup, setPopup] = React.useState(<></>);
+    const [urlFieldDisabled, setUrlFieldDisabled] = React.useState(true);
 
     const store = useMenuStore;
 
@@ -28,6 +31,7 @@ const EditMenuPage = () => {
 
     React.useLayoutEffect(() => {
         const fetchData = async () => {
+            await store.loadAll(undefined, undefined, false);
             const response = await store.loadByID({id});
 
             if (response) {
@@ -71,26 +75,23 @@ const EditMenuPage = () => {
             return;
 
         sendObject["id"] = id;
-        sendObject["parentID"] = store.item.value.parentID;
+        sendObject["parentID"] = getValues("parent");
+        sendObject["page"] = 1;
+        sendObject["external"] = 0;
+        sendObject["custom_page"] = 0;
 
         if(data.type === "Пользовательская страница") {
-            sendObject["page"] = 1;
             sendObject["custom_page"] = 1;
             sendObject["url"] = GenerateUrl(data.title);
         } else if(data.type === "Содержит подменю") {
             sendObject["page"] = 0;
-            sendObject["custom_page"] = 0;
             sendObject["url"] = "";
         }
         else if(data.type === "Внешняя ссылка") {
-            sendObject["page"] = 1;
-            sendObject["custom_page"] = 1;
             sendObject["external"] = 1;
             sendObject["url"] = getValues("url");
         }
         else {
-            sendObject["page"] = 1;
-            sendObject["custom_page"] = 0;
             sendObject["url"] = getValues("type");
         }
 
@@ -201,6 +202,26 @@ const EditMenuPage = () => {
         return store.item?.value?.url;
     }
 
+    const getItemsForParentSelect = () => {
+        let items = [{
+            value: 0,
+            title: "Верхний уровень",
+        }];
+
+        if(store.items.value && store.items.value.all) {
+            store.items.value.all.map((item) => {
+                if(item.page === 0){
+                    items.push({
+                        value: item.ID,
+                        title: item.title,
+                    });
+                }
+            })
+        }
+
+        return items;
+    };
+
     return (
         <BasicPage mainStore={store} loadings={[store]}>
             <TitleBlock title={`Редактирование ID: ${id}`} onBack={back}/>
@@ -228,9 +249,9 @@ const EditMenuPage = () => {
                         />
                         <FieldText
                             label={"Ссылка"}
-                            required={false}
+                            required={!urlFieldDisabled}
                             placeholder={""}
-                            disabled={true}
+                            disabled={urlFieldDisabled}
                             {...register("url")}
                         />
                         <FieldSelect
@@ -257,6 +278,8 @@ const EditMenuPage = () => {
                                 value: getDefaultSelectItem(),
                             })}
                             onChange={(e) => {
+                                setUrlFieldDisabled(true);
+
                                 if(getValues("type") === "Содержит подменю" && store.item.value.submenu > 0) {
                                     setValue("type", "Содержит подменю");
                                     setPopup(<AlertPopup
@@ -285,10 +308,22 @@ const EditMenuPage = () => {
                                 } else if (e.target.value === "Содержит подменю") {
                                     setValue("url", "");
                                 }
+                                else if (e.target.value === "Внешняя ссылка") {
+                                    setValue("url", "");
+                                    setUrlFieldDisabled(false);
+                                }
                                 else {
                                     setValue("url", GenerateUrl(e.target.value));
                                 }
                             }}
+                        />
+                        <FieldSelect
+                            label={"Уровень меню"}
+                            defaultSelectItem={null}
+                            selectItems={getItemsForParentSelect()}
+                            {...register("parent", {
+                                value: store.item?.value?.parentID,
+                            })}
                         />
                     </fieldset>
                 </div>

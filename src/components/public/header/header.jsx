@@ -123,7 +123,7 @@ const Header = () => {
                         >
                             <div></div>
                         </button>
-                        <div className='header__mobile-menu-container'>
+                        <div className='header__mobile-menu-container' ref={node}>
                             <ul className='header__mobile-menu-list' ref={mobileMenuList}>
                                 <DropdownMenu items={menuMobileItems.value} />
                             </ul>
@@ -135,4 +135,8 @@ const Header = () => {
     );
 };
 
+<<<<<<< HEAD
 export default Header;
+=======
+export default Header;
+>>>>>>> 2f069c1e5e3c2c8086e2921031529dd788c3f5f2
