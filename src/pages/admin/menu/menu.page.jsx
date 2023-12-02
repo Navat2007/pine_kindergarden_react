@@ -38,6 +38,11 @@ const MenuPage = () => {
         setIsEditing((prev) => !prev);
     }
 
+    const cancelSorting = async () => {
+        setIsEditing((prev) => !prev);
+        await store.loadAll()
+    }
+
     return (
         <BasicPage mainStore={store} loadings={[store]}>
             <TitleBlock title={`Структура меню`}>
@@ -75,7 +80,7 @@ const MenuPage = () => {
                             type='button'
                             theme={"text"}
                             aria-label='Отмена'
-                            onClick={() => setIsEditing((prev) => !prev)}
+                            onClick={cancelSorting}
                         >
                             Отмена
                         </Button>
