@@ -12,7 +12,7 @@ import Construction from "../../../components/public/cunstruction/construction";
 import BasicPage from "../../../components/public/basic.page/basic.page.component";
 import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import VideoGallery from "../../../components/general/video.gallery/video.gallery";
-import Breadcrumbs from "../../../components/public/breadcrumbs/breadcrumbs";
+// import Breadcrumbs from "../../../components/public/breadcrumbs/breadcrumbs";
 import { FileIcons } from "../../../components/svgs";
 
 const CustomPage = ({ id }) => {
@@ -42,7 +42,7 @@ const CustomPage = ({ id }) => {
             <Helmet>
                 <title>{store.item?.menu?.title}</title>
             </Helmet>
-            <Breadcrumbs
+            {/* <Breadcrumbs
                 items={[
                     {
                         title: "Главная",
@@ -57,7 +57,7 @@ const CustomPage = ({ id }) => {
                         url: "",
                     },
                 ]}
-            />
+            /> */}
             {store.item?.page &&
             isObject(store.item?.page) &&
             (store.item?.page?.content || store.item?.page?.files?.length > 0) ? (

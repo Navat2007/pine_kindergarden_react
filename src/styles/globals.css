@@ -10,10 +10,14 @@ body {
     font-size: 100%;
     color: var(--main-text-color);
     scroll-behavior: smooth;
+}
 
+#root {
     display: flex;
     flex-direction: column;
-    min-block-size: 100vb;
+    justify-content: space-between;
+    min-block-size: 100vh;
+    min-block-size: 100dvb;
 }
 
 menu,

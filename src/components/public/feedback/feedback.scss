@@ -13,7 +13,6 @@
         flex-direction: column;
         justify-content: space-between;
         padding: 2.875em var(--padding-gor-size-sm);
-        box-sizing: border-box;
 
         @include media(sm) {
             flex-direction: row;
@@ -32,7 +31,7 @@
         @include media(sm) {
             margin: 0;
             text-align: left;
-            max-width: min(34vw, 32em);
+            max-width: min(34vi, 32em);
         }
 
         @include media(xl) {
@@ -67,7 +66,6 @@
         border-radius: 30px;
         background-color: #9dd641;
         border-color: #9dd641;
-        box-sizing: border-box;
         max-width: 26rem;
         width: 100%;
         text-align: center;
@@ -167,11 +165,12 @@
         font-size: 0.875em;
         font-style: italic;
         padding-left: 1rem;
+        text-align: right;
 
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
+        // position: absolute;
+        // top: 100%;
+        // left: 0;
+        // right: 0;
 
         opacity: 0;
         pointer-events: none;

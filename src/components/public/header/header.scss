@@ -148,8 +148,8 @@
             flex-direction: column;
 
             & > .header__submenu-list-container {
-                overflow: hidden;
-                height: 0;
+                // overflow: hidden;
+                // height: 0;
 
                 & > .header__submenu-list {
                     margin-inline-start: min(1.5vi, 1em);
@@ -184,18 +184,24 @@
 
             & > .header__submenu-list-container {
                 @extend %visibility-block;
+                inline-size: unset;
+                block-size: unset;
+                overflow: unset;
             }
         }
 
-        &_opened[data-level="2"] > .header__submenu-list-container,
-        &_opened[data-level="3"] > .header__submenu-list-container {
-            height: auto;
-            overflow: unset;
-        }
+        // &_opened[data-level="2"] > .header__submenu-list-container,
+        // &_opened[data-level="3"] > .header__submenu-list-container {
+        //     height: auto;
+        //     overflow: unset;
+        // }
     }
 
     &__submenu-list-container {
         @extend %hidden-block;
+        inline-size: 0;
+        block-size: 0;
+        overflow: hidden;
     }
 
     &__submenu-list {
