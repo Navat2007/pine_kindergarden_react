@@ -1,5 +1,34 @@
 import {Store} from "../baseStore";
 
-const useCustomPagesStore = new Store("public", "customPages").createStore();
+const baseStore = new Store("public", "customPages");
+
+export const loadAllFiles = async (params) => {
+
+    let form = new FormData();
+    window.global.buildFormData(form, params);
+
+    fetch("", {
+        method: 'POST',
+        body: form
+    })
+        .then(response => {
+            if(response.ok){
+                return response.blob();
+            }
+        })
+        .then( blob => {
+            let url = window.URL.createObjectURL(blob);
+            let a = document.createElement('a');
+
+            a.href = url;
+            a.download = "Файлы к сценарию " + params.title + ".zip";
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        });
+
+};
+
+const useCustomPagesStore = baseStore.createStore();
 
 export default useCustomPagesStore;
