@@ -42,22 +42,6 @@ const CustomPage = ({ id }) => {
             <Helmet>
                 <title>{store.item?.menu?.title}</title>
             </Helmet>
-            <Breadcrumbs
-                items={[
-                    {
-                        title: "Главная",
-                        url: "/",
-                    },
-                    {
-                        title: "Добавить навигацию",
-                        url: "/новости/",
-                    },
-                    {
-                        title: store.item.title,
-                        url: "",
-                    },
-                ]}
-            />
             {store.item?.page &&
             isObject(store.item?.page) &&
             (store.item?.page?.content || store.item?.page?.files?.length > 0) ? (

@@ -14,6 +14,7 @@ $parentID = mysqli_real_escape_string($conn, htmlspecialchars($_POST["parentID"]
 $page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["page"]));
 $custom_page = mysqli_real_escape_string($conn, htmlspecialchars($_POST["custom_page"]));
 $external = mysqli_real_escape_string($conn, htmlspecialchars($_POST["external"]));
+$sorting = mysqli_real_escape_string($conn, htmlspecialchars($_POST["sorting"]));
 
 function CheckTitle(): bool{
     global $conn, $sqls, $id, $title, $custom_page;
@@ -41,6 +42,7 @@ if(CheckTitle()){
         SET
             title = '$title', 
             url = '$url', 
+            sorting = '$sorting', 
             parentID = '$parentID', 
             page = '$page', 
             custom_page = '$custom_page', 

@@ -81,8 +81,8 @@ const EditMenuPage = () => {
         sendObject["custom_page"] = 0;
 
         if(store.item.value.parentID !== parseInt(getValues("parent"))) {
-            const parentItems = store.items.value.all.filter(item => item.ID === parseInt(getValues("parent")));
-            console.log(parentItems);
+            const parentItems = store.items.value.all.filter(item => item.parentID === parseInt(getValues("parent")));
+            sendObject["sorting"] = parentItems[parentItems.length - 1].sorting + 1;
         }
 
         if(data.type === "Пользовательская страница") {
@@ -99,8 +99,6 @@ const EditMenuPage = () => {
         else {
             sendObject["url"] = getValues("type");
         }
-
-        return;
 
         await store.edit(sendObject);
 
@@ -251,6 +249,9 @@ const EditMenuPage = () => {
                                 }
                                 else if (getValues("type") === "Содержит подменю") {
                                     setValue("url", "");
+                                }
+                                else if (getValues("type") === "Внешняя ссылка") {
+
                                 }
                                 else {
                                     setValue("url", getValues("type"));
