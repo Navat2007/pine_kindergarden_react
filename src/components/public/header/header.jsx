@@ -107,15 +107,15 @@ const Header = () => {
                     </ul>
                     <div
                         className={classNames({
-                            "header__mobile-menu": true,
-                            "header__mobile-menu_opened": burgerOpened,
+                            header__submenu: true,
+                            header__submenu_opened: burgerOpened,
                         })}
                         ref={mobileMenu}
                     >
                         <button
                             ref={button}
                             type='button'
-                            className='header__mobile-button'
+                            className='header__burger-button'
                             aria-label='Свернуть/Развернуть меню'
                             onClick={() => {
                                 setBurgerOpened(!burgerOpened);
@@ -123,8 +123,8 @@ const Header = () => {
                         >
                             <div></div>
                         </button>
-                        <div className='header__mobile-menu-container' ref={node}>
-                            <ul className='header__mobile-menu-list' ref={mobileMenuList}>
+                        <div className='header__submenu-list-container' ref={node}>
+                            <ul className='header__submenu-list' ref={mobileMenuList}>
                                 <DropdownMenu items={menuMobileItems.value} />
                             </ul>
                         </div>
