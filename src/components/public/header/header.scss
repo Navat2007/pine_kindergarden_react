@@ -27,10 +27,10 @@
     &__logo {
         align-self: center;
         flex: none;
-        block-size: min(2.5em, 6.4vi, 4em);
-        min-block-size: min(2.5em, 6.4vi, 4em);
-        max-block-size: min(2.5em, 6.4vi, 4em);
-        margin-block: 1em;
+        block-size: clamp(3em, 6.4vi, 4em);
+        min-block-size: clamp(3em, 6.4vi, 4em);
+        max-block-size: clamp(3em, 6.4vi, 4em);
+        margin-block: clamp(0.5em, 1.6vi, 1em);
     }
 
     // Меню
@@ -99,7 +99,7 @@
         &[data-level="1"] > .header__submenu-list-container {
             position: fixed;
             z-index: 1;
-            inset: 6em 0 auto 0;
+            inset: clamp(4em, 9.6vi, 6em) 0 auto 0;
 
             overflow: auto;
             block-size: 100vh;
