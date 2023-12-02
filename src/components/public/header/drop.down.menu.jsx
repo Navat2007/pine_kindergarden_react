@@ -38,7 +38,7 @@ function MenuItem({ item }) {
     );
 }
 
-function DropdownItem({ item, items }) {
+function DropdownItem({ item, items, level }) {
     const [submenuOpened, submenugerOpened] = React.useState(false);
 
     return (
@@ -47,7 +47,7 @@ function DropdownItem({ item, items }) {
                 header__submenu: true,
                 header__submenu_opened: submenuOpened,
             })}
-            dataLevel='1'
+            data-level={level}
         >
             <button
                 className='header__menu-link header__submenu-button'
@@ -60,18 +60,18 @@ function DropdownItem({ item, items }) {
             </button>
             <div className='header__submenu-list-container'>
                 <ul className='header__submenu-list'>
-                    <DropdownMenu items={items} />
+                    <DropdownMenu items={items} level={level}/>
                 </ul>
             </div>
         </li>
     );
 }
 
-const DropdownMenu = ({ items }) => {
+const DropdownMenu = ({ items, level = 0 }) => {
     if (!items) return null;
 
     return items.map((item) => {
-        if (item.submenu?.length > 0) return <DropdownItem key={item.title} item={item} items={item.submenu} />;
+        if (item.submenu?.length > 0) return <DropdownItem key={item.title} item={item} items={item.submenu} level={level + 1} />;
 
         return <MenuItem key={item.title} item={item} />;
     });

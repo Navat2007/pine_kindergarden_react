@@ -199,6 +199,9 @@ const EditMenuPage = () => {
         if(store.item?.value?.page === 0)
             return "Содержит подменю";
 
+        if(store.item?.value?.external === 1)
+            return "Внешняя ссылка";
+
         return store.item?.value?.url;
     }
 
