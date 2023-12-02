@@ -43,6 +43,7 @@
         @extend %reset-list;
         flex: auto;
         display: flex;
+        align-items: center;
         justify-content: center;
 
         & > li {
@@ -53,11 +54,11 @@
     &__menu-link {
         display: block;
         font-family: var(--font-headings);
-        font-size: 1.5em;
+        font-size: 1.125em;
         line-height: 1.5;
         color: inherit;
         text-align: inherit;
-        padding: min(3.2vi, 32px) min(2vi, 1.875em);
+        padding: min(2vi, 1.875em);
         text-decoration: none;
         cursor: pointer;
 
@@ -90,22 +91,33 @@
         &[data-level="1"] > .header__submenu-list-container {
             position: fixed;
             z-index: 1;
-            inset: 6em 0 auto 0;
+            inset: 0 0 auto 0;
 
             overflow: auto;
-            max-block-size: 90dvb;
+            max-block-size: 100vh;
+            max-block-size: 100dvb;
 
-            padding: 1em var(--padding-gor-size-sm);
+            padding: 5em var(--padding-gor-size-sm) 1em;
             background-color: #fff;
             box-shadow: 0 8px 8px rgba(0, 0, 0, 0.26);
             border-block-start: 1px solid var(--dark-background);
             border-radius: 0 0 10px 10px;
 
+            @include media(sm) {
+                inset: 6em 0 auto 0;
+                max-block-size: 90dvb;
+                padding-block-start: 1em;
+            }
+
             & > .header__submenu-list {
                 @extend %main-width;
-                padding-inline: min(15vi, 150px);
+                padding-inline: 1em;
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(min(21em, 100%), 1fr));
+
+                @include media(sm) {
+                    padding-inline: min(15vi, 150px);
+                }
             }
         }
 
@@ -117,7 +129,7 @@
                 height: 0;
 
                 & > .header__submenu-list {
-                    margin-left: 1.875em;
+                    margin-inline-start: min(1.5vi, 1em);
 
                     & .header__menu-link {
                         padding-block: 0.5em;
@@ -129,6 +141,22 @@
         &_opened {
             & > .header__submenu-button .header__submenu-button-icon {
                 transform: scale(1, -1);
+            }
+
+            & > .header__burger-button {
+                &:hover > div {
+                    transform: rotate(225deg);
+                }
+
+                div {
+                    transform: rotate(135deg);
+
+                    &::before,
+                    &::after {
+                        top: 0;
+                        transform: rotate(90deg);
+                    }
+                }
             }
 
             & > .header__submenu-list-container {
@@ -251,10 +279,6 @@
         svg {
             inline-size: 1.5em;
             block-size: 1.5em;
-        }
-
-        @include media(md, max) {
-            display: none;
         }
     }
 }
