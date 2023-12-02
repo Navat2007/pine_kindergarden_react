@@ -28,7 +28,6 @@ const MenuPage = () => {
 
     React.useEffect(() => {
         setMenuItems(store.items.value.sorted);
-        console.log(store.items.value.sorted);
     }, [store.items.value]);
 
     const saveSorting = async () => {
