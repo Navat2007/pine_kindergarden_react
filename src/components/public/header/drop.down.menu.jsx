@@ -60,7 +60,7 @@ function DropdownItem({ item, items, level }) {
             </button>
             <div className='header__submenu-list-container'>
                 <ul className='header__submenu-list'>
-                    <DropdownMenu items={items} level={level}/>
+                    <DropdownMenu items={items} level={level} />
                 </ul>
             </div>
         </li>
@@ -71,7 +71,8 @@ const DropdownMenu = ({ items, level = 0 }) => {
     if (!items) return null;
 
     return items.map((item) => {
-        if (item.submenu?.length > 0) return <DropdownItem key={item.title} item={item} items={item.submenu} level={level + 1} />;
+        if (item.submenu?.length > 0)
+            return <DropdownItem key={item.title} item={item} items={item.submenu} level={level + 1} />;
 
         return <MenuItem key={item.title} item={item} />;
     });
