@@ -11,22 +11,17 @@
         top: 0;
         background-color: rgba(255, 255, 255, 0.84);
         box-shadow: 0 5px 10px rgba(black, 0.26);
+        transition: background-color 0.35s ease-in-out;
 
-        @include media(lg) {
-            .submenu {
-                opacity: 0.84;
-            }
-            .submenu__container {
-                box-shadow: 0 5px 10px rgba(black, 0.26);
-            }
+        &:hover {
+            background-color: #fff;
         }
     }
 
     &__inner {
         @extend %main-width;
-        padding: 1em var(--padding-gor-size-sm);
+        padding-inline: var(--padding-gor-size-sm);
         display: flex;
-        align-items: center;
     }
 
     &__logo {
@@ -35,147 +30,102 @@
         block-size: 4em;
         min-block-size: 4em;
         max-block-size: 4em;
-
-        &_place_menu {
-            @include media(xs) {
-                align-self: flex-start;
-            }
-            @include media(md) {
-                display: none;
-            }
-        }
+        margin-block: 1em;
     }
 
     // Меню
     &__menu {
         flex: auto;
         display: flex;
-        align-items: center;
-        text-align: center;
-
-        @include media(md, max) {
-            position: absolute;
-            inset: 0 0 auto auto;
-            max-block-size: 90vh;
-            overflow: hidden;
-            width: clamp(20rem, 9.7887rem + 51.0563vw, 56.25rem);
-            box-shadow: 0 0 15px rgba(black, 0.15);
-            border-radius: 0 0 0 10px;
-            background-color: white;
-            padding: 1em 1.5em 2.5em;
-
-            display: flex;
-            flex-direction: column;
-
-            transition: all 0.35s ease-in-out;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        @include media(xs, max) {
-            position: fixed;
-            inset: 0;
-            block-size: 100vh;
-            block-size: 100dvb;
-            max-block-size: unset;
-            width: unset;
-            border-radius: 0;
-            box-shadow: unset;
-        }
-
-        @include media(xs) {
-            text-align: left;
-        }
-
-        &_opened {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: unset;
-        }
     }
 
     &__menu-list {
         @extend %reset-list;
         flex: auto;
-        // overflow: hidden;
-
         display: flex;
-        flex-direction: column;
-
-        @include media(md, max) {
-            overflow: auto;
-        }
-
-        @include media(md) {
-            // flex-wrap: wrap;
-            align-items: center;
-            flex-direction: row;
-            justify-content: center;
-        }
+        justify-content: center;
 
         li {
             flex: none;
         }
     }
 
-    &__menu-link {
-        color: inherit;
-        text-align: inherit;
-        text-decoration: none;
-        display: block;
-        font-size: 1.5em;
-        padding: min(1.25vmax, 0.875em) min(2vmax, 1.875em);
-        font-family: var(--font-headings);
-        cursor: pointer;
+    &__menu-list > .header__submenu {
+        & > .header__submenu-list-container {
+            position: fixed;
+            z-index: 1;
+            inset: 6em 0 auto 0;
 
-        &:focus {
-            outline: none;
+            overflow: auto;
+            max-block-size: 90dvb;
+
+            padding: 1em var(--padding-gor-size-sm);
+            background-color: #fff;
+            box-shadow: 0 8px 8px rgba(0, 0, 0, 0.26);
+            border-block-start: 1px solid var(--dark-background);
+            border-radius: 0 0 10px 10px;
+
+            @extend %hidden-block;
         }
 
-        &:focus-visible {
-            outline: 2px solid currentColor;
+        & > .header__submenu-list-container > .header__submenu-list {
+            @extend %main-width;
+            padding-inline: min(15vi, 150px);
+
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(21em, 100%), 1fr));
+
+            .header__submenu-button {
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+
+            & > .header__submenu > .header__submenu-list-container {
+                @extend %hidden-block;
+                height: 0;
+                overflow: hidden;
+            }
+
+            & > .header__submenu {
+                &:hover {
+                    & > .header__submenu-button .header__submenu-button-icon {
+                        transform: scale(1, -1);
+                    }
+
+                    & > .header__submenu-list-container {
+                        @extend %visibility-block;
+                        overflow: unset;
+                        height: auto;
+                    }
+                }
+            }
+
+            .header__submenu-list {
+                margin-inline-start: 1.875em;
+                font-size: 0.9em;
+            }
         }
 
         &:hover {
-            color: var(--primary);
-        }
-
-        &_active {
-            pointer-events: none;
-            color: var(--primary);
-        }
-
-        @include media(sm) {
-            font-size: var(--text-size-lg);
-        }
-    }
-
-
-    // Подменю
-    &__submenu {
-        position: relative;
-
-        &:hover > {
-            .header__submenu-button .header__submenu-button-icon {
+            & > .header__submenu-button .header__submenu-button-icon {
                 transform: scale(1, -1);
             }
 
-            .header__submenu-list-container {
+            & > .header__submenu-list-container {
                 @extend %visibility-block;
             }
         }
     }
 
-    &__submenu-button {
-        @extend %reset-btn;
+    &__menu-link {
+        display: block;
+        font-family: var(--font-headings);
+        font-size: 1.5em;
+        line-height: 1.5;
         color: inherit;
         text-align: inherit;
+        padding: min(3.2vi, 32px) min(2vi, 1.875em);
         text-decoration: none;
-        display: block;
-        font-size: 1.5em;
-        padding: min(1.25vmax, 0.875em) min(2vmax, 1.875em);
-        font-family: var(--font-headings);
         cursor: pointer;
 
         &:focus {
@@ -198,11 +148,31 @@
         @include media(sm) {
             font-size: var(--text-size-lg);
         }
+    }
 
-        @include media(md, max) {
-            text-transform: uppercase;
-            font-weight: 600;
+    // Подменю
+    // &__submenu {}
+
+    // &__submenu-list-container {}
+
+    &__submenu-button {
+        @extend %reset-btn;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:focus-visible {
+            outline: 2px solid currentColor;
+        }
+
+        &:hover {
+            color: var(--primary);
+        }
+
+        &_active {
             pointer-events: none;
+            color: var(--primary);
         }
     }
 
@@ -224,51 +194,11 @@
         }
     }
 
-    &__submenu-list-container {
-        @extend %hidden-block;
-    }
-
     &__submenu-list {
         @extend %reset-list;
 
-        display: flex;
-        flex-direction: column;
-
-        @include media(xs) {
-            padding-inline-start: min(2vmax, 1.875em);
-        }
-
-        @include media(md) {
-            padding: 1em;
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.26);
-
-            inline-size: min(36vw, 20em);
-
-            position: absolute;
-            z-index: 1;
-            inset: 100% 0 auto auto;
-        }
-    }
-
-    &__submenu-caption {
-        @extend .header__submenu-button;
-        margin: 0;
-
-        text-transform: uppercase;
-        font-weight: 600;
-        pointer-events: none;
-    }
-
-    &__submenu-caption-list {
-        @extend %reset-list;
-
-        display: flex;
-        flex-direction: column;
-
-        @include media(xs) {
-            padding-inline-start: min(2vmax, 1.875em);
+        .header__menu-link {
+            padding-block: 1em;
         }
     }
 

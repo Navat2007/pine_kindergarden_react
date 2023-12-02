@@ -1,7 +1,7 @@
-import {NavLink} from "react-router-dom";
-import {AdminIcons} from "../../svgs";
+import { NavLink } from "react-router-dom";
+import { AdminIcons } from "../../svgs";
 import React from "react";
-import {GenerateUrl} from "../../../utils/generateUrl";
+import { GenerateUrl } from "../../../utils/generateUrl";
 
 const getMenuLink = (menu) => {
     if (menu.custom_page === 1) {
@@ -40,7 +40,7 @@ function MenuItem({ item }) {
 function DropdownItem({ item, items }) {
     return (
         <li className='header__submenu'>
-            <button className='header__submenu-button' type='button' aria-label='Развернуть список'>
+            <button className='header__menu-link header__submenu-button' type='button' aria-label='Развернуть список'>
                 <span className='header__submenu-button-text'>{item.title}</span>
                 <span className='header__submenu-button-icon'>{AdminIcons.chevron_down}</span>
             </button>
@@ -61,6 +61,6 @@ const DropdownMenu = ({ items }) => {
 
         return <MenuItem key={item.title} item={item} />;
     });
-}
+};
 
 export default DropdownMenu;
