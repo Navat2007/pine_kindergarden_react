@@ -14,7 +14,9 @@
     &__title {
         display: flex;
         flex-direction: column;
-        font-weight: 500;
+        line-height: 1;
+        font-size: var(--title-size-lg);
+        font-family: var(--font-headings);
     }
 
     &__span-accent {
@@ -24,10 +26,12 @@
     }
 
     &__text {
-        font-size: 1.125em;
+        font-size: var(--text-size-lg);
     }
+
     &__link {
         text-decoration: unset;
+        font-weight: 500;
         color: var(--info-color);
         text-underline-offset: 5px;
 
