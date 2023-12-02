@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import {PreloaderContext} from "../context";
+import { PreloaderContext } from "../context";
 import Header from "../components/public/header/header";
 import Footer from "../components/public/footer/footer";
 import Feedback from "../components/public/feedback/feedback";
