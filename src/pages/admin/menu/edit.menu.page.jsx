@@ -80,6 +80,11 @@ const EditMenuPage = () => {
         sendObject["external"] = 0;
         sendObject["custom_page"] = 0;
 
+        if(store.item.value.parentID !== parseInt(getValues("parent"))) {
+            const parentItems = store.items.value.all.filter(item => item.parentID === parseInt(getValues("parent")));
+            sendObject["sorting"] = parentItems[parentItems.length - 1].sorting + 1;
+        }
+
         if(data.type === "Пользовательская страница") {
             sendObject["custom_page"] = 1;
             sendObject["url"] = GenerateUrl(data.title);
@@ -244,6 +249,9 @@ const EditMenuPage = () => {
                                 }
                                 else if (getValues("type") === "Содержит подменю") {
                                     setValue("url", "");
+                                }
+                                else if (getValues("type") === "Внешняя ссылка") {
+
                                 }
                                 else {
                                     setValue("url", getValues("type"));

@@ -4,11 +4,12 @@ import {sortingToSave} from "../../../../services/menu";
 import {useFirstRender} from "../../../../hook/useFirstRender";
 
 import MenuItem from "./menu.item";
+import {isArray} from "lodash";
 
 const MenuList = ({list}) => {
     const isFirstRender = useFirstRender();
 
-    const [sorting, setSorting] = React.useState(list || []);
+    const [sorting, setSorting] = React.useState([]);
 
     const moveElementInArray = (input, from, to) => {
         let numberOfDeletedElm = 1;
@@ -35,9 +36,14 @@ const MenuList = ({list}) => {
     };
 
     React.useEffect(() => {
+        setSorting(list);
+    }, [list]);
+
+    React.useEffect(() => {
         if(!isFirstRender)
         {
-            sortingToSave.value[sorting[0].parentID] = sorting;
+            if(isArray(sorting) && sorting.length > 0)
+                sortingToSave.value[sorting[0].parentID] = sorting;
         }
     }, [sorting]);
 

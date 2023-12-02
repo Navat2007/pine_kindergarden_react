@@ -19,12 +19,14 @@ const AddMenuPage = () => {
     const {register, handleSubmit, reset, getValues, setValue} = useForm();
 
     const [popup, setPopup] = React.useState(<></>);
+    const [urlFieldDisabled, setUrlFieldDisabled] = React.useState(true);
 
     const store = useMenuStore;
 
     const back = () => navigate(`/admin/menu`);
 
     React.useEffect(() => {
+        store.loadAll(undefined, undefined, false);
         console.log(id);
         console.log(sorting);
         reset();
@@ -49,6 +51,26 @@ const AddMenuPage = () => {
         return true;
     };
 
+    const getItemsForParentSelect = () => {
+        let items = [{
+            value: 0,
+            title: "Верхний уровень",
+        }];
+
+        if(store.items.value && store.items.value.all) {
+            store.items.value.all.map((item) => {
+                if(item.page === 0){
+                    items.push({
+                        value: item.ID,
+                        title: item.title,
+                    });
+                }
+            })
+        }
+
+        return items;
+    };
+
     const onAdd = async () => {
         const data = getValues();
 
@@ -57,21 +79,26 @@ const AddMenuPage = () => {
         if (!checkForComplete(sendObject))
             return;
 
-        sendObject["parentID"] = id;
-        sendObject["sorting"] = parseInt(sorting) + 1;
+        sendObject["parentID"] = getValues("parent");
+        sendObject["page"] = 1;
+        sendObject["external"] = 0;
+        sendObject["custom_page"] = 0;
+
+        const parentItems = store.items.value.all.filter(item => item.parentID === parseInt(getValues("parent")));
+        sendObject["sorting"] = parentItems[parentItems.length - 1].sorting + 1;
 
         if(data.type === "Пользовательская страница") {
-            sendObject["page"] = 1;
             sendObject["custom_page"] = 1;
             sendObject["url"] = GenerateUrl(data.title);
         } else if(data.type === "Содержит подменю") {
             sendObject["page"] = 0;
-            sendObject["custom_page"] = 0;
             sendObject["url"] = "";
         }
+        else if(data.type === "Внешняя ссылка") {
+            sendObject["external"] = 1;
+            sendObject["url"] = getValues("url");
+        }
         else {
-            sendObject["page"] = 1;
-            sendObject["custom_page"] = 0;
             sendObject["url"] = getValues("type");
         }
 
@@ -84,9 +111,8 @@ const AddMenuPage = () => {
                     text={"Пункт меню успешно добавлен"}
                     opened={true}
                     onClose={async () => {
-                        back();
                         await getMenuList();
-                        await store.loadAll({}, false, true);
+                        back();
                     }}
                 />
             );
@@ -122,6 +148,9 @@ const AddMenuPage = () => {
                                 else if (getValues("type") === "Содержит подменю") {
                                     setValue("url", "");
                                 }
+                                else if (getValues("type") === "Внешняя ссылка") {
+
+                                }
                                 else {
                                     setValue("url", getValues("type"));
                                 }
@@ -129,9 +158,9 @@ const AddMenuPage = () => {
                         />
                         <FieldText
                             label={"Ссылка"}
-                            required={false}
+                            required={!urlFieldDisabled}
                             placeholder={""}
-                            disabled={true}
+                            disabled={urlFieldDisabled}
                             {...register("url")}
                         />
                         <FieldSelect
@@ -140,6 +169,7 @@ const AddMenuPage = () => {
                             defaultSelectItem={null}
                             flatOptions={<>
                                 <option value="Пользовательская страница">Пользовательская страница</option>
+                                <option value="Внешняя ссылка">Внешняя ссылка</option>
                                 <option value="Содержит подменю">Содержит подменю</option>
                                 <optgroup label=""/>
                                 <optgroup label="Системные страницы">
@@ -172,10 +202,22 @@ const AddMenuPage = () => {
                                 } else if (e.target.value === "Содержит подменю") {
                                     setValue("url", "");
                                 }
+                                else if (e.target.value === "Внешняя ссылка") {
+                                    setValue("url", "");
+                                    setUrlFieldDisabled(false);
+                                }
                                 else {
                                     setValue("url", GenerateUrl(e.target.value));
                                 }
                             }}
+                        />
+                        <FieldSelect
+                            label={"Уровень меню"}
+                            defaultSelectItem={null}
+                            selectItems={getItemsForParentSelect()}
+                            {...register("parent", {
+                                value: id,
+                            })}
                         />
                     </fieldset>
                 </div>
