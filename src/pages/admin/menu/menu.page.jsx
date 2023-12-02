@@ -13,6 +13,7 @@ import { AdminIcons } from "../../../components/svgs";
 
 const MenuPage = () => {
     const [isEditing, setIsEditing] = React.useState(false);
+    const [menuItems, setMenuItems] = React.useState([]);
 
     const navigate = useNavigate();
     const store = useMenuStore;
@@ -20,6 +21,7 @@ const MenuPage = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             await store.loadAll();
+            console.log(store.items.value);
         };
 
         fetchData();
@@ -89,11 +91,7 @@ const MenuPage = () => {
             </TitleBlock>
             <section className={`admin-menu-constructor ${isEditing ? ` admin-menu-constructor_mode_editing` : ``}`}>
                 <ul className='admin-menu-constructor__list'>
-                    {
-                        store.items.value?.sorted?.length > 0
-                        &&
-                        <MenuList list={store.items.value.sorted} />
-                    }
+                    <MenuList list={store.items.value.sorted} />
                 </ul>
             </section>
         </BasicPage>

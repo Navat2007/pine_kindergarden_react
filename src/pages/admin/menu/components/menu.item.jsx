@@ -105,4 +105,4 @@ const MenuItem = ({title, item, firstSorting, lastSorting, onUpSorting = () => {
         )
 };
 
-export default React.memo(MenuItem);
+export default MenuItem;

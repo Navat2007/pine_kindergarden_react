@@ -8,7 +8,7 @@ import MenuItem from "./menu.item";
 const MenuList = ({list}) => {
     const isFirstRender = useFirstRender();
 
-    const [sorting, setSorting] = React.useState(list);
+    const [sorting, setSorting] = React.useState(list || []);
 
     const moveElementInArray = (input, from, to) => {
         let numberOfDeletedElm = 1;
@@ -65,4 +65,4 @@ const MenuList = ({list}) => {
     )
 };
 
-export default React.memo(MenuList);
+export default MenuList;
