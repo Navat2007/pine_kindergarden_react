@@ -27,28 +27,20 @@
     &__logo {
         align-self: center;
         flex: none;
-        block-size: 4em;
-        min-block-size: 4em;
-        max-block-size: 4em;
+        block-size: min(2.5em, 6.4vi, 4em);
+        min-block-size: min(2.5em, 6.4vi, 4em);
+        max-block-size: min(2.5em, 6.4vi, 4em);
         margin-block: 1em;
-
-        @include media(sm, max) {
-            display: none;
-        }
-
-        &_place_submenu {
-            display: block;
-
-            @include media(sm) {
-                display: none;
-            }
-        }
     }
 
     // Меню
     &__menu {
         flex: auto;
         display: flex;
+
+        & > .header__submenu {
+            margin-inline-start: auto;
+        }
     }
 
     &__menu-list {
@@ -107,7 +99,7 @@
         &[data-level="1"] > .header__submenu-list-container {
             position: fixed;
             z-index: 1;
-            inset: 0 0 auto 0;
+            inset: 6em 0 auto 0;
 
             overflow: auto;
             block-size: 100vh;
@@ -119,7 +111,6 @@
             border-block-start: 1px solid var(--dark-background);
 
             @include media(sm) {
-                inset: 6em 0 auto 0;
                 block-size: unset;
                 max-block-size: 90dvb;
                 padding-block-start: 1em;
@@ -194,15 +185,6 @@
 
         .header__menu-link {
             padding-block: 1em;
-        }
-    }
-
-    &__mobile-menu {
-        @include media(sm, max) {
-            inline-size: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
     }
 

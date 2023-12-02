@@ -108,13 +108,11 @@ const Header = () => {
                     <div
                         className={classNames({
                             header__submenu: true,
-                            "header__mobile-menu": true,
                             header__submenu_opened: burgerOpened,
                         })}
                         ref={mobileMenu}
                         data-level='1'
                     >
-                        <Logo extraClass={"header__logo header__logo_place_submenu"} />
                         <button
                             ref={button}
                             type='button'
