@@ -26,7 +26,7 @@ const News = ({ children, items, count }) => {
                         {items.map((item) => {
                             return (
                                 <li key={item.ID}>
-                                    <NavLink className={"card-link"} to={"" + item.ID}>
+                                    <NavLink className={"card-link"} to={"/новости/" + item.ID}>
                                         <article className='article-card'>
                                             <SingleImageWithPreview
                                                 image={item.preview_image}

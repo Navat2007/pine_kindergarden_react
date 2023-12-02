@@ -80,6 +80,11 @@ const EditMenuPage = () => {
         sendObject["external"] = 0;
         sendObject["custom_page"] = 0;
 
+        if(store.item.value.parentID !== parseInt(getValues("parent"))) {
+            const parentItems = store.items.value.all.filter(item => item.ID === parseInt(getValues("parent")));
+            console.log(parentItems);
+        }
+
         if(data.type === "Пользовательская страница") {
             sendObject["custom_page"] = 1;
             sendObject["url"] = GenerateUrl(data.title);
@@ -94,6 +99,8 @@ const EditMenuPage = () => {
         else {
             sendObject["url"] = getValues("type");
         }
+
+        return;
 
         await store.edit(sendObject);
 

@@ -21,11 +21,14 @@ const MenuPage = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             await store.loadAll();
-            console.log(store.items.value);
         };
 
         fetchData();
     }, []);
+
+    React.useEffect(() => {
+        setMenuItems(store.items.value.sorted);
+    }, [store.items.value]);
 
     const saveSorting = async () => {
         const toSave = [];
@@ -91,7 +94,7 @@ const MenuPage = () => {
             </TitleBlock>
             <section className={`admin-menu-constructor ${isEditing ? ` admin-menu-constructor_mode_editing` : ``}`}>
                 <ul className='admin-menu-constructor__list'>
-                    <MenuList list={store.items.value.sorted} />
+                    <MenuList list={menuItems} />
                 </ul>
             </section>
         </BasicPage>
