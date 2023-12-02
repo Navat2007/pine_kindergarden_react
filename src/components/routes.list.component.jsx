@@ -106,13 +106,22 @@ const RoutesList = () => {
                 <Route index element={<EmployeesPage/>}/>
                 <Route path=':id' element={<EmployeePage/>}/>
             </Route>
+            <Route path='/employees'>
+                <Route index element={<EmployeesPage/>}/>
+                <Route path=':id' element={<EmployeePage/>}/>
+            </Route>
             <Route path='/питание' exact={true} element={<FoodPage/>}/>
+            <Route path='/food' exact={true} element={<FoodPage/>}/>
             <Route path='/контакты' exact={true} element={<ContactsPage/>}/>
             <Route path='/задать-вопрос' exact={true} element={<SupportPage/>}/>
             <Route path='/о-нас' exact={true} element={<AboutPage/>}/>
             <Route path='/группы' exact={true} element={<GroupsPage/>}/>
             <Route path='/группы/:id' exact={true} element={<GroupPage/>}/>
             <Route path='/новости'>
+                <Route index element={<AllNewsPage/>}/>
+                <Route path=':id' element={<NewsPage/>}/>
+            </Route>
+            <Route path='/news'>
                 <Route index element={<AllNewsPage/>}/>
                 <Route path=':id' element={<NewsPage/>}/>
             </Route>

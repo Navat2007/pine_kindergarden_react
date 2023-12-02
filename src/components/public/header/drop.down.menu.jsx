@@ -1,8 +1,9 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import { AdminIcons } from "../../svgs";
 import { GenerateUrl } from "../../../utils/generateUrl";
 import classNames from "classnames";
+import useOnClickOutside from "../../../hook/onClickOutside";
 
 const getMenuLink = (menu) => {
     if (menu.custom_page === 1) {
@@ -39,7 +40,20 @@ function MenuItem({ item }) {
 }
 
 function DropdownItem({ item, items, level }) {
-    const [submenuOpened, submenugerOpened] = React.useState(false);
+    const location = useLocation();
+
+    const [submenuOpened, setSubmenuOpened] = React.useState(false);
+    const node = React.useRef();
+
+    React.useLayoutEffect(() => {
+        setSubmenuOpened(false);
+    }, [location]);
+
+    useOnClickOutside([node], (e) => {
+        if (submenuOpened) {
+            setSubmenuOpened(!submenuOpened);
+        }
+    });
 
     return (
         <li
@@ -53,12 +67,12 @@ function DropdownItem({ item, items, level }) {
                 className='header__menu-link header__submenu-button'
                 type='button'
                 aria-label='Развернуть список'
-                onClick={() => submenugerOpened(!submenuOpened)}
+                onClick={() => setSubmenuOpened(!submenuOpened)}
             >
                 {item.title}
                 <span className='header__submenu-button-icon'>{AdminIcons.chevron_down}</span>
             </button>
-            <div className='header__submenu-list-container'>
+            <div className='header__submenu-list-container' ref={node}>
                 <ul className='header__submenu-list'>
                     <DropdownMenu items={items} level={level} />
                 </ul>

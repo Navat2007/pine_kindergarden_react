@@ -29,7 +29,7 @@ const IndexPage = () => {
             <Lead />
             <Advantages />
             <News items={store.itemsMain}>
-                <NavLink className={"more-button-link"} to='/news'>
+                <NavLink className={"more-button-link"} to='/новости'>
                     Все новости &rarr;
                 </NavLink>
             </News>
