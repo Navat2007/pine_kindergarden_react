@@ -126,7 +126,7 @@ const Header = () => {
                         </button>
                         <div className='header__submenu-list-container' ref={node}>
                             <ul className='header__submenu-list' ref={mobileMenuList}>
-                                <DropdownMenu items={menuMobileItems.value} />
+                                <DropdownMenu items={menuMobileItems.value} level={1}/>
                             </ul>
                         </div>
                     </div>
