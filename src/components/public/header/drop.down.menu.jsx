@@ -1,12 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { AdminIcons } from "../../svgs";
 import React from "react";
-<<<<<<< HEAD
 import { GenerateUrl } from "../../../utils/generateUrl";
-=======
-import {GenerateUrl} from "../../../utils/generateUrl";
-import classNames from "classnames";
->>>>>>> 2f069c1e5e3c2c8086e2921031529dd788c3f5f2
 
 const getMenuLink = (menu) => {
     if (menu.custom_page === 1) {
