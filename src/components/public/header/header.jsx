@@ -32,7 +32,6 @@ const Header = () => {
     const [burgerOpened, setBurgerOpened] = React.useState(false);
 
     useOnClickOutside([node, button], (e) => {
-        console.log("outside");
         if (burgerOpened) {
             setBurgerOpened(!burgerOpened);
         }
