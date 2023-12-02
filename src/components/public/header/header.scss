@@ -31,6 +31,11 @@
         min-block-size: clamp(3em, 6.4vi, 4em);
         max-block-size: clamp(3em, 6.4vi, 4em);
         margin-block: clamp(0.5em, 1.6vi, 1em);
+
+        @include media(sm, max) {
+            position: relative;
+            z-index: 100;
+        }
     }
 
     // Меню
@@ -52,6 +57,10 @@
 
         @include media(sm, max) {
             display: none;
+
+            & > li {
+                min-inline-size: 10em;
+            }
         }
 
         & > li {
@@ -62,11 +71,11 @@
     &__menu-link {
         display: block;
         font-family: var(--font-headings);
-        font-size: 1.125em;
+        font-size: 1.25em;
         line-height: 1.5;
         color: inherit;
         text-align: inherit;
-        padding: min(2vi, 1.875em);
+        padding: min(3vi, 1.875em);
         text-decoration: none;
         cursor: pointer;
 
@@ -99,18 +108,21 @@
         &[data-level="1"] > .header__submenu-list-container {
             position: fixed;
             z-index: 1;
-            inset: clamp(4em, 9.6vi, 6em) 0 auto 0;
+            inset: 0 0 auto 0;
 
-            overflow: auto;
+            overflow: hidden;
             block-size: 100vh;
             block-size: 100dvb;
 
-            padding: 1em var(--padding-gor-size-sm);
+            padding: clamp(4em, 9.6vi, 6em) var(--padding-gor-size-sm) 1em;
             background-color: #fff;
             box-shadow: 0 8px 8px rgba(0, 0, 0, 0.26);
-            border-block-start: 1px solid var(--dark-background);
+
+            display: flex;
+            flex-direction: column;
 
             @include media(sm) {
+                inset: clamp(4em, 9.6vi, 6em) 0 auto 0;
                 block-size: unset;
                 max-block-size: 90dvb;
                 padding-block-start: 1em;
@@ -118,6 +130,8 @@
             }
 
             & > .header__submenu-list {
+                overflow: auto;
+                border-block-start: 1px solid var(--dark-background);
                 @extend %main-width;
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(min(21em, 100%), 1fr));
@@ -128,7 +142,8 @@
             }
         }
 
-        &[data-level="2"] {
+        &[data-level="2"],
+        &[data-level="3"] {
             flex-direction: column;
 
             & > .header__submenu-list-container {
@@ -170,7 +185,9 @@
                 @extend %visibility-block;
             }
         }
-        &_opened[data-level="2"] > .header__submenu-list-container {
+
+        &_opened[data-level="2"] > .header__submenu-list-container,
+        &_opened[data-level="3"] > .header__submenu-list-container {
             height: auto;
             overflow: unset;
         }
@@ -184,7 +201,7 @@
         @extend %reset-list;
 
         .header__menu-link {
-            padding-block: 1em;
+            // padding-block: 1em;
         }
     }
 
