@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import {signal} from "@preact/signals-react";
+import { signal } from "@preact/signals-react";
 import classNames from "classnames";
 
 import useWindowSize from "../../../hook/useWindowSize";
@@ -56,15 +56,17 @@ const Header = () => {
 
         return () => {
             window.removeEventListener("scroll", stickyHeaderEvent);
-        }
+        };
     }, []);
 
     React.useEffect(() => {
         let offset = 40;
         let availableSpace = menuList.current.getBoundingClientRect().width;
-        let requiredSpace = Object.values(menuList.current.childNodes).reduce((total, children) => total + children.offsetWidth, 0) + offset;
+        let requiredSpace =
+            Object.values(menuList.current.childNodes).reduce((total, children) => total + children.offsetWidth, 0) +
+            offset;
 
-        if(requiredSpace > availableSpace){
+        if (requiredSpace > availableSpace) {
             for (let i = menuList.current.childNodes.length - 1; i >= 0; i--) {
                 const elementWidth = menuList.current.childNodes[i].offsetWidth;
 
@@ -73,15 +75,16 @@ const Header = () => {
 
                 requiredSpace -= elementWidth;
 
-                if(availableSpace > requiredSpace)
-                    break;
+                if (availableSpace > requiredSpace) break;
             }
-        }
-        else if(mobileMenuItemsWidths.value.length > 0 && availableSpace > mobileMenuItemsWidths.value[0] + requiredSpace){
+        } else if (
+            mobileMenuItemsWidths.value.length > 0 &&
+            availableSpace > mobileMenuItemsWidths.value[0] + requiredSpace
+        ) {
             menuItems.value.push(menuMobileItems.value.shift());
             mobileMenuItemsWidths.value.shift();
         }
-    }, [width])
+    }, [width]);
 
     React.useEffect(() => {
         menuItems.value = menuStore.value.sorted;
