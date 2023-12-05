@@ -205,7 +205,7 @@ const RoutesList = () => {
                 </Route>
                 <Route path='/login' exact={true} element={<Navigate to='/admin/users'/>}/>
                 {publicRoutes}
-                <Route path='*' element={<Page404/>}/>
+                <Route path='*' element={<LoginPage />}/>
             </Routes>
         </Suspense>
     );
