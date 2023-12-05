@@ -59,7 +59,7 @@ const AddGroupPage = () => {
         let sendObject = {...data};
 
         if (data.teachers_select && data.teachers_select.length > 0)
-            sendObject["teachers"] = Array.from(data.teachers_select.map((item) => item.value));
+            sendObject["employees"] = Array.from(data.teachers_select.map((item) => item.value));
 
         sendObject["image"] = image && image.length > 0 ? image : "";
 

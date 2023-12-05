@@ -3,12 +3,13 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 import useFoodMenuStore from "../../../store/admin/foodMenuStore";
 
+import BasicPage from "../../../components/admin/basic.page/basic.page.component";
 import Button from "../../../components/admin/button/button.component";
 import ImageGallery from "../../../components/general/image.gallery/image.gallery.component";
 import TitleBlock from "../../../components/admin/title.block/title.block.component";
 
 import { AdminIcons } from "../../../components/svgs";
-import BasicPage from "../../../components/admin/basic.page/basic.page.component";
+
 const AdminFoodPage = () => {
     let { id } = useParams();
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ const AdminFoodPage = () => {
 
     return (
         <BasicPage mainStore={store} loadings={[store]}>
-            <TitleBlock title={`Документ ID: ${store.item.ID}`} onBack={back}>
+            <TitleBlock title={`Питание. Меню ID: ${store.item.ID}`} onBack={back}>
                 <Button
                     type='submit'
                     isIconBtn='true'

@@ -23,7 +23,7 @@ const AdminGroupPage = () => {
 
     React.useEffect(() => {
         const fetchData = async () => {
-            await store.loadByID({ id });
+            await store.loadByID({ id },true);
         };
 
         fetchData();
@@ -74,13 +74,13 @@ const AdminGroupPage = () => {
                     ]}
                     front={false}
                 />
-                {store.item?.teachers?.length > 0 && (
+                {store.item?.employees?.length > 0 && (
                     <>
                         <h2 className='admin-view-section__title'>Воспитатели</h2>
                         <TeachersSlider
                             isBorderGradient={false}
                             type={"slide"}
-                            items={store.item?.teachers}
+                            items={store.item?.employees}
                         />
                     </>
                 )}

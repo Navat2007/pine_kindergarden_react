@@ -19,7 +19,7 @@ function getTeachers($ID)
         LEFT JOIN 
             employees as t2 ON t1.teacherID = t2.ID
         LEFT JOIN 
-            teacher_category as t3 ON t2.categoryID = t3.ID
+            employee_category as t3 ON t2.categoryID = t3.ID
         WHERE 
             t1.groupID = '$ID'";
 

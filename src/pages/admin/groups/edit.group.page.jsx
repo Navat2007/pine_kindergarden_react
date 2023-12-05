@@ -80,7 +80,7 @@ const EditGroupPage = () => {
         sendObject["image"] = image && image.length > 0 ? image : "";
 
         if (data.teachers_select && data.teachers_select.length > 0)
-            sendObject["teachers"] = Array.from(data.teachers_select.map((item) => item.value));
+            sendObject["employees"] = Array.from(data.teachers_select.map((item) => item.value));
 
         if (!checkForComplete(sendObject)) return;
 
@@ -197,7 +197,7 @@ const EditGroupPage = () => {
                         isMulti={true}
                         name={"teachers_select"}
                         closeMenuOnSelect={false}
-                        values={store.item.teachers?.map((item) => {
+                        values={store.item.employees?.map((item) => {
                             return {
                                 label: item.fio,
                                 value: item.ID,

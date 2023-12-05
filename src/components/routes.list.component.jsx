@@ -9,9 +9,10 @@ import Preloader from "./public/preloader/preloader.component";
 import Page404 from "../pages/404/404.page";
 import LoginPage from "../pages/login/login.page";
 
-// PUBLIC PAGES
-const PublicLayout = lazy(() => import("../layout/public.layout.component"));
+import PublicLayout from "../layout/public.layout.component";
+import AdminLayout from "../layout/admin.layout.component";
 
+// PUBLIC PAGES
 const IndexPage = lazy(() => import("../pages/public/index.page"));
 const LessonsPage = lazy(() => import("../pages/public/lessons/lessons.page"));
 const LessonPage = lazy(() => import("../pages/public/lessons/lesson.page"));
@@ -29,8 +30,6 @@ const SupportPage = lazy(() => import("../pages/public/support/support.page"));
 const AboutPage = lazy(() => import("../pages/public/about/about.page"));
 
 // ADMIN PAGES
-const AdminLayout = lazy(() => import("../layout/admin.layout.component"));
-
 const MenuPage = lazy(() => import("../pages/admin/menu/menu.page"));
 const AddMenuPage = lazy(() => import("../pages/admin/menu/add.menu.page"));
 const EditMenuPage = lazy(() => import("../pages/admin/menu/edit.menu.page"));
